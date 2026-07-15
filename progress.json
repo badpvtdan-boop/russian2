@@ -153,5 +153,10 @@
   "direction": "en-ru",
   "answerMode": "choice",
   "voiceName": null,
-  "lessons": {}
+  "lessons": {
+    "prep-case": {
+      "done": true,
+      "best": 0.875
+    }
+  }
 }
