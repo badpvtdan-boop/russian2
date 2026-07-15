@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Russian Trainer</title>
+<style>
+  :root{
+    --bg:#f4efe6; --panel:#fffdf9; --panel2:#f3ecdf; --line:#e3d8c6;
+    --text:#2c2822; --muted:#948a79; --accent:#b0432e; --accent-soft:#f3e3dd;
+    --good:#3f7d55; --good-bg:#e8f0e6; --good-line:#bcd6bf;
+    --bad:#b0432e; --bad-bg:#f7e6e0; --bad-line:#e3c0b4;
+    --warn:#9a6a12; --warn-bg:#f8eccb; --warn-line:#e6cf94;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --shadow:0 1px 2px rgba(60,45,25,.05),0 6px 20px rgba(60,45,25,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  h1,h2,h3,.prompt,.answer,.qtext,.stat .n,.done h2{font-family:var(--serif)}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 22px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+  header h1{font-size:20px;margin:0;font-weight:600;letter-spacing:.2px}
+  .badges{display:flex;gap:8px;flex-wrap:wrap}
+  .badge{background:var(--panel2);border:1px solid var(--line);border-radius:999px;
+    padding:4px 12px;font-size:13px;color:var(--muted)}
+  .badge b{color:var(--text)}
+  main{max-width:680px;margin:0 auto;padding:30px 20px 70px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:26px 26px;margin-bottom:18px;box-shadow:var(--shadow)}
+  .banner{background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn);border-radius:12px;
+    padding:10px 14px;margin-bottom:16px;font-size:14px;display:none}
+  .prompt-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+  .prompt{font-size:38px;font-weight:600;margin-bottom:4px;letter-spacing:.2px}
+  .prompt-sub{color:var(--muted);font-size:14px;min-height:20px}
+  input[type=text]{width:100%;font-size:22px;padding:12px 14px;margin-top:18px;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);outline:none}
+  input[type=text]:focus{border-color:var(--accent)}
+  .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  button{font-size:15px;padding:11px 18px;border-radius:11px;border:1px solid var(--line);
+    background:var(--panel);color:var(--text);cursor:pointer;transition:.12s}
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  button.primary:hover{background:#9a3826;color:#fff}
+  button.ghost{background:transparent}
+  .feedback{margin-top:18px;padding:16px;border-radius:12px;display:none}
+  .feedback.correct{background:var(--good-bg);border:1px solid var(--good-line)}
+  .feedback.wrong{background:var(--bad-bg);border:1px solid var(--bad-line)}
+  .feedback .verdict{font-weight:700;font-size:15px;margin-bottom:6px}
+  .feedback.correct .verdict{color:var(--good)}
+  .feedback.wrong .verdict{color:var(--bad)}
+  .feedback .answer{font-size:26px;font-weight:600;margin:2px 0}
+  .feedback .example{color:var(--muted);font-size:15px;margin-top:8px}
+  .kbd{display:flex;flex-wrap:wrap;gap:5px;margin-top:16px}
+  .kbd button{padding:8px 0;width:38px;font-size:16px}
+  .kbd button.wide{width:auto;padding:8px 14px}
+  #choices{flex-direction:column;margin-top:18px}
+  #choices button{font-size:20px;padding:14px 16px;text-align:left;width:100%}
+  #choices button:hover{color:var(--text)}
+  #choices button:disabled{opacity:.7;cursor:default}
+  #choices button.pick-correct{background:var(--good-bg);border-color:var(--good-line);color:var(--good)}
+  #choices button.pick-wrong{background:var(--bad-bg);border-color:var(--bad-line);color:var(--bad)}
+  .audio-btn{width:44px;height:44px;border-radius:50%;font-size:18px;padding:0;display:inline-flex;
+    align-items:center;justify-content:center}
+  .done{text-align:center;padding:20px}
+  .done h2{font-size:26px}
+  .muted{color:var(--muted)}
+  .settings{font-size:14px}
+  .settings label{display:block;margin:12px 0 4px;color:var(--muted)}
+  .settings input,.settings select{font-size:15px;padding:8px 10px;background:var(--panel);
+    border:1px solid var(--line);border-radius:8px;color:var(--text)}
+  .settings .row2{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end}
+  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+  a.link{color:var(--accent);cursor:pointer;font-size:14px}
+  .bar{height:8px;background:var(--panel2);border-radius:99px;overflow:hidden;margin-top:14px}
+  .bar > div{height:100%;background:var(--accent);width:0;transition:width .3s}
+  .tag{font-size:12px;color:var(--muted);margin-top:6px}
+  .hide{display:none}
+  .tabs{display:flex;gap:8px;margin-bottom:22px}
+  .tab{padding:9px 16px;border-radius:999px}
+  .tab.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .tab.active:hover{color:#fff}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:18px 12px;text-align:center;box-shadow:var(--shadow)}
+  .stat .n{font-size:30px;font-weight:600}
+  .stat .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:4px}
+  @media(max-width:560px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+  .path-item{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line)}
+  .path-item:last-child{border-bottom:none}
+  .path-item .pm{width:26px;height:26px;flex:0 0 26px;border-radius:50%;display:flex;
+    align-items:center;justify-content:center;font-size:13px;background:var(--panel2);color:var(--muted)}
+  .path-item.done .pm{background:var(--good-bg);color:var(--good)}
+  .path-item.current .pm{background:var(--accent);color:#fff}
+  .path-item .pt{flex:1}
+  .path-item.current .pt{font-weight:600}
+  .path-item .pr{font-size:13px;color:var(--muted);white-space:nowrap}
+  .path-item.clickable{cursor:pointer;border-radius:8px}
+  .path-item.clickable:hover{background:var(--accent-soft)}
+  #nextup-card{border-color:var(--accent);background:linear-gradient(180deg,var(--accent-soft),var(--panel) 60%)}
+  .lesson-item{display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);margin-bottom:10px;cursor:pointer;transition:.12s}
+  .lesson-item:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .lesson-item .st{font-size:13px;color:var(--muted);white-space:nowrap}
+  .lesson-item .st.done{color:var(--good)}
+  .lesson-body h3{margin:20px 0 6px;font-size:20px;color:var(--accent)}
+  .lesson-body p{margin:8px 0}
+  .lesson-body table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px;background:var(--panel)}
+  .lesson-body td,.lesson-body th{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  .lesson-body th{background:var(--panel2)}
+  .lesson-body .ru{color:var(--accent);font-weight:600}
+  .stage-dots{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+  .lopt{display:block;width:100%;text-align:left;font-size:18px;padding:12px 14px;margin-bottom:8px}
+  .lopt:hover{color:var(--text)}
+  .lopt:disabled{cursor:default}
+  .lopt.correct{background:var(--good-bg);border-color:var(--good-line);color:var(--good)}
+  .lopt.wrong{background:var(--bad-bg);border-color:var(--bad-line);color:var(--bad)}
+  .why{font-size:14px;color:var(--text);margin:6px 0 14px;padding:10px 12px;background:var(--panel2);border-radius:10px;display:none}
+  .qtext{font-size:22px;margin:6px 0 16px}
+  .qtext b{color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🇷🇺 Russian Trainer</h1>
+  <div class="badges">
+    <span class="badge">Level <b id="b-level">–</b></span>
+    <span class="badge">Known <b id="b-known">0</b></span>
+    <span class="badge">🔥 <b id="b-streak">0</b></span>
+    <span class="badge">Duo <b id="b-duo">–</b></span>
+  </div>
+</header>
+
+<main>
+  <nav class="tabs">
+    <button id="tab-home" class="tab active">🏠 Home</button>
+    <button id="tab-drill" class="tab">🎯 Drill</button>
+    <button id="tab-lessons" class="tab">📘 Lessons</button>
+  </nav>
+
+  <div id="view-home" class="hide">
+    <div class="card" id="nextup-card">
+      <div class="stage-dots">Next up</div>
+      <h2 id="nextup-title" style="margin:0 0 6px">…</h2>
+      <p id="nextup-sub" class="muted" style="margin-top:0"></p>
+      <div class="row"><button class="primary" id="nextup-cta">…</button></div>
+    </div>
+    <div class="stats-grid" id="home-stats"></div>
+    <div class="card">
+      <div class="foot"><b>Your path</b><span class="tag" id="path-progress" style="margin:0"></span></div>
+      <div id="path-list" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <div id="view-drill">
+  <div id="banner" class="banner"></div>
+
+  <!-- DRILL -->
+  <div id="drill" class="card">
+    <div class="bar"><div id="progbar"></div></div>
+    <div class="tag" id="progtag"></div>
+
+    <div style="margin-top:18px">
+      <div class="prompt-label" id="dir-label">Translate to Russian</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="prompt" id="prompt">—</div>
+        <button class="audio-btn ghost" id="audio" title="Hear it">🔊</button>
+      </div>
+      <div class="prompt-sub" id="prompt-sub"></div>
+    </div>
+
+    <div class="row" id="choices"></div>
+
+    <input type="text" id="answer" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Type your answer…">
+
+    <div class="kbd" id="kbd"></div>
+
+    <div class="row">
+      <button class="primary" id="check">Check</button>
+      <button class="ghost" id="reveal">I don't know</button>
+    </div>
+
+    <div class="feedback" id="feedback">
+      <div class="verdict" id="verdict"></div>
+      <div class="answer" id="fb-ru"></div>
+      <div class="muted" id="fb-en"></div>
+      <div class="example" id="fb-ex"></div>
+      <div class="row"><button class="primary" id="next">Next →</button></div>
+    </div>
+  </div>
+
+  <div id="done" class="card done hide">
+    <h2>Done for today ✅</h2>
+    <p class="muted" id="done-msg"></p>
+    <button class="ghost" id="practice-more">Keep practicing</button>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="card settings">
+    <div class="foot">
+      <b>Settings & progress</b>
+      <a class="link" id="toggle-settings">show</a>
+    </div>
+    <div id="settings-body" class="hide">
+      <div class="row2">
+        <div>
+          <label>Answer mode</label>
+          <select id="answer-mode">
+            <option value="choice">Multiple choice (5 options)</option>
+            <option value="type">Type it (with keyboard)</option>
+          </select>
+        </div>
+        <div>
+          <label>Direction</label>
+          <select id="direction">
+            <option value="en-ru">EN → RU</option>
+            <option value="ru-en">RU → EN</option>
+          </select>
+        </div>
+        <div>
+          <label>Voice</label>
+          <select id="voice"></select>
+        </div>
+        <div>
+          <label>Your Duolingo level / section</label>
+          <input type="number" id="duo-input" min="0" style="width:90px" placeholder="21">
+        </div>
+      </div>
+      <div class="tag" id="voice-hint"></div>
+      <label style="margin-top:16px">New words/day: <b id="q-new">10</b> · Reviews/day: <b id="q-rev">20</b></label>
+      <div class="row">
+        <button id="export">⬇ Export progress (JSON)</button>
+        <button id="import">⬆ Import</button>
+        <button class="ghost" id="reset">Reset all</button>
+      </div>
+      <div class="tag">Export gives you the file to commit to your GitHub repo. Everything is stored in this browser until then.</div>
+      <input type="file" id="import-file" accept="application/json" class="hide">
+
+      <div style="margin-top:22px;border-top:1px solid var(--line);padding-top:16px">
+        <b>GitHub sync</b>
+        <div class="row2" style="margin-top:8px">
+          <div><label>Owner (username)</label><input id="gh-owner" style="width:170px" placeholder="your-username"></div>
+          <div><label>Repo</label><input id="gh-repo" style="width:170px" placeholder="russian-trainer"></div>
+        </div>
+        <div class="row2" style="margin-top:8px">
+          <div><label>Branch</label><input id="gh-branch" style="width:110px" placeholder="main"></div>
+          <div><label>File path</label><input id="gh-path" style="width:190px" placeholder="progress.json"></div>
+        </div>
+        <label>Personal access token</label>
+        <input type="password" id="gh-token" style="width:100%" placeholder="github_pat_… (fine-grained, Contents: read & write)">
+        <label style="display:flex;align-items:center;gap:8px;margin-top:14px">
+          <input type="checkbox" id="gh-auto" style="width:auto"> Auto-save after each session
+        </label>
+        <div class="row">
+          <button class="primary" id="gh-save">⬆ Save to GitHub</button>
+          <button id="gh-load">⬇ Load from GitHub</button>
+        </div>
+        <div class="tag" id="gh-status">Not configured.</div>
+        <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /view-drill -->
+
+  <div id="view-lessons" class="hide">
+    <div id="lessons-list"></div>
+    <div id="lesson-runner" class="card hide"></div>
+  </div>
+</main>
+
+<script>
+/* ---------------- Rich frequency deck: 50 nouns · 50 verbs · 60 adjectives ----------------
+   note = gender (m/f/n/pl) for nouns, aspect (impf/pf + motion/pair) for verbs. */
+const DECK = [
+ /* ---- NOUNS (gender in note) ---- */
+ {id:1,ru:"человек",en:"person/human",pos:"noun",note:"m",ex:"Этот человек мне знаком."},
+ {id:2,ru:"год",en:"year",pos:"noun",note:"m",ex:"В этом году я много работал."},
+ {id:3,ru:"время",en:"time",pos:"noun",note:"n",ex:"У меня мало времени."},
+ {id:4,ru:"дело",en:"matter/affair/business",pos:"noun",note:"n",ex:"Это не твоё дело."},
+ {id:5,ru:"жизнь",en:"life",pos:"noun",note:"f",ex:"Жизнь прекрасна."},
+ {id:6,ru:"день",en:"day",pos:"noun",note:"m",ex:"Какой сегодня день?"},
+ {id:7,ru:"рука",en:"hand/arm",pos:"noun",note:"f",ex:"Он держит книгу в руке."},
+ {id:8,ru:"работа",en:"work/job",pos:"noun",note:"f",ex:"Мне нравится моя работа."},
+ {id:9,ru:"слово",en:"word",pos:"noun",note:"n",ex:"Я не знаю это слово."},
+ {id:10,ru:"место",en:"place/spot",pos:"noun",note:"n",ex:"Это моё любимое место."},
+ {id:11,ru:"вопрос",en:"question",pos:"noun",note:"m",ex:"У меня есть вопрос."},
+ {id:12,ru:"глаз",en:"eye",pos:"noun",note:"m",ex:"У неё голубые глаза."},
+ {id:13,ru:"голова",en:"head",pos:"noun",note:"f",ex:"У меня болит голова."},
+ {id:14,ru:"друг",en:"friend",pos:"noun",note:"m",ex:"Он мой лучший друг."},
+ {id:15,ru:"сторона",en:"side",pos:"noun",note:"f",ex:"С одной стороны, ты прав."},
+ {id:16,ru:"страна",en:"country",pos:"noun",note:"f",ex:"Россия — большая страна."},
+ {id:17,ru:"мир",en:"world/peace",pos:"noun",note:"m",ex:"Мы хотим мира во всём мире."},
+ {id:18,ru:"лицо",en:"face",pos:"noun",note:"n",ex:"У неё доброе лицо."},
+ {id:19,ru:"ребёнок",en:"child",pos:"noun",note:"m",ex:"Ребёнок играет во дворе."},
+ {id:20,ru:"сила",en:"strength/force",pos:"noun",note:"f",ex:"У него много сил."},
+ {id:21,ru:"конец",en:"end",pos:"noun",note:"m",ex:"Это конец истории."},
+ {id:22,ru:"вид",en:"view/kind/appearance",pos:"noun",note:"m",ex:"Отсюда красивый вид."},
+ {id:23,ru:"система",en:"system",pos:"noun",note:"f",ex:"Это сложная система."},
+ {id:24,ru:"часть",en:"part",pos:"noun",note:"f",ex:"Это часть плана."},
+ {id:25,ru:"город",en:"city",pos:"noun",note:"m",ex:"Я живу в большом городе."},
+ {id:26,ru:"отношение",en:"relation/attitude",pos:"noun",note:"n",ex:"У них хорошие отношения."},
+ {id:27,ru:"женщина",en:"woman",pos:"noun",note:"f",ex:"Эта женщина — врач."},
+ {id:28,ru:"деньги",en:"money",pos:"noun",note:"pl",ex:"У меня нет денег."},
+ {id:29,ru:"земля",en:"earth/land/ground",pos:"noun",note:"f",ex:"Земля круглая."},
+ {id:30,ru:"машина",en:"car/machine",pos:"noun",note:"f",ex:"Моя машина сломалась."},
+ {id:31,ru:"вода",en:"water",pos:"noun",note:"f",ex:"Дайте, пожалуйста, воды."},
+ {id:32,ru:"отец",en:"father",pos:"noun",note:"m",ex:"Мой отец — учитель."},
+ {id:33,ru:"мать",en:"mother",pos:"noun",note:"f",ex:"Моя мать готовит ужин."},
+ {id:34,ru:"история",en:"story/history",pos:"noun",note:"f",ex:"Расскажи мне историю."},
+ {id:35,ru:"власть",en:"power/authority",pos:"noun",note:"f",ex:"Он пришёл к власти."},
+ {id:36,ru:"закон",en:"law",pos:"noun",note:"m",ex:"Мы должны соблюдать закон."},
+ {id:37,ru:"голос",en:"voice",pos:"noun",note:"m",ex:"У неё красивый голос."},
+ {id:38,ru:"народ",en:"people/nation",pos:"noun",note:"m",ex:"Русский народ гостеприимен."},
+ {id:39,ru:"книга",en:"book",pos:"noun",note:"f",ex:"Я читаю интересную книгу."},
+ {id:40,ru:"минута",en:"minute",pos:"noun",note:"f",ex:"Подожди одну минуту."},
+ {id:41,ru:"дверь",en:"door",pos:"noun",note:"f",ex:"Закрой дверь, пожалуйста."},
+ {id:42,ru:"душа",en:"soul",pos:"noun",note:"f",ex:"Он поёт от души."},
+ {id:43,ru:"компания",en:"company",pos:"noun",note:"f",ex:"Он работает в большой компании."},
+ {id:44,ru:"право",en:"right/law",pos:"noun",note:"n",ex:"У тебя есть право знать."},
+ {id:45,ru:"нога",en:"leg/foot",pos:"noun",note:"f",ex:"У меня болит нога."},
+ {id:46,ru:"утро",en:"morning",pos:"noun",note:"n",ex:"Доброе утро!"},
+ {id:47,ru:"деревня",en:"village/countryside",pos:"noun",note:"f",ex:"Летом мы живём в деревне."},
+ {id:48,ru:"любовь",en:"love",pos:"noun",note:"f",ex:"Любовь побеждает всё."},
+ {id:49,ru:"чувство",en:"feeling",pos:"noun",note:"n",ex:"Это странное чувство."},
+ {id:50,ru:"окно",en:"window",pos:"noun",note:"n",ex:"Открой окно, здесь жарко."},
+
+ /* ---- VERBS (aspect in note) ---- */
+ {id:51,ru:"быть",en:"to be",pos:"verb",note:"impf",ex:"Я хочу быть счастливым."},
+ {id:52,ru:"мочь",en:"can/to be able",pos:"verb",note:"impf · pf смочь",ex:"Я не могу прийти."},
+ {id:53,ru:"говорить",en:"to speak/say",pos:"verb",note:"impf · pf сказать",ex:"Мы говорили весь вечер."},
+ {id:54,ru:"сказать",en:"to say/tell",pos:"verb",note:"pf · impf говорить",ex:"Он хотел что-то сказать."},
+ {id:55,ru:"знать",en:"to know",pos:"verb",note:"impf",ex:"Я знаю ответ."},
+ {id:56,ru:"стать",en:"to become",pos:"verb",note:"pf · impf становиться",ex:"Он хочет стать врачом."},
+ {id:57,ru:"хотеть",en:"to want",pos:"verb",note:"impf",ex:"Я хочу пить."},
+ {id:58,ru:"видеть",en:"to see",pos:"verb",note:"impf · pf увидеть",ex:"Я вижу гору вдалеке."},
+ {id:59,ru:"идти",en:"to go (on foot)",pos:"verb",note:"impf · unidirectional",ex:"Куда ты идёшь?"},
+ {id:60,ru:"думать",en:"to think",pos:"verb",note:"impf · pf подумать",ex:"Я думаю, что это правда."},
+ {id:61,ru:"делать",en:"to do/make",pos:"verb",note:"impf · pf сделать",ex:"Что ты делаешь?"},
+ {id:62,ru:"понимать",en:"to understand",pos:"verb",note:"impf · pf понять",ex:"Я не понимаю тебя."},
+ {id:63,ru:"работать",en:"to work",pos:"verb",note:"impf",ex:"Она работает в банке."},
+ {id:64,ru:"любить",en:"to love/like",pos:"verb",note:"impf",ex:"Я люблю классическую музыку."},
+ {id:65,ru:"жить",en:"to live",pos:"verb",note:"impf",ex:"Мы живём в центре города."},
+ {id:66,ru:"считать",en:"to count/consider",pos:"verb",note:"impf · pf посчитать",ex:"Я считаю тебя другом."},
+ {id:67,ru:"помнить",en:"to remember",pos:"verb",note:"impf",ex:"Я хорошо помню тот день."},
+ {id:68,ru:"сидеть",en:"to sit",pos:"verb",note:"impf",ex:"Он сидит на стуле."},
+ {id:69,ru:"писать",en:"to write",pos:"verb",note:"impf · pf написать",ex:"Я пишу письмо другу."},
+ {id:70,ru:"читать",en:"to read",pos:"verb",note:"impf · pf прочитать",ex:"Она читает роман."},
+ {id:71,ru:"играть",en:"to play",pos:"verb",note:"impf · pf сыграть",ex:"Дети играют в парке."},
+ {id:72,ru:"слушать",en:"to listen",pos:"verb",note:"impf · pf послушать",ex:"Я слушаю музыку."},
+ {id:73,ru:"слышать",en:"to hear",pos:"verb",note:"impf · pf услышать",ex:"Ты меня слышишь?"},
+ {id:74,ru:"ждать",en:"to wait",pos:"verb",note:"impf · pf подождать",ex:"Я жду автобус."},
+ {id:75,ru:"искать",en:"to look for",pos:"verb",note:"impf · pf найти",ex:"Я ищу свои ключи."},
+ {id:76,ru:"найти",en:"to find",pos:"verb",note:"pf · impf искать",ex:"Я не могу найти телефон."},
+ {id:77,ru:"дать",en:"to give",pos:"verb",note:"pf · impf давать",ex:"Дай мне руку."},
+ {id:78,ru:"взять",en:"to take",pos:"verb",note:"pf · impf брать",ex:"Возьми с собой зонт."},
+ {id:79,ru:"купить",en:"to buy",pos:"verb",note:"pf · impf покупать",ex:"Я хочу купить хлеб."},
+ {id:80,ru:"открыть",en:"to open",pos:"verb",note:"pf · impf открывать",ex:"Открой, пожалуйста, окно."},
+ {id:81,ru:"закрыть",en:"to close",pos:"verb",note:"pf · impf закрывать",ex:"Закрой дверь потише."},
+ {id:82,ru:"начать",en:"to begin",pos:"verb",note:"pf · impf начинать",ex:"Давай начнём урок."},
+ {id:83,ru:"закончить",en:"to finish",pos:"verb",note:"pf · impf заканчивать",ex:"Я закончил работу."},
+ {id:84,ru:"спросить",en:"to ask",pos:"verb",note:"pf · impf спрашивать",ex:"Можно спросить?"},
+ {id:85,ru:"отвечать",en:"to answer",pos:"verb",note:"impf · pf ответить",ex:"Он мне не отвечает."},
+ {id:86,ru:"помогать",en:"to help",pos:"verb",note:"impf · pf помочь",ex:"Я хочу тебе помочь."},
+ {id:87,ru:"показать",en:"to show",pos:"verb",note:"pf · impf показывать",ex:"Покажи мне фотографию."},
+ {id:88,ru:"получить",en:"to receive/get",pos:"verb",note:"pf · impf получать",ex:"Я получил твоё письмо."},
+ {id:89,ru:"держать",en:"to hold/keep",pos:"verb",note:"impf",ex:"Держи чашку крепче."},
+ {id:90,ru:"ходить",en:"to go/walk (habitually)",pos:"verb",note:"impf · multidirectional",ex:"Я хожу в спортзал по средам."},
+ {id:91,ru:"ехать",en:"to go (by vehicle)",pos:"verb",note:"impf · unidirectional",ex:"Мы едем в Москву."},
+ {id:92,ru:"есть",en:"to eat",pos:"verb",note:"impf · pf съесть",ex:"Я хочу есть."},
+ {id:93,ru:"пить",en:"to drink",pos:"verb",note:"impf · pf выпить",ex:"Хочешь пить?"},
+ {id:94,ru:"спать",en:"to sleep",pos:"verb",note:"impf",ex:"Ребёнок уже спит."},
+ {id:95,ru:"бояться",en:"to be afraid",pos:"verb",note:"impf",ex:"Я боюсь темноты."},
+ {id:96,ru:"чувствовать",en:"to feel",pos:"verb",note:"impf · pf почувствовать",ex:"Я чувствую себя хорошо."},
+ {id:97,ru:"верить",en:"to believe",pos:"verb",note:"impf · pf поверить",ex:"Я тебе верю."},
+ {id:98,ru:"учить",en:"to learn/teach",pos:"verb",note:"impf · pf выучить",ex:"Я учу русский язык."},
+ {id:99,ru:"забыть",en:"to forget",pos:"verb",note:"pf · impf забывать",ex:"Не забудь ключи."},
+ {id:100,ru:"вернуться",en:"to return/come back",pos:"verb",note:"pf · impf возвращаться",ex:"Я вернусь через час."},
+
+ /* ---- ADJECTIVES ---- */
+ {id:101,ru:"большой",en:"big/large",pos:"adj",ex:"Большой красивый город."},
+ {id:102,ru:"маленький",en:"small/little",pos:"adj",ex:"Маленькая собака лает."},
+ {id:103,ru:"новый",en:"new",pos:"adj",ex:"У меня новый телефон."},
+ {id:104,ru:"старый",en:"old",pos:"adj",ex:"Это очень старый дом."},
+ {id:105,ru:"хороший",en:"good",pos:"adj",ex:"Это хорошая идея."},
+ {id:106,ru:"плохой",en:"bad",pos:"adj",ex:"Сегодня плохая погода."},
+ {id:107,ru:"молодой",en:"young",pos:"adj",ex:"Молодой человек, помогите!"},
+ {id:108,ru:"важный",en:"important",pos:"adj",ex:"Это важный вопрос."},
+ {id:109,ru:"красивый",en:"beautiful/handsome",pos:"adj",ex:"Какой красивый вид!"},
+ {id:110,ru:"длинный",en:"long",pos:"adj",ex:"Впереди длинная дорога."},
+ {id:111,ru:"короткий",en:"short (length)",pos:"adj",ex:"Это короткий рассказ."},
+ {id:112,ru:"высокий",en:"tall/high",pos:"adj",ex:"Высокое современное здание."},
+ {id:113,ru:"низкий",en:"low",pos:"adj",ex:"Низкий деревянный стол."},
+ {id:114,ru:"широкий",en:"wide/broad",pos:"adj",ex:"Широкая река течёт медленно."},
+ {id:115,ru:"узкий",en:"narrow",pos:"adj",ex:"Узкая старая улица."},
+ {id:116,ru:"сильный",en:"strong",pos:"adj",ex:"На улице сильный ветер."},
+ {id:117,ru:"слабый",en:"weak",pos:"adj",ex:"Здесь слабый сигнал."},
+ {id:118,ru:"быстрый",en:"fast/quick",pos:"adj",ex:"Быстрый поезд в Санкт-Петербург."},
+ {id:119,ru:"медленный",en:"slow",pos:"adj",ex:"Очень медленный интернет."},
+ {id:120,ru:"лёгкий",en:"light/easy",pos:"adj",ex:"Это лёгкий вопрос."},
+ {id:121,ru:"тяжёлый",en:"heavy/hard",pos:"adj",ex:"Тяжёлый чемодан."},
+ {id:122,ru:"трудный",en:"difficult",pos:"adj",ex:"Завтра трудный экзамен."},
+ {id:123,ru:"простой",en:"simple",pos:"adj",ex:"Простой и понятный ответ."},
+ {id:124,ru:"сложный",en:"complex/complicated",pos:"adj",ex:"Это сложная задача."},
+ {id:125,ru:"тёплый",en:"warm",pos:"adj",ex:"Сегодня тёплый день."},
+ {id:126,ru:"холодный",en:"cold",pos:"adj",ex:"Холодная вода из-под крана."},
+ {id:127,ru:"горячий",en:"hot (to touch)",pos:"adj",ex:"Горячий чай с лимоном."},
+ {id:128,ru:"чистый",en:"clean",pos:"adj",ex:"Чистая светлая комната."},
+ {id:129,ru:"грязный",en:"dirty",pos:"adj",ex:"Грязные после сада руки."},
+ {id:130,ru:"дорогой",en:"expensive/dear",pos:"adj",ex:"Это слишком дорогой подарок."},
+ {id:131,ru:"дешёвый",en:"cheap",pos:"adj",ex:"Дешёвый билет на автобус."},
+ {id:132,ru:"богатый",en:"rich",pos:"adj",ex:"Он очень богатый человек."},
+ {id:133,ru:"бедный",en:"poor",pos:"adj",ex:"Они из бедной семьи."},
+ {id:134,ru:"счастливый",en:"happy",pos:"adj",ex:"Это был счастливый день."},
+ {id:135,ru:"грустный",en:"sad",pos:"adj",ex:"Грустная, но красивая песня."},
+ {id:136,ru:"весёлый",en:"cheerful/fun",pos:"adj",ex:"Весёлый праздник для детей."},
+ {id:137,ru:"добрый",en:"kind",pos:"adj",ex:"Он очень добрый человек."},
+ {id:138,ru:"злой",en:"angry/evil",pos:"adj",ex:"Осторожно, злая собака!"},
+ {id:139,ru:"умный",en:"smart/clever",pos:"adj",ex:"Умный и способный студент."},
+ {id:140,ru:"глупый",en:"stupid/silly",pos:"adj",ex:"Это был глупый вопрос."},
+ {id:141,ru:"интересный",en:"interesting",pos:"adj",ex:"Интересная новая книга."},
+ {id:142,ru:"скучный",en:"boring",pos:"adj",ex:"Скучный длинный фильм."},
+ {id:143,ru:"известный",en:"famous/well-known",pos:"adj",ex:"Известный русский писатель."},
+ {id:144,ru:"свободный",en:"free/vacant",pos:"adj",ex:"Здесь есть свободное место?"},
+ {id:145,ru:"занятый",en:"busy",pos:"adj",ex:"Я сегодня очень занятый."},
+ {id:146,ru:"полный",en:"full",pos:"adj",ex:"Полный стакан воды."},
+ {id:147,ru:"пустой",en:"empty",pos:"adj",ex:"Пустая тёмная комната."},
+ {id:148,ru:"яркий",en:"bright",pos:"adj",ex:"Яркий солнечный свет."},
+ {id:149,ru:"тёмный",en:"dark",pos:"adj",ex:"Тёмная безлунная ночь."},
+ {id:150,ru:"светлый",en:"light/bright (room)",pos:"adj",ex:"Светлая просторная комната."},
+ {id:151,ru:"громкий",en:"loud",pos:"adj",ex:"Внезапный громкий звук."},
+ {id:152,ru:"тихий",en:"quiet",pos:"adj",ex:"Тихий спокойный голос."},
+ {id:153,ru:"вкусный",en:"tasty/delicious",pos:"adj",ex:"Очень вкусный домашний обед."},
+ {id:154,ru:"опасный",en:"dangerous",pos:"adj",ex:"Опасный крутой поворот."},
+ {id:155,ru:"настоящий",en:"real/genuine",pos:"adj",ex:"Он настоящий друг."},
+ {id:156,ru:"главный",en:"main/chief",pos:"adj",ex:"Это главная улица города."},
+ {id:157,ru:"разный",en:"different/various",pos:"adj",ex:"Совсем разные люди."},
+ {id:158,ru:"похожий",en:"similar",pos:"adj",ex:"Очень похожая ситуация."},
+ {id:159,ru:"свежий",en:"fresh",pos:"adj",ex:"Свежий тёплый хлеб."},
+ {id:160,ru:"уверенный",en:"confident/sure",pos:"adj",ex:"Спокойный и уверенный тон."}
+];
+const DECK_BY_ID = Object.fromEntries(DECK.map(w=>[w.id,w]));
+
+/* ---------------- Config ---------------- */
+const NEW_PER_DAY = 10, REVIEW_PER_DAY = 20;
+const INTERVALS = [0,1,2,4,7,15,30,60];   // days by box
+const KNOWN_BOX = 4;                        // box>=4 counts as "known"
+const CEFR = [                              // rough known-word thresholds
+  {band:"A1",min:0},{band:"A2",min:400},{band:"B1",min:1000},{band:"B2",min:2000}
+];
+
+/* ---------------- State ---------------- */
+const KEY="rt_state_v1";
+function today(){return new Date().toISOString().slice(0,10);}
+function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{}};}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let S = load();
+function load(){try{return Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)))}catch(e){return blank()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(S));}
+
+/* ---------------- SRS helpers ---------------- */
+function card(id){ if(!S.cards[id]) S.cards[id]={box:0,due:today(),lapses:0,reps:0,introduced:false}; return S.cards[id]; }
+function daysAdd(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);}
+function knownCount(){return Object.values(S.cards).filter(c=>c.introduced&&c.box>=KNOWN_BOX).length;}
+
+function buildQueue(){
+  const t=today();
+  const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
+  // due reviews among introduced cards
+  let reviews=DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;})
+                  .map(w=>w.id);
+  reviews=reviews.slice(0,Math.max(0,REVIEW_PER_DAY-log.reviewDone));
+  // new words not yet introduced
+  let news=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced)).map(w=>w.id);
+  news=news.slice(0,Math.max(0,NEW_PER_DAY-log.newDone));
+  // reviews first, then new
+  return reviews.concat(news).map(id=>({id,isNew:!(S.cards[id]&&S.cards[id].introduced),firstTry:true}));
+}
+
+/* ---------------- Grading (lenient) ---------------- */
+function norm(s){
+  return (s||"").toLowerCase().trim()
+    .normalize("NFD").replace(/[̀-́]/g,"") // strip stress marks
+    .replace(/ё/g,"е").replace(/[.,!?;:"'()\-]/g,"").replace(/\s+/g," ");
+}
+function lev(a,b){
+  const m=a.length,n=b.length,d=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
+  for(let j=0;j<=n;j++)d[0][j]=j;
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)
+    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  return d[m][n];
+}
+function grade(input, word){
+  const dir=S.direction;
+  const targets = dir==="en-ru" ? [word.ru]
+    : word.en.split("/").map(t=>t.replace(/\(.*?\)/g,"").trim());
+  const g=norm(input);
+  if(!g) return false;
+  for(const t of targets){
+    const nt=norm(t);
+    if(g===nt) return true;
+    const tol = nt.length>6?2:1;         // lenient: allow small typos
+    if(lev(g,nt)<=tol) return true;
+  }
+  return false;
+}
+
+/* ---------------- Audio ---------------- */
+let ruVoice=null;
+function ruVoices(){ return (speechSynthesis.getVoices()||[]).filter(v=>/^ru/i.test(v.lang)); }
+function rankVoice(v){
+  const n=(v.name+" "+(v.voiceURI||"")).toLowerCase(); let s=0;
+  if(n.includes("google")) s+=5;                       // Chrome's Google voice — good, free
+  if(/enhanced|premium|neural|siri/.test(n)) s+=4;     // installed high-quality system voices
+  if(v.localService===false) s+=1;                     // online voices usually better
+  return s;
+}
+function refreshVoices(){
+  const vs=ruVoices();
+  const sel=document.getElementById("voice");
+  if(sel){
+    sel.innerHTML="";
+    if(vs.length===0){
+      const o=document.createElement("option"); o.textContent="(no Russian voice found)"; sel.appendChild(o);
+    } else {
+      vs.forEach(v=>{ const o=document.createElement("option");
+        o.value=v.name; o.textContent=v.name+(v.localService===false?" · online":""); sel.appendChild(o); });
+    }
+  }
+  let chosen = vs.find(v=>v.name===S.voiceName)
+            || vs.slice().sort((a,b)=>rankVoice(b)-rankVoice(a))[0] || null;
+  ruVoice=chosen;
+  if(sel && chosen) sel.value=chosen.name;
+  const hint=document.getElementById("voice-hint");
+  if(hint){
+    if(vs.length===0) hint.textContent="No Russian voice detected. In Chrome, the Google Russian voice appears automatically; on Mac install Milena (Enhanced) in System Settings → Accessibility → Spoken Content.";
+    else if(chosen && /google|enhanced|premium|neural|siri/i.test(chosen.name)) hint.textContent="Using a high-quality voice 👍";
+    else hint.textContent="This looks like a low-quality default voice. Try Chrome (Google русский) or install Milena (Enhanced) on Mac for much better pronunciation.";
+  }
+}
+if("speechSynthesis" in window){ refreshVoices(); speechSynthesis.onvoiceschanged=refreshVoices; }
+function speak(text){
+  if(!("speechSynthesis" in window))return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="ru-RU"; if(ruVoice)u.voice=ruVoice; u.rate=0.9;
+  speechSynthesis.speak(u);
+}
+
+/* ---------------- Session flow ---------------- */
+let queue=[], cur=null, sessionTotal=0, sessionDone=0;
+
+const $=id=>document.getElementById(id);
+
+function startSession(extra){
+  if(extra){
+    // "Keep practicing": pull the NEXT batch of never-seen words
+    let fresh=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced)).map(w=>w.id);
+    if(fresh.length){
+      queue=fresh.slice(0,NEW_PER_DAY).map(id=>({id,isNew:true,firstTry:true}));
+    } else {
+      // whole deck seen — fall back to a shuffled review of everything
+      queue=shuffle(DECK.filter(w=>S.cards[w.id]&&S.cards[w.id].introduced))
+                    .map(w=>({id:w.id,isNew:false,firstTry:true}));
+    }
+  } else {
+    queue=buildQueue();
+  }
+  sessionTotal=queue.length; sessionDone=0;
+  $("done").classList.add("hide");
+  $("drill").classList.remove("hide");
+  if(queue.length===0){ finishSession(); return; }
+  nextCard();
+}
+
+function nextCard(){
+  $("feedback").style.display="none";
+  if(queue.length===0){ finishSession(); return; }
+  cur=queue[0];
+  const w=DECK_BY_ID[cur.id];
+  const dir=S.direction;
+  const choiceMode = S.answerMode==="choice";
+  $("dir-label").textContent = dir==="en-ru" ? "Translate to Russian" : "Translate to English";
+  $("prompt").textContent = dir==="en-ru" ? w.en : w.ru;
+  $("prompt-sub").textContent = (cur.isNew? "🆕 new word · ":"") + w.pos + (w.note? " · "+w.note : "");
+  $("audio").style.visibility = "visible";
+
+  // reset controls for the chosen mode
+  $("answer").value=""; $("answer").disabled=false;
+  $("answer").style.display = choiceMode ? "none" : "block";
+  $("choices").style.display = choiceMode ? "flex" : "none";
+  $("check").classList.toggle("hide", choiceMode);
+  $("reveal").classList.remove("hide");
+
+  if(choiceMode){ buildChoices(w); $("kbd").style.display="none"; }
+  else { $("choices").innerHTML=""; updateKbd(); $("answer").focus(); }
+
+  renderProgress();
+}
+
+function buildChoices(word){
+  const dir=S.direction;
+  const distr=shuffle(DECK.filter(w=>w.pos===word.pos && w.id!==word.id)).slice(0,4);
+  const opts=shuffle([word,...distr]);
+  const box=$("choices"); box.innerHTML="";
+  opts.forEach(w=>{
+    const b=document.createElement("button");
+    b.textContent = dir==="en-ru" ? w.ru : w.en;
+    b.dataset.id=w.id;
+    b.onclick=()=>answerChoice(w.id,b);
+    box.appendChild(b);
+  });
+}
+
+function answerChoice(id,btn){
+  if(!cur || $("feedback").style.display==="block") return;
+  const ok = id===cur.id;
+  // mark the buttons
+  [...$("choices").children].forEach(b=>{
+    b.disabled=true;
+    if(Number(b.dataset.id)===cur.id) b.classList.add("pick-correct");
+    else if(b===btn) b.classList.add("pick-wrong");
+  });
+  resolve(ok);
+}
+
+function renderProgress(){
+  const pct = sessionTotal? Math.round(sessionDone/sessionTotal*100):0;
+  $("progbar").style.width=pct+"%";
+  $("progtag").textContent = `${sessionDone} / ${sessionTotal} done · ${queue.length} left in queue`;
+}
+
+function submit(gaveUp){
+  if(!cur || $("feedback").style.display==="block") return;
+  const w=DECK_BY_ID[cur.id];
+  const ok = !gaveUp && grade($("answer").value, w);
+  resolve(ok);
+}
+
+function resolve(ok){
+  if(!cur) return;
+  const w=DECK_BY_ID[cur.id];
+  const c=card(cur.id);
+  c.reps++;
+  if(ok){
+    // advance
+    if(!c.introduced){ c.introduced=true; logDay(cur.isNew); }
+    else if(!cur.isNew){ /* review */ }
+    c.box=Math.min(c.box+1, INTERVALS.length-1);
+    c.due=daysAdd(today(), INTERVALS[c.box]);
+    queue.shift();                    // leaves today's queue
+    sessionDone++;
+  }else{
+    c.box=0; c.due=today(); c.lapses++;
+    if(!c.introduced){ c.introduced=true; logDay(cur.isNew); } // count the intro
+    // relentless: requeue to the back, no longer "new" prompt
+    const item=queue.shift(); item.isNew=false; item.firstTry=false; queue.push(item);
+  }
+  save();
+  showFeedback(ok,w);
+  refreshBadges();
+}
+
+function logDay(wasNew){
+  const t=today();
+  const l=S.dailyLog[t]||(S.dailyLog[t]={newDone:0,reviewDone:0});
+  if(wasNew) l.newDone++; else l.reviewDone++;
+}
+
+function showFeedback(ok,w){
+  const f=$("feedback");
+  f.className="feedback "+(ok?"correct":"wrong");
+  f.style.display="block";
+  $("verdict").textContent = ok ? "✓ Correct" : "✗ Not quite — you'll see it again";
+  $("fb-ru").textContent = w.ru;
+  $("fb-en").textContent = w.en+" · "+w.pos+(w.note? " · "+w.note : "");
+  $("fb-ex").textContent = w.ex;
+  $("check").classList.add("hide"); $("reveal").classList.add("hide");
+  $("answer").disabled=true;
+  speak(w.ru);
+  $("next").focus();
+  renderProgress();
+}
+
+function finishSession(){
+  $("drill").classList.add("hide");
+  $("done").classList.remove("hide");
+  // streak update: mark today complete if any work done
+  const t=today();
+  const l=S.dailyLog[t];
+  if(l && (l.newDone||l.reviewDone) && S.lastCompleted!==t){
+    S.streak = (S.lastCompleted===daysAdd(t,-1))? S.streak+1 : 1;
+    S.lastCompleted=t; save();
+  }
+  const done = l? (l.newDone+l.reviewDone):0;
+  $("done-msg").textContent = `You cleared ${done} card${done===1?"":"s"} today. Come back tomorrow — reviews will be waiting.`;
+  refreshBadges(); updateBanner();
+  if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
+}
+
+/* ---------------- Badges / banner / level ---------------- */
+function levelBand(){
+  const k=knownCount(); let band=CEFR[0].band;
+  for(const c of CEFR) if(k>=c.min) band=c.band;
+  return band;
+}
+function refreshBadges(){
+  $("b-level").textContent=levelBand();
+  $("b-known").textContent=knownCount();
+  $("b-streak").textContent=S.streak||0;
+  $("b-duo").textContent=S.duoLevel!=null?S.duoLevel:"–";
+}
+function updateBanner(){
+  const t=today();
+  const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
+  // count debt = due reviews not done + new not done
+  const dueRev=DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;}).length;
+  const owedRev=Math.max(0,Math.min(REVIEW_PER_DAY,dueRev)-log.reviewDone);
+  const owedNew=Math.max(0,NEW_PER_DAY-log.newDone);
+  const b=$("banner");
+  if(owedRev+owedNew>0 && (log.newDone+log.reviewDone>0 || S.lastCompleted && S.lastCompleted!==t)){
+    b.style.display="block";
+    b.textContent=`📌 Owed today: ${owedNew} new + ${owedRev} review${owedRev===1?"":"s"}.`;
+  }else if(owedRev+owedNew>0){
+    b.style.display="block";
+    b.textContent=`Today's goal: ${owedNew} new + ${owedRev} review${owedRev===1?"":"s"}.`;
+  }else{ b.style.display="none"; }
+}
+
+/* ---------------- Cyrillic keyboard ---------------- */
+const ROWS=["йцукенгшщзхъ","фывапролджэ","ячсмитьбюё"];
+function updateKbd(){
+  const box=$("kbd");
+  if(S.direction!=="en-ru"){ box.innerHTML=""; return; }
+  if(box.dataset.built==="1"){ box.style.display="flex"; return; }
+  box.innerHTML="";
+  ROWS.forEach(r=>{
+    r.split("").forEach(ch=>{
+      const b=document.createElement("button");
+      b.textContent=ch; b.onclick=()=>insert(ch); box.appendChild(b);
+    });
+  });
+  const sp=document.createElement("button"); sp.textContent="␣"; sp.className="wide"; sp.onclick=()=>insert(" ");
+  const bs=document.createElement("button"); bs.textContent="⌫"; bs.className="wide"; bs.onclick=backspace;
+  box.appendChild(sp); box.appendChild(bs);
+  box.dataset.built="1";
+}
+function insert(ch){const a=$("answer");a.value+=ch;a.focus();}
+function backspace(){const a=$("answer");a.value=a.value.slice(0,-1);a.focus();}
+
+/* ---------------- Wiring ---------------- */
+$("check").onclick=()=>submit(false);
+$("reveal").onclick=()=>{
+  if(!cur || $("feedback").style.display==="block") return;
+  if(S.answerMode==="choice"){
+    [...$("choices").children].forEach(b=>{
+      b.disabled=true;
+      if(Number(b.dataset.id)===cur.id) b.classList.add("pick-correct");
+    });
+  }
+  submit(true);
+};
+$("next").onclick=nextCard;
+$("audio").onclick=()=>{ if(cur) speak(DECK_BY_ID[cur.id].ru); };
+$("answer").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); if(!$("answer").disabled) submit(false); }});
+document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&$("feedback").style.display==="block") nextCard(); });
+$("practice-more").onclick=()=>startSession(true);
+
+$("toggle-settings").onclick=()=>{
+  const body=$("settings-body"), t=$("toggle-settings");
+  const open=body.classList.toggle("hide")===false;
+  t.textContent=open?"hide":"show";
+};
+$("voice").onchange=e=>{ S.voiceName=e.target.value; save(); refreshVoices(); if(cur) speak(DECK_BY_ID[cur.id].ru); };
+$("answer-mode").onchange=e=>{ S.answerMode=e.target.value; save(); nextCard(); };
+$("direction").onchange=e=>{ S.direction=e.target.value; save(); nextCard(); };
+$("duo-input").onchange=e=>{ S.duoLevel=e.target.value===""?null:Number(e.target.value); save(); refreshBadges(); };
+$("q-new").textContent=NEW_PER_DAY; $("q-rev").textContent=REVIEW_PER_DAY;
+
+$("export").onclick=()=>{
+  const blob=new Blob([JSON.stringify(S,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download="progress.json"; a.click();
+};
+$("import").onclick=()=>$("import-file").click();
+$("import-file").onchange=e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{ try{ S=Object.assign(blank(),JSON.parse(r.result)); save(); location.reload(); }
+    catch(err){ alert("Couldn't read that file."); } };
+  r.readAsText(f);
+};
+$("reset").onclick=()=>{ if(confirm("Erase all progress in this browser?")){ localStorage.removeItem(KEY); location.reload(); } };
+
+/* ---------------- Lessons ---------------- */
+const LESSONS=[{
+  id:"prep-case",
+  title:"Prepositional Case",
+  subtitle:"предложный падеж · location & topic",
+  level:"A2",
+  explanation:`
+    <p>The <b>prepositional case</b> never appears on its own — it only shows up <b>after certain prepositions</b>. Its two everyday jobs are <b>location</b> (where something is) and the <b>topic</b> of speech or thought (what you're talking/thinking about).</p>
+    <h3>The three prepositions to know first</h3>
+    <table>
+      <tr><th>Prep.</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td class="ru">в</td><td>in</td><td>в <span class="ru">го́роде</span> — in the city</td></tr>
+      <tr><td class="ru">на</td><td>on / at</td><td>на <span class="ru">рабо́те</span> — at work</td></tr>
+      <tr><td class="ru">о / об</td><td>about</td><td>о <span class="ru">кни́ге</span> — about the book</td></tr>
+    </table>
+    <h3>How the noun ending changes</h3>
+    <table>
+      <tr><th>Noun type</th><th>Ending</th><th>Example</th></tr>
+      <tr><td>Masculine / neuter (hard)</td><td>add <b>-е</b></td><td>стол → на сто<span class="ru">ле́</span>; окно́ → в ок<span class="ru">не́</span></td></tr>
+      <tr><td>Feminine <b>-а / -я</b></td><td>→ <b>-е</b></td><td>Москва́ → в Москв<span class="ru">е́</span>; кни́га → о кни́г<span class="ru">е</span></td></tr>
+      <tr><td>Feminine <b>-ь</b></td><td>→ <b>-и</b></td><td>дверь → на двер<span class="ru">и́</span>; пло́щадь → на пло́щад<span class="ru">и</span></td></tr>
+      <tr><td>Ends in <b>-ия / -ие / -ий</b></td><td>→ <b>-ии</b></td><td>Росси́я → в Росс<span class="ru">и́и</span>; зда́ние → в зда́н<span class="ru">ии</span></td></tr>
+    </table>
+    <h3>о vs. об</h3>
+    <p>Use <b class="ru">об</b> before a vowel sound — <span class="ru">об А́нне</span>, <span class="ru">об э́том</span>; use <b class="ru">о</b> before a consonant — <span class="ru">о дру́ге</span>. (And the fixed form <span class="ru">обо мне́</span> — about me.)</p>
+    <h3>в vs. на — the tricky part</h3>
+    <p><b class="ru">на</b> is used for surfaces, and idiomatically for many events, activities, and open places: <span class="ru">на рабо́те, на уро́ке, на по́чте, на у́лице, на конце́рте</span>. <b class="ru">в</b> is used for most enclosed places: <span class="ru">в до́ме, в шко́ле, в го́роде, в маши́не</span>. The на-words are partly idiomatic — best learned as a set.</p>
+    <p><i>Bonus:</i> a handful of masculine nouns take a stressed <b>-у́</b> after в/на for location: <span class="ru">в лесу́, в саду́, на полу́, в углу́</span>. Just memorize the common ones.</p>`,
+  practice:[
+    {q:"Я живу́ в … (го́род).",opts:["го́роде","го́род","го́роду","го́родом"],a:0,why:"Masculine hard noun → add -е: в го́роде."},
+    {q:"Кни́га лежи́т на … (стол).",opts:["столе́","стол","столу́","столо́м"],a:0,why:"Masculine hard noun → add -е: на столе́."},
+    {q:"Мы говори́м о … (кни́га).",opts:["кни́ге","кни́га","кни́гу","кни́гой"],a:0,why:"Feminine -а → -е: о кни́ге."},
+    {q:"Я был в … (Росси́я).",opts:["Росси́и","Росси́я","Росси́ю","Росси́ей"],a:0,why:"Ends in -ия → -ии: в Росси́и."},
+    {q:"Ключи́ в … (маши́на).",opts:["маши́не","маши́на","маши́ну","маши́ной"],a:0,why:"Feminine -а → -е: в маши́не."},
+    {q:"Ключ в … (дверь).",opts:["двери́","дверь","две́рью","две́ри"],a:0,why:"Feminine ending in -ь → -и: в двери́."},
+    {q:"Choose the preposition: «Я сейча́с … рабо́те.»",opts:["на","в","о","об"],a:0,why:"рабо́та takes на for 'at work': на рабо́те."},
+    {q:"Choose the preposition: «Мы говори́м … А́нне.»",opts:["об","о","на","в"],a:0,why:"Use об before a vowel sound: об А́нне."}
+  ],
+  test:[
+    {q:"Я живу́ в … (го́род).",opts:["го́роде","го́род","го́роду","го́родом"],a:0},
+    {q:"Ключи́ в … (маши́на).",opts:["маши́не","маши́на","маши́ну","маши́ной"],a:0},
+    {q:"Мы ду́маем о … (друг).",opts:["дру́ге","друг","дру́га","дру́гом"],a:0},
+    {q:"Он живёт в … (страна́).",opts:["стране́","страна́","страну́","страно́й"],a:0},
+    {q:"Choose the preposition: «Она́ … рабо́те.»",opts:["на","в","о","об"],a:0},
+    {q:"Choose the preposition: «Расскажи́ … А́нне.»",opts:["об","о","на","в"],a:0},
+    {q:"Я был в … (Росси́я).",opts:["Росси́и","Росси́я","Росси́ю","Росси́ей"],a:0},
+    {q:"Кот спит на … (окно́).",opts:["окне́","окно́","окна́","окно́м"],a:0}
+  ]
+},{
+  id:"accusative",
+  title:"Accusative Case",
+  subtitle:"винительный падеж · the direct object",
+  level:"A2",
+  explanation:`
+    <p>The <b>accusative case</b> marks the <b>direct object</b> — the thing directly receiving the action of a verb. In <i>"I read the book"</i>, <b>book</b> is the direct object, so it goes in the accusative: <span class="ru">Я чита́ю кни́гу</span>.</p>
+    <h3>The endings</h3>
+    <table>
+      <tr><th>Noun type</th><th>Change</th><th>Example</th></tr>
+      <tr><td>Feminine <b>-а / -я</b></td><td>→ <b>-у / -ю</b></td><td>кни́га → кни́г<span class="ru">у</span>; неде́ля → неде́л<span class="ru">ю</span></td></tr>
+      <tr><td>Neuter</td><td>no change</td><td>окно́ → окно́; сло́во → сло́во</td></tr>
+      <tr><td>Masculine <b>inanimate</b></td><td>no change</td><td>дом → дом; го́род → го́род</td></tr>
+      <tr><td>Feminine <b>-ь</b></td><td>no change</td><td>дверь → дверь</td></tr>
+      <tr><td>Masculine <b>animate</b></td><td>→ add <b>-а / -я</b> (like genitive)</td><td>друг → дру́г<span class="ru">а</span>; оте́ц → отц<span class="ru">а́</span></td></tr>
+    </table>
+    <h3>The one thing that trips people up: animacy</h3>
+    <p>For <b>masculine</b> nouns, whether the thing is <b>alive</b> matters. An inanimate masculine noun doesn't change (<span class="ru">Я ви́жу дом</span> — I see a house). But an <b>animate</b> one takes an <b>-а/-я</b> ending, borrowed from the genitive: <span class="ru">Я ви́жу дру́га</span> — I see a friend. (Feminine animate nouns still just take -у: <span class="ru">Я ви́жу же́нщину</span>.)</p>
+    <h3>в / на for direction — accusative vs. prepositional</h3>
+    <p>You met в/на with the prepositional case for <b>location</b>. With <b>motion toward</b> something, the same prepositions take the <b>accusative</b> instead. Watch the contrast:</p>
+    <table>
+      <tr><th>Where? (location · prepositional)</th><th>Where to? (direction · accusative)</th></tr>
+      <tr><td>Я в шко́л<span class="ru">е</span> — I'm at school</td><td>Я иду́ в шко́л<span class="ru">у</span> — I'm going to school</td></tr>
+      <tr><td>Он на рабо́т<span class="ru">е</span> — he's at work</td><td>Он идёт на рабо́т<span class="ru">у</span> — he's going to work</td></tr>
+    </table>`,
+  practice:[
+    {q:"Я чита́ю … (кни́га).",opts:["кни́гу","кни́га","кни́ге","кни́гой"],a:0,why:"Feminine -а → -у: чита́ю кни́гу."},
+    {q:"Я ви́жу … (дом).",opts:["дом","до́ма","до́му","до́мом"],a:0,why:"Inanimate masculine — no change: ви́жу дом."},
+    {q:"Я ви́жу … (друг).",opts:["дру́га","друг","дру́гу","дру́гом"],a:0,why:"Animate masculine takes -а (like genitive): ви́жу дру́га."},
+    {q:"Он лю́бит … (Москва́).",opts:["Москву́","Москва́","Москве́","Москво́й"],a:0,why:"Feminine -а → -у: лю́бит Москву́."},
+    {q:"Мы пьём … (вода́).",opts:["во́ду","вода́","воде́","водо́й"],a:0,why:"Feminine -а → -у: пьём во́ду."},
+    {q:"Я зна́ю э́ту … (же́нщина).",opts:["же́нщину","же́нщина","же́нщине","же́нщиной"],a:0,why:"Feminine animate still just -а → -у: зна́ю же́нщину."},
+    {q:"Motion → which case? Я иду́ в … (шко́ла).",opts:["шко́лу","шко́ле","шко́ла","шко́лой"],a:0,why:"Motion toward = accusative: иду́ в шко́лу (compare 'в шко́ле' = at school)."},
+    {q:"Я зна́ю … (оте́ц).",opts:["отца́","оте́ц","отцу́","отцо́м"],a:0,why:"Animate masculine → -а: зна́ю отца́."}
+  ],
+  test:[
+    {q:"Я чита́ю … (кни́га).",opts:["кни́гу","кни́га","кни́ге","кни́гой"],a:0},
+    {q:"Я ви́жу … (го́род).",opts:["го́род","го́рода","го́роду","го́родом"],a:0},
+    {q:"Я зна́ю … (оте́ц).",opts:["отца́","оте́ц","отцу́","отцо́м"],a:0},
+    {q:"Я мо́ю … (маши́на).",opts:["маши́ну","маши́на","маши́не","маши́ной"],a:0},
+    {q:"Мы е́дем в … (страна́).",opts:["страну́","стране́","страна́","страно́й"],a:0},
+    {q:"Я ви́жу … (челове́к).",opts:["челове́ка","челове́к","челове́ку","челове́ком"],a:0},
+    {q:"Я зна́ю э́то … (сло́во).",opts:["сло́во","сло́ва","сло́ву","сло́вом"],a:0},
+    {q:"Он идёт на … (рабо́та).",opts:["рабо́ту","рабо́те","рабо́та","рабо́той"],a:0}
+  ]
+},{
+  id:"aspect",
+  title:"Verb Aspect",
+  subtitle:"вид глагола · imperfective vs. perfective",
+  level:"B1",
+  explanation:`
+    <p>Almost every Russian verb comes as a <b>pair</b>: an <b>imperfective</b> and a <b>perfective</b> partner. They share a basic meaning but describe the action in two different ways. This is the single biggest thing that separates beginner from intermediate Russian — worth taking slowly.</p>
+    <h3>The core difference</h3>
+    <table>
+      <tr><th>Imperfective (несов.)</th><th>Perfective (сов.)</th></tr>
+      <tr><td>process, ongoing action</td><td>a single, completed action</td></tr>
+      <tr><td>repeated / habitual</td><td>one time, with a result</td></tr>
+      <tr><td>"was doing" / "does"</td><td>"did and finished"</td></tr>
+      <tr><td class="ru">Я чита́л кни́гу<br><span style="color:var(--muted)">I was reading the book</span></td><td class="ru">Я прочита́л кни́гу<br><span style="color:var(--muted)">I read the book (finished it)</span></td></tr>
+    </table>
+    <h3>Tense: the rule that surprises everyone</h3>
+    <p>Imperfective verbs have <b>past, present, and future</b>. Perfective verbs have <b>no present tense</b> — an action seen as <i>completed</i> can't be happening right now. So:</p>
+    <p>• Present tense is <b>always imperfective</b>: <span class="ru">Я пишу́</span> — I'm writing.<br>
+    • A perfective conjugated like a present actually means the <b>future</b>: <span class="ru">Я напишу́</span> — I will write (and finish).<br>
+    • The imperfective future is a compound: <span class="ru">Я бу́ду писа́ть</span> — I'll be writing.</p>
+    <h3>Which one do I use?</h3>
+    <p>Reach for <b>imperfective</b> when the action is happening now, is repeated or habitual (<span class="ru">ка́ждый день, ча́сто</span>), when you're just naming an activity (<span class="ru">я люблю́ чита́ть</span>), or when the process matters more than the result.</p>
+    <p>Reach for <b>perfective</b> when you see the action as one complete whole — especially with a result (<span class="ru">я прочита́л, я купи́л</span>) — or for a chain of finished actions.</p>
+    <h3>Spotting the pair</h3>
+    <p>Perfectives are often the imperfective plus a prefix: <span class="ru">писа́ть → написа́ть</span>, <span class="ru">де́лать → сде́лать</span>, <span class="ru">чита́ть → прочита́ть</span>. Some pairs change the stem entirely: <span class="ru">говори́ть → сказа́ть</span>, <span class="ru">брать → взять</span>. Your vocab cards show each verb's aspect and its partner.</p>`,
+  practice:[
+    {q:"Which aspect describes an ongoing or repeated action?",opts:["Imperfective","Perfective","Neither","Both equally"],a:0,why:"Imperfective = process, repetition, things in progress."},
+    {q:"Which aspect describes a single completed action with a result?",opts:["Perfective","Imperfective","Neither","Both equally"],a:0,why:"Perfective = one finished action, viewed as a whole."},
+    {q:"Ка́ждый день я … газе́ту. (read — every day, a habit)",opts:["чита́ю","прочита́ю","прочита́л","чита́ть"],a:0,why:"Habitual/repeated → imperfective present: чита́ю."},
+    {q:"Вчера́ я наконе́ц … э́ту кни́гу. (finished reading it)",opts:["прочита́л","чита́л","чита́ю","чита́ть"],a:0,why:"Completed, with a result → perfective past: прочита́л."},
+    {q:"Perfective verbs have no … tense.",opts:["present","past","future","imperative"],a:0,why:"A completed action can't be in progress now; a perfective present-form means the future."},
+    {q:"За́втра я … но́вую маши́ну. (will buy — one purchase)",opts:["куплю́","бу́ду покупа́ть","покупа́ю","покупа́ть"],a:0,why:"Single completed future action → perfective: куплю́."},
+    {q:"What is the perfective partner of говори́ть?",opts:["сказа́ть","говорю́","говори́л","разгова́ривать"],a:0,why:"говори́ть (impf) pairs with сказа́ть (pf) — a stem-changing pair."},
+    {q:"Я ча́сто … дру́гу. (help — often)",opts:["помога́ю","помогу́","помо́г","помога́ть"],a:0,why:"ча́сто (often) = repeated → imperfective: помога́ю."}
+  ],
+  test:[
+    {q:"Present tense in Russian is always which aspect?",opts:["Imperfective","Perfective","Either one","Neither"],a:0},
+    {q:"Я сейча́с … . (I'm working right now)",opts:["рабо́таю","порабо́таю","рабо́тал","рабо́тать"],a:0},
+    {q:"Он … письмо́ и отпра́вил его́. (wrote it and sent it)",opts:["написа́л","писа́л","пи́шет","писа́ть"],a:0},
+    {q:"What is the perfective partner of де́лать?",opts:["сде́лать","де́лаю","де́лал","де́лать"],a:0},
+    {q:"Ка́ждое у́тро я … ко́фе. (drink — every morning)",opts:["пью","вы́пью","вы́пил","пить"],a:0},
+    {q:"За́втра я … всю рабо́ту. (will finish all the work)",opts:["сде́лаю","бу́ду де́лать","де́лаю","де́лать"],a:0},
+    {q:"Which aspect for a one-time action seen as a completed whole?",opts:["Perfective","Imperfective","Both","Neither"],a:0},
+    {q:"What is the perfective partner of покупа́ть?",opts:["купи́ть","покупа́л","покупа́ю","покупа́ть"],a:0}
+  ]
+},{
+  id:"motion",
+  title:"Verbs of Motion",
+  subtitle:"глаголы движения · идти / ходить, ехать / ездить",
+  level:"B1",
+  explanation:`
+    <p>Russian has no single verb for "to go." It splits motion along two lines at once, which is exactly what makes these verbs famous. Two questions decide the verb every time: <b>on foot or by vehicle?</b> and <b>one direction, or round-trip / habit?</b></p>
+    <h3>1. On foot vs. by vehicle</h3>
+    <table>
+      <tr><th>On foot</th><th>By vehicle</th></tr>
+      <tr><td class="ru">идти́ / ходи́ть</td><td class="ru">е́хать / е́здить</td></tr>
+      <tr><td class="ru">Я иду́ в парк<br><span style="color:var(--muted)">I'm walking to the park</span></td><td class="ru">Я е́ду в Москву́<br><span style="color:var(--muted)">I'm going to Moscow (by transport)</span></td></tr>
+    </table>
+    <p>Use the vehicle verbs for anything past walking distance — another city, another country. Saying <span class="ru">иду́</span> to Moscow would mean you're literally walking there.</p>
+    <h3>2. One direction vs. round-trip / habit</h3>
+    <p>Both verbs in each pair are imperfective, but they picture the motion differently:</p>
+    <table>
+      <tr><th>Unidirectional (one way, now)</th><th>Multidirectional (round trips, habit)</th></tr>
+      <tr><td class="ru">идти́ — Я иду́ в шко́лу<br><span style="color:var(--muted)">on my way to school</span></td><td class="ru">ходи́ть — Я хожу́ в шко́лу<br><span style="color:var(--muted)">I go to / attend school</span></td></tr>
+      <tr><td class="ru">е́хать — Я е́ду домо́й</td><td class="ru">е́здить — Я ча́сто е́зжу на мо́ре</td></tr>
+    </table>
+    <p>Rule of thumb: happening <b>right now toward one place</b> → unidirectional (<span class="ru">идти́ / е́хать</span>). <b>Repeated, habitual, or there-and-back</b> → multidirectional (<span class="ru">ходи́ть / е́здить</span>).</p>
+    <h3>3. Prefixes: direction + completion</h3>
+    <p>Add a prefix and you pin down the direction — and create a <b>perfective</b> (the prefix goes on the unidirectional stem):</p>
+    <p>• <b class="ru">по-</b> set off / start going: <span class="ru">пойти́, пое́хать</span> — Я пойду́ домо́й.<br>
+    • <b class="ru">при-</b> arrive: <span class="ru">прийти́, прие́хать</span> — Он пришёл.<br>
+    • <b class="ru">у-</b> leave / depart: <span class="ru">уйти́, уе́хать</span> — Она́ ушла́.<br>
+    • <b class="ru">в-</b> enter · <b class="ru">вы-</b> exit: <span class="ru">войти́, вы́йти</span>.</p>
+    <p>Prefixed pairs then behave like ordinary aspect pairs: <span class="ru">приходи́ть</span> (impf) / <span class="ru">прийти́</span> (pf).</p>`,
+  practice:[
+    {q:"Я … в магази́н пря́мо сейча́с. (walking there now, one way)",opts:["иду́","хожу́","е́ду","несу́"],a:0,why:"On foot, one direction, in progress → идти́: иду́."},
+    {q:"Я ка́ждый день … в шко́лу. (every day)",opts:["хожу́","иду́","е́зжу","е́ду"],a:0,why:"Repeated/habitual on foot → multidirectional ходи́ть: хожу́."},
+    {q:"Сейча́с мы … в Москву́. (by car, on our way)",opts:["е́дем","идём","хо́дим","е́здим"],a:0,why:"By vehicle, one direction now → е́хать: е́дем."},
+    {q:"Ле́том я ча́сто … на мо́ре. (travel there repeatedly)",opts:["е́зжу","е́ду","хожу́","иду́"],a:0,why:"Repeated trips by vehicle → многонапр. е́здить: е́зжу."},
+    {q:"The prefix при- (as in прийти́) means…",opts:["arrive","leave","set off","enter"],a:0,why:"при- = arrival."},
+    {q:"The prefix у- (as in уйти́) means…",opts:["leave / depart","arrive","walk around","enter"],a:0,why:"у- = leaving / departure."},
+    {q:"Он … домо́й в 6 часо́в. (arrived home)",opts:["пришёл","ушёл","пошёл","ходи́л"],a:0,why:"при- = arrive; perfective past of прийти́ is пришёл."},
+    {q:"Я … в Испа́нию ле́том. (going there — long distance)",opts:["е́ду","иду́","хожу́","несу́"],a:0,why:"Long distance → by vehicle, е́хать: е́ду (walking would be иду́)."}
+  ],
+  test:[
+    {q:"идти́ is used for going…",opts:["on foot, one direction","by vehicle","on round trips","never — it's not a real verb"],a:0},
+    {q:"Куда́ ты …? (where are you going now, on foot)",opts:["идёшь","хо́дишь","е́дешь","е́здишь"],a:0},
+    {q:"Я ка́ждую неде́лю … в бассе́йн. (every week)",opts:["хожу́","иду́","е́ду","несу́"],a:0},
+    {q:"The prefix по- (as in пойти́) means…",opts:["set off / start going","arrive","leave","enter"],a:0},
+    {q:"За́втра я … в дере́вню. (will go / set off)",opts:["пое́ду","е́зжу","е́ду","е́здил"],a:0},
+    {q:"Он … из до́ма в во́семь. (left the house)",opts:["ушёл","пришёл","пошёл","шёл"],a:0},
+    {q:"е́хать is used for going by…",opts:["vehicle / transport","foot","habit","swimming"],a:0},
+    {q:"Сейча́с мы … в Москву́. (on our way now, by train)",opts:["е́дем","е́здим","идём","хо́дим"],a:0}
+  ]
+}];
+const PASS=0.75;
+
+let curLesson=null, stage=null, pIdx=0, tIdx=0, tScore=0;
+
+function lessonRec(id){ if(!S.lessons[id]) S.lessons[id]={done:false,best:0}; return S.lessons[id]; }
+
+function renderLessons(){
+  $("lesson-runner").classList.add("hide");
+  const list=$("lessons-list"); list.classList.remove("hide"); list.innerHTML="";
+  const head=document.createElement("div"); head.className="tag";
+  head.textContent="Structured units. Each one: learn it, practice it, then take a short test."; list.appendChild(head);
+  LESSONS.forEach(L=>{
+    const r=lessonRec(L.id);
+    const el=document.createElement("div"); el.className="lesson-item";
+    el.innerHTML=`<div><div style="font-size:17px;font-weight:600">${L.title}</div>
+      <div class="st">${L.level} · ${L.subtitle}</div></div>
+      <div class="st ${r.done?"done":""}">${r.done?("✓ passed · best "+Math.round(r.best*100)+"%"):"Start →"}</div>`;
+    el.onclick=()=>openLesson(L.id);
+    list.appendChild(el);
+  });
+}
+
+function openLesson(id){
+  curLesson=LESSONS.find(l=>l.id===id);
+  stage="explain"; pIdx=0; tIdx=0; tScore=0;
+  $("lessons-list").classList.add("hide");
+  $("lesson-runner").classList.remove("hide");
+  renderStage();
+}
+function backToList(){ curLesson=null; renderLessons(); }
+
+function renderStage(){
+  const R=$("lesson-runner"); const L=curLesson;
+  if(stage==="explain"){
+    R.innerHTML=`<div class="stage-dots">Step 1 of 3 · Learn</div>
+      <h2 style="margin-top:0">${L.title}</h2>
+      <div class="lesson-body">${L.explanation}</div>
+      <div class="row"><button class="primary" id="l-next">Start practice →</button>
+      <button class="ghost" id="l-back">← Lessons</button></div>`;
+    $("l-next").onclick=()=>{ stage="practice"; pIdx=0; renderStage(); };
+    $("l-back").onclick=backToList;
+  }
+  else if(stage==="practice"){
+    renderQuestion(L.practice[pIdx], "Step 2 of 3 · Practice", pIdx, L.practice.length, true, ()=>{
+      if(pIdx<L.practice.length-1){ pIdx++; renderStage(); }
+      else { stage="test"; tIdx=0; tScore=0; renderStage(); }
+    });
+  }
+  else if(stage==="test"){
+    if(tIdx===0 && !R.dataset.testIntro){ /* no-op, straight into questions */ }
+    renderQuestion(L.test[tIdx], "Step 3 of 3 · Test", tIdx, L.test.length, false, (wasCorrect)=>{
+      if(wasCorrect) tScore++;
+      if(tIdx<L.test.length-1){ tIdx++; renderStage(); }
+      else finishTest();
+    });
+  }
+  else if(stage==="result"){
+    const pct=tScore/curLesson.test.length;
+    const passed=pct>=PASS;
+    R.innerHTML=`<div class="stage-dots">Result</div>
+      <h2 style="margin-top:0">${passed?"✅ Passed":"Keep at it"}</h2>
+      <p style="font-size:20px">You scored <b>${tScore} / ${curLesson.test.length}</b> (${Math.round(pct*100)}%).</p>
+      <p class="muted">${passed?"Nicely done — this unit is marked complete.":"You need "+Math.round(PASS*100)+"% to pass. Review the lesson and try the test again."}</p>
+      <div class="row">
+        <button class="primary" id="l-retry">Retake test</button>
+        <button id="l-review">Review lesson</button>
+        <button class="ghost" id="l-back">← Lessons</button>
+      </div>`;
+    $("l-retry").onclick=()=>{ stage="test"; tIdx=0; tScore=0; renderStage(); };
+    $("l-review").onclick=()=>{ stage="explain"; renderStage(); };
+    $("l-back").onclick=backToList;
+  }
+}
+
+function renderQuestion(item, label, idx, total, showWhy, onNext){
+  const R=$("lesson-runner");
+  R.innerHTML=`<div class="stage-dots">${label} · ${idx+1} of ${total}</div>
+    <div class="qtext">${item.q.replace(/…/g,"<b>…</b>")}</div>
+    <div id="l-opts"></div>
+    <div class="why" id="l-why"></div>
+    <div class="row"><button class="primary hide" id="l-adv">Next →</button>
+    <button class="ghost" id="l-back">← Lessons</button></div>`;
+  $("l-back").onclick=backToList;
+  const box=$("l-opts");
+  let answered=false, correct=false;
+  item.opts.forEach((opt,i)=>{
+    const b=document.createElement("button"); b.className="lopt"; b.textContent=opt;
+    b.onclick=()=>{
+      if(answered) return;
+      answered=true; correct=(i===item.a);
+      [...box.children].forEach((c,ci)=>{ c.disabled=true;
+        if(ci===item.a) c.classList.add("correct");
+        else if(ci===i) c.classList.add("wrong"); });
+      if(showWhy && item.why){ const w=$("l-why"); w.textContent=(correct?"✓ ":"✗ ")+item.why; w.style.display="block"; }
+      const adv=$("l-adv"); adv.classList.remove("hide"); adv.focus();
+      adv.onclick=()=>onNext(correct);
+    };
+    box.appendChild(b);
+  });
+}
+
+function finishTest(){
+  const rec=lessonRec(curLesson.id);
+  const pct=tScore/curLesson.test.length;
+  rec.best=Math.max(rec.best||0,pct);
+  if(pct>=PASS) rec.done=true;
+  save();
+  if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
+  refreshBadges();
+  stage="result"; renderStage();
+}
+
+/* ---- Guided curriculum ---- */
+const CURRICULUM=[
+  {id:"start",  type:"words",  target:20,  title:"Meet your first 20 words"},
+  {id:"prep",   type:"lesson", lesson:"prep-case", title:"Lesson: Prepositional Case"},
+  {id:"w60",    type:"words",  target:60,  title:"Meet 60 words"},
+  {id:"accus",  type:"lesson", lesson:"accusative", title:"Lesson: Accusative Case"},
+  {id:"w120",   type:"words",  target:120, title:"Meet 120 words"},
+  {id:"aspect", type:"lesson", lesson:"aspect", title:"Lesson: Verb Aspect"},
+  {id:"motion", type:"lesson", lesson:"motion", title:"Lesson: Verbs of Motion"},
+  {id:"w160",   type:"words",  target:160, title:"Meet all 160 starter words"}
+];
+function introducedCount(){ return Object.values(S.cards).filter(c=>c.introduced).length; }
+function stepDone(step){
+  if(step.type==="words") return introducedCount()>=step.target;
+  if(step.type==="lesson") return !!(S.lessons[step.lesson]&&S.lessons[step.lesson].done);
+  return false;
+}
+function currentStepIndex(){ for(let i=0;i<CURRICULUM.length;i++) if(!stepDone(CURRICULUM[i])) return i; return -1; }
+
+function owedToday(){
+  const t=today(); const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
+  const dueRev=DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;}).length;
+  return { rev:Math.max(0,Math.min(REVIEW_PER_DAY,dueRev)-log.reviewDone),
+           new:Math.max(0,NEW_PER_DAY-log.newDone) };
+}
+function goDrill(extra){ showView("drill"); startSession(extra); }
+
+function nextAction(){
+  const o=owedToday();
+  const idx=currentStepIndex();
+  const step=idx>=0?CURRICULUM[idx]:null;
+
+  if(o.rev>0) return {title:`Review ${o.rev} word${o.rev>1?"s":""} due today`,
+    sub:"Lock in what you've already met before adding more.", cta:"Start review →", run:()=>goDrill(false)};
+
+  if(step && step.type==="words"){
+    if(o.new>0) return {title:`Learn today's ${o.new} new words`,
+      sub:`${step.title} — ${introducedCount()}/${step.target} met so far.`, cta:"Start drill →", run:()=>goDrill(false)};
+    return {title:step.title, sub:`Today's new words are done — get ahead. ${introducedCount()}/${step.target} met.`,
+      cta:"Practice more →", run:()=>goDrill(true)};
+  }
+  if(step && step.type==="lesson"){
+    const L=LESSONS.find(l=>l.id===step.lesson);
+    if(L) return {title:step.title, sub:"You've hit the vocab milestone — time for some grammar.",
+      cta:"Open lesson →", run:()=>{ showView("lessons"); openLesson(L.id); }};
+    // lesson not built yet
+    if(o.new>0) return {title:`Learn today's ${o.new} new words`,
+      sub:`${step.title} is coming soon — keep building vocab in the meantime.`, cta:"Start drill →", run:()=>goDrill(false)};
+    return {title:"Keep building vocabulary", sub:`${step.title} is coming soon — get ahead on words while you wait.`,
+      cta:"Practice more →", run:()=>goDrill(true)};
+  }
+  if(o.new>0) return {title:`Finish today's ${o.new} new words`, sub:"", cta:"Start drill →", run:()=>goDrill(false)};
+  return {title:"You're all caught up 🎉", sub:"You've reached the end of the current path. Review anytime, or new units are coming.",
+    cta:"Practice anyway", run:()=>goDrill(true)};
+}
+
+function renderPath(){
+  const idx=currentStepIndex();
+  const el=$("path-list"); el.innerHTML="";
+  CURRICULUM.forEach((step,i)=>{
+    const done=stepDone(step), current=(i===idx);
+    const mark = done?"✓":(current?"→":(step.soon?"🔒":"○"));
+    let right="";
+    if(step.type==="words") right=Math.min(introducedCount(),step.target)+" / "+step.target+" met";
+    else { const r=S.lessons[step.lesson]; right= done?("✓ "+Math.round((r?r.best:0)*100)+"%"):(step.soon?"soon":""); }
+    const item=document.createElement("div");
+    item.className="path-item"+(current?" current":"")+(done?" done":"");
+    item.innerHTML=`<span class="pm">${mark}</span><span class="pt">${step.title}</span><span class="pr">${right}</span>`;
+    const L=step.type==="lesson"&&LESSONS.find(l=>l.id===step.lesson);
+    if(L){ item.classList.add("clickable"); item.onclick=()=>{ showView("lessons"); openLesson(L.id); }; }
+    el.appendChild(item);
+  });
+  const doneCt=CURRICULUM.filter(stepDone).length;
+  $("path-progress").textContent=doneCt+" / "+CURRICULUM.length+" milestones";
+}
+
+function renderHome(){
+  const na=nextAction();
+  $("nextup-title").textContent=na.title;
+  $("nextup-sub").textContent=na.sub||"";
+  const cta=$("nextup-cta");
+  if(na.cta){ cta.style.display=""; cta.textContent=na.cta; cta.onclick=na.run; }
+  else cta.style.display="none";
+
+  const passed=LESSONS.filter(L=>S.lessons[L.id]&&S.lessons[L.id].done).length;
+  const stats=[
+    {n:levelBand(),l:"Level"},
+    {n:knownCount(),l:"Words known"},
+    {n:(S.streak||0),l:"Day streak"},
+    {n:passed+" / "+LESSONS.length,l:"Lessons passed"}
+  ];
+  $("home-stats").innerHTML=stats.map(s=>`<div class="stat"><div class="n">${s.n}</div><div class="l">${s.l}</div></div>`).join("");
+  renderPath();
+}
+
+function showView(v){
+  ["home","drill","lessons"].forEach(x=>{
+    $("view-"+x).classList.toggle("hide", x!==v);
+    $("tab-"+x).classList.toggle("active", x===v);
+  });
+  if(v==="home") renderHome();
+  if(v==="lessons") renderLessons();
+}
+$("tab-home").onclick=()=>showView("home");
+$("tab-drill").onclick=()=>showView("drill");
+$("tab-lessons").onclick=()=>showView("lessons");
+
+/* ---------------- GitHub sync (token stored separately from progress) ---------------- */
+const GHKEY="rt_gh_v1";
+function ghDefaults(){return {owner:"badpvtdan-boop",repo:"russian2",branch:"main",path:"progress.json",token:"",autoSave:true};}
+let GH; try{ GH=Object.assign(ghDefaults(),JSON.parse(localStorage.getItem(GHKEY)||"{}")); }catch(e){ GH=ghDefaults(); }
+function ghSaveCfg(){ localStorage.setItem(GHKEY,JSON.stringify(GH)); }
+function ghConfigured(){ return !!(GH.owner&&GH.repo&&GH.path&&GH.token); }
+function b64enc(s){ return btoa(unescape(encodeURIComponent(s))); }
+function b64dec(b){ return decodeURIComponent(escape(atob(b))); }
+function ghHeaders(){ return {"Authorization":"Bearer "+GH.token,"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"}; }
+function ghUrl(){ return "https://api.github.com/repos/"+GH.owner+"/"+GH.repo+"/contents/"+GH.path.split("/").map(encodeURIComponent).join("/"); }
+function ghStatus(msg,ok){ const el=$("gh-status"); if(!el)return; el.textContent=msg;
+  el.style.color = ok===true?"var(--good)":ok===false?"var(--bad)":"var(--muted)"; }
+function ghSummary(){ if(ghConfigured()) ghStatus("Configured: "+GH.owner+"/"+GH.repo+" @ "+GH.branch); else ghStatus("Not configured."); }
+
+async function ghFetchExisting(){
+  const r=await fetch(ghUrl()+"?ref="+encodeURIComponent(GH.branch),{headers:ghHeaders()});
+  if(r.status===404) return {sha:null,json:null};
+  if(!r.ok) throw new Error(r.status+" "+(await r.text()).slice(0,120));
+  const d=await r.json();
+  let json=null; try{ json=JSON.parse(b64dec((d.content||"").replace(/\n/g,""))); }catch(e){}
+  return {sha:d.sha,json};
+}
+async function ghSave(auto){
+  if(!ghConfigured()){ if(!auto) ghStatus("Fill in owner, repo, path and token first.",false); return; }
+  try{
+    ghStatus("Saving…");
+    const {sha}=await ghFetchExisting();
+    const body={ message:"progress "+new Date().toISOString(), content:b64enc(JSON.stringify(S,null,2)), branch:GH.branch };
+    if(sha) body.sha=sha;
+    const r=await fetch(ghUrl(),{method:"PUT",headers:ghHeaders(),body:JSON.stringify(body)});
+    if(!r.ok) throw new Error(r.status+" "+(await r.text()).slice(0,120));
+    ghStatus("Saved "+new Date().toLocaleTimeString(),true);
+  }catch(e){ ghStatus("Save failed: "+e.message,false); }
+}
+async function ghLoad(){
+  if(!ghConfigured()){ ghStatus("Fill in owner, repo, path and token first.",false); return; }
+  if(!confirm("Load progress from GitHub and overwrite what's in this browser?")) return;
+  try{
+    ghStatus("Loading…");
+    const {json}=await ghFetchExisting();
+    if(!json){ ghStatus("No progress file found in the repo yet — Save first.",false); return; }
+    S=Object.assign(blank(),json); save();
+    ghStatus("Loaded — reloading…",true);
+    setTimeout(()=>location.reload(),500);
+  }catch(e){ ghStatus("Load failed: "+e.message,false); }
+}
+
+["owner","repo","branch","path","token"].forEach(k=>{
+  const el=$("gh-"+k); el.value=GH[k]||"";
+  el.onchange=()=>{ GH[k]=el.value.trim(); ghSaveCfg(); ghSummary(); };
+});
+$("gh-auto").checked=GH.autoSave!==false;
+$("gh-auto").onchange=e=>{ GH.autoSave=e.target.checked; ghSaveCfg(); };
+$("gh-save").onclick=()=>ghSave(false);
+$("gh-load").onclick=ghLoad;
+ghSummary();
+
+/* ---------------- Init ---------------- */
+$("direction").value=S.direction;
+$("answer-mode").value=S.answerMode;
+if(S.duoLevel!=null)$("duo-input").value=S.duoLevel;
+if("speechSynthesis" in window) refreshVoices();
+refreshBadges(); updateBanner();
+startSession();
+showView("home");
+</script>
+</body>
+</html>
