@@ -103,6 +103,15 @@
   .lesson-item:hover{border-color:var(--accent);background:var(--accent-soft)}
   .lesson-item .st{font-size:13px;color:var(--muted);white-space:nowrap}
   .lesson-item .st.done{color:var(--good)}
+  .lvl{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;
+    padding:1px 7px;border-radius:999px;border:1px solid var(--line);vertical-align:middle;margin-right:2px}
+  .lvl.A1{background:#e7f0e2;color:#4a7a3f;border-color:#cfe3c5}
+  .lvl.A2{background:#f6ecd4;color:#8f6f28;border-color:#e8d8ad}
+  .lvl.B1{background:var(--accent-soft);color:var(--accent);border-color:#e6c3b8}
+  .lvl.B2{background:#ece2ef;color:#7a4e86;border-color:#dcc8e2}
+  .legend{margin:10px 0 16px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+  .legend-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-bottom:8px}
+  .legend-row .ll{font-size:12px;color:var(--muted);margin-right:6px}
   .lesson-body h3{margin:20px 0 6px;font-size:20px;color:var(--accent)}
   .lesson-body p{margin:8px 0}
   .lesson-body table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px;background:var(--panel)}
@@ -136,6 +145,7 @@
     <button id="tab-home" class="tab active">🏠 Home</button>
     <button id="tab-drill" class="tab">🎯 Drill</button>
     <button id="tab-lessons" class="tab">📘 Lessons</button>
+    <button id="tab-exam" class="tab">🎓 Level</button>
   </nav>
 
   <div id="view-home" class="hide">
@@ -144,6 +154,12 @@
       <h2 id="nextup-title" style="margin:0 0 6px">…</h2>
       <p id="nextup-sub" class="muted" style="margin-top:0"></p>
       <div class="row"><button class="primary" id="nextup-cta">…</button></div>
+    </div>
+    <div class="card hide" id="exam-nudge" style="border-color:var(--accent);background:linear-gradient(180deg,var(--accent-soft),var(--panel) 60%)">
+      <div class="stage-dots">🎓 Level checkpoint</div>
+      <h2 id="exam-nudge-title" style="margin:0 0 6px"></h2>
+      <p id="exam-nudge-sub" class="muted" style="margin-top:0"></p>
+      <div class="row"><button class="primary" id="exam-nudge-cta">Take the exam →</button></div>
     </div>
     <div class="stats-grid" id="home-stats"></div>
     <div class="card">
@@ -265,6 +281,11 @@
   <div id="view-lessons" class="hide">
     <div id="lessons-list"></div>
     <div id="lesson-runner" class="card hide"></div>
+  </div>
+
+  <div id="view-exam" class="hide">
+    <div id="exam-list"></div>
+    <div id="exam-runner" class="card hide"></div>
   </div>
 </main>
 
@@ -451,10 +472,10 @@ const CEFR = [                              // rough known-word thresholds
 /* ---------------- State ---------------- */
 const KEY="rt_state_v1";
 function today(){return new Date().toISOString().slice(0,10);}
-function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{}};}
+function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{}};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 let S = load();
-function load(){try{return Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)))}catch(e){return blank()}}
+function load(){try{const s=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)));if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};return s;}catch(e){return blank()}}
 function save(){localStorage.setItem(KEY,JSON.stringify(S));}
 
 /* ---------------- SRS helpers ---------------- */
@@ -704,7 +725,7 @@ function levelBand(){
   return band;
 }
 function refreshBadges(){
-  $("b-level").textContent=levelBand();
+  $("b-level").textContent=officialLevel()||"–";
   $("b-known").textContent=knownCount();
   $("b-streak").textContent=S.streak||0;
   $("b-duo").textContent=S.duoLevel!=null?S.duoLevel:"–";
@@ -796,7 +817,7 @@ const LESSONS=[{
   id:"prep-case",
   title:"Prepositional Case",
   subtitle:"предложный падеж · location & topic",
-  level:"A2",
+  level:"A1",
   explanation:`
     <p>The <b>prepositional case</b> never appears on its own — it only shows up <b>after certain prepositions</b>. Its two everyday jobs are <b>location</b> (where something is) and the <b>topic</b> of speech or thought (what you're talking/thinking about).</p>
     <h3>The three prepositions to know first</h3>
@@ -843,7 +864,7 @@ const LESSONS=[{
   id:"accusative",
   title:"Accusative Case",
   subtitle:"винительный падеж · the direct object",
-  level:"A2",
+  level:"A1",
   explanation:`
     <p>The <b>accusative case</b> marks the <b>direct object</b> — the thing directly receiving the action of a verb. In <i>"I read the book"</i>, <b>book</b> is the direct object, so it goes in the accusative: <span class="ru">Я чита́ю кни́гу</span>.</p>
     <h3>The endings</h3>
@@ -888,7 +909,7 @@ const LESSONS=[{
   id:"aspect",
   title:"Verb Aspect",
   subtitle:"вид глагола · imperfective vs. perfective",
-  level:"B1",
+  level:"A2",
   explanation:`
     <p>Almost every Russian verb comes as a <b>pair</b>: an <b>imperfective</b> and a <b>perfective</b> partner. They share a basic meaning but describe the action in two different ways. This is the single biggest thing that separates beginner from intermediate Russian — worth taking slowly.</p>
     <h3>The core difference</h3>
@@ -978,6 +999,60 @@ const LESSONS=[{
     {q:"е́хать is used for going by…",opts:["vehicle / transport","foot","habit","swimming"],a:0},
     {q:"Сейча́с мы … в Москву́. (on our way now, by train)",opts:["е́дем","е́здим","идём","хо́дим"],a:0}
   ]
+},{
+  id:"genitive",
+  title:"Genitive Case",
+  subtitle:"родительный падеж · of / possession / absence",
+  level:"A2",
+  explanation:`
+    <p>The <b>genitive case</b> is the workhorse of Russian — you'll meet it more than any other case. Its core idea is <b>"of"</b>: possession and belonging (<i>the center <b>of</b> the city</i>, <i>my brother<b>'s</b> book</i>). But it also does several other big jobs: saying something is <b>absent</b>, following a set of common <b>prepositions</b>, and appearing after <b>numbers</b> and words of quantity.</p>
+    <h3>How the noun ending changes (singular)</h3>
+    <table>
+      <tr><th>Noun type</th><th>Ending</th><th>Example</th></tr>
+      <tr><td>Masculine hard</td><td>add <b>-а</b></td><td>стол → стол<span class="ru">а́</span>; брат → бра́т<span class="ru">а</span></td></tr>
+      <tr><td>Masculine soft (<b>-й / -ь</b>)</td><td>→ <b>-я</b></td><td>музе́й → музе́<span class="ru">я</span>; слова́рь → словар<span class="ru">я́</span></td></tr>
+      <tr><td>Neuter <b>-о</b> / <b>-е</b></td><td>→ <b>-а / -я</b></td><td>окно́ → окн<span class="ru">а́</span>; мо́ре → мо́р<span class="ru">я</span></td></tr>
+      <tr><td>Feminine <b>-а / -я</b></td><td>→ <b>-ы / -и</b></td><td>кни́га → кни́г<span class="ru">и</span>; вода́ → вод<span class="ru">ы́</span></td></tr>
+      <tr><td>Feminine <b>-ь</b></td><td>→ <b>-и</b></td><td>дверь → две́р<span class="ru">и</span></td></tr>
+    </table>
+    <p><b>Spelling rule for feminines:</b> use <b>-ы</b> normally (Москва́ → Москв<span class="ru">ы́</span>), but write <b>-и</b> after <span class="ru">к г х ж ш щ ч</span> and after soft <span class="ru">-я</span>: кни́га → кни́г<span class="ru">и</span>, неде́ля → неде́л<span class="ru">и</span>.</p>
+    <h3>Job 1 — "of" / possession</h3>
+    <p>English uses <i>'s</i> or <i>of</i>; Russian just puts the owner in the genitive, <b>after</b> the thing owned: <span class="ru">кни́га бра́та</span> — the brother's book (lit. "book of-brother"), <span class="ru">центр го́рода</span> — the center of the city.</p>
+    <h3>Job 2 — absence: нет + genitive</h3>
+    <p>To say something <b>isn't there</b> or you <b>don't have</b> it, use <span class="ru">нет</span> + genitive: <span class="ru">У меня́ нет маши́ны</span> — I don't have a car; <span class="ru">Здесь нет воды́</span> — there's no water here. (Past/future use <span class="ru">не́ было</span> / <span class="ru">не бу́дет</span> + gen.)</p>
+    <h3>Job 3 — after these prepositions</h3>
+    <table>
+      <tr><th>Prep.</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td class="ru">из</td><td>out of / from (a place)</td><td>из Москв<span class="ru">ы́</span> — from Moscow</td></tr>
+      <tr><td class="ru">от</td><td>from (a person / point)</td><td>письмо́ от дру́г<span class="ru">а</span> — a letter from a friend</td></tr>
+      <tr><td class="ru">до</td><td>until / as far as</td><td>до конц<span class="ru">а́</span> — until the end</td></tr>
+      <tr><td class="ru">у</td><td>at / by / "have"</td><td>у окн<span class="ru">а́</span> — by the window</td></tr>
+      <tr><td class="ru">без</td><td>without</td><td>ко́фе без са́хар<span class="ru">а</span> — coffee without sugar</td></tr>
+      <tr><td class="ru">для</td><td>for (the sake of)</td><td>пода́рок для ма́м<span class="ru">ы</span> — a gift for mom</td></tr>
+    </table>
+    <p>A few more that work the same way: <span class="ru">о́коло</span> (near), <span class="ru">по́сле</span> (after), <span class="ru">про́тив</span> (against).</p>
+    <h3>Job 4 — numbers & quantity</h3>
+    <p>After <b>2, 3, 4</b> (and anything ending in them), the noun takes the <b>genitive singular</b>: <span class="ru">два бра́та, три кни́ги, четы́ре часа́</span>. After <b>5 and up</b> it's genitive <i>plural</i> — a later topic. Quantity words also take the genitive: <span class="ru">мно́го вре́мени</span> (a lot of time), <span class="ru">ма́ло воды́</span> (little water), <span class="ru">ско́лько са́хара?</span> (how much sugar?).</p>`,
+  practice:[
+    {q:"Это кни́га … (брат).",opts:["бра́та","брат","бра́ту","бра́том"],a:0,why:"Possession → masculine hard adds -а: кни́га бра́та."},
+    {q:"У меня́ нет … (маши́на).",opts:["маши́ны","маши́на","маши́ну","маши́не"],a:0,why:"нет + genitive; feminine -а → -ы: нет маши́ны."},
+    {q:"Он прие́хал из … (Москва́).",opts:["Москвы́","Москва́","Москву́","Москве́"],a:0,why:"из + genitive; feminine -а → -ы: из Москвы́."},
+    {q:"Я хочу́ ко́фе без … (са́хар).",opts:["са́хара","са́хар","са́хару","са́харом"],a:0,why:"без + genitive; masculine hard → -а: без са́хара."},
+    {q:"Это пода́рок для … (сестра́).",opts:["сестры́","сестра́","сестру́","сестре́"],a:0,why:"для + genitive; feminine -а → -ы: для сестры́."},
+    {q:"У меня́ три … (кни́га).",opts:["кни́ги","кни́га","кни́гу","книг"],a:0,why:"After 2/3/4 → genitive singular; -и after г: три кни́ги."},
+    {q:"Ключи́ у … (дверь).",opts:["две́ри","дверь","две́рью","двери́"],a:0,why:"у + genitive; feminine -ь → -и: у две́ри."},
+    {q:"Здесь нет … (вода́).",opts:["воды́","вода́","во́ду","воде́"],a:0,why:"нет + genitive; feminine -а → -ы: нет воды́."}
+  ],
+  test:[
+    {q:"Это дом … (друг).",opts:["дру́га","друг","дру́гу","дру́гом"],a:0},
+    {q:"У меня́ нет … (вре́мя → time).",opts:["вре́мени","вре́мя","вре́менем","времена́"],a:0},
+    {q:"Она́ из … (Росси́я).",opts:["Росси́и","Росси́я","Росси́ю","Росси́ей"],a:0},
+    {q:"Ча́шка ко́фе без … (молоко́).",opts:["молока́","молоко́","молоку́","молоко́м"],a:0},
+    {q:"Мы жда́ли до … (коне́ц).",opts:["конца́","коне́ц","концу́","концо́м"],a:0},
+    {q:"Это маши́на … (оте́ц).",opts:["отца́","оте́ц","отцу́","отцо́м"],a:0},
+    {q:"У нас четы́ре … (час).",opts:["часа́","час","часо́в","часы́"],a:0},
+    {q:"Пода́рок для … (ма́ма).",opts:["ма́мы","ма́ма","ма́му","ма́ме"],a:0}
+  ]
 }];
 const PASS=0.75;
 
@@ -990,11 +1065,19 @@ function renderLessons(){
   const list=$("lessons-list"); list.classList.remove("hide"); list.innerHTML="";
   const head=document.createElement("div"); head.className="tag";
   head.textContent="Structured units. Each one: learn it, practice it, then take a short test."; list.appendChild(head);
+  const legend=document.createElement("div"); legend.className="legend";
+  legend.innerHTML=`<div class="legend-row">
+      <span class="lvl A1">A1</span><span class="ll">Beginner</span>
+      <span class="lvl A2">A2</span><span class="ll">Elementary</span>
+      <span class="lvl B1">B1</span><span class="ll">Intermediate</span>
+      <span class="lvl B2">B2</span><span class="ll">Upper-int.</span></div>
+    <div class="tag" style="margin:0">CEFR bands tag each lesson's difficulty. The <b>Level</b> badge at the top is separate — it estimates your overall level from how many words you know.</div>`;
+  list.appendChild(legend);
   LESSONS.forEach(L=>{
     const r=lessonRec(L.id);
     const el=document.createElement("div"); el.className="lesson-item";
     el.innerHTML=`<div><div style="font-size:17px;font-weight:600">${L.title}</div>
-      <div class="st">${L.level} · ${L.subtitle}</div></div>
+      <div class="st"><span class="lvl ${L.level}">${L.level}</span> ${L.subtitle}</div></div>
       <div class="st ${r.done?"done":""}">${r.done?("✓ passed · best "+Math.round(r.best*100)+"%"):"Start →"}</div>`;
     el.onclick=()=>openLesson(L.id);
     list.appendChild(el);
@@ -1063,14 +1146,16 @@ function renderQuestion(item, label, idx, total, showWhy, onNext){
     <button class="ghost" id="l-back">← Lessons</button></div>`;
   $("l-back").onclick=backToList;
   const box=$("l-opts");
+  const order=shuffle(item.opts.map((o,i)=>({o,i})));
+  const correctIdx=order.findIndex(x=>x.i===item.a);
   let answered=false, correct=false;
-  item.opts.forEach((opt,i)=>{
-    const b=document.createElement("button"); b.className="lopt"; b.textContent=opt;
+  order.forEach((entry,i)=>{
+    const b=document.createElement("button"); b.className="lopt"; b.textContent=entry.o;
     b.onclick=()=>{
       if(answered) return;
-      answered=true; correct=(i===item.a);
+      answered=true; correct=(i===correctIdx);
       [...box.children].forEach((c,ci)=>{ c.disabled=true;
-        if(ci===item.a) c.classList.add("correct");
+        if(ci===correctIdx) c.classList.add("correct");
         else if(ci===i) c.classList.add("wrong"); });
       if(showWhy && item.why){ const w=$("l-why"); w.textContent=(correct?"✓ ":"✗ ")+item.why; w.style.display="block"; }
       const adv=$("l-adv"); adv.classList.remove("hide"); adv.focus();
@@ -1091,6 +1176,192 @@ function finishTest(){
   stage="result"; renderStage();
 }
 
+/* ---------------- Level exams (per-CEFR mastery) ---------------- */
+const EXAM_PASS=0.85;
+const EXAMS=[
+ {level:"A1", title:"Beginner exam", questions:[
+   {q:"«спаси́бо» means…",opts:["thank you","please","sorry","hello"],a:0},
+   {q:"«вода́» means…",opts:["water","bread","milk","tea"],a:0},
+   {q:"«хорошо́» means…",opts:["well / good","badly","big","fast"],a:0},
+   {q:"Which word means «hello»?",opts:["здра́вствуйте","до свида́ния","спаси́бо","извини́те"],a:0},
+   {q:"«кни́га» — which gender?",opts:["feminine","masculine","neuter","plural"],a:0},
+   {q:"«окно́» — which gender?",opts:["neuter","masculine","feminine","plural"],a:0},
+   {q:"«стол» — which gender?",opts:["masculine","feminine","neuter","plural"],a:0},
+   {q:"Я … по-ру́сски. (I speak)",opts:["говорю́","говори́т","говоря́т","говори́ть"],a:0},
+   {q:"Ты … кни́гу. (you read — 2nd sg)",opts:["чита́ешь","чита́ю","чита́ет","чита́ют"],a:0},
+   {q:"Я живу́ в … (го́род).",opts:["го́роде","го́род","го́роду","го́родом"],a:0},
+   {q:"Кни́га на … (стол).",opts:["столе́","стол","столу́","столо́м"],a:0},
+   {q:"Я чита́ю … (кни́га).",opts:["кни́гу","кни́га","кни́ге","кни́гой"],a:0},
+   {q:"Я ви́жу … (дом).",opts:["дом","до́ма","до́му","до́мом"],a:0},
+   {q:"У меня́ нет … (вода́).",opts:["воды́","вода́","во́ду","воде́"],a:0},
+   {q:"«из Москвы́» means…",opts:["from Moscow","to Moscow","in Moscow","about Moscow"],a:0},
+   {q:"«три» means…",opts:["three","two","four","five"],a:0},
+   {q:"«я» means…",opts:["I","you","he","we"],a:0},
+   {q:"«Где?» means…",opts:["Where?","What?","Who?","When?"],a:0},
+   {q:"«Как вас зову́т?» asks about your…",opts:["name","age","health","home"],a:0},
+   {q:"«оди́н, два, …» — what comes next?",opts:["три","четы́ре","пять","де́сять"],a:0}
+ ]},
+ {level:"A2", title:"Elementary exam", questions:[
+   {q:"Это кни́га … (брат).",opts:["бра́та","брат","бра́ту","бра́том"],a:0},
+   {q:"Ко́фе без … (молоко́).",opts:["молока́","молоко́","молоку́","молоко́м"],a:0},
+   {q:"Пода́рок для … (ма́ма).",opts:["ма́мы","ма́ма","ма́му","ма́ме"],a:0},
+   {q:"У меня́ нет … (вре́мя → time).",opts:["вре́мени","вре́мя","вре́менем","времена́"],a:0},
+   {q:"четы́ре … (час) — 'four hours'.",opts:["часа́","час","часо́в","часы́"],a:0},
+   {q:"Present tense in Russian is always which aspect?",opts:["Imperfective","Perfective","Either one","Neither"],a:0},
+   {q:"Вчера́ я … э́ту кни́гу. (finished reading it)",opts:["прочита́л","чита́л","чита́ю","чита́ть"],a:0},
+   {q:"Ка́ждый день я … . (I work — a habit)",opts:["рабо́таю","порабо́таю","рабо́тал","рабо́тать"],a:0},
+   {q:"Perfective partner of де́лать?",opts:["сде́лать","де́лаю","де́лал","де́лать"],a:0},
+   {q:"Она́ … кни́гу вчера́. (she read — feminine past)",opts:["чита́ла","чита́л","чита́ю","чита́ет"],a:0},
+   {q:"One стол, many …?",opts:["столы́","стола́","столо́в","стол"],a:0},
+   {q:"One кни́га, many …?",opts:["кни́ги","кни́га","книг","кни́гу"],a:0},
+   {q:"Я даю́ кни́гу … (друг). (to a friend — dative)",opts:["дру́гу","дру́га","друг","дру́гом"],a:0},
+   {q:"«Мне нра́вится» means…",opts:["I like it","I want it","I have it","I know it"],a:0},
+   {q:"«вчера́» means…",opts:["yesterday","today","tomorrow","now"],a:0},
+   {q:"«всегда́» means…",opts:["always","never","sometimes","often"],a:0},
+   {q:"«потому́ что» means…",opts:["because","but","or","if"],a:0},
+   {q:"Я был в … (Росси́я).",opts:["Росси́и","Росси́я","Росси́ю","Росси́ей"],a:0},
+   {q:"«бо́льше» means…",opts:["more / bigger","less","good","enough"],a:0},
+   {q:"Perfective partner of покупа́ть?",opts:["купи́ть","покупа́л","покупа́ю","покупа́ть"],a:0}
+ ]},
+ {level:"B1", title:"Intermediate exam", questions:[
+   {q:"Я … в магази́н пря́мо сейча́с. (walking, one way)",opts:["иду́","хожу́","е́ду","несу́"],a:0},
+   {q:"Я ка́ждый день … в шко́лу.",opts:["хожу́","иду́","е́зжу","е́ду"],a:0},
+   {q:"Сейча́с мы … в Москву́. (by car, on our way)",opts:["е́дем","идём","хо́дим","е́здим"],a:0},
+   {q:"Ле́том я ча́сто … на мо́ре. (travel there repeatedly)",opts:["е́зжу","е́ду","хожу́","иду́"],a:0},
+   {q:"The prefix при- (прийти́) means…",opts:["arrive","leave","set off","enter"],a:0},
+   {q:"Он … домо́й в шесть. (arrived home)",opts:["пришёл","ушёл","пошёл","ходи́л"],a:0},
+   {q:"Она́ … из до́ма. (left / departed)",opts:["ушла́","пришла́","пошла́","шла"],a:0},
+   {q:"За́втра я … всю рабо́ту. (will finish all of it)",opts:["сде́лаю","бу́ду де́лать","де́лаю","де́лать"],a:0},
+   {q:"A single completed action with a result is…",opts:["Perfective","Imperfective","Both","Neither"],a:0},
+   {q:"Я пишу́ … (ру́чка). (with a pen — instrumental)",opts:["ру́чкой","ру́чку","ру́чке","ру́чка"],a:0},
+   {q:"Ко́фе с … (молоко́). (with milk)",opts:["молоко́м","молока́","молоко́","молоку́"],a:0},
+   {q:"Он рабо́тает … (учи́тель). (as a teacher)",opts:["учи́телем","учи́теля","учи́тель","учи́телю"],a:0},
+   {q:"«о́пыт» means…",opts:["experience","example","answer","hope"],a:0},
+   {q:"«возмо́жность» means…",opts:["opportunity","necessity","difficulty","memory"],a:0},
+   {q:"«несмотря́ на» means…",opts:["despite","because of","thanks to","instead of"],a:0},
+   {q:"«Я учу́сь» means…",opts:["I study / I'm learning","I teach","I read","I work"],a:0},
+   {q:"«Е́сли бы я знал…» expresses…",opts:["an unreal / hypothetical condition","a command","a simple question","a past habit"],a:0},
+   {q:"«Он давно́ здесь рабо́тает» means…",opts:["He has worked here a long time","He worked here once","He will work here soon","He no longer works here"],a:0}
+ ]}
+];
+const BAND_LESSONS={A1:["prep-case","accusative"],A2:["genitive","aspect"],B1:["motion"]};
+const BAND_WORDS={A1:40,A2:100,B1:150};
+function examRec(level){ if(!S.exams) S.exams={}; if(!S.exams[level]) S.exams[level]={passed:false,best:0}; return S.exams[level]; }
+function lessonDoneId(id){ return !!(S.lessons[id]&&S.lessons[id].done); }
+function bandLessonsDone(level){ return (BAND_LESSONS[level]||[]).every(lessonDoneId); }
+function prevLevel(level){ const o=EXAMS.map(e=>e.level); const i=o.indexOf(level); return i>0?o[i-1]:null; }
+function examPassed(level){ return !!(S.exams&&S.exams[level]&&S.exams[level].passed); }
+function examUnlocked(level){ const p=prevLevel(level); return !p||examPassed(p); }
+function officialLevel(){ let lv=null; for(const e of EXAMS) if(examPassed(e.level)) lv=e.level; return lv; }
+function readyForExam(level){ return examUnlocked(level)&&!examPassed(level)&&bandLessonsDone(level)&&introducedCount()>=(BAND_WORDS[level]||0); }
+function readinessText(level){
+  if(examPassed(level)) return "Mastered";
+  if(!examUnlocked(level)) return "Locked until "+prevLevel(level)+" is passed";
+  const need=[];
+  const missing=(BAND_LESSONS[level]||[]).filter(id=>!lessonDoneId(id));
+  if(missing.length) need.push(missing.length+" lesson"+(missing.length>1?"s":""));
+  const w=(BAND_WORDS[level]||0)-introducedCount();
+  if(w>0) need.push(w+" more words");
+  return need.length?("To unlock: "+need.join(" + ")):"Ready to test";
+}
+
+let curExam=null, exIdx=0, exScore=0, exQs=[];
+function renderExams(){
+  $("exam-runner").classList.add("hide");
+  const list=$("exam-list"); list.classList.remove("hide"); list.innerHTML="";
+  const lvl=officialLevel();
+  const head=document.createElement("div");
+  head.innerHTML=`<h2 style="margin:4px 0 4px">🎓 Level exams</h2>
+    <div class="tag" style="margin:0 0 12px">Your official level is whatever the highest exam you've passed. Current level: <b>${lvl||"Untested"}</b>. Exams unlock in order; finish a band's lessons and vocab, then prove mastery (${Math.round(EXAM_PASS*100)}% to pass).</div>`;
+  list.appendChild(head);
+  EXAMS.forEach(E=>{
+    const rec=examRec(E.level);
+    const unlocked=examUnlocked(E.level);
+    const ready=readyForExam(E.level);
+    let status;
+    if(rec.passed) status="✓ passed · best "+Math.round(rec.best*100)+"%";
+    else if(!unlocked) status="🔒 locked";
+    else if(ready) status="Ready — start →";
+    else status="Not ready yet";
+    const el=document.createElement("div"); el.className="lesson-item";
+    el.innerHTML=`<div><div style="font-size:17px;font-weight:600"><span class="lvl ${E.level}">${E.level}</span> ${E.title}</div>
+      <div class="st">${readinessText(E.level)}</div></div>
+      <div class="st ${rec.passed?"done":""}">${status}</div>`;
+    if(unlocked){ el.onclick=()=>openExam(E.level); } else { el.style.opacity=".55"; el.style.cursor="default"; }
+    list.appendChild(el);
+  });
+}
+function openExam(level){
+  const E=EXAMS.find(e=>e.level===level); if(!E||!examUnlocked(level)) return;
+  curExam=E; exIdx=0; exScore=0;
+  exQs=shuffle(E.questions).map(q=>{
+    const order=shuffle(q.opts.map((o,i)=>({o,i})));
+    return {q:q.q, opts:order.map(x=>x.o), a:order.findIndex(x=>x.i===q.a)};
+  });
+  $("exam-list").classList.add("hide");
+  $("exam-runner").classList.remove("hide");
+  examStage("intro");
+}
+function examBackToList(){ curExam=null; renderExams(); }
+function examStage(s){
+  const R=$("exam-runner"), E=curExam;
+  if(s==="intro"){
+    R.innerHTML=`<div class="stage-dots">Level exam · <span class="lvl ${E.level}">${E.level}</span></div>
+      <h2 style="margin-top:0">${E.title}</h2>
+      <p class="muted">${exQs.length} questions across this level's vocabulary and grammar. Score <b>${Math.round(EXAM_PASS*100)}%</b> or higher to earn <b>${E.level}</b>. Answer order is shuffled.</p>
+      <div class="row"><button class="primary" id="ex-start">Begin exam →</button>
+      <button class="ghost" id="ex-back">← Back</button></div>`;
+    $("ex-start").onclick=()=>{ exIdx=0; exScore=0; examStage("q"); };
+    $("ex-back").onclick=examBackToList;
+  } else if(s==="q"){ examQuestion(); }
+  else if(s==="result"){ examResult(); }
+}
+function examQuestion(){
+  const R=$("exam-runner"); const item=exQs[exIdx];
+  R.innerHTML=`<div class="stage-dots">Question ${exIdx+1} of ${exQs.length}</div>
+    <div class="qtext">${item.q.replace(/…/g,"<b>…</b>")}</div>
+    <div id="ex-opts"></div>
+    <div class="row"><button class="primary hide" id="ex-adv">Next →</button>
+    <button class="ghost" id="ex-back">← Back</button></div>`;
+  $("ex-back").onclick=examBackToList;
+  const box=$("ex-opts"); let answered=false;
+  item.opts.forEach((opt,i)=>{
+    const b=document.createElement("button"); b.className="lopt"; b.textContent=opt;
+    b.onclick=()=>{
+      if(answered) return; answered=true;
+      const correct=(i===item.a); if(correct) exScore++;
+      [...box.children].forEach((c,ci)=>{ c.disabled=true;
+        if(ci===item.a) c.classList.add("correct");
+        else if(ci===i) c.classList.add("wrong"); });
+      const adv=$("ex-adv"); adv.classList.remove("hide"); adv.focus();
+      adv.onclick=()=>{ if(exIdx<exQs.length-1){ exIdx++; examQuestion(); } else finishExam(); };
+    };
+    box.appendChild(b);
+  });
+}
+function finishExam(){
+  const pct=exScore/exQs.length;
+  const rec=examRec(curExam.level);
+  rec.best=Math.max(rec.best||0,pct);
+  if(pct>=EXAM_PASS){ rec.passed=true; rec.date=today(); }
+  save();
+  if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
+  refreshBadges();
+  examStage("result");
+}
+function examResult(){
+  const R=$("exam-runner"), E=curExam;
+  const pct=exScore/exQs.length, passed=pct>=EXAM_PASS;
+  R.innerHTML=`<div class="stage-dots">Result</div>
+    <h2 style="margin-top:0">${passed?("🎓 "+E.level+" achieved!"):"Not yet — keep going"}</h2>
+    <p style="font-size:20px">You scored <b>${exScore} / ${exQs.length}</b> (${Math.round(pct*100)}%).</p>
+    <p class="muted">${passed?("Your official level is now <b>"+officialLevel()+"</b>."):("You need "+Math.round(EXAM_PASS*100)+"% to pass. Review the "+E.level+" lessons and vocabulary, then retake.")}</p>
+    <div class="row"><button class="primary" id="ex-retry">Retake exam</button>
+    <button class="ghost" id="ex-back">← Back to exams</button></div>`;
+  $("ex-retry").onclick=()=>openExam(E.level);
+  $("ex-back").onclick=examBackToList;
+}
+
 /* ---- Guided curriculum ---- */
 const CURRICULUM=[
   {id:"start",  type:"words",  target:20,  title:"Meet your first 20 words"},
@@ -1100,6 +1371,7 @@ const CURRICULUM=[
   {id:"w120",   type:"words",  target:120, title:"Meet 120 words"},
   {id:"aspect", type:"lesson", lesson:"aspect", title:"Lesson: Verb Aspect"},
   {id:"motion", type:"lesson", lesson:"motion", title:"Lesson: Verbs of Motion"},
+  {id:"genitive", type:"lesson", lesson:"genitive", title:"Lesson: Genitive Case"},
   {id:"w160",   type:"words",  target:160, title:"Meet all 160 starter words"}
 ];
 function introducedCount(){ return Object.values(S.cards).filter(c=>c.introduced).length; }
@@ -1177,26 +1449,38 @@ function renderHome(){
 
   const passed=LESSONS.filter(L=>S.lessons[L.id]&&S.lessons[L.id].done).length;
   const stats=[
-    {n:levelBand(),l:"Level"},
+    {n:officialLevel()||"Untested",l:"Level (tested)"},
     {n:knownCount(),l:"Words known"},
     {n:(S.streak||0),l:"Day streak"},
     {n:passed+" / "+LESSONS.length,l:"Lessons passed"}
   ];
   $("home-stats").innerHTML=stats.map(s=>`<div class="stat"><div class="n">${s.n}</div><div class="l">${s.l}</div></div>`).join("");
+
+  const nudge=$("exam-nudge");
+  const nextExam=EXAMS.find(e=>!examPassed(e.level)&&examUnlocked(e.level));
+  if(nextExam && readyForExam(nextExam.level)){
+    nudge.classList.remove("hide");
+    $("exam-nudge-title").textContent="You're ready for the "+nextExam.level+" level exam";
+    $("exam-nudge-sub").textContent="You've cleared this band's lessons and vocabulary. Pass the exam to set your official level to "+nextExam.level+".";
+    $("exam-nudge-cta").onclick=()=>{ showView("exam"); openExam(nextExam.level); };
+  } else nudge.classList.add("hide");
+
   renderPath();
 }
 
 function showView(v){
-  ["home","drill","lessons"].forEach(x=>{
+  ["home","drill","lessons","exam"].forEach(x=>{
     $("view-"+x).classList.toggle("hide", x!==v);
     $("tab-"+x).classList.toggle("active", x===v);
   });
   if(v==="home") renderHome();
   if(v==="lessons") renderLessons();
+  if(v==="exam") renderExams();
 }
 $("tab-home").onclick=()=>showView("home");
 $("tab-drill").onclick=()=>showView("drill");
 $("tab-lessons").onclick=()=>showView("lessons");
+$("tab-exam").onclick=()=>showView("exam");
 
 /* ---------------- GitHub sync (token stored separately from progress) ---------------- */
 const GHKEY="rt_gh_v1";
