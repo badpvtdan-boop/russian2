@@ -27,6 +27,7 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` not started
 - [x] Genitive case (родительный) — A2
 - [x] Verb aspect (imperfective / perfective) — A2
 - [x] Verbs of motion (идти/ходить, ехать/ездить, prefixes) — B1
+- [x] Dative case (дательный) — A2
 
 ---
 
@@ -35,7 +36,7 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` not started
 Priority order roughly by everyday usefulness. Each slots into the guided path when built.
 
 - [x] **Genitive (родительный)** — *shipped.* Possession/"of", absence (нет + gen), prepositions (из, от, до, у, без, для), after numbers 2–4 / 5+, quantities.
-- [ ] **Dative (дательный)** — indirect object ("to/for someone"), age (мне 30 лет), нравится, нужно/надо, prepositions к, по.
+- [x] **Dative (дательный)** — *shipped (A2).* Indirect object / recipient verbs (incl. звонить, помогать), нравится + feelings, need/permission/age (мне нужно, мне 30 лет), prepositions к / по, pronoun table. Folded into the A2 exam + A2 mastery requirement.
 - [ ] **Instrumental (творительный)** — "by/with" (means/tool), с + instr ("together with"), быть/стать + instrumental, professions.
 - [ ] **Nominative overview** — short intro unit: what cases are, why they exist, the case "map." (Could go first as an orientation.)
 - [ ] **Plural declensions** — how the case endings change in the plural.
@@ -70,6 +71,7 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 ---
 
 ## Suggested next steps
-1. **Dative case** — next on the case path; unlocks indirect objects, нравится, age, к/по. Feeds the A2/B1 exams.
-2. **Pop quizzes** — quick win, adds the "test me randomly" feel you wanted.
-3. **Conversation practice** — the highest-value feature still missing.
+1. **Instrumental case** — next on the case path; "by/with", с + instr, professions (работает учителем), быть/стать + instr. Feeds the B1 exam.
+2. **More themed decks** — News/politics, Work/business, Science (toward ~1,000+ words for a real A2 vocabulary).
+3. **Pop quizzes** — quick win, adds the "test me randomly" feel you wanted.
+4. **Conversation practice** — the highest-value feature still missing.
