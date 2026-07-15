@@ -279,13 +279,83 @@
       "lapses": 0,
       "reps": 1,
       "introduced": true
+    },
+    "41": {
+      "box": 5,
+      "due": "2026-07-30",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "42": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "43": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "44": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "45": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "46": {
+      "box": 5,
+      "due": "2026-07-30",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "47": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "48": {
+      "box": 5,
+      "due": "2026-07-30",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "49": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "50": {
+      "box": 5,
+      "due": "2026-07-30",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
     }
   },
   "streak": 1,
   "lastCompleted": "2026-07-15",
   "dailyLog": {
     "2026-07-15": {
-      "newDone": 40,
+      "newDone": 46,
       "reviewDone": 0
     }
   },
