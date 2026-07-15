@@ -152,5 +152,6 @@
   "duoLevel": null,
   "direction": "en-ru",
   "answerMode": "choice",
-  "voiceName": null
+  "voiceName": null,
+  "lessons": {}
 }
