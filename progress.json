@@ -1,0 +1,156 @@
+{
+  "cards": {
+    "1": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "2": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "3": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "4": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "5": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "6": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "7": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "8": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "9": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "10": {
+      "box": 2,
+      "due": "2026-07-17",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "11": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "12": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "13": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "14": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "15": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "16": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "17": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "18": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "19": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "20": {
+      "box": 1,
+      "due": "2026-07-16",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    }
+  },
+  "streak": 1,
+  "lastCompleted": "2026-07-15",
+  "dailyLog": {
+    "2026-07-15": {
+      "newDone": 20,
+      "reviewDone": 0
+    }
+  },
+  "duoLevel": null,
+  "direction": "en-ru",
+  "answerMode": "choice",
+  "voiceName": null
+}
