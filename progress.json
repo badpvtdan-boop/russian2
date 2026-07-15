@@ -297,6 +297,22 @@
     "prep-case": {
       "done": true,
       "best": 0.875
+    },
+    "accusative": {
+      "done": true,
+      "best": 0.875
+    },
+    "aspect": {
+      "done": false,
+      "best": 0
+    },
+    "motion": {
+      "done": false,
+      "best": 0
+    },
+    "genitive": {
+      "done": false,
+      "best": 0
     }
   },
   "exams": {
