@@ -9,7 +9,8 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` not started
 ## Shipped
 
 - [x] **Phase 1 — Vocab drill.** Spaced repetition (Leitner/SM-2-lite), relentless requeue on misses, daily 10 new + 20 review, streak & debt tracking.
-- [x] **Rich deck (160 words).** 50 nouns (with gender), 50 verbs (with aspect + partner), 60 adjectives.
+- [x] **Rich deck (470 words).** Original 160 (Core tier 1) plus 310 added: Core frequency tiers 2–3, an Emotions/psychology/relationships deck (80), and an Arts/culture/literature deck (80). Every word tagged with `theme` + `tier`.
+- [x] **Deck picker + "I know this" skip.** Choose which themed decks feed daily new words (Drill tab); new words draw from active decks, easiest tier first. A per-word "✓ I know this" button banks a word straight to Known without drilling — lets an experienced learner burn past easy vocab.
 - [x] **Answer modes.** Multiple choice (5 options) and typed input with on-screen Cyrillic keyboard. Lenient grading (ё/е, stress marks, small typos).
 - [x] **Audio.** Browser TTS with a voice picker that prefers higher-quality voices.
 - [x] **Phase 2 — GitHub sync.** Token-in-browser, auto-save on session finish + manual Save/Load. Token kept out of committed `progress.json`.
@@ -58,7 +59,7 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 - [ ] **Pronunciation check** — browser speech recognition to score spoken attempts (experimental; the weak piece).
 - [ ] **Bundled neural audio** — offline Silero/Piper clips per word + example sentence, with stress marks, for consistent high-quality pronunciation. (Deferred — adds an `audio/` folder.)
 - [x] **Level test** — *shipped as per-CEFR mastery exams* (A1/A2/B1). Replaces the word-count heuristic as the official Level. Next: add A2+ grammar depth (dative/instrumental/plurals) to the higher exams as those units ship; consider a B2 exam.
-- [ ] **More vocab** — expand well past 160; themed decks (food, travel, work…).
+- [~] **More vocab** — *in progress.* At 470 words with themed decks (Emotions, Arts) + frequency tiers. Next: more themes (News/politics, Work/business, Science), and grow toward ~1,000+ for a legitimate A2 vocabulary. Exam word-thresholds bumped to A1 60 / A2 250 / B1 450 to match the bigger deck.
 
 ## Polish / nice-to-haves
 - [ ] Look & feel iteration 2 (accent tuning, maybe two-column Home, progress rings on stat cards).

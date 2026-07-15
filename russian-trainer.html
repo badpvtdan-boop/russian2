@@ -112,6 +112,12 @@
   .legend{margin:10px 0 16px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
   .legend-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-bottom:8px}
   .legend-row .ll{font-size:12px;color:var(--muted);margin-right:6px}
+  .deck-chip{font-size:14px;padding:7px 13px;border-radius:999px;border:1px solid var(--line);
+    background:var(--panel);color:var(--text);cursor:pointer;margin:0 8px 8px 0;transition:.12s}
+  .deck-chip:hover{border-color:var(--accent)}
+  .deck-chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+  .deck-chip .dc-count{color:var(--muted);font-weight:400;font-size:12px}
+  .deck-chip.on .dc-count{color:var(--accent)}
   .lesson-body h3{margin:20px 0 6px;font-size:20px;color:var(--accent)}
   .lesson-body p{margin:8px 0}
   .lesson-body table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px;background:var(--panel)}
@@ -171,6 +177,12 @@
   <div id="view-drill">
   <div id="banner" class="banner"></div>
 
+  <div class="card" id="deck-picker-card">
+    <div class="foot"><b>Daily word decks</b><span class="tag" style="margin:0">Tap to choose what feeds your new words</span></div>
+    <div id="deck-picker" style="margin-top:10px"></div>
+    <div class="tag" style="margin-top:6px">Already know a word? Hit <b>✓ I know this</b> during the drill to bank it as known without drilling.</div>
+  </div>
+
   <!-- DRILL -->
   <div id="drill" class="card">
     <div class="bar"><div id="progbar"></div></div>
@@ -194,6 +206,7 @@
     <div class="row">
       <button class="primary" id="check">Check</button>
       <button class="ghost" id="reveal">I don't know</button>
+      <button class="ghost hide" id="know-skip">✓ I know this — skip</button>
     </div>
 
     <div class="feedback" id="feedback">
@@ -457,9 +470,338 @@ const DECK = [
  {id:157,ru:"разный",en:"different/various",pos:"adj",ex:"Совсем разные люди."},
  {id:158,ru:"похожий",en:"similar",pos:"adj",ex:"Очень похожая ситуация."},
  {id:159,ru:"свежий",en:"fresh",pos:"adj",ex:"Свежий тёплый хлеб."},
- {id:160,ru:"уверенный",en:"confident/sure",pos:"adj",ex:"Спокойный и уверенный тон."}
+ {id:160,ru:"уверенный",en:"confident/sure",pos:"adj",ex:"Спокойный и уверенный тон."},
+
+ /* ===== CORE · frequency tier 2 (ids 161–250) ===== */
+ {id:161,ru:"общество",en:"society",pos:"noun",note:"n",ex:"Мы живём в открытом обществе.",theme:"core",tier:2},
+ {id:162,ru:"развитие",en:"development",pos:"noun",note:"n",ex:"Развитие технологий идёт быстро.",theme:"core",tier:2},
+ {id:163,ru:"значение",en:"meaning/significance",pos:"noun",note:"n",ex:"Это слово имеет два значения.",theme:"core",tier:2},
+ {id:164,ru:"качество",en:"quality",pos:"noun",note:"n",ex:"Качество товара очень высокое.",theme:"core",tier:2},
+ {id:165,ru:"количество",en:"quantity/amount",pos:"noun",note:"n",ex:"Количество ошибок уменьшилось.",theme:"core",tier:2},
+ {id:166,ru:"причина",en:"reason/cause",pos:"noun",note:"f",ex:"Назови причину опоздания.",theme:"core",tier:2},
+ {id:167,ru:"результат",en:"result",pos:"noun",note:"m",ex:"Результат меня удивил.",theme:"core",tier:2},
+ {id:168,ru:"цель",en:"goal/aim",pos:"noun",note:"f",ex:"Моя цель — выучить язык.",theme:"core",tier:2},
+ {id:169,ru:"уровень",en:"level",pos:"noun",note:"m",ex:"Уровень воды поднялся.",theme:"core",tier:2},
+ {id:170,ru:"задача",en:"task/problem",pos:"noun",note:"f",ex:"Это трудная задача.",theme:"core",tier:2},
+ {id:171,ru:"возможность",en:"possibility/opportunity",pos:"noun",note:"f",ex:"У тебя есть возможность выбрать.",theme:"core",tier:2},
+ {id:172,ru:"условие",en:"condition/term",pos:"noun",note:"n",ex:"Мы согласны на эти условия.",theme:"core",tier:2},
+ {id:173,ru:"опыт",en:"experience",pos:"noun",note:"m",ex:"У неё большой опыт работы.",theme:"core",tier:2},
+ {id:174,ru:"знание",en:"knowledge",pos:"noun",note:"n",ex:"Знание — сила.",theme:"core",tier:2},
+ {id:175,ru:"наука",en:"science",pos:"noun",note:"f",ex:"Он занимается наукой.",theme:"core",tier:2},
+ {id:176,ru:"память",en:"memory",pos:"noun",note:"f",ex:"У него отличная память.",theme:"core",tier:2},
+ {id:177,ru:"внимание",en:"attention",pos:"noun",note:"n",ex:"Спасибо за внимание.",theme:"core",tier:2},
+ {id:178,ru:"решение",en:"decision/solution",pos:"noun",note:"n",ex:"Это правильное решение.",theme:"core",tier:2},
+ {id:179,ru:"успех",en:"success",pos:"noun",note:"m",ex:"Желаю тебе успеха.",theme:"core",tier:2},
+ {id:180,ru:"ошибка",en:"mistake",pos:"noun",note:"f",ex:"Каждый может сделать ошибку.",theme:"core",tier:2},
+ {id:181,ru:"пример",en:"example",pos:"noun",note:"m",ex:"Приведи пример.",theme:"core",tier:2},
+ {id:182,ru:"образ",en:"image/way",pos:"noun",note:"m",ex:"Он изменил образ жизни.",theme:"core",tier:2},
+ {id:183,ru:"роль",en:"role",pos:"noun",note:"f",ex:"Она играет главную роль.",theme:"core",tier:2},
+ {id:184,ru:"событие",en:"event",pos:"noun",note:"n",ex:"Это важное событие.",theme:"core",tier:2},
+ {id:185,ru:"средство",en:"means/remedy",pos:"noun",note:"n",ex:"Деньги — только средство.",theme:"core",tier:2},
+ {id:186,ru:"порядок",en:"order",pos:"noun",note:"m",ex:"Наведи порядок в комнате.",theme:"core",tier:2},
+ {id:187,ru:"правило",en:"rule",pos:"noun",note:"n",ex:"Из каждого правила есть исключения.",theme:"core",tier:2},
+ {id:188,ru:"состояние",en:"state/condition",pos:"noun",note:"n",ex:"Он в хорошем состоянии.",theme:"core",tier:2},
+ {id:189,ru:"предмет",en:"object/subject",pos:"noun",note:"m",ex:"Мой любимый предмет — история.",theme:"core",tier:2},
+ {id:190,ru:"явление",en:"phenomenon",pos:"noun",note:"n",ex:"Это редкое явление.",theme:"core",tier:2},
+ {id:191,ru:"создавать",en:"to create",pos:"verb",note:"impf · pf создать",ex:"Он создаёт новую компанию.",theme:"core",tier:2},
+ {id:192,ru:"развивать",en:"to develop",pos:"verb",note:"impf · pf развить",ex:"Спорт развивает волю.",theme:"core",tier:2},
+ {id:193,ru:"получать",en:"to receive/get",pos:"verb",note:"impf · pf получить",ex:"Я получаю много писем.",theme:"core",tier:2},
+ {id:194,ru:"предлагать",en:"to offer/suggest",pos:"verb",note:"impf · pf предложить",ex:"Я предлагаю пойти домой.",theme:"core",tier:2},
+ {id:195,ru:"требовать",en:"to demand/require",pos:"verb",note:"impf · pf потребовать",ex:"Работа требует внимания.",theme:"core",tier:2},
+ {id:196,ru:"менять",en:"to change",pos:"verb",note:"impf · pf изменить",ex:"Я не хочу ничего менять.",theme:"core",tier:2},
+ {id:197,ru:"появляться",en:"to appear",pos:"verb",note:"impf · pf появиться",ex:"На небе появляются звёзды.",theme:"core",tier:2},
+ {id:198,ru:"исчезать",en:"to disappear",pos:"verb",note:"impf · pf исчезнуть",ex:"Проблема не исчезает сама.",theme:"core",tier:2},
+ {id:199,ru:"достигать",en:"to achieve/reach",pos:"verb",note:"impf · pf достичь",ex:"Он достигает своих целей.",theme:"core",tier:2},
+ {id:200,ru:"решать",en:"to decide/solve",pos:"verb",note:"impf · pf решить",ex:"Ты сам решаешь, что делать.",theme:"core",tier:2},
+ {id:201,ru:"значить",en:"to mean",pos:"verb",note:"impf",ex:"Что это значит?",theme:"core",tier:2},
+ {id:202,ru:"касаться",en:"to touch/concern",pos:"verb",note:"impf · pf коснуться",ex:"Это тебя не касается.",theme:"core",tier:2},
+ {id:203,ru:"объяснять",en:"to explain",pos:"verb",note:"impf · pf объяснить",ex:"Учитель объясняет правило.",theme:"core",tier:2},
+ {id:204,ru:"доказывать",en:"to prove",pos:"verb",note:"impf · pf доказать",ex:"Он доказывает свою правоту.",theme:"core",tier:2},
+ {id:205,ru:"сравнивать",en:"to compare",pos:"verb",note:"impf · pf сравнить",ex:"Не сравнивай меня с ним.",theme:"core",tier:2},
+ {id:206,ru:"замечать",en:"to notice",pos:"verb",note:"impf · pf заметить",ex:"Я не замечаю разницы.",theme:"core",tier:2},
+ {id:207,ru:"удаваться",en:"to succeed/manage",pos:"verb",note:"impf · pf удаться",ex:"Мне удаётся всё успевать.",theme:"core",tier:2},
+ {id:208,ru:"стремиться",en:"to strive",pos:"verb",note:"impf",ex:"Она стремится к успеху.",theme:"core",tier:2},
+ {id:209,ru:"относиться",en:"to relate/treat",pos:"verb",note:"impf · pf отнестись",ex:"Он хорошо относится к людям.",theme:"core",tier:2},
+ {id:210,ru:"представлять",en:"to present/imagine",pos:"verb",note:"impf · pf представить",ex:"Представь себе тихий вечер.",theme:"core",tier:2},
+ {id:211,ru:"серьёзный",en:"serious",pos:"adj",ex:"Это серьёзная проблема.",theme:"core",tier:2},
+ {id:212,ru:"постоянный",en:"constant/permanent",pos:"adj",ex:"У него постоянная работа.",theme:"core",tier:2},
+ {id:213,ru:"ясный",en:"clear",pos:"adj",ex:"Дай мне ясный ответ.",theme:"core",tier:2},
+ {id:214,ru:"возможный",en:"possible",pos:"adj",ex:"Это единственный возможный путь.",theme:"core",tier:2},
+ {id:215,ru:"необходимый",en:"necessary",pos:"adj",ex:"Возьми всё необходимое.",theme:"core",tier:2},
+ {id:216,ru:"современный",en:"modern/contemporary",pos:"adj",ex:"Это современное искусство.",theme:"core",tier:2},
+ {id:217,ru:"общий",en:"common/general",pos:"adj",ex:"У нас общие интересы.",theme:"core",tier:2},
+ {id:218,ru:"обычный",en:"usual/ordinary",pos:"adj",ex:"Это был обычный день.",theme:"core",tier:2},
+ {id:219,ru:"особый",en:"special/particular",pos:"adj",ex:"Сегодня особый случай.",theme:"core",tier:2},
+ {id:220,ru:"определённый",en:"certain/definite",pos:"adj",ex:"В этом есть определённый смысл.",theme:"core",tier:2},
+ {id:221,ru:"различный",en:"various/different",pos:"adj",ex:"Есть различные мнения.",theme:"core",tier:2},
+ {id:222,ru:"подобный",en:"similar/such",pos:"adj",ex:"Я не слышал ничего подобного.",theme:"core",tier:2},
+ {id:223,ru:"основной",en:"main/basic",pos:"adj",ex:"В чём основная идея?",theme:"core",tier:2},
+ {id:224,ru:"реальный",en:"real",pos:"adj",ex:"Это реальная угроза.",theme:"core",tier:2},
+ {id:225,ru:"очевидный",en:"obvious",pos:"adj",ex:"Ответ очевиден.",theme:"core",tier:2},
+ {id:226,ru:"достаточный",en:"sufficient",pos:"adj",ex:"У нас достаточно времени.",theme:"core",tier:2},
+ {id:227,ru:"полезный",en:"useful",pos:"adj",ex:"Это полезный совет.",theme:"core",tier:2},
+ {id:228,ru:"гибкий",en:"flexible",pos:"adj",ex:"У неё гибкий график.",theme:"core",tier:2},
+ {id:229,ru:"готовый",en:"ready",pos:"adj",ex:"Ужин уже готов.",theme:"core",tier:2},
+ {id:230,ru:"точный",en:"precise/exact",pos:"adj",ex:"Дай мне точный адрес.",theme:"core",tier:2},
+ {id:231,ru:"например",en:"for example",pos:"adv",ex:"Возьми фрукты, например яблоки.",theme:"core",tier:2},
+ {id:232,ru:"однако",en:"however",pos:"adv",note:"conj",ex:"Было поздно, однако он пришёл.",theme:"core",tier:2},
+ {id:233,ru:"поэтому",en:"therefore",pos:"adv",ex:"Шёл дождь, поэтому мы остались.",theme:"core",tier:2},
+ {id:234,ru:"кроме",en:"except/besides",pos:"adv",note:"prep + gen",ex:"Пришли все, кроме него.",theme:"core",tier:2},
+ {id:235,ru:"против",en:"against",pos:"adv",note:"prep + gen",ex:"Я ничего не имею против.",theme:"core",tier:2},
+ {id:236,ru:"вместо",en:"instead of",pos:"adv",note:"prep + gen",ex:"Возьми чай вместо кофе.",theme:"core",tier:2},
+ {id:237,ru:"хотя",en:"although",pos:"adv",note:"conj",ex:"Он пошёл, хотя устал.",theme:"core",tier:2},
+ {id:238,ru:"пока",en:"while/for now",pos:"adv",ex:"Пока я готовлю, накрой на стол.",theme:"core",tier:2},
+ {id:239,ru:"именно",en:"exactly/precisely",pos:"adv",ex:"Именно это я и хотел сказать.",theme:"core",tier:2},
+ {id:240,ru:"почти",en:"almost",pos:"adv",ex:"Я почти закончил.",theme:"core",tier:2},
+ {id:241,ru:"совершенно",en:"completely",pos:"adv",ex:"Ты совершенно прав.",theme:"core",tier:2},
+ {id:242,ru:"вполне",en:"quite/fully",pos:"adv",ex:"Я вполне доволен.",theme:"core",tier:2},
+ {id:243,ru:"зато",en:"but/on the other hand",pos:"adv",note:"conj",ex:"Дорого, зато качественно.",theme:"core",tier:2},
+ {id:244,ru:"наоборот",en:"on the contrary",pos:"adv",ex:"Я не устал, наоборот, полон сил.",theme:"core",tier:2},
+ {id:245,ru:"вообще",en:"in general/at all",pos:"adv",ex:"Он вообще не пьёт кофе.",theme:"core",tier:2},
+ {id:246,ru:"однажды",en:"once/one day",pos:"adv",ex:"Однажды я всё пойму.",theme:"core",tier:2},
+ {id:247,ru:"постепенно",en:"gradually",pos:"adv",ex:"Он постепенно поправляется.",theme:"core",tier:2},
+ {id:248,ru:"впрочем",en:"however/though",pos:"adv",ex:"Впрочем, это неважно.",theme:"core",tier:2},
+ {id:249,ru:"вдруг",en:"suddenly",pos:"adv",ex:"Вдруг зазвонил телефон.",theme:"core",tier:2},
+ {id:250,ru:"едва",en:"barely/hardly",pos:"adv",ex:"Я едва успел на поезд.",theme:"core",tier:2},
+
+ /* ===== CORE · frequency tier 3 (ids 251–310) ===== */
+ {id:251,ru:"сознание",en:"consciousness",pos:"noun",note:"n",ex:"Он потерял сознание.",theme:"core",tier:3},
+ {id:252,ru:"сущность",en:"essence",pos:"noun",note:"f",ex:"В этом сущность проблемы.",theme:"core",tier:3},
+ {id:253,ru:"стремление",en:"aspiration/urge",pos:"noun",note:"n",ex:"Его стремление к знаниям велико.",theme:"core",tier:3},
+ {id:254,ru:"достижение",en:"achievement",pos:"noun",note:"n",ex:"Это большое достижение.",theme:"core",tier:3},
+ {id:255,ru:"подход",en:"approach",pos:"noun",note:"m",ex:"Нужен новый подход.",theme:"core",tier:3},
+ {id:256,ru:"взгляд",en:"view/glance",pos:"noun",note:"m",ex:"На мой взгляд, это ошибка.",theme:"core",tier:3},
+ {id:257,ru:"суждение",en:"judgment",pos:"noun",note:"n",ex:"Не спеши с суждениями.",theme:"core",tier:3},
+ {id:258,ru:"убеждение",en:"conviction/belief",pos:"noun",note:"n",ex:"Это против моих убеждений.",theme:"core",tier:3},
+ {id:259,ru:"предположение",en:"assumption",pos:"noun",note:"n",ex:"Это только предположение.",theme:"core",tier:3},
+ {id:260,ru:"последствие",en:"consequence",pos:"noun",note:"n",ex:"Мы отвечаем за последствия.",theme:"core",tier:3},
+ {id:261,ru:"обстоятельство",en:"circumstance",pos:"noun",note:"n",ex:"Обстоятельства изменились.",theme:"core",tier:3},
+ {id:262,ru:"противоречие",en:"contradiction",pos:"noun",note:"n",ex:"В тексте есть противоречие.",theme:"core",tier:3},
+ {id:263,ru:"закономерность",en:"regularity/pattern",pos:"noun",note:"f",ex:"Здесь видна закономерность.",theme:"core",tier:3},
+ {id:264,ru:"признак",en:"sign/feature",pos:"noun",note:"m",ex:"Это признак усталости.",theme:"core",tier:3},
+ {id:265,ru:"склонность",en:"inclination",pos:"noun",note:"f",ex:"У него склонность к музыке.",theme:"core",tier:3},
+ {id:266,ru:"намерение",en:"intention",pos:"noun",note:"n",ex:"У меня добрые намерения.",theme:"core",tier:3},
+ {id:267,ru:"препятствие",en:"obstacle",pos:"noun",note:"n",ex:"Мы преодолели препятствие.",theme:"core",tier:3},
+ {id:268,ru:"преимущество",en:"advantage",pos:"noun",note:"n",ex:"У нас есть преимущество.",theme:"core",tier:3},
+ {id:269,ru:"недостаток",en:"shortcoming/lack",pos:"noun",note:"m",ex:"У каждого есть недостатки.",theme:"core",tier:3},
+ {id:270,ru:"совокупность",en:"totality/aggregate",pos:"noun",note:"f",ex:"Это совокупность причин.",theme:"core",tier:3},
+ {id:271,ru:"осознавать",en:"to realize",pos:"verb",note:"impf · pf осознать",ex:"Я осознаю свою ответственность.",theme:"core",tier:3},
+ {id:272,ru:"обеспечивать",en:"to ensure/provide",pos:"verb",note:"impf · pf обеспечить",ex:"Государство обеспечивает порядок.",theme:"core",tier:3},
+ {id:273,ru:"предполагать",en:"to assume/suppose",pos:"verb",note:"impf · pf предположить",ex:"Я предполагаю, что он опоздает.",theme:"core",tier:3},
+ {id:274,ru:"утверждать",en:"to assert/claim",pos:"verb",note:"impf · pf утвердить",ex:"Он утверждает, что прав.",theme:"core",tier:3},
+ {id:275,ru:"отрицать",en:"to deny",pos:"verb",note:"impf",ex:"Он отрицает свою вину.",theme:"core",tier:3},
+ {id:276,ru:"сомневаться",en:"to doubt",pos:"verb",note:"impf",ex:"Я сомневаюсь в этом.",theme:"core",tier:3},
+ {id:277,ru:"убеждать",en:"to convince",pos:"verb",note:"impf · pf убедить",ex:"Не пытайся меня убедить.",theme:"core",tier:3},
+ {id:278,ru:"воспринимать",en:"to perceive",pos:"verb",note:"impf · pf воспринять",ex:"Он воспринимает критику спокойно.",theme:"core",tier:3},
+ {id:279,ru:"подчёркивать",en:"to emphasize",pos:"verb",note:"impf · pf подчеркнуть",ex:"Я хочу подчеркнуть это.",theme:"core",tier:3},
+ {id:280,ru:"совершать",en:"to commit/accomplish",pos:"verb",note:"impf · pf совершить",ex:"Не совершай ошибок.",theme:"core",tier:3},
+ {id:281,ru:"способствовать",en:"to promote/contribute to",pos:"verb",note:"impf",ex:"Отдых способствует здоровью.",theme:"core",tier:3},
+ {id:282,ru:"препятствовать",en:"to hinder",pos:"verb",note:"impf",ex:"Не препятствуй ему.",theme:"core",tier:3},
+ {id:283,ru:"приобретать",en:"to acquire",pos:"verb",note:"impf · pf приобрести",ex:"Опыт приобретают с годами.",theme:"core",tier:3},
+ {id:284,ru:"сохранять",en:"to preserve/keep",pos:"verb",note:"impf · pf сохранить",ex:"Сохраняй спокойствие.",theme:"core",tier:3},
+ {id:285,ru:"отражать",en:"to reflect",pos:"verb",note:"impf · pf отразить",ex:"Зеркало отражает свет.",theme:"core",tier:3},
+ {id:286,ru:"существенный",en:"essential/significant",pos:"adj",ex:"Есть существенная разница.",theme:"core",tier:3},
+ {id:287,ru:"неизбежный",en:"inevitable",pos:"adj",ex:"Конфликт был неизбежен.",theme:"core",tier:3},
+ {id:288,ru:"противоречивый",en:"contradictory",pos:"adj",ex:"У меня противоречивые чувства.",theme:"core",tier:3},
+ {id:289,ru:"устойчивый",en:"stable/sustainable",pos:"adj",ex:"Это устойчивый рост.",theme:"core",tier:3},
+ {id:290,ru:"значительный",en:"significant/considerable",pos:"adj",ex:"Прошло значительное время.",theme:"core",tier:3},
+ {id:291,ru:"подлинный",en:"genuine/authentic",pos:"adj",ex:"Это подлинный документ.",theme:"core",tier:3},
+ {id:292,ru:"условный",en:"conditional/conventional",pos:"adj",ex:"Это условное обозначение.",theme:"core",tier:3},
+ {id:293,ru:"предварительный",en:"preliminary",pos:"adj",ex:"Это предварительный план.",theme:"core",tier:3},
+ {id:294,ru:"всеобщий",en:"universal/general",pos:"adj",ex:"Это всеобщее правило.",theme:"core",tier:3},
+ {id:295,ru:"своеобразный",en:"peculiar/distinctive",pos:"adj",ex:"У него своеобразный юмор.",theme:"core",tier:3},
+ {id:296,ru:"отвлечённый",en:"abstract",pos:"adj",ex:"Это слишком отвлечённый пример.",theme:"core",tier:3},
+ {id:297,ru:"тщательный",en:"thorough/careful",pos:"adj",ex:"Нужен тщательный анализ.",theme:"core",tier:3},
+ {id:298,ru:"умеренный",en:"moderate",pos:"adj",ex:"Сегодня умеренный ветер.",theme:"core",tier:3},
+ {id:299,ru:"избыточный",en:"excessive/redundant",pos:"adj",ex:"Это избыточная информация.",theme:"core",tier:3},
+ {id:300,ru:"наглядный",en:"clear/graphic",pos:"adj",ex:"Это наглядный пример.",theme:"core",tier:3},
+ {id:301,ru:"следовательно",en:"consequently",pos:"adv",ex:"Он молчит, следовательно, согласен.",theme:"core",tier:3},
+ {id:302,ru:"в частности",en:"in particular",pos:"adv",note:"phrase",ex:"Мне нравятся фрукты, в частности груши.",theme:"core",tier:3},
+ {id:303,ru:"в целом",en:"on the whole",pos:"adv",note:"phrase",ex:"В целом всё прошло хорошо.",theme:"core",tier:3},
+ {id:304,ru:"отчасти",en:"partly",pos:"adv",ex:"Ты отчасти прав.",theme:"core",tier:3},
+ {id:305,ru:"зачастую",en:"often/frequently",pos:"adv",ex:"Зачастую он опаздывает.",theme:"core",tier:3},
+ {id:306,ru:"вследствие",en:"as a result of",pos:"adv",note:"prep + gen",ex:"Рейс отменили вследствие тумана.",theme:"core",tier:3},
+ {id:307,ru:"наряду",en:"alongside/along with",pos:"adv",note:"наряду с + instr",ex:"Наряду с работой он учится.",theme:"core",tier:3},
+ {id:308,ru:"тем не менее",en:"nevertheless",pos:"adv",note:"phrase",ex:"Было трудно, тем не менее мы справились.",theme:"core",tier:3},
+ {id:309,ru:"вряд ли",en:"hardly/unlikely",pos:"adv",note:"phrase",ex:"Вряд ли он придёт.",theme:"core",tier:3},
+ {id:310,ru:"отныне",en:"from now on",pos:"adv",ex:"Отныне всё будет иначе.",theme:"core",tier:3},
+
+ /* ===== EMOTIONS · psychology & relationships (ids 311–390) ===== */
+ {id:311,ru:"эмоция",en:"emotion",pos:"noun",note:"f",ex:"Он не скрывает эмоций.",theme:"emotion",tier:2},
+ {id:312,ru:"настроение",en:"mood",pos:"noun",note:"n",ex:"У меня хорошее настроение.",theme:"emotion",tier:2},
+ {id:313,ru:"радость",en:"joy",pos:"noun",note:"f",ex:"Она плакала от радости.",theme:"emotion",tier:2},
+ {id:314,ru:"грусть",en:"sadness",pos:"noun",note:"f",ex:"В его словах была грусть.",theme:"emotion",tier:2},
+ {id:315,ru:"печаль",en:"sorrow",pos:"noun",note:"f",ex:"Светлая печаль.",theme:"emotion",tier:2},
+ {id:316,ru:"тоска",en:"melancholy/longing",pos:"noun",note:"f",ex:"Меня охватила тоска.",theme:"emotion",tier:3},
+ {id:317,ru:"страх",en:"fear",pos:"noun",note:"m",ex:"Он преодолел свой страх.",theme:"emotion",tier:2},
+ {id:318,ru:"тревога",en:"anxiety/alarm",pos:"noun",note:"f",ex:"Меня не покидает тревога.",theme:"emotion",tier:2},
+ {id:319,ru:"волнение",en:"excitement/worry",pos:"noun",note:"n",ex:"Он говорил с волнением.",theme:"emotion",tier:2},
+ {id:320,ru:"гнев",en:"anger/wrath",pos:"noun",note:"m",ex:"Он вспыхнул от гнева.",theme:"emotion",tier:3},
+ {id:321,ru:"злость",en:"anger/spite",pos:"noun",note:"f",ex:"Она сказала это со злостью.",theme:"emotion",tier:2},
+ {id:322,ru:"обида",en:"resentment/hurt",pos:"noun",note:"f",ex:"Он затаил обиду.",theme:"emotion",tier:2},
+ {id:323,ru:"ревность",en:"jealousy",pos:"noun",note:"f",ex:"Ревность его мучила.",theme:"emotion",tier:3},
+ {id:324,ru:"зависть",en:"envy",pos:"noun",note:"f",ex:"Белая зависть.",theme:"emotion",tier:3},
+ {id:325,ru:"стыд",en:"shame",pos:"noun",note:"m",ex:"Он покраснел от стыда.",theme:"emotion",tier:2},
+ {id:326,ru:"вина",en:"guilt/fault",pos:"noun",note:"f",ex:"Это не моя вина.",theme:"emotion",tier:2},
+ {id:327,ru:"гордость",en:"pride",pos:"noun",note:"f",ex:"Она смотрела с гордостью.",theme:"emotion",tier:2},
+ {id:328,ru:"счастье",en:"happiness",pos:"noun",note:"n",ex:"Счастье не купишь.",theme:"emotion",tier:2},
+ {id:329,ru:"отчаяние",en:"despair",pos:"noun",note:"n",ex:"Он был в отчаянии.",theme:"emotion",tier:3},
+ {id:330,ru:"надежда",en:"hope",pos:"noun",note:"f",ex:"Не теряй надежду.",theme:"emotion",tier:2},
+ {id:331,ru:"сомнение",en:"doubt",pos:"noun",note:"n",ex:"У меня есть сомнения.",theme:"emotion",tier:2},
+ {id:332,ru:"удивление",en:"surprise/astonishment",pos:"noun",note:"n",ex:"Он поднял брови от удивления.",theme:"emotion",tier:2},
+ {id:333,ru:"восторг",en:"delight/rapture",pos:"noun",note:"m",ex:"Дети были в восторге.",theme:"emotion",tier:3},
+ {id:334,ru:"спокойствие",en:"calm/composure",pos:"noun",note:"n",ex:"Сохраняй спокойствие.",theme:"emotion",tier:2},
+ {id:335,ru:"уверенность",en:"confidence/certainty",pos:"noun",note:"f",ex:"Он говорил с уверенностью.",theme:"emotion",tier:2},
+ {id:336,ru:"сочувствие",en:"sympathy",pos:"noun",note:"n",ex:"Спасибо за сочувствие.",theme:"emotion",tier:3},
+ {id:337,ru:"сострадание",en:"compassion",pos:"noun",note:"n",ex:"В ней много сострадания.",theme:"emotion",tier:3},
+ {id:338,ru:"нежность",en:"tenderness",pos:"noun",note:"f",ex:"Он смотрел с нежностью.",theme:"emotion",tier:3},
+ {id:339,ru:"страсть",en:"passion",pos:"noun",note:"f",ex:"Музыка — его страсть.",theme:"emotion",tier:3},
+ {id:340,ru:"привязанность",en:"attachment",pos:"noun",note:"f",ex:"Между ними сильная привязанность.",theme:"emotion",tier:3},
+ {id:341,ru:"довольный",en:"content/pleased",pos:"adj",ex:"Он доволен результатом.",theme:"emotion",tier:2},
+ {id:342,ru:"печальный",en:"sad/mournful",pos:"adj",ex:"У него печальный вид.",theme:"emotion",tier:2},
+ {id:343,ru:"бодрый",en:"cheerful/energetic",pos:"adj",ex:"Он в бодром настроении.",theme:"emotion",tier:2},
+ {id:344,ru:"сердитый",en:"angry/cross",pos:"adj",ex:"Почему ты такой сердитый?",theme:"emotion",tier:2},
+ {id:345,ru:"равнодушный",en:"indifferent",pos:"adj",ex:"Он равнодушен к деньгам.",theme:"emotion",tier:3},
+ {id:346,ru:"застенчивый",en:"shy",pos:"adj",ex:"Он застенчивый мальчик.",theme:"emotion",tier:3},
+ {id:347,ru:"обидчивый",en:"touchy/easily offended",pos:"adj",ex:"Не будь таким обидчивым.",theme:"emotion",tier:3},
+ {id:348,ru:"вспыльчивый",en:"hot-tempered",pos:"adj",ex:"У него вспыльчивый характер.",theme:"emotion",tier:3},
+ {id:349,ru:"спокойный",en:"calm",pos:"adj",ex:"У него спокойный голос.",theme:"emotion",tier:2},
+ {id:350,ru:"чувствительный",en:"sensitive",pos:"adj",ex:"Она очень чувствительная.",theme:"emotion",tier:3},
+ {id:351,ru:"замкнутый",en:"withdrawn/reserved",pos:"adj",ex:"Он замкнутый по натуре.",theme:"emotion",tier:3},
+ {id:352,ru:"щедрый",en:"generous",pos:"adj",ex:"Он щедрый хозяин.",theme:"emotion",tier:2},
+ {id:353,ru:"жадный",en:"greedy/stingy",pos:"adj",ex:"Не будь жадным.",theme:"emotion",tier:2},
+ {id:354,ru:"искренний",en:"sincere",pos:"adj",ex:"Прими мои искренние поздравления.",theme:"emotion",tier:3},
+ {id:355,ru:"надёжный",en:"reliable",pos:"adj",ex:"Он надёжный друг.",theme:"emotion",tier:2},
+ {id:356,ru:"ранимый",en:"vulnerable/sensitive",pos:"adj",ex:"Он ранимый человек.",theme:"emotion",tier:3},
+ {id:357,ru:"упрямый",en:"stubborn",pos:"adj",ex:"Ты упрямый как осёл.",theme:"emotion",tier:2},
+ {id:358,ru:"доброжелательный",en:"benevolent/friendly",pos:"adj",ex:"У неё доброжелательный тон.",theme:"emotion",tier:3},
+ {id:359,ru:"ощущать",en:"to sense/feel",pos:"verb",note:"impf · pf ощутить",ex:"Я ощущаю тепло.",theme:"emotion",tier:2},
+ {id:360,ru:"переживать",en:"to worry/go through",pos:"verb",note:"impf · pf пережить",ex:"Не переживай, всё будет хорошо.",theme:"emotion",tier:2},
+ {id:361,ru:"волноваться",en:"to worry/be nervous",pos:"verb",note:"impf",ex:"Мама волнуется за меня.",theme:"emotion",tier:2},
+ {id:362,ru:"радоваться",en:"to rejoice/be glad",pos:"verb",note:"impf · pf обрадоваться",ex:"Я радуюсь твоим успехам.",theme:"emotion",tier:2},
+ {id:363,ru:"злиться",en:"to be angry",pos:"verb",note:"impf · pf разозлиться",ex:"Не злись на меня.",theme:"emotion",tier:2},
+ {id:364,ru:"обижаться",en:"to take offense",pos:"verb",note:"impf · pf обидеться",ex:"Он обижается по пустякам.",theme:"emotion",tier:2},
+ {id:365,ru:"завидовать",en:"to envy",pos:"verb",note:"impf · pf позавидовать",ex:"Я тебе завидую.",theme:"emotion",tier:3},
+ {id:366,ru:"гордиться",en:"to be proud",pos:"verb",note:"impf",ex:"Я горжусь тобой.",theme:"emotion",tier:2},
+ {id:367,ru:"надеяться",en:"to hope",pos:"verb",note:"impf",ex:"Я надеюсь на лучшее.",theme:"emotion",tier:2},
+ {id:368,ru:"доверять",en:"to trust",pos:"verb",note:"impf · pf доверить",ex:"Я тебе доверяю.",theme:"emotion",tier:2},
+ {id:369,ru:"влюбляться",en:"to fall in love",pos:"verb",note:"impf · pf влюбиться",ex:"Он влюбляется слишком легко.",theme:"emotion",tier:2},
+ {id:370,ru:"ссориться",en:"to quarrel",pos:"verb",note:"impf · pf поссориться",ex:"Они постоянно ссорятся.",theme:"emotion",tier:2},
+ {id:371,ru:"мириться",en:"to make up/reconcile",pos:"verb",note:"impf · pf помириться",ex:"Пора мириться.",theme:"emotion",tier:3},
+ {id:372,ru:"скучать",en:"to miss/be bored",pos:"verb",note:"impf",ex:"Я скучаю по тебе.",theme:"emotion",tier:2},
+ {id:373,ru:"восхищаться",en:"to admire",pos:"verb",note:"impf",ex:"Я восхищаюсь её талантом.",theme:"emotion",tier:3},
+ {id:374,ru:"раздражать",en:"to irritate",pos:"verb",note:"impf · pf раздражить",ex:"Меня раздражает этот шум.",theme:"emotion",tier:3},
+ {id:375,ru:"успокаивать",en:"to calm/soothe",pos:"verb",note:"impf · pf успокоить",ex:"Музыка меня успокаивает.",theme:"emotion",tier:3},
+ {id:376,ru:"привыкать",en:"to get used to",pos:"verb",note:"impf · pf привыкнуть",ex:"Я привыкаю к новому городу.",theme:"emotion",tier:2},
+ {id:377,ru:"отношения",en:"relationship",pos:"noun",note:"pl",ex:"У них серьёзные отношения.",theme:"emotion",tier:2},
+ {id:378,ru:"дружба",en:"friendship",pos:"noun",note:"f",ex:"Наша дружба крепка.",theme:"emotion",tier:2},
+ {id:379,ru:"влюблённость",en:"infatuation/being in love",pos:"noun",note:"f",ex:"Это просто влюблённость.",theme:"emotion",tier:2},
+ {id:380,ru:"доверие",en:"trust",pos:"noun",note:"n",ex:"Доверие нужно заслужить.",theme:"emotion",tier:2},
+ {id:381,ru:"поддержка",en:"support",pos:"noun",note:"f",ex:"Спасибо за поддержку.",theme:"emotion",tier:2},
+ {id:382,ru:"знакомство",en:"acquaintance",pos:"noun",note:"n",ex:"Приятное знакомство.",theme:"emotion",tier:3},
+ {id:383,ru:"расставание",en:"parting/breakup",pos:"noun",note:"n",ex:"Расставание было тяжёлым.",theme:"emotion",tier:3},
+ {id:384,ru:"измена",en:"betrayal/infidelity",pos:"noun",note:"f",ex:"Она не простила измену.",theme:"emotion",tier:3},
+ {id:385,ru:"верность",en:"faithfulness/loyalty",pos:"noun",note:"f",ex:"Он ценит верность.",theme:"emotion",tier:3},
+ {id:386,ru:"близость",en:"closeness/intimacy",pos:"noun",note:"f",ex:"Между ними есть близость.",theme:"emotion",tier:3},
+ {id:387,ru:"одиночество",en:"loneliness/solitude",pos:"noun",note:"n",ex:"Он устал от одиночества.",theme:"emotion",tier:3},
+ {id:388,ru:"характер",en:"character/temperament",pos:"noun",note:"m",ex:"У неё сильный характер.",theme:"emotion",tier:2},
+ {id:389,ru:"привычка",en:"habit",pos:"noun",note:"f",ex:"Это вредная привычка.",theme:"emotion",tier:2},
+ {id:390,ru:"совесть",en:"conscience",pos:"noun",note:"f",ex:"Меня мучает совесть.",theme:"emotion",tier:3},
+
+ /* ===== ARTS · culture & literature (ids 391–470) ===== */
+ {id:391,ru:"литература",en:"literature",pos:"noun",note:"f",ex:"Он преподаёт русскую литературу.",theme:"arts",tier:2},
+ {id:392,ru:"писатель",en:"writer",pos:"noun",note:"m",ex:"Толстой — великий писатель.",theme:"arts",tier:2},
+ {id:393,ru:"поэт",en:"poet",pos:"noun",note:"m",ex:"Пушкин — любимый поэт.",theme:"arts",tier:2},
+ {id:394,ru:"поэзия",en:"poetry",pos:"noun",note:"f",ex:"Я люблю поэзию.",theme:"arts",tier:2},
+ {id:395,ru:"роман",en:"novel",pos:"noun",note:"m",ex:"Это его лучший роман.",theme:"arts",tier:2},
+ {id:396,ru:"повесть",en:"novella/tale",pos:"noun",note:"f",ex:"Это короткая повесть.",theme:"arts",tier:3},
+ {id:397,ru:"рассказ",en:"short story",pos:"noun",note:"m",ex:"Он написал рассказ.",theme:"arts",tier:2},
+ {id:398,ru:"стихотворение",en:"poem",pos:"noun",note:"n",ex:"Выучи стихотворение наизусть.",theme:"arts",tier:2},
+ {id:399,ru:"проза",en:"prose",pos:"noun",note:"f",ex:"Мне ближе проза, чем стихи.",theme:"arts",tier:3},
+ {id:400,ru:"сюжет",en:"plot",pos:"noun",note:"m",ex:"У фильма сложный сюжет.",theme:"arts",tier:2},
+ {id:401,ru:"герой",en:"hero/character",pos:"noun",note:"m",ex:"Главный герой погибает.",theme:"arts",tier:2},
+ {id:402,ru:"персонаж",en:"character",pos:"noun",note:"m",ex:"Это второстепенный персонаж.",theme:"arts",tier:3},
+ {id:403,ru:"автор",en:"author",pos:"noun",note:"m",ex:"Кто автор этой книги?",theme:"arts",tier:2},
+ {id:404,ru:"глава",en:"chapter",pos:"noun",note:"f",ex:"Я дочитал первую главу.",theme:"arts",tier:2},
+ {id:405,ru:"строка",en:"line (of text)",pos:"noun",note:"f",ex:"Прочитай последнюю строку.",theme:"arts",tier:3},
+ {id:406,ru:"тема",en:"theme/topic",pos:"noun",note:"f",ex:"Тема романа — любовь.",theme:"arts",tier:2},
+ {id:407,ru:"замысел",en:"concept/design",pos:"noun",note:"m",ex:"Замысел автора ясен.",theme:"arts",tier:3},
+ {id:408,ru:"рукопись",en:"manuscript",pos:"noun",note:"f",ex:"Рукопись сохранилась.",theme:"arts",tier:3},
+ {id:409,ru:"искусство",en:"art",pos:"noun",note:"n",ex:"Он разбирается в искусстве.",theme:"arts",tier:2},
+ {id:410,ru:"живопись",en:"painting (art form)",pos:"noun",note:"f",ex:"Он изучает живопись.",theme:"arts",tier:3},
+ {id:411,ru:"картина",en:"painting/picture",pos:"noun",note:"f",ex:"Эта картина висит в музее.",theme:"arts",tier:2},
+ {id:412,ru:"художник",en:"artist/painter",pos:"noun",note:"m",ex:"Художник пишет портрет.",theme:"arts",tier:2},
+ {id:413,ru:"скульптура",en:"sculpture",pos:"noun",note:"f",ex:"Это античная скульптура.",theme:"arts",tier:3},
+ {id:414,ru:"выставка",en:"exhibition",pos:"noun",note:"f",ex:"Мы были на выставке.",theme:"arts",tier:2},
+ {id:415,ru:"музей",en:"museum",pos:"noun",note:"m",ex:"Музей открыт до шести.",theme:"arts",tier:2},
+ {id:416,ru:"театр",en:"theatre",pos:"noun",note:"m",ex:"Мы идём в театр.",theme:"arts",tier:2},
+ {id:417,ru:"спектакль",en:"performance/play",pos:"noun",note:"m",ex:"Спектакль начинается в семь.",theme:"arts",tier:2},
+ {id:418,ru:"сцена",en:"stage/scene",pos:"noun",note:"f",ex:"Актёр вышел на сцену.",theme:"arts",tier:2},
+ {id:419,ru:"актёр",en:"actor",pos:"noun",note:"m",ex:"Это талантливый актёр.",theme:"arts",tier:2},
+ {id:420,ru:"режиссёр",en:"director",pos:"noun",note:"m",ex:"Режиссёр получил награду.",theme:"arts",tier:2},
+ {id:421,ru:"зритель",en:"spectator/viewer",pos:"noun",note:"m",ex:"Зрители аплодировали.",theme:"arts",tier:2},
+ {id:422,ru:"опера",en:"opera",pos:"noun",note:"f",ex:"Мы слушали оперу.",theme:"arts",tier:3},
+ {id:423,ru:"балет",en:"ballet",pos:"noun",note:"m",ex:"Русский балет знаменит.",theme:"arts",tier:3},
+ {id:424,ru:"музыка",en:"music",pos:"noun",note:"f",ex:"Включи музыку.",theme:"arts",tier:2},
+ {id:425,ru:"композитор",en:"composer",pos:"noun",note:"m",ex:"Чайковский — великий композитор.",theme:"arts",tier:2},
+ {id:426,ru:"оркестр",en:"orchestra",pos:"noun",note:"m",ex:"Оркестр играет симфонию.",theme:"arts",tier:3},
+ {id:427,ru:"мелодия",en:"melody/tune",pos:"noun",note:"f",ex:"Красивая мелодия.",theme:"arts",tier:2},
+ {id:428,ru:"песня",en:"song",pos:"noun",note:"f",ex:"Спой мою любимую песню.",theme:"arts",tier:2},
+ {id:429,ru:"кино",en:"cinema/film",pos:"noun",note:"n",ex:"Пойдём в кино.",theme:"arts",tier:2},
+ {id:430,ru:"фильм",en:"film/movie",pos:"noun",note:"m",ex:"Это старый фильм.",theme:"arts",tier:2},
+ {id:431,ru:"экран",en:"screen",pos:"noun",note:"m",ex:"На экране появились титры.",theme:"arts",tier:2},
+ {id:432,ru:"кадр",en:"frame/shot",pos:"noun",note:"m",ex:"Это красивый кадр.",theme:"arts",tier:3},
+ {id:433,ru:"красота",en:"beauty",pos:"noun",note:"f",ex:"Красота спасёт мир.",theme:"arts",tier:2},
+ {id:434,ru:"вкус",en:"taste",pos:"noun",note:"m",ex:"У неё хороший вкус.",theme:"arts",tier:2},
+ {id:435,ru:"стиль",en:"style",pos:"noun",note:"m",ex:"У художника свой стиль.",theme:"arts",tier:2},
+ {id:436,ru:"жанр",en:"genre",pos:"noun",note:"m",ex:"Мой любимый жанр — детектив.",theme:"arts",tier:2},
+ {id:437,ru:"направление",en:"movement/direction",pos:"noun",note:"n",ex:"Это новое направление в искусстве.",theme:"arts",tier:3},
+ {id:438,ru:"творчество",en:"creative work/oeuvre",pos:"noun",note:"n",ex:"Я изучаю творчество Гоголя.",theme:"arts",tier:3},
+ {id:439,ru:"вдохновение",en:"inspiration",pos:"noun",note:"n",ex:"Он ждёт вдохновения.",theme:"arts",tier:3},
+ {id:440,ru:"талант",en:"talent",pos:"noun",note:"m",ex:"У неё редкий талант.",theme:"arts",tier:2},
+ {id:441,ru:"гений",en:"genius",pos:"noun",note:"m",ex:"Он настоящий гений.",theme:"arts",tier:3},
+ {id:442,ru:"мастерство",en:"mastery/craftsmanship",pos:"noun",note:"n",ex:"Его мастерство поражает.",theme:"arts",tier:3},
+ {id:443,ru:"произведение",en:"work (of art)",pos:"noun",note:"n",ex:"Это великое произведение.",theme:"arts",tier:2},
+ {id:444,ru:"шедевр",en:"masterpiece",pos:"noun",note:"m",ex:"Эта картина — шедевр.",theme:"arts",tier:3},
+ {id:445,ru:"наследие",en:"heritage/legacy",pos:"noun",note:"n",ex:"Это культурное наследие.",theme:"arts",tier:3},
+ {id:446,ru:"традиция",en:"tradition",pos:"noun",note:"f",ex:"Это старая традиция.",theme:"arts",tier:2},
+ {id:447,ru:"культура",en:"culture",pos:"noun",note:"f",ex:"Меня интересует русская культура.",theme:"arts",tier:2},
+ {id:448,ru:"эпоха",en:"epoch/era",pos:"noun",note:"f",ex:"Это была великая эпоха.",theme:"arts",tier:3},
+ {id:449,ru:"критика",en:"criticism/critique",pos:"noun",note:"f",ex:"Книга получила высокую критику.",theme:"arts",tier:3},
+ {id:450,ru:"смысл",en:"meaning/sense",pos:"noun",note:"m",ex:"В чём смысл жизни?",theme:"arts",tier:2},
+ {id:451,ru:"прекрасный",en:"beautiful/wonderful",pos:"adj",ex:"Какой прекрасный вид!",theme:"arts",tier:2},
+ {id:452,ru:"изящный",en:"elegant/graceful",pos:"adj",ex:"У неё изящные движения.",theme:"arts",tier:3},
+ {id:453,ru:"выразительный",en:"expressive",pos:"adj",ex:"У актёра выразительное лицо.",theme:"arts",tier:3},
+ {id:454,ru:"утончённый",en:"refined/subtle",pos:"adj",ex:"У него утончённый вкус.",theme:"arts",tier:3},
+ {id:455,ru:"гениальный",en:"brilliant/ingenious",pos:"adj",ex:"Это гениальное решение.",theme:"arts",tier:3},
+ {id:456,ru:"талантливый",en:"talented",pos:"adj",ex:"Она талантливая певица.",theme:"arts",tier:2},
+ {id:457,ru:"самобытный",en:"original/distinctive",pos:"adj",ex:"У поэта самобытный стиль.",theme:"arts",tier:3},
+ {id:458,ru:"классический",en:"classical/classic",pos:"adj",ex:"Я слушаю классическую музыку.",theme:"arts",tier:2},
+ {id:459,ru:"романтический",en:"romantic",pos:"adj",ex:"Это романтическая история.",theme:"arts",tier:2},
+ {id:460,ru:"современник",en:"contemporary (person)",pos:"noun",note:"m",ex:"Он был современником Пушкина.",theme:"arts",tier:3},
+ {id:461,ru:"сочинять",en:"to compose/write",pos:"verb",note:"impf · pf сочинить",ex:"Он сочиняет музыку.",theme:"arts",tier:2},
+ {id:462,ru:"изображать",en:"to depict/portray",pos:"verb",note:"impf · pf изобразить",ex:"Картина изображает бурю.",theme:"arts",tier:3},
+ {id:463,ru:"выражать",en:"to express",pos:"verb",note:"impf · pf выразить",ex:"Искусство выражает чувства.",theme:"arts",tier:2},
+ {id:464,ru:"воплощать",en:"to embody/realize",pos:"verb",note:"impf · pf воплотить",ex:"Он воплощает идею в жизнь.",theme:"arts",tier:3},
+ {id:465,ru:"вдохновлять",en:"to inspire",pos:"verb",note:"impf · pf вдохновить",ex:"Природа вдохновляет художников.",theme:"arts",tier:3},
+ {id:466,ru:"восхищать",en:"to delight/enthrall",pos:"verb",note:"impf · pf восхитить",ex:"Его игра восхищает публику.",theme:"arts",tier:3},
+ {id:467,ru:"изображение",en:"image/depiction",pos:"noun",note:"n",ex:"На стене висит изображение города.",theme:"arts",tier:3},
+ {id:468,ru:"полотно",en:"canvas/(large) painting",pos:"noun",note:"n",ex:"Это огромное полотно.",theme:"arts",tier:3},
+ {id:469,ru:"звучание",en:"sound/sonority",pos:"noun",note:"n",ex:"У оркестра богатое звучание.",theme:"arts",tier:3},
+ {id:470,ru:"впечатление",en:"impression",pos:"noun",note:"n",ex:"Фильм произвёл сильное впечатление.",theme:"arts",tier:2}
 ];
 const DECK_BY_ID = Object.fromEntries(DECK.map(w=>[w.id,w]));
+// existing starter words are Core / tier 1 by default
+DECK.forEach(w=>{ if(!w.theme) w.theme="core"; if(w.tier==null) w.tier=1; });
+const THEMES=[
+  {key:"core",    label:"Core frequency"},
+  {key:"emotion", label:"Emotions & psychology"},
+  {key:"arts",    label:"Arts & culture"}
+];
+function allThemeKeys(){ return THEMES.map(t=>t.key); }
+function activeThemes(){ const a=S.activeThemes; return (a&&a.length)?a:allThemeKeys(); }
+function deckActive(w){ return activeThemes().includes(w.theme); }
+function unseenInTheme(key){ return DECK.filter(w=>w.theme===key && !(S.cards[w.id]&&S.cards[w.id].introduced)).length; }
 
 /* ---------------- Config ---------------- */
 const NEW_PER_DAY = 10, REVIEW_PER_DAY = 20;
@@ -472,10 +814,10 @@ const CEFR = [                              // rough known-word thresholds
 /* ---------------- State ---------------- */
 const KEY="rt_state_v1";
 function today(){return new Date().toISOString().slice(0,10);}
-function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{}};}
+function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},activeThemes:allThemeKeys()};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 let S = load();
-function load(){try{const s=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)));if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};return s;}catch(e){return blank()}}
+function load(){try{const s=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)));if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};if(!s.activeThemes||!s.activeThemes.length)s.activeThemes=allThemeKeys();return s;}catch(e){return blank()}}
 function save(){localStorage.setItem(KEY,JSON.stringify(S));}
 
 /* ---------------- SRS helpers ---------------- */
@@ -490,11 +832,46 @@ function buildQueue(){
   let reviews=DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;})
                   .map(w=>w.id);
   reviews=reviews.slice(0,Math.max(0,REVIEW_PER_DAY-log.reviewDone));
-  // new words not yet introduced
-  let news=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced)).map(w=>w.id);
+  // new words not yet introduced, limited to active decks, easiest (lowest tier) first
+  let news=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced) && deckActive(w))
+               .sort((a,b)=>a.tier-b.tier||a.id-b.id).map(w=>w.id);
   news=news.slice(0,Math.max(0,NEW_PER_DAY-log.newDone));
   // reviews first, then new
   return reviews.concat(news).map(id=>({id,isNew:!(S.cards[id]&&S.cards[id].introduced),firstTry:true}));
+}
+
+/* ---------------- Deck picker + "I know this" skip ---------------- */
+function renderDeckPicker(){
+  const box=$("deck-picker"); if(!box) return;
+  const act=activeThemes();
+  box.innerHTML="";
+  THEMES.forEach(t=>{
+    const left=unseenInTheme(t.key);
+    const on=act.includes(t.key);
+    const b=document.createElement("button");
+    b.className="deck-chip"+(on?" on":"");
+    b.innerHTML=(on?"✓ ":"")+t.label+' <span class="dc-count">'+left+" new left</span>";
+    b.onclick=()=>{
+      let a=activeThemes().slice();
+      if(a.includes(t.key)) a=a.filter(k=>k!==t.key); else a.push(t.key);
+      if(!a.length) a=[t.key];                 // never allow zero decks
+      S.activeThemes=a; save(); renderDeckPicker();
+    };
+    box.appendChild(b);
+  });
+}
+function knowSkip(){
+  if(!cur) return;
+  const c=card(cur.id);
+  c.introduced=true;
+  c.box=Math.max(c.box, KNOWN_BOX+1);          // bank straight to "known"
+  c.reps=(c.reps||0)+1;
+  c.due=daysAdd(today(), INTERVALS[Math.min(c.box, INTERVALS.length-1)]);
+  save();
+  queue.shift();
+  if(sessionTotal>sessionDone) sessionTotal--;  // it left the session without being drilled
+  refreshBadges();
+  nextCard();
 }
 
 /* ---------------- Grading (lenient) ---------------- */
@@ -574,8 +951,9 @@ const $=id=>document.getElementById(id);
 
 function startSession(extra){
   if(extra){
-    // "Keep practicing": pull the NEXT batch of never-seen words
-    let fresh=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced)).map(w=>w.id);
+    // "Keep practicing": pull the NEXT batch of never-seen words (active decks, easiest first)
+    let fresh=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced) && deckActive(w))
+                  .sort((a,b)=>a.tier-b.tier||a.id-b.id).map(w=>w.id);
     if(fresh.length){
       queue=fresh.slice(0,NEW_PER_DAY).map(id=>({id,isNew:true,firstTry:true}));
     } else {
@@ -611,6 +989,8 @@ function nextCard(){
   $("choices").style.display = choiceMode ? "flex" : "none";
   $("check").classList.toggle("hide", choiceMode);
   $("reveal").classList.remove("hide");
+  $("know-skip").classList.toggle("hide", !cur.isNew);
+  $("know-skip").onclick=knowSkip;
 
   if(choiceMode){ buildChoices(w); $("kbd").style.display="none"; }
   else { $("choices").innerHTML=""; updateKbd(); $("answer").focus(); }
@@ -1245,7 +1625,7 @@ const EXAMS=[
  ]}
 ];
 const BAND_LESSONS={A1:["prep-case","accusative"],A2:["genitive","aspect"],B1:["motion"]};
-const BAND_WORDS={A1:40,A2:100,B1:150};
+const BAND_WORDS={A1:60,A2:250,B1:450};
 function examRec(level){ if(!S.exams) S.exams={}; if(!S.exams[level]) S.exams[level]={passed:false,best:0}; return S.exams[level]; }
 function lessonDoneId(id){ return !!(S.lessons[id]&&S.lessons[id].done); }
 function bandLessonsDone(level){ return (BAND_LESSONS[level]||[]).every(lessonDoneId); }
@@ -1476,6 +1856,7 @@ function showView(v){
   if(v==="home") renderHome();
   if(v==="lessons") renderLessons();
   if(v==="exam") renderExams();
+  if(v==="drill") renderDeckPicker();
 }
 $("tab-home").onclick=()=>showView("home");
 $("tab-drill").onclick=()=>showView("drill");
