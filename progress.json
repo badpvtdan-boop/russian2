@@ -329,5 +329,10 @@
       "passed": false,
       "best": 0
     }
-  }
+  },
+  "activeThemes": [
+    "core",
+    "emotion",
+    "arts"
+  ]
 }
