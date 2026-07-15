@@ -317,8 +317,9 @@
   },
   "exams": {
     "A1": {
-      "passed": false,
-      "best": 0
+      "passed": true,
+      "best": 0.9,
+      "date": "2026-07-15"
     },
     "A2": {
       "passed": false,
