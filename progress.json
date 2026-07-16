@@ -990,7 +990,8 @@
     },
     "2026-07-16": {
       "newDone": 10,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "gDone": 15
     }
   },
   "duoLevel": null,
@@ -1036,108 +1037,108 @@
   },
   "gcards": {
     "prep-case#0": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "prep-case#1": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "prep-case#2": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "prep-case#3": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "prep-case#4": {
-      "box": 0,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-17",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "prep-case#5": {
-      "box": 0,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-17",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "prep-case#6": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "prep-case#7": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "prep-case#8": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "prep-case#9": {
-      "box": 0,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-17",
+      "lapses": 2,
+      "reps": 3,
       "introduced": true
     },
     "prep-case#10": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "prep-case#11": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "accusative#0": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "accusative#1": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-17",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "accusative#2": {
-      "box": 0,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-17",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "accusative#3": {
