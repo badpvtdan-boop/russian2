@@ -387,44 +387,44 @@
     },
     "56": {
       "box": 1,
-      "due": "2026-07-16",
-      "lapses": 1,
-      "reps": 2,
+      "due": "2026-07-17",
+      "lapses": 2,
+      "reps": 4,
       "introduced": true
     },
     "57": {
-      "box": 1,
-      "due": "2026-07-16",
+      "box": 2,
+      "due": "2026-07-18",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "58": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "59": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "60": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 1,
       "reps": 2,
       "introduced": true
     },
-    "61": {
-      "box": 1,
-      "due": "2026-07-16",
+    "58": {
+      "box": 2,
+      "due": "2026-07-18",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "59": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "60": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 1,
+      "reps": 3,
+      "introduced": true
+    },
+    "61": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 2,
       "introduced": true
     },
     "62": {
@@ -519,17 +519,17 @@
       "introduced": true
     },
     "75": {
-      "box": 1,
-      "due": "2026-07-16",
+      "box": 2,
+      "due": "2026-07-18",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "76": {
-      "box": 1,
-      "due": "2026-07-16",
+      "box": 2,
+      "due": "2026-07-18",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "77": {
@@ -540,10 +540,10 @@
       "introduced": true
     },
     "78": {
-      "box": 1,
-      "due": "2026-07-16",
+      "box": 2,
+      "due": "2026-07-18",
       "lapses": 1,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "79": {
@@ -554,80 +554,80 @@
       "introduced": true
     },
     "80": {
-      "box": 1,
-      "due": "2026-07-16",
+      "box": 2,
+      "due": "2026-07-18",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "81": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "82": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "83": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "84": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "85": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "86": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
-    },
-    "87": {
-      "box": 1,
-      "due": "2026-07-16",
-      "lapses": 1,
       "reps": 2,
       "introduced": true
     },
-    "88": {
-      "box": 1,
-      "due": "2026-07-16",
+    "81": {
+      "box": 2,
+      "due": "2026-07-18",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "82": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "83": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "84": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "85": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "86": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 2,
+      "introduced": true
+    },
+    "87": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 1,
+      "reps": 3,
+      "introduced": true
+    },
+    "88": {
+      "box": 2,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 2,
       "introduced": true
     },
     "89": {
       "box": 1,
-      "due": "2026-07-16",
-      "lapses": 1,
-      "reps": 2,
+      "due": "2026-07-17",
+      "lapses": 2,
+      "reps": 4,
       "introduced": true
     },
     "90": {
-      "box": 1,
-      "due": "2026-07-16",
+      "box": 2,
+      "due": "2026-07-18",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "91": {
@@ -1032,6 +1032,176 @@
     "B1": {
       "passed": false,
       "best": 0
+    }
+  },
+  "gcards": {
+    "prep-case#0": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#1": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#2": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#3": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#4": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#5": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#6": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#7": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#8": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#9": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#10": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "prep-case#11": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#0": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#1": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#2": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#3": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#4": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#5": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#6": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#7": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#8": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#9": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#10": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "accusative#11": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
     }
   },
   "activeThemes": [
