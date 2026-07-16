@@ -224,6 +224,34 @@
     <button class="ghost" id="practice-more">Keep practicing</button>
   </div>
 
+  <!-- GRAMMAR REVIEW -->
+  <div class="card" id="grammar-card">
+    <div class="foot"><b>🧠 Grammar review</b><span class="tag" style="margin:0" id="g-sub">Spaced review of grammar you've learned</span></div>
+
+    <div id="g-intro">
+      <div class="tag" id="g-intro-msg" style="margin-top:10px"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="primary" id="g-start">Start grammar review</button>
+        <button class="ghost hide" id="g-anyway">Review anyway →</button>
+      </div>
+    </div>
+
+    <div id="g-drill" class="hide">
+      <div class="bar"><div id="g-progbar"></div></div>
+      <div class="tag" id="g-progtag"></div>
+      <div id="g-runner" style="margin-top:14px"></div>
+    </div>
+
+    <div id="g-done" class="hide" style="text-align:center;padding:8px 0">
+      <h2 style="margin:.2em 0">Grammar review done ✅</h2>
+      <p class="muted" id="g-done-msg"></p>
+      <div class="row" style="justify-content:center">
+        <button class="ghost" id="g-more">Keep practicing</button>
+        <button class="ghost" id="g-close">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- SETTINGS -->
   <div class="card settings">
     <div class="foot">
@@ -805,6 +833,7 @@ function unseenInTheme(key){ return DECK.filter(w=>w.theme===key && !(S.cards[w.
 
 /* ---------------- Config ---------------- */
 const NEW_PER_DAY = 10, REVIEW_PER_DAY = 20;
+const GRAMMAR_PER_DAY = 15;               // max grammar-review items surfaced per day
 const INTERVALS = [0,1,2,4,7,15,30,60];   // days by box
 const KNOWN_BOX = 4;                        // box>=4 counts as "known"
 const CEFR = [                              // rough known-word thresholds
@@ -814,10 +843,10 @@ const CEFR = [                              // rough known-word thresholds
 /* ---------------- State ---------------- */
 const KEY="rt_state_v1";
 function today(){return new Date().toISOString().slice(0,10);}
-function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},activeThemes:allThemeKeys()};}
+function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:allThemeKeys()};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 let S = load();
-function load(){try{const s=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)));if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};if(!s.activeThemes||!s.activeThemes.length)s.activeThemes=allThemeKeys();return s;}catch(e){return blank()}}
+function load(){try{const s=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)));if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};if(!s.gcards)s.gcards={};if(!s.activeThemes||!s.activeThemes.length)s.activeThemes=allThemeKeys();return s;}catch(e){return blank()}}
 function save(){localStorage.setItem(KEY,JSON.stringify(S));}
 
 /* ---------------- SRS helpers ---------------- */
@@ -1600,7 +1629,7 @@ function finishTest(){
   const rec=lessonRec(curLesson.id);
   const pct=tScore/curLesson.test.length;
   rec.best=Math.max(rec.best||0,pct);
-  if(pct>=PASS) rec.done=true;
+  if(pct>=PASS){ rec.done=true; ensureGrammarSeeded(); }  // newly-passed lesson feeds grammar review
   save();
   if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
   refreshBadges();
@@ -1910,7 +1939,7 @@ function showView(v){
   if(v==="home") renderHome();
   if(v==="lessons") renderLessons();
   if(v==="exam") renderExams();
-  if(v==="drill") renderDeckPicker();
+  if(v==="drill"){ renderDeckPicker(); renderGrammarCard(); }
 }
 $("tab-home").onclick=()=>showView("home");
 $("tab-drill").onclick=()=>showView("drill");
@@ -1973,6 +2002,224 @@ $("gh-auto").onchange=e=>{ GH.autoSave=e.target.checked; ghSaveCfg(); };
 $("gh-save").onclick=()=>ghSave(false);
 $("gh-load").onclick=ghLoad;
 ghSummary();
+
+/* ================= Grammar Review (spaced review of completed lessons) ================= */
+/* Fresh question pools — distinct from each lesson's own practice/test items.
+   Format mirrors lessons: {q, opts, a, why}; a=0 (correct authored first); renderer shuffles. */
+const GRAMMAR=[
+{ lesson:"prep-case", title:"Prepositional Case", level:"A1", items:[
+  {q:"Мы у́чимся в … (университе́т).",opts:["университе́те","университе́т","университе́ту","университе́том"],a:0,why:"Location, masculine hard → add -е: в университе́те."},
+  {q:"Кни́га лежи́т на … (по́лка).",opts:["по́лке","по́лка","по́лку","по́лкой"],a:0,why:"Location, feminine -а → -е: на по́лке."},
+  {q:"Мы говори́м о … (му́зыка).",opts:["му́зыке","му́зыка","му́зыку","му́зыкой"],a:0,why:"Topic 'about', feminine -а → -е: о му́зыке."},
+  {q:"Choose the preposition: «Он живёт … Герма́нии.»",opts:["в","на","о","об"],a:0,why:"Enclosed place / country → в: в Герма́нии."},
+  {q:"Она́ была́ в … (Ита́лия).",opts:["Ита́лии","Ита́лия","Ита́лию","Ита́лией"],a:0,why:"Ends in -ия → -ии: в Ита́лии."},
+  {q:"Ла́мпа стои́т на … (крова́ть).",opts:["крова́ти","крова́ть","крова́тью","крова́те"],a:0,why:"Feminine ending in -ь → -и: на крова́ти."},
+  {q:"Choose the preposition: «Расскажи́ мне … э́том.»",opts:["об","о","в","на"],a:0,why:"Use об before a vowel sound: об э́том."},
+  {q:"Choose the preposition: «Мы бы́ли … конце́рте.»",opts:["на","в","о","об"],a:0,why:"Events take на: на конце́рте."},
+  {q:"Кни́ги в … (зда́ние).",opts:["зда́нии","зда́ние","зда́ния","зда́нием"],a:0,why:"Ends in -ие → -ии: в зда́нии."},
+  {q:"Де́ти игра́ют в … (лес).",opts:["лесу́","ле́се","лес","ле́сом"],a:0,why:"A few masculine nouns take stressed -у́ after в/на for location: в лесу́."},
+  {q:"Я живу́ в … (кварти́ра).",opts:["кварти́ре","кварти́ра","кварти́ру","кварти́рой"],a:0,why:"Location, feminine -а → -е: в кварти́ре."},
+  {q:"Choose the preposition: «Э́то фильм … любви́.»",opts:["о","об","в","на"],a:0,why:"'About' before a consonant → о: о любви́."}
+]},
+{ lesson:"accusative", title:"Accusative Case", level:"A1", items:[
+  {q:"Я чита́ю … (газе́та).",opts:["газе́ту","газе́та","газе́те","газе́той"],a:0,why:"Direct object, feminine -а → -у: чита́ю газе́ту."},
+  {q:"Я пью … (чай).",opts:["чай","ча́я","ча́ю","ча́ем"],a:0,why:"Inanimate masculine — no change: пью чай."},
+  {q:"Я ви́жу … (брат).",opts:["бра́та","брат","бра́ту","бра́том"],a:0,why:"Animate masculine takes -а (like genitive): ви́жу бра́та."},
+  {q:"Она́ лю́бит свою́ … (соба́ка).",opts:["соба́ку","соба́ка","соба́ки","соба́кой"],a:0,why:"Feminine animate still just -а → -у: лю́бит соба́ку."},
+  {q:"Motion → which form? Я е́ду в … (дере́вня).",opts:["дере́вню","дере́вне","дере́вня","дере́вней"],a:0,why:"Motion toward = accusative; feminine -я → -ю: в дере́вню."},
+  {q:"Мы чита́ем … (письмо́).",opts:["письмо́","письма́","письму́","письмо́м"],a:0,why:"Neuter — no change: чита́ем письмо́."},
+  {q:"Я хорошо́ зна́ю … (студе́нт).",opts:["студе́нта","студе́нт","студе́нту","студе́нтом"],a:0,why:"Animate masculine → -а: зна́ю студе́нта."},
+  {q:"Motion → which form? Он идёт на … (ле́кция).",opts:["ле́кцию","ле́кции","ле́кция","ле́кцией"],a:0,why:"Motion toward = accusative; -ия → -ию: на ле́кцию."},
+  {q:"Я ви́жу … (кот).",opts:["кота́","кот","ко́ту","кото́м"],a:0,why:"Animate masculine → -а: ви́жу кота́."},
+  {q:"Я покупа́ю … (ру́чка).",opts:["ру́чку","ру́чка","ру́чке","ру́чкой"],a:0,why:"Feminine -а → -у: покупа́ю ру́чку."},
+  {q:"For which nouns does animacy change the accusative?",opts:["Masculine","Feminine","Neuter","Plural only"],a:0,why:"Only masculine nouns change: animate take -а/-я, inanimate stay the same."},
+  {q:"Мы смо́трим … (телеви́зор).",opts:["телеви́зор","телеви́зора","телеви́зору","телеви́зором"],a:0,why:"Inanimate masculine — no change: смо́трим телеви́зор."}
+]},
+{ lesson:"aspect", title:"Verb Aspect", level:"A2", items:[
+  {q:"What is the perfective partner of реша́ть?",opts:["реши́ть","реша́ю","реша́л","реша́ть"],a:0,why:"реша́ть (impf) → реши́ть (pf)."},
+  {q:"What is the perfective partner of брать?",opts:["взять","беру́","бра́ла","брать"],a:0,why:"брать (impf) pairs with взять (pf) — a stem-changing pair."},
+  {q:"Ка́ждый ве́чер я … телеви́зор. (watch — habit)",opts:["смотрю́","посмотрю́","посмотре́л","смотре́ть"],a:0,why:"Habitual/repeated → imperfective present: смотрю́."},
+  {q:"Вчера́ я … э́тот фильм до конца́. (finished it)",opts:["посмотре́л","смотре́л","смотрю́","смотре́ть"],a:0,why:"Completed, with a result → perfective past: посмотре́л."},
+  {q:"За́втра я … тебе́. (will call — one call)",opts:["позвоню́","бу́ду звони́ть","звоню́","звони́ть"],a:0,why:"Single completed future action → perfective: позвоню́."},
+  {q:"Present tense in Russian can only be which aspect?",opts:["Imperfective","Perfective","Either one","Neither"],a:0,why:"A perfective seen as completed can't be in progress now — present is always imperfective."},
+  {q:"Я до́лго … э́ту зада́чу. (was solving — process)",opts:["реша́л","реши́л","решу́","реши́ть"],a:0,why:"Ongoing process ('до́лго') → imperfective: реша́л."},
+  {q:"Наконе́ц я … э́ту зада́чу. (finally solved it)",opts:["реши́л","реша́л","реша́ю","реша́ть"],a:0,why:"Completed with a result → perfective: реши́л."},
+  {q:"A perfective verb conjugated like the present actually refers to the…",opts:["future","present","past","past habit"],a:0,why:"e.g. напишу́ = 'I will write (and finish)' — a perfective present-form means the future."},
+  {q:"Она́ … уро́ки ка́ждый день. (does homework — every day)",opts:["де́лает","сде́лает","сде́лала","сде́лать"],a:0,why:"Habitual → imperfective present: де́лает."},
+  {q:"What is the perfective partner of ви́деть?",opts:["уви́деть","ви́жу","ви́дел","ви́деть"],a:0,why:"ви́деть (impf) → уви́деть (pf)."},
+  {q:"За́втра я … все слова́. (will learn them all)",opts:["вы́учу","бу́ду учи́ть","учу́","учи́ть"],a:0,why:"One completed result in the future → perfective: вы́учу."}
+]},
+{ lesson:"motion", title:"Verbs of Motion", level:"B1", items:[
+  {q:"Я … на рабо́ту пря́мо сейча́с. (on foot, one way, now)",opts:["иду́","хожу́","е́ду","е́зжу"],a:0,why:"On foot, one direction, in progress → идти́: иду́."},
+  {q:"Ка́ждое у́тро я … в университе́т пешко́м. (every morning)",opts:["хожу́","иду́","е́зжу","е́ду"],a:0,why:"Repeated on foot → multidirectional ходи́ть: хожу́."},
+  {q:"За́втра мы … в Кита́й. (will set off — far away)",opts:["пое́дем","пойдём","е́здим","хо́дим"],a:0,why:"Long distance → by vehicle; future set-off → по-: пое́дем."},
+  {q:"The prefix вы- (as in вы́йти) means…",opts:["exit / go out","enter","arrive","set off"],a:0,why:"вы- = exiting / going out."},
+  {q:"Она́ уже́ … из о́фиса. (already left)",opts:["ушла́","пришла́","пошла́","шла"],a:0,why:"у- = departure; perfective past of уйти́ (f.) is ушла́."},
+  {q:"Ты ча́сто … в библиоте́ку? (often — on foot)",opts:["хо́дишь","идёшь","е́дешь","е́здишь"],a:0,why:"Repeated on foot → ходи́ть: хо́дишь."},
+  {q:"Мы … в аэропо́рт на такси́. (on our way now, by car)",opts:["е́дем","идём","хо́дим","е́здим"],a:0,why:"By vehicle, one direction now → е́хать: е́дем."},
+  {q:"The prefix в- (as in войти́) means…",opts:["enter / go in","exit","leave","arrive"],a:0,why:"в- = entering / going in."},
+  {q:"Verbs of motion split by on-foot-vs-vehicle and by…",opts:["one direction vs. round-trip / habit","past vs. future","singular vs. plural","animate vs. inanimate"],a:0,why:"The second axis is unidirectional (идти́/е́хать) vs. multidirectional (ходи́ть/е́здить)."},
+  {q:"Он … к нам вчера́ ве́чером. (came / arrived)",opts:["пришёл","ушёл","шёл","ходи́л"],a:0,why:"при- = arrival; perfective past of прийти́ is пришёл."},
+  {q:"Ле́том они́ ча́сто … за грани́цу. (travel abroad, repeatedly)",opts:["е́здят","е́дут","хо́дят","иду́т"],a:0,why:"Repeated trips by vehicle → многонапр. е́здить: е́здят."},
+  {q:"Which pair means 'to go by vehicle'?",opts:["е́хать / е́здить","идти́ / ходи́ть","нести́ / носи́ть","бежа́ть / бе́гать"],a:0,why:"е́хать (one way) / е́здить (habit) = motion by transport."}
+]},
+{ lesson:"genitive", title:"Genitive Case", level:"A2", items:[
+  {q:"Э́то центр … (го́род).",opts:["го́рода","го́род","го́роду","го́родом"],a:0,why:"'Of' / possession, masculine hard → -а: центр го́рода."},
+  {q:"У меня́ нет … (соба́ка).",opts:["соба́ки","соба́ка","соба́ку","соба́кой"],a:0,why:"нет + genitive; feminine → -и after к: нет соба́ки."},
+  {q:"Он верну́лся из … (магази́н).",opts:["магази́на","магази́н","магази́ну","магази́ном"],a:0,why:"из + genitive; masculine hard → -а: из магази́на."},
+  {q:"Ча́шка … (чай).",opts:["ча́я","чай","ча́ю","ча́ем"],a:0,why:"'Of', masculine soft (-й) → -я: ча́шка ча́я."},
+  {q:"Пода́рок для … (подру́га).",opts:["подру́ги","подру́га","подру́гу","подру́гой"],a:0,why:"для + genitive; -и after г: для подру́ги."},
+  {q:"У меня́ два … (сын).",opts:["сы́на","сын","сыновья́","сынове́й"],a:0,why:"After 2/3/4 → genitive singular: два сы́на."},
+  {q:"Я хочу́ ко́фе без … (лимо́н).",opts:["лимо́на","лимо́н","лимо́ну","лимо́ном"],a:0,why:"без + genitive; masculine hard → -а: без лимо́на."},
+  {q:"Choose the preposition: «Письмо́ … дру́га.» (from a friend)",opts:["от","из","до","без"],a:0,why:"от = from a person / point: письмо́ от дру́га."},
+  {q:"У нас мно́го … (рабо́та).",opts:["рабо́ты","рабо́та","рабо́ту","рабо́те"],a:0,why:"Quantity word (мно́го) + genitive: мно́го рабо́ты."},
+  {q:"To say 'I don't have X', X goes in the…",opts:["genitive","accusative","dative","prepositional"],a:0,why:"Absence with нет / не́ было / не бу́дет takes the genitive."},
+  {q:"Стол стои́т у … (окно́). (by the window)",opts:["окна́","окно́","окну́","окно́м"],a:0,why:"у + genitive; neuter -о → -а: у окна́."},
+  {q:"В гру́ппе три … (студе́нт).",opts:["студе́нта","студе́нт","студе́нты","студе́нтов"],a:0,why:"After 2/3/4 → genitive singular: три студе́нта."}
+]},
+{ lesson:"dative", title:"Dative Case", level:"A2", items:[
+  {q:"Я подари́л кни́гу … (сын).",opts:["сы́ну","сы́на","сын","сы́ном"],a:0,why:"Recipient → dative; masculine hard → -у: сы́ну."},
+  {q:"Я звоню́ … (подру́га).",opts:["подру́ге","подру́гу","подру́ги","подру́гой"],a:0,why:"Звони́ть takes the dative; feminine -а → -е: подру́ге."},
+  {q:"… нра́вится э́тот фильм. (she likes it)",opts:["Ей","Её","Она́","Их"],a:0,why:"With нра́вится the experiencer is dative; 'she' → ей."},
+  {q:"Ско́лько лет … (ба́бушка)?",opts:["ба́бушке","ба́бушка","ба́бушку","ба́бушки"],a:0,why:"Age uses the dative; feminine -а → -е: ба́бушке."},
+  {q:"Помоги́ … (учи́тель).",opts:["учи́телю","учи́теля","учи́тель","учи́телем"],a:0,why:"Помога́ть takes the dative; masculine soft -ь → -ю: учи́телю."},
+  {q:"Я иду́ к … (дире́ктор).",opts:["дире́ктору","дире́ктора","дире́ктор","дире́ктором"],a:0,why:"The preposition к takes the dative: к дире́ктору."},
+  {q:"Мы гуля́ли по … (парк).",opts:["па́рку","па́рка","парк","па́рком"],a:0,why:"The preposition по takes the dative: по па́рку."},
+  {q:"… хо́лодно. (we're cold)",opts:["Нам","Мы","Нас","На́ми"],a:0,why:"Impersonal feeling-words put the experiencer in the dative: нам хо́лодно."},
+  {q:"Помога́ть ('to help') takes which case for the person helped?",opts:["dative","accusative","genitive","prepositional"],a:0,why:"помога́ть + dative — even though English uses a direct object."},
+  {q:"… ну́жно отдохну́ть. (he needs to rest)",opts:["Ему́","Его́","Он","Им"],a:0,why:"Dative + ну́жно; 'he' → ему́."},
+  {q:"Учи́тель объясня́ет пра́вило … (учени́к).",opts:["ученику́","ученика́","учени́к","ученико́м"],a:0,why:"Indirect object → dative; masculine hard → -у: ученику́."},
+  {q:"The preposition к takes which case?",opts:["dative","accusative","genitive","instrumental"],a:0,why:"к (toward / to a person) + dative: к врачу́, ко мне́."}
+]}
+];
+
+let gq=[], gcur=null, gTot=0, gDoneN=0;
+
+function gcard(id){ if(!S.gcards[id]) S.gcards[id]={box:0,due:today(),lapses:0,reps:0,introduced:false}; return S.gcards[id]; }
+function gTopicsDone(){ return GRAMMAR.filter(g=>lessonDoneId(g.lesson)); }
+function ensureGrammarSeeded(){
+  let changed=false;
+  GRAMMAR.forEach(g=>{ if(lessonDoneId(g.lesson)) g.items.forEach((it,i)=>{
+    const id=g.lesson+"#"+i;
+    if(!S.gcards[id]){ S.gcards[id]={box:0,due:today(),lapses:0,reps:0,introduced:true}; changed=true; }
+  }); });
+  if(changed) save();
+}
+function grammarItemsDue(){
+  ensureGrammarSeeded();
+  const t=today(); const out=[];
+  gTopicsDone().forEach(g=>g.items.forEach((it,i)=>{
+    const id=g.lesson+"#"+i, c=S.gcards[id];
+    if(c&&c.introduced&&c.due<=t) out.push({id,topic:g,it,box:c.box,due:c.due});
+  }));
+  out.sort((a,b)=>a.box-b.box || (a.due<b.due?-1:a.due>b.due?1:0));
+  return out;
+}
+function grammarAllItems(){
+  ensureGrammarSeeded(); const out=[];
+  gTopicsDone().forEach(g=>g.items.forEach((it,i)=>out.push({id:g.lesson+"#"+i,topic:g,it})));
+  return shuffle(out);
+}
+function grammarDueCount(){ return grammarItemsDue().length; }
+function gDoneToday(){ const l=S.dailyLog[today()]; return (l&&l.gDone)||0; }
+function dueQueue(){ const budget=Math.max(0,GRAMMAR_PER_DAY-gDoneToday()); return grammarItemsDue().slice(0,budget).map(x=>({...x,firstTry:true})); }
+function anyQueue(){ const due=grammarItemsDue(); const base=due.length?due:grammarAllItems(); return base.slice(0,GRAMMAR_PER_DAY).map(x=>({...x,firstTry:true})); }
+
+function logGrammarDay(){ const t=today(); const l=S.dailyLog[t]||(S.dailyLog[t]={newDone:0,reviewDone:0}); l.gDone=(l.gDone||0)+1; }
+
+function gradeGrammarCard(ok){
+  const c=gcard(gcur.id); c.reps=(c.reps||0)+1; c.introduced=true;
+  if(ok){
+    c.box=Math.min(c.box+1, INTERVALS.length-1);
+    c.due=daysAdd(today(), INTERVALS[c.box]);
+    gq.shift(); gDoneN++; logGrammarDay();
+  }else{
+    c.box=0; c.due=today(); c.lapses=(c.lapses||0)+1;
+    const item=gq.shift(); item.firstTry=false; gq.push(item);
+  }
+  save(); renderGProgress();
+  if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()){ /* saved on finish */ }
+}
+function renderGProgress(){
+  const pct=gTot?Math.round(gDoneN/gTot*100):0;
+  $("g-progbar").style.width=pct+"%";
+  $("g-progtag").textContent=`${gDoneN} / ${gTot} reviewed · ${gq.length} left in queue`;
+}
+function renderGrammarQ(){
+  const R=$("g-runner"), it=gcur.it;
+  R.innerHTML=`<div class="stage-dots">${gcur.topic.title} · ${gcur.topic.level}</div>
+    <div class="qtext">${it.q.replace(/…/g,"<b>…</b>")}</div>
+    <div id="g-opts"></div>
+    <div class="why" id="g-why"></div>
+    <div class="row"><button class="primary hide" id="g-adv">Next →</button></div>`;
+  const box=$("g-opts");
+  const order=shuffle(it.opts.map((o,i)=>({o,i})));
+  const correctIdx=order.findIndex(x=>x.i===it.a);
+  let answered=false;
+  order.forEach((entry,i)=>{
+    const b=document.createElement("button"); b.className="lopt"; b.textContent=entry.o;
+    b.onclick=()=>{
+      if(answered) return; answered=true; const ok=(i===correctIdx);
+      [...box.children].forEach((c,ci)=>{ c.disabled=true;
+        if(ci===correctIdx) c.classList.add("correct");
+        else if(ci===i) c.classList.add("wrong"); });
+      const w=$("g-why"); w.textContent=(ok?"✓ ":"✗ ")+(it.why||(ok?"Correct.":"Not quite."))+(ok?"":" — you'll see it again."); w.style.display="block";
+      gradeGrammarCard(ok);
+      const adv=$("g-adv"); adv.classList.remove("hide"); adv.onclick=nextGrammar; adv.focus();
+    };
+    box.appendChild(b);
+  });
+}
+function nextGrammar(){ if(!gq.length){ finishGrammar(); return; } gcur=gq[0]; renderGrammarQ(); }
+function startGrammar(queueArr){
+  gq=queueArr; gTot=gq.length; gDoneN=0;
+  $("g-intro").classList.add("hide"); $("g-done").classList.add("hide"); $("g-drill").classList.remove("hide");
+  renderGProgress();
+  if(!gq.length){ finishGrammar(); return; }
+  nextGrammar();
+}
+function finishGrammar(){
+  $("g-drill").classList.add("hide"); $("g-intro").classList.add("hide"); $("g-done").classList.remove("hide");
+  const left=grammarDueCount();
+  $("g-done-msg").textContent = gDoneN>0
+    ? `You reviewed ${gDoneN} item${gDoneN===1?"":"s"}.` + (left>0?` ${left} still due today.`:` Nothing else due — see you tomorrow.`)
+    : `Nothing due right now — you're all caught up.`;
+  refreshBadges();
+  if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
+}
+function renderGrammarCard(){
+  $("g-drill").classList.add("hide"); $("g-done").classList.add("hide"); $("g-intro").classList.remove("hide");
+  ensureGrammarSeeded();
+  const topics=gTopicsDone();
+  const start=$("g-start"), anyway=$("g-anyway"), msg=$("g-intro-msg"), sub=$("g-sub");
+  if(!topics.length){
+    sub.textContent="Locked";
+    msg.innerHTML="Finish a lesson (learn → practice → test) to unlock grammar review. Completed lessons feed their grammar into spaced repetition here.";
+    start.classList.add("hide"); anyway.classList.add("hide");
+    return;
+  }
+  const names=topics.map(g=>g.title).join(", ");
+  sub.textContent=topics.length+" topic"+(topics.length===1?"":"s")+" unlocked";
+  const remaining=Math.max(0,GRAMMAR_PER_DAY-gDoneToday());
+  const due=grammarDueCount();
+  const eff=Math.min(due,remaining);
+  if(eff>0){
+    start.classList.remove("hide"); start.textContent=`Start grammar review · ${eff} due`;
+    anyway.classList.add("hide");
+    msg.innerHTML=`<b>${due}</b> item${due===1?"":"s"} due today from: ${names}.`;
+  } else if(due>0){
+    start.classList.add("hide"); anyway.classList.remove("hide");
+    msg.innerHTML=`You've hit today's limit of ${GRAMMAR_PER_DAY} reviews. ${due} still due — rest, or review anyway.`;
+  } else {
+    start.classList.add("hide"); anyway.classList.remove("hide");
+    msg.innerHTML=`✓ All caught up — nothing due today from: ${names}. Come back tomorrow, or review anyway.`;
+  }
+}
+$("g-start").onclick=()=>startGrammar(dueQueue());
+$("g-anyway").onclick=()=>startGrammar(anyQueue());
+$("g-more").onclick=()=>startGrammar(anyQueue());
+$("g-close").onclick=()=>renderGrammarCard();
+ensureGrammarSeeded();
 
 /* ---------------- Init ---------------- */
 $("direction").value=S.direction;

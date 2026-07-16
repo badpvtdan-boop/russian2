@@ -20,6 +20,7 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` not started
 - [x] **CEFR labels + legend.** Lessons tagged by band (A1→B1) with color chips and a legend clarifying lesson difficulty vs. the word-count estimate.
 - [x] **Level exams (per-CEFR mastery).** A1/A2/B1 exams (vocab + grammar), 85% to pass, unlock in order; the highest passed exam sets your official Level (source of truth), with readiness nudges on Home. New 🎓 Level tab.
 - [x] **Shuffled answer options.** Lesson practice/test options now randomize each render (previously the correct answer was always first). Drill and exams shuffle too.
+- [x] **Phase 5 — Grammar Review (spaced).** Completed lessons no longer end cold: each finished lesson feeds a **fresh** pool of ~12 review questions (distinct from the lesson's own practice/test items) into the same Leitner SRS as vocab, under a new `gcards` state map. A "🧠 Grammar review" section on the Drill tab shows what's due, capped at 15/day, mirrors vocab box logic (correct → advance box + interval; miss → box 0 + requeue in-session), and auto-seeds retroactively for already-completed lessons. Covers all topics, not just cases (aspect, verbs of motion included). Locked until you finish your first lesson; "review anyway" path when nothing's due.
 
 ### Grammar units built
 - [x] Prepositional case (предложный) — A1
@@ -66,7 +67,8 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 - [ ] Look & feel iteration 2 (accent tuning, maybe two-column Home, progress rings on stat cards).
 - [ ] Reinforce recently-learned vocab inside lesson examples automatically.
 - [ ] Handle stress marks / ё more explicitly in typed grading.
-- [ ] Per-unit review (re-drill a lesson's vocab).
+- [x] Per-unit review (re-drill a lesson) — *shipped as Grammar Review* (spaced, fresh questions). Vocab-specific per-unit re-drill still open if wanted.
+- [ ] Grammar Review polish: fold a "grammar due" count into the Home "Next up" recommender (currently Drill-tab only, by design); add more review questions per topic over time; extend to future units (instrumental, plurals, tenses) automatically as they ship.
 
 ---
 
