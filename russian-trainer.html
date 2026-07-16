@@ -138,12 +138,6 @@
 <body>
 <header>
   <h1>🇷🇺 Russian Trainer</h1>
-  <div class="badges">
-    <span class="badge">Level <b id="b-level">–</b></span>
-    <span class="badge">Known <b id="b-known">0</b></span>
-    <span class="badge">🔥 <b id="b-streak">0</b></span>
-    <span class="badge">Duo <b id="b-duo">–</b></span>
-  </div>
 </header>
 
 <main>
@@ -277,10 +271,6 @@
         <div>
           <label>Voice</label>
           <select id="voice"></select>
-        </div>
-        <div>
-          <label>Your Duolingo level / section</label>
-          <input type="number" id="duo-input" min="0" style="width:90px" placeholder="21">
         </div>
       </div>
       <div class="tag" id="voice-hint"></div>
@@ -1134,10 +1124,11 @@ function levelBand(){
   return band;
 }
 function refreshBadges(){
-  $("b-level").textContent=officialLevel()||"–";
-  $("b-known").textContent=knownCount();
-  $("b-streak").textContent=S.streak||0;
-  $("b-duo").textContent=S.duoLevel!=null?S.duoLevel:"–";
+  // Header stat strip was removed; guard so this stays safe whether or not the elements exist.
+  const set=(id,v)=>{ const el=$(id); if(el) el.textContent=v; };
+  set("b-level", officialLevel()||"–");
+  set("b-known", knownCount());
+  set("b-streak", S.streak||0);
 }
 function updateBanner(){
   const t=today();
@@ -1203,7 +1194,6 @@ $("toggle-settings").onclick=()=>{
 $("voice").onchange=e=>{ S.voiceName=e.target.value; save(); refreshVoices(); if(cur) speak(DECK_BY_ID[cur.id].ru); };
 $("answer-mode").onchange=e=>{ S.answerMode=e.target.value; save(); nextCard(); };
 $("direction").onchange=e=>{ S.direction=e.target.value; save(); nextCard(); };
-$("duo-input").onchange=e=>{ S.duoLevel=e.target.value===""?null:Number(e.target.value); save(); refreshBadges(); };
 $("q-new").textContent=NEW_PER_DAY; $("q-rev").textContent=REVIEW_PER_DAY;
 
 $("export").onclick=()=>{
@@ -2224,7 +2214,6 @@ ensureGrammarSeeded();
 /* ---------------- Init ---------------- */
 $("direction").value=S.direction;
 $("answer-mode").value=S.answerMode;
-if(S.duoLevel!=null)$("duo-input").value=S.duoLevel;
 if("speechSynthesis" in window) refreshVoices();
 refreshBadges(); updateBanner();
 startSession();
