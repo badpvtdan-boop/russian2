@@ -1614,14 +1614,23 @@ function renderStage(){
     $("l-back").onclick=backToList;
   }
   else if(stage==="practice"){
-    renderQuestion(L.practice[pIdx], "Step 2 of 3 · Practice", pIdx, L.practice.length, true, ()=>{
+    renderQuestion(L.practice[pIdx], "Step 2 of 3 · Practice (not scored)", pIdx, L.practice.length, true, ()=>{
       if(pIdx<L.practice.length-1){ pIdx++; renderStage(); }
-      else { stage="test"; tIdx=0; tScore=0; renderStage(); }
+      else { stage="testIntro"; renderStage(); }
     });
   }
+  else if(stage==="testIntro"){
+    R.innerHTML=`<div class="stage-dots">Step 3 of 3 · Test</div>
+      <h2 style="margin-top:0">Now for the graded test 📝</h2>
+      <p style="font-size:17px">The practice round you just finished <b>doesn't count</b> — it was there to help you learn, with a hint after each answer.</p>
+      <p class="muted">This part <b>is</b> scored: <b>${L.test.length} questions</b>, no hints, and you need <b>${Math.round(PASS*100)}%</b> to pass and mark the lesson complete. You can retake it as many times as you like.</p>
+      <div class="row"><button class="primary" id="l-starttest">Start graded test →</button>
+      <button class="ghost" id="l-back">← Lessons</button></div>`;
+    $("l-starttest").onclick=()=>{ stage="test"; tIdx=0; tScore=0; renderStage(); };
+    $("l-back").onclick=backToList;
+  }
   else if(stage==="test"){
-    if(tIdx===0 && !R.dataset.testIntro){ /* no-op, straight into questions */ }
-    renderQuestion(L.test[tIdx], "Step 3 of 3 · Test", tIdx, L.test.length, false, (wasCorrect)=>{
+    renderQuestion(L.test[tIdx], "Step 3 of 3 · Graded test", tIdx, L.test.length, false, (wasCorrect)=>{
       if(wasCorrect) tScore++;
       if(tIdx<L.test.length-1){ tIdx++; renderStage(); }
       else finishTest();
@@ -1633,6 +1642,7 @@ function renderStage(){
     R.innerHTML=`<div class="stage-dots">Result</div>
       <h2 style="margin-top:0">${passed?"✅ Passed":"Keep at it"}</h2>
       <p style="font-size:20px">You scored <b>${tScore} / ${curLesson.test.length}</b> (${Math.round(pct*100)}%).</p>
+      <p class="tag" style="margin-top:-6px">Scored on the ${curLesson.test.length}-question graded test only — the practice round doesn't count.</p>
       <p class="muted">${passed?"Nicely done — this unit is marked complete.":"You need "+Math.round(PASS*100)+"% to pass. Review the lesson and try the test again."}</p>
       <div class="row">
         <button class="primary" id="l-retry">Retake test</button>
