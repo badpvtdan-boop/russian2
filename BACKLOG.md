@@ -29,6 +29,9 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` not started
 - [x] Verb aspect (imperfective / perfective) — A2
 - [x] Verbs of motion (идти/ходить, ехать/ездить, prefixes) — B1
 - [x] Dative case (дательный) — A2
+- [x] Instrumental case (творительный) — A2
+
+That completes all six everyday cases plus aspect and motion — the core grammar spine.
 
 ---
 
@@ -38,7 +41,7 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 
 - [x] **Genitive (родительный)** — *shipped.* Possession/"of", absence (нет + gen), prepositions (из, от, до, у, без, для), after numbers 2–4 / 5+, quantities.
 - [x] **Dative (дательный)** — *shipped (A2).* Indirect object / recipient verbs (incl. звонить, помогать), нравится + feelings, need/permission/age (мне нужно, мне 30 лет), prepositions к / по, pronoun table. Folded into the A2 exam + A2 mastery requirement.
-- [ ] **Instrumental (творительный)** — "by/with" (means/tool), с + instr ("together with"), быть/стать + instrumental, professions.
+- [x] **Instrumental (творительный)** — *shipped (A2).* Means/tool (bare instrumental, no preposition), с + instr ("together with"), быть/стать/работать + instrumental for professions/roles, position prepositions (с, над, под, перед, за, между), verbs занима́ться / интересова́ться / горди́ться, pronoun table. **Now required for the A2 level** (added to `BAND_LESSONS.A2`); its 3 "get-ahead" questions were moved out of the B1 exam into the A2 exam (A2 now 26 Q, B1 refilled to 18). Feeds a 12-question grammar-review pool.
 - [ ] **Nominative overview** — short intro unit: what cases are, why they exist, the case "map." (Could go first as an orientation.)
 - [ ] **Plural declensions** — how the case endings change in the plural.
 - [ ] **Adjective agreement** — adjectives matching noun gender/number/case across the cases.
@@ -73,7 +76,7 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 ---
 
 ## Suggested next steps
-1. **Instrumental case** — next on the case path; "by/with", с + instr, professions (работает учителем), быть/стать + instr. Feeds the B1 exam.
-2. **More themed decks** — News/politics, Work/business, Science (toward ~1,000+ words for a real A2 vocabulary).
-3. **Pop quizzes** — quick win, adds the "test me randomly" feel you wanted.
-4. **Conversation practice** — the highest-value feature still missing.
+1. **More themed decks** — News/politics, Work/business, Science (toward ~1,000+ words for a real A2 vocabulary). This is now the biggest gap: the six-case grammar spine is done, but vocabulary breadth is still early.
+2. **Pop quizzes** — quick win, adds the "test me randomly" feel you wanted.
+3. **Conversation practice** — the highest-value feature still missing.
+4. **Grammar depth beyond the cases** — plural declensions, adjective agreement, tenses (see grammar backlog) if you want to keep building the grammar track.
