@@ -1008,14 +1008,18 @@
       "best": 0.875
     },
     "aspect": {
-      "done": false,
-      "best": 0
+      "done": true,
+      "best": 1
     },
     "motion": {
       "done": false,
       "best": 0
     },
     "genitive": {
+      "done": false,
+      "best": 0
+    },
+    "dative": {
       "done": false,
       "best": 0
     }
@@ -1198,6 +1202,90 @@
       "introduced": true
     },
     "accusative#11": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#0": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#1": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#2": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#3": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#4": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#5": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#6": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#7": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#8": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#9": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#10": {
+      "box": 0,
+      "due": "2026-07-16",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect#11": {
       "box": 0,
       "due": "2026-07-16",
       "lapses": 0,
