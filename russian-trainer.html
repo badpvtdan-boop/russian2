@@ -1669,6 +1669,57 @@ const LESSONS=[{
     {q:"What is the perfective partner of покупа́ть?",opts:["купи́ть","покупа́л","покупа́ю","покупа́ть"],a:0}
   ]
 },{
+  id:"reflexive",
+  title:"Reflexive Verbs",
+  subtitle:"возвратные глаголы · verbs ending in -ся / -сь",
+  level:"B1",
+  explanation:`
+    <p>Reflexive verbs end in <b class="ru">-ся</b> or <b class="ru">-сь</b>. They're everywhere in Russian, and they cover a surprising range of jobs — from literally doing something <b>to yourself</b> to verbs like "smile" that just happen to carry the ending. The good news: they conjugate like normal verbs, with the reflexive tail simply added on.</p>
+    <h3>How they conjugate</h3>
+    <p>Conjugate the verb as usual, then add <b class="ru">-ся</b> after a consonant and <b class="ru">-сь</b> after a vowel:</p>
+    <table>
+      <tr><th> </th><th class="ru">учи́ться — to study (2nd conj)</th></tr>
+      <tr><td class="ru">я</td><td class="ru">учу́<b>сь</b></td></tr>
+      <tr><td class="ru">ты</td><td class="ru">у́чишь<b>ся</b></td></tr>
+      <tr><td class="ru">он / она́</td><td class="ru">у́чит<b>ся</b></td></tr>
+      <tr><td class="ru">мы</td><td class="ru">у́чим<b>ся</b></td></tr>
+      <tr><td class="ru">вы</td><td class="ru">у́чите<b>сь</b></td></tr>
+      <tr><td class="ru">они́</td><td class="ru">у́чат<b>ся</b></td></tr>
+    </table>
+    <p>Past tense works the same — add the tail to the normal -л form: <span class="ru">учи́л<b>ся</b>, учи́ла<b>сь</b>, учи́ли<b>сь</b></span> (again, <span class="ru">-сь</span> after the vowel).</p>
+    <h3>The four jobs they do</h3>
+    <p><b>1. To/for oneself</b> (true reflexive): <span class="ru">мы́ться</span> (wash up), <span class="ru">одева́ться</span> (get dressed), <span class="ru">гото́виться</span> (get ready).<br>
+    <b>2. Each other</b> (reciprocal): <span class="ru">встреча́ться</span> (meet), <span class="ru">обща́ться</span> (communicate), <span class="ru">целова́ться</span> (kiss).<br>
+    <b>3. Only-reflexive verbs</b> (no plain form): <span class="ru">улыба́ться</span> (smile), <span class="ru">смея́ться</span> (laugh), <span class="ru">боя́ться</span> (fear), <span class="ru">наде́яться</span> (hope), <span class="ru">находи́ться</span> (be located), <span class="ru">занима́ться</span> (be busy with).<br>
+    <b>4. "It happens by itself"</b> (passive-ish): <span class="ru">дверь открыва́ется</span> (the door opens), <span class="ru">магази́н закрыва́ется в де́вять</span>.</p>
+    <h3>The rule that keeps you out of trouble</h3>
+    <p>A <span class="ru">-ся</span> verb is <b>intransitive</b> — it can <b>never take a direct object</b> in the accusative, because the <span class="ru">-ся</span> already fills that slot. Compare the transitive verb with its reflexive cousin:</p>
+    <table>
+      <tr><th>Transitive (takes an object)</th><th>Reflexive (no object)</th></tr>
+      <tr><td class="ru">Я учу́ ру́сский язы́к<br><span style="color:var(--muted)">I study Russian (a thing)</span></td><td class="ru">Я учу́сь в шко́ле<br><span style="color:var(--muted)">I study at school (no object)</span></td></tr>
+    </table>
+    <p>Many reflexive verbs instead pair with the <b>instrumental</b> — you met these in the Instrumental lesson: <span class="ru">занима́ться спо́ртом</span> (do sports), <span class="ru">интересова́ться му́зыкой</span> (be interested in music), <span class="ru">горди́ться</span> (be proud of).</p>`,
+  practice:[
+    {q:"я-form of учи́ться (to study):",opts:["учу́сь","учи́шься","у́чится","учу́ся"],a:0,why:"After a vowel the tail is -сь: я учу́ + сь → учу́сь."},
+    {q:"он-form of учи́ться:",opts:["у́чится","у́чишься","учу́сь","у́чатся"],a:0,why:"After a consonant the tail is -ся: он у́чится."},
+    {q:"Reflexive verbs end in…",opts:["-ся / -сь","-ть","-л","a prefix"],a:0,why:"The defining mark of a reflexive verb is the -ся / -сь ending."},
+    {q:"Она́ … в семь часо́в. (wakes up — просыпа́ться)",opts:["просыпа́ется","просыпа́ю","просыпа́ешься","просыпа́ются"],a:0,why:"она́, -ется after consonant: просыпа́ется."},
+    {q:"A -ся verb can NOT take a…",opts:["direct object (accusative)","subject","preposition","adverb"],a:0,why:"Reflexive verbs are intransitive — the -ся fills the object slot, so no accusative object."},
+    {q:"Which verb means 'to study / attend school' (intransitive)?",opts:["учи́ться","учи́ть","знать","чита́ть"],a:0,why:"учи́ться (reflexive, intransitive) = to study; учи́ть (transitive) = to study/learn something."},
+    {q:"Past tense, feminine, of смея́ться (to laugh):",opts:["смея́лась","смея́лся","смея́лись","смея́ется"],a:0,why:"Past + -лась (feminine, -сь after the vowel): смея́лась."},
+    {q:"занима́ться (to be busy with) takes a noun in the…",opts:["instrumental","accusative","dative","genitive"],a:0,why:"занима́ться спо́ртом — the instrumental (a reflexive verb from the Instrumental lesson)."}
+  ],
+  test:[
+    {q:"мы-form of учи́ться:",opts:["у́чимся","у́читесь","у́чится","учу́сь"],a:0},
+    {q:"они́-form of встреча́ться (to meet each other):",opts:["встреча́ются","встреча́емся","встреча́ется","встреча́юсь"],a:0},
+    {q:"Reflexive verbs are formed by adding … to the verb.",opts:["-ся / -сь","-ть","a prefix","-ый"],a:0},
+    {q:"Past tense, masculine, of роди́ться (to be born):",opts:["роди́лся","роди́лась","роди́лись","роди́тся"],a:0},
+    {q:"Я … спо́ртом. (заниматься — I do sports)",opts:["занима́юсь","занима́ешься","занима́ется","занима́ю"],a:0},
+    {q:"Which verb is intransitive (takes NO accusative object)?",opts:["учи́ться","чита́ть","люби́ть","ви́деть"],a:0},
+    {q:"-ся is used after a consonant; after a vowel you write…",opts:["-сь","-ся","-са","-ца"],a:0},
+    {q:"Магази́н … в де́вять. (closes)",opts:["закрыва́ется","закрыва́ю","закрыва́ешься","закрыва́ют"],a:0}
+  ]
+},{
   id:"motion",
   title:"Verbs of Motion",
   subtitle:"глаголы движения · идти / ходить, ехать / ездить",
@@ -2057,6 +2108,7 @@ function finishTest(){
 
 /* ---------------- Level exams (per-CEFR mastery) ---------------- */
 const EXAM_PASS=0.85;
+const EXAM_SIZE=25;   // questions drawn per attempt from each level's (larger) bank — fresh sample each time
 const EXAMS=[
  {level:"A1", title:"Beginner exam", questions:[
    {q:"«спаси́бо» means…",opts:["thank you","please","sorry","hello"],a:0},
@@ -2078,7 +2130,22 @@ const EXAMS=[
    {q:"«я» means…",opts:["I","you","he","we"],a:0},
    {q:"«Где?» means…",opts:["Where?","What?","Who?","When?"],a:0},
    {q:"«Как вас зову́т?» asks about your…",opts:["name","age","health","home"],a:0},
-   {q:"«оди́н, два, …» — what comes next?",opts:["три","четы́ре","пять","де́сять"],a:0}
+   {q:"«оди́н, два, …» — what comes next?",opts:["три","четы́ре","пять","де́сять"],a:0},
+   {q:"«здра́вствуйте» means…",opts:["hello","goodbye","thank you","sorry"],a:0},
+   {q:"«пожа́луйста» means…",opts:["please / you're welcome","thank you","hello","yes"],a:0},
+   {q:"«до свида́ния» means…",opts:["goodbye","hello","thank you","sorry"],a:0},
+   {q:"«сестра́» means…",opts:["sister","brother","mother","friend"],a:0},
+   {q:"«дом» means…",opts:["house / home","table","door","room"],a:0},
+   {q:"«магази́н» means…",opts:["shop / store","school","park","office"],a:0},
+   {q:"Which word means «milk»?",opts:["молоко́","вода́","хлеб","чай"],a:0},
+   {q:"«сего́дня» means…",opts:["today","tomorrow","yesterday","now"],a:0},
+   {q:"«дверь» — which gender?",opts:["feminine","masculine","neuter","plural"],a:0},
+   {q:"«письмо́» — which gender?",opts:["neuter","masculine","feminine","plural"],a:0},
+   {q:"«па́па» — which gender?",opts:["masculine","feminine","neuter","plural"],a:0},
+   {q:"Мы … по-ру́сски. (we speak)",opts:["говори́м","говорю́","говори́шь","говоря́т"],a:0},
+   {q:"Она́ … в о́фисе. (she works)",opts:["рабо́тает","рабо́таю","рабо́таешь","рабо́тают"],a:0},
+   {q:"Я иду́ в … (шко́ла). (going to school)",opts:["шко́лу","шко́ле","шко́ла","шко́лой"],a:0},
+   {q:"Мы говори́м о … (кни́га). (about the book)",opts:["кни́ге","кни́га","кни́гу","кни́гой"],a:0}
  ]},
  {level:"A2", title:"Elementary exam", questions:[
    {q:"Это кни́га … (брат).",opts:["бра́та","брат","бра́ту","бра́том"],a:0},
@@ -2110,7 +2177,12 @@ const EXAMS=[
    {q:"Я пишу́ … (ру́чка). (with a pen — instrumental)",opts:["ру́чкой","ру́чку","ру́чке","ру́чка"],a:0},
    {q:"Ко́фе с … (молоко́). (with milk)",opts:["молоко́м","молока́","молоко́","молоку́"],a:0},
    {q:"Он рабо́тает … (учи́тель). (as a teacher)",opts:["учи́телем","учи́теля","учи́тель","учи́телю"],a:0},
-   {q:"To say you write WITH a pen (a tool), you use…",opts:["the instrumental, no preposition","с + instrumental","the dative","the accusative"],a:0}
+   {q:"To say you write WITH a pen (a tool), you use…",opts:["the instrumental, no preposition","с + instrumental","the dative","the accusative"],a:0},
+   {q:"Я е́ду к … (врач). (to the doctor — dative)",opts:["врачу́","врача́","врач","врачо́м"],a:0},
+   {q:"Мой брат стал … (инжене́р). (became an engineer — instrumental)",opts:["инжене́ром","инжене́ра","инжене́р","инжене́ру"],a:0},
+   {q:"Вчера́ она́ … до́ма. (she was)",opts:["была́","был","бы́ло","бу́дет"],a:0},
+   {q:"де́сять … (рубль) — 'ten rubles'.",opts:["рубле́й","рубль","рубля́","рубли́"],a:0},
+   {q:"«Мне ну́жно» means…",opts:["I need to","I want to","I like it","I can"],a:0}
  ]},
  {level:"B1", title:"Intermediate exam", questions:[
    {q:"Я … в магази́н пря́мо сейча́с. (walking, one way)",opts:["иду́","хожу́","е́ду","несу́"],a:0},
@@ -2130,7 +2202,24 @@ const EXAMS=[
    {q:"«несмотря́ на» means…",opts:["despite","because of","thanks to","instead of"],a:0},
    {q:"«Я учу́сь» means…",opts:["I study / I'm learning","I teach","I read","I work"],a:0},
    {q:"«Е́сли бы я знал…» expresses…",opts:["an unreal / hypothetical condition","a command","a simple question","a past habit"],a:0},
-   {q:"«Он давно́ здесь рабо́тает» means…",opts:["He has worked here a long time","He worked here once","He will work here soon","He no longer works here"],a:0}
+   {q:"«Он давно́ здесь рабо́тает» means…",opts:["He has worked here a long time","He worked here once","He will work here soon","He no longer works here"],a:0},
+   {q:"Reflexive verbs end in…",opts:["-ся / -сь","-ть","-л","a prefix"],a:0},
+   {q:"я-form of занима́ться (to be engaged in):",opts:["занима́юсь","занима́ешься","занима́ется","занима́ю"],a:0},
+   {q:"Она́ … в университе́те. (studies)",opts:["у́чится","у́чит","учу́сь","у́чатся"],a:0},
+   {q:"A reflexive (-ся) verb never takes a … object.",opts:["accusative","genitive","dative","prepositional"],a:0},
+   {q:"Past tense, feminine, of роди́ться (to be born):",opts:["роди́лась","роди́лся","роди́лись","роди́тся"],a:0},
+   {q:"интересова́ться takes a noun in the…",opts:["instrumental","accusative","dative","genitive"],a:0},
+   {q:"Ты ча́сто … в бассе́йн? (go, habitually, on foot)",opts:["хо́дишь","идёшь","е́дешь","е́здишь"],a:0},
+   {q:"За́втра мы … в Москву́. (will set off, by train)",opts:["пое́дем","пойдём","е́здим","хо́дим"],a:0},
+   {q:"The prefix вы- (as in вы́йти) means…",opts:["exit / go out","enter","arrive","set off"],a:0},
+   {q:"«наде́яться» means…",opts:["to hope","to fear","to remember","to decide"],a:0},
+   {q:"«улыба́ться» means…",opts:["to smile","to cry","to laugh","to worry"],a:0},
+   {q:"«встреча́ться» means…",opts:["to meet (each other)","to say goodbye","to argue","to help"],a:0},
+   {q:"«получи́ть» means…",opts:["to receive / get","to give","to lose","to send"],a:0},
+   {q:"Она́ … кни́гу и легла́ спать. (finished reading it)",opts:["прочита́ла","чита́ла","чита́ет","прочита́ет"],a:0},
+   {q:"За́втра я … тебе́. (will call — one call)",opts:["позвоню́","бу́ду звони́ть","звоню́","звони́ть"],a:0},
+   {q:"пять … (кни́га) — 'five books'.",opts:["книг","кни́ги","кни́га","кни́гу"],a:0},
+   {q:"Я горжу́сь свое́й … (рабо́та). (instrumental)",opts:["рабо́той","рабо́та","рабо́ту","рабо́ты"],a:0}
  ]}
 ];
 /* The intended A1→B1 proficiency sequence. Lessons appear on the Home path in this order,
@@ -2144,11 +2233,9 @@ const BAND_LESSONS={
 const BAND_WORDS={A1:200,A2:750,B1:1500};
 /* Lessons that are part of the path but not built yet. Surfaced on the path as "· gap" steps
    so nothing is silently missing. Move an id out of here (into a real LESSONS entry) to fill it. */
-const PLANNED_LESSONS={
-  "noun-gender":{title:"Noun Gender", level:"A1"},
-  "present-conj":{title:"Present Conjugations", level:"A1"},
-  "reflexive":{title:"Reflexive Verbs", level:"B1"}
-};
+/* Empty: every lesson on the path is now built. Add an id here (with a title/level) to
+   surface a future planned lesson as a "· gap" step before it's built. */
+const PLANNED_LESSONS={};
 function examRec(level){ if(!S.exams) S.exams={}; if(!S.exams[level]) S.exams[level]={passed:false,best:0}; return S.exams[level]; }
 function lessonDoneId(id){ return !!(S.lessons[id]&&S.lessons[id].done); }
 function bandLessonsDone(level){ return (BAND_LESSONS[level]||[]).every(lessonDoneId); }
@@ -2197,7 +2284,7 @@ function renderExams(){
 function openExam(level){
   const E=EXAMS.find(e=>e.level===level); if(!E||!examUnlocked(level)) return;
   curExam=E; exIdx=0; exScore=0;
-  exQs=shuffle(E.questions).map(q=>{
+  exQs=shuffle(E.questions).slice(0, EXAM_SIZE).map(q=>{
     const order=shuffle(q.opts.map((o,i)=>({o,i})));
     return {q:q.q, opts:order.map(x=>x.o), a:order.findIndex(x=>x.i===q.a)};
   });
@@ -2579,6 +2666,20 @@ const GRAMMAR=[
   {q:"Она́ … уро́ки ка́ждый день. (does homework — every day)",opts:["де́лает","сде́лает","сде́лала","сде́лать"],a:0,why:"Habitual → imperfective present: де́лает."},
   {q:"What is the perfective partner of ви́деть?",opts:["уви́деть","ви́жу","ви́дел","ви́деть"],a:0,why:"ви́деть (impf) → уви́деть (pf)."},
   {q:"За́втра я … все слова́. (will learn them all)",opts:["вы́учу","бу́ду учи́ть","учу́","учи́ть"],a:0,why:"One completed result in the future → perfective: вы́учу."}
+]},
+{ lesson:"reflexive", title:"Reflexive Verbs", level:"B1", items:[
+  {q:"я-form of занима́ться (to be busy with):",opts:["занима́юсь","занима́ешься","занима́ется","занима́юся"],a:0,why:"After a vowel the tail is -сь: занима́юсь."},
+  {q:"он-form of наде́яться (to hope):",opts:["наде́ется","наде́юсь","наде́ешься","наде́ются"],a:0,why:"он, -ется after consonant: наде́ется."},
+  {q:"Past tense, feminine, of роди́ться (to be born):",opts:["роди́лась","роди́лся","роди́лись","роди́тся"],a:0,why:"Past + -лась (feminine): роди́лась."},
+  {q:"A reflexive (-ся) verb never takes a … object.",opts:["accusative","genitive","dative","prepositional"],a:0,why:"Reflexive verbs are intransitive; the -ся fills the object slot."},
+  {q:"они́-form of улыба́ться (to smile):",opts:["улыба́ются","улыба́емся","улыба́ется","улыба́юсь"],a:0,why:"они́, -ются: улыба́ются."},
+  {q:"Which verb means 'to be located' (a -ся verb)?",opts:["находи́ться","находи́ть","найти́","класть"],a:0,why:"находи́ться (reflexive) = to be located / situated."},
+  {q:"ты-form of учи́ться (to study):",opts:["у́чишься","учу́сь","у́чится","у́читесь"],a:0,why:"ты, -ишься: у́чишься."},
+  {q:"интересова́ться takes a noun in the…",opts:["instrumental","accusative","dative","nominative"],a:0,why:"интересова́ться му́зыкой — the instrumental."},
+  {q:"After a vowel, the reflexive ending is spelled…",opts:["-сь","-ся","-ца","-са"],a:0,why:"-сь after a vowel (учу́сь), -ся after a consonant (у́чится)."},
+  {q:"Past plural of встреча́ться (to meet):",opts:["встреча́лись","встреча́лся","встреча́лась","встреча́ется"],a:0,why:"Plural past + -лись: встреча́лись."},
+  {q:"Дверь … автомати́чески. (opens — 'by itself')",opts:["открыва́ется","открыва́ю","открыва́ешь","открыва́ют"],a:0,why:"Passive/intransitive -ся use: дверь открыва́ется."},
+  {q:"'I study at university' — which is right?",opts:["Я учу́сь в университе́те","Я учу́ в университе́те","Я учи́ть университе́т","Я у́чит университе́т"],a:0,why:"учи́ться (intransitive) for attending/studying: Я учу́сь в университе́те."}
 ]},
 { lesson:"motion", title:"Verbs of Motion", level:"B1", items:[
   {q:"Я … на рабо́ту пря́мо сейча́с. (on foot, one way, now)",opts:["иду́","хожу́","е́ду","е́зжу"],a:0,why:"On foot, one direction, in progress → идти́: иду́."},
