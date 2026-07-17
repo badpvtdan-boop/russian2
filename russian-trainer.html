@@ -1567,6 +1567,63 @@ const LESSONS=[{
     {q:"Он идёт на … (рабо́та).",opts:["рабо́ту","рабо́те","рабо́та","рабо́той"],a:0}
   ]
 },{
+  id:"past-future",
+  title:"Past & Future",
+  subtitle:"прошедшее и будущее время · tenses beyond the present",
+  level:"A2",
+  explanation:`
+    <p>You already handle the <b>present</b>. Russian's other two tenses are refreshingly regular once you see them: the <b>past</b> is one simple pattern, and the <b>future</b> comes in two flavors that follow directly from <b>aspect</b> (which you've met). Together they let you talk about any time.</p>
+    <h3>Past tense — drop -ть, add -л</h3>
+    <p>Take the infinitive, remove <b class="ru">-ть</b>, and add <b class="ru">-л</b> plus an ending that <b>agrees with the subject</b>:</p>
+    <table>
+      <tr><th>Subject</th><th>Ending</th><th class="ru">рабо́тать →</th><th class="ru">чита́ть →</th></tr>
+      <tr><td>masculine (он; я/ты male)</td><td><b>-л</b></td><td class="ru">рабо́тал</td><td class="ru">чита́л</td></tr>
+      <tr><td>feminine (она́; я/ты female)</td><td><b>-ла</b></td><td class="ru">рабо́тала</td><td class="ru">чита́ла</td></tr>
+      <tr><td>neuter (оно́)</td><td><b>-ло</b></td><td class="ru">рабо́тало</td><td class="ru">чита́ло</td></tr>
+      <tr><td>plural (мы, вы, они́)</td><td><b>-ли</b></td><td class="ru">рабо́тали</td><td class="ru">чита́ли</td></tr>
+    </table>
+    <p>The surprise for English speakers: the past tense agrees with <b>gender and number, not person</b>. A man says <span class="ru">я рабо́тал</span>; a woman says <span class="ru">я рабо́тала</span> — same "I," different ending. <span class="ru">быть</span> (to be) works the same: <span class="ru">был, была́, бы́ло, бы́ли</span> — <span class="ru">Вчера́ я был до́ма.</span></p>
+    <h3>Aspect lives in the past too</h3>
+    <p>Just like elsewhere, choose the <b>imperfective</b> past for a process or a habit, and the <b>perfective</b> past for a finished action with a result: <span class="ru">Я чита́л кни́гу</span> (I was reading it) vs. <span class="ru">Я прочита́л кни́гу</span> (I read it through). A few high-frequency verbs are irregular in the past — <span class="ru">идти́ → шёл, шла, шло, шли</span> and <span class="ru">мочь → мог, могла́</span> drop the -л in the masculine — worth memorizing the common ones.</p>
+    <h3>Future tense — two forms, chosen by aspect</h3>
+    <p>There's no single "will." Which future you use depends on the verb's aspect:</p>
+    <table>
+      <tr><th>Imperfective → compound future</th><th>Perfective → simple future</th></tr>
+      <tr><td>process, duration, or habit</td><td>one action, brought to completion</td></tr>
+      <tr><td class="ru">Я бу́ду чита́ть<br><span style="color:var(--muted)">I'll read / be reading</span></td><td class="ru">Я прочита́ю<br><span style="color:var(--muted)">I'll read it (and finish)</span></td></tr>
+      <tr><td class="ru">Она́ бу́дет рабо́тать</td><td class="ru">Она́ сде́лает</td></tr>
+    </table>
+    <h3>The imperfective (compound) future: быть + infinitive</h3>
+    <p>Conjugate <span class="ru">быть</span> in the future and add the <b>imperfective infinitive</b>. The endings are worth knowing cold:</p>
+    <table>
+      <tr><th class="ru">я</th><th class="ru">ты</th><th class="ru">он/она́</th><th class="ru">мы</th><th class="ru">вы</th><th class="ru">они́</th></tr>
+      <tr><td class="ru">бу́ду</td><td class="ru">бу́дешь</td><td class="ru">бу́дет</td><td class="ru">бу́дем</td><td class="ru">бу́дете</td><td class="ru">бу́дут</td></tr>
+    </table>
+    <p>So <span class="ru">За́втра я бу́ду рабо́тать</span> = I'll be working (all day, a process).</p>
+    <h3>The perfective (simple) future: it looks like the present</h3>
+    <p>Here's the trick you met in the aspect lesson: conjugate a <b>perfective</b> verb with the ordinary present-tense endings, and because it's perfective it can't mean "now" — so it means the <b>future</b>. <span class="ru">Я напишу́</span> (I'll write & finish), <span class="ru">я куплю́</span>, <span class="ru">я сде́лаю</span>. One completed action, no <span class="ru">бу́ду</span> needed.</p>
+    <p><b>Quick decision:</b> describing an activity, its duration, or a habit → <span class="ru">бу́ду</span> + imperfective. Naming one action you'll carry to completion → the perfective simple future.</p>`,
+  practice:[
+    {q:"Past tense of рабо́тать for «она́»:",opts:["рабо́тала","рабо́тал","рабо́тало","рабо́тали"],a:0,why:"Feminine subject → -ла: она́ рабо́тала."},
+    {q:"Past tense of чита́ть for «они́»:",opts:["чита́ли","чита́л","чита́ла","чита́ло"],a:0,why:"Plural subject → -ли: они́ чита́ли."},
+    {q:"Вчера́ я … до́ма. (a man speaking)",opts:["был","была́","бы́ло","бу́ду"],a:0,why:"Past of быть, masculine → был."},
+    {q:"The Russian past tense agrees with the subject's…",opts:["gender & number","person","case","mood"],a:0,why:"-л / -ла / -ло / -ли track gender and number, not person."},
+    {q:"За́втра я … письмо́. (write it and finish — one action)",opts:["напишу́","бу́ду писа́ть","писа́л","пишу́"],a:0,why:"One completed future action → perfective simple future: напишу́."},
+    {q:"За́втра я … весь день. (will be working — a process)",opts:["бу́ду рабо́тать","порабо́таю","рабо́тал","рабо́таю"],a:0,why:"Duration/process → imperfective compound future: бу́ду рабо́тать."},
+    {q:"The imperfective (compound) future is formed with…",opts:["бу́ду / бу́дешь… + infinitive","a prefix on the verb","the -л past endings","present endings only"],a:0,why:"быть in the future + an imperfective infinitive: я бу́ду чита́ть."},
+    {q:"Past tense of the irregular verb идти́ for «он»:",opts:["шёл","идёт","ходи́л","шла"],a:0,why:"идти́ is irregular in the past: шёл (m), шла (f), шли (pl)."}
+  ],
+  test:[
+    {q:"Past tense of ду́мать for «она́»:",opts:["ду́мала","ду́мал","ду́мало","ду́мали"],a:0},
+    {q:"Мы … в теа́тре вчера́. (were)",opts:["бы́ли","был","была́","бу́дем"],a:0},
+    {q:"Она́ … кни́гу и легла́ спать. (finished reading it)",opts:["прочита́ла","чита́ла","чита́ет","прочита́ет"],a:0},
+    {q:"За́втра он … но́вую маши́ну. (will buy — one purchase)",opts:["ку́пит","бу́дет покупа́ть","купи́л","покупа́ет"],a:0},
+    {q:"В сле́дующем году́ я … ру́сский язы́к. (will be studying — ongoing)",opts:["бу́ду учи́ть","вы́учу","учу́","учи́л"],a:0},
+    {q:"Past tense of быть, neuter (оно́):",opts:["бы́ло","был","была́","бы́ли"],a:0},
+    {q:"Ра́ньше она́ ча́сто … пи́сьма. (used to write — a habit)",opts:["писа́ла","написа́ла","напи́шет","пи́шет"],a:0},
+    {q:"The perfective (simple) future, e.g. «я сде́лаю», describes…",opts:["one completed action in the future","an ongoing future action","a past habit","a present state"],a:0}
+  ]
+},{
   id:"aspect",
   title:"Verb Aspect",
   subtitle:"вид глагола · imperfective vs. perfective",
@@ -1993,6 +2050,8 @@ const EXAMS=[
    {q:"Ка́ждый день я … . (I work — a habit)",opts:["рабо́таю","порабо́таю","рабо́тал","рабо́тать"],a:0},
    {q:"Perfective partner of де́лать?",opts:["сде́лать","де́лаю","де́лал","де́лать"],a:0},
    {q:"Она́ … кни́гу вчера́. (she read — feminine past)",opts:["чита́ла","чита́л","чита́ю","чита́ет"],a:0},
+   {q:"За́втра я … весь день. (will be working — a process)",opts:["бу́ду рабо́тать","порабо́таю","рабо́тал","рабо́таю"],a:0},
+   {q:"Вчера́ мы … до́ма. (we were)",opts:["бы́ли","был","была́","бу́дем"],a:0},
    {q:"One стол, many …?",opts:["столы́","стола́","столо́в","стол"],a:0},
    {q:"One кни́га, many …?",opts:["кни́ги","кни́га","книг","кни́гу"],a:0},
    {q:"Я даю́ кни́гу … (друг). (to a friend — dative)",opts:["дру́гу","дру́га","друг","дру́гом"],a:0},
@@ -2045,7 +2104,6 @@ const BAND_WORDS={A1:200,A2:750,B1:1500};
 const PLANNED_LESSONS={
   "noun-gender":{title:"Noun Gender", level:"A1"},
   "present-conj":{title:"Present Conjugations", level:"A1"},
-  "past-future":{title:"Past & Future", level:"A2"},
   "numbers":{title:"Numbers & Quantifiers", level:"A2"},
   "reflexive":{title:"Reflexive Verbs", level:"B1"}
 };
@@ -2451,6 +2509,20 @@ const GRAMMAR=[
   {q:"Я покупа́ю … (ру́чка).",opts:["ру́чку","ру́чка","ру́чке","ру́чкой"],a:0,why:"Feminine -а → -у: покупа́ю ру́чку."},
   {q:"For which nouns does animacy change the accusative?",opts:["Masculine","Feminine","Neuter","Plural only"],a:0,why:"Only masculine nouns change: animate take -а/-я, inanimate stay the same."},
   {q:"Мы смо́трим … (телеви́зор).",opts:["телеви́зор","телеви́зора","телеви́зору","телеви́зором"],a:0,why:"Inanimate masculine — no change: смо́трим телеви́зор."}
+]},
+{ lesson:"past-future", title:"Past & Future", level:"A2", items:[
+  {q:"Past tense of жить for «он»:",opts:["жил","жила́","жи́ло","жи́ли"],a:0,why:"Masculine → -л: он жил."},
+  {q:"Past tense of жить for «она́»:",opts:["жила́","жил","жи́ло","жи́ли"],a:0,why:"Feminine → -ла: она́ жила́."},
+  {q:"Вчера́ они́ … в футбо́л. (played — a process)",opts:["игра́ли","игра́л","игра́ла","сыгра́ли"],a:0,why:"Plural imperfective past → -ли: они́ игра́ли."},
+  {q:"Я … всю рабо́ту и пошёл домо́й. (finished it — a man)",opts:["сде́лал","де́лал","сде́лаю","де́лаю"],a:0,why:"Completed result, masculine → perfective past: сде́лал."},
+  {q:"За́втра мы … друзе́й. (will see them — one meeting)",opts:["уви́дим","бу́дем ви́деть","ви́дели","ви́дим"],a:0,why:"One completed future action → perfective simple future: уви́дим."},
+  {q:"Ве́чером я … телеви́зор. (will be watching — a process)",opts:["бу́ду смотре́ть","посмотрю́","смотре́л","смотрю́"],a:0,why:"Duration/process → imperfective compound future: бу́ду смотре́ть."},
+  {q:"быть in the future, «они́» form:",opts:["бу́дут","бу́дет","бу́дем","бы́ли"],a:0,why:"Future of быть: они́ бу́дут."},
+  {q:"Past tense of the irregular verb мочь for «она́»:",opts:["могла́","мог","мо́жет","смогла́"],a:0,why:"мочь is irregular: мог (m) / могла́ (f) — no -л in the masculine."},
+  {q:"Ра́ньше она́ … пи́сьма ка́ждый день. (used to write — a habit)",opts:["писа́ла","написа́ла","напи́шет","пи́шет"],a:0,why:"Habitual past → imperfective: писа́ла."},
+  {q:"The compound (imperfective) future uses быть plus the … of the verb:",opts:["infinitive","past tense","perfective form","present tense"],a:0,why:"быть in the future + the imperfective infinitive: я бу́ду чита́ть."},
+  {q:"The past tense agrees with gender and number, but not…",opts:["person","case","tense","aspect"],a:0,why:"я рабо́тал vs я рабо́тала — the ending tracks the subject's gender, not the person."},
+  {q:"За́втра я … статью́. (will read it through — perfective)",opts:["прочита́ю","бу́ду чита́ть","чита́л","чита́ю"],a:0,why:"One completed result in the future → perfective simple future: прочита́ю."}
 ]},
 { lesson:"aspect", title:"Verb Aspect", level:"A2", items:[
   {q:"What is the perfective partner of реша́ть?",opts:["реши́ть","реша́ю","реша́л","реша́ть"],a:0,why:"реша́ть (impf) → реши́ть (pf)."},
