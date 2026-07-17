@@ -15,7 +15,8 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` not started
 - [x] **Audio.** Browser TTS with a voice picker that prefers higher-quality voices.
 - [x] **Phase 2 — GitHub sync.** Token-in-browser, auto-save on session finish + manual Save/Load. Token kept out of committed `progress.json`.
 - [x] **Phase 3 — Lessons engine.** Explain → practice → scored test, 75% to pass, results synced.
-- [x] **Phase 4 — Guided path.** "Next up" recommender + ordered curriculum with done/current/locked markers. Milestones relabeled "words met" (honest vs. SRS "known").
+- [x] **Phase 4 — Guided path.** "Next up" recommender + ordered curriculum with done/current markers. Milestones relabeled "words met" (honest vs. SRS "known").
+- [x] **Data-driven path.** The Home "Your path" is now **generated** from the real data (`buildCurriculum()` reads EXAMS → BAND_LESSONS + BAND_WORDS + LESSONS) instead of a hand-maintained list — grouped by level (A1→A2→B1), each showing its word goal, its lessons, then its exam. Adding a lesson now places it automatically. Anything built but not wired to a level is **flagged on the path** (`PATH_WARNINGS`), so nothing silently drops off (which is how Instrumental briefly went missing). Retired the stale "Meet all 160 starter words" milestone.
 - [x] **Look & feel.** Warm editorial light theme (first pass).
 - [x] **CEFR labels + legend.** Lessons tagged by band (A1→B1) with color chips and a legend clarifying lesson difficulty vs. the word-count estimate.
 - [x] **Level exams (per-CEFR mastery).** A1/A2/B1 exams (vocab + grammar), 85% to pass, unlock in order; the highest passed exam sets your official Level (source of truth), with readiness nudges on Home. New 🎓 Level tab.

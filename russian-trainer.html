@@ -1888,22 +1888,37 @@ function examResult(){
 }
 
 /* ---- Guided curriculum ---- */
-const CURRICULUM=[
-  {id:"start",  type:"words",  target:20,  title:"Meet your first 20 words"},
-  {id:"prep",   type:"lesson", lesson:"prep-case", title:"Lesson: Prepositional Case"},
-  {id:"w60",    type:"words",  target:60,  title:"Meet 60 words"},
-  {id:"accus",  type:"lesson", lesson:"accusative", title:"Lesson: Accusative Case"},
-  {id:"w120",   type:"words",  target:120, title:"Meet 120 words"},
-  {id:"aspect", type:"lesson", lesson:"aspect", title:"Lesson: Verb Aspect"},
-  {id:"motion", type:"lesson", lesson:"motion", title:"Lesson: Verbs of Motion"},
-  {id:"genitive", type:"lesson", lesson:"genitive", title:"Lesson: Genitive Case"},
-  {id:"dative", type:"lesson", lesson:"dative", title:"Lesson: Dative Case"},
-  {id:"w160",   type:"words",  target:160, title:"Meet all 160 starter words"}
-];
+/* The path is BUILT from the real data (EXAMS → BAND_LESSONS + BAND_WORDS + LESSONS),
+   not hand-maintained. Each level (A1→A2→B1) contributes: its word goal, its required
+   lessons, then its exam. Anything that's built but not wired into a level is FLAGGED,
+   so nothing silently falls off the path (which is exactly how Instrumental got missed). */
+function buildCurriculum(){
+  const steps=[], warnings=[], used=new Set();
+  EXAMS.forEach(E=>{
+    const band=E.level;
+    const w=BAND_WORDS[band];
+    if(w) steps.push({type:"words", target:w, band, title:`Meet ${w} words`});
+    else warnings.push(`Level ${band} has no word goal set (BAND_WORDS).`);
+    (BAND_LESSONS[band]||[]).forEach(id=>{
+      const L=LESSONS.find(l=>l.id===id);
+      if(!L){ warnings.push(`Level ${band} requires a lesson "${id}" that doesn't exist yet.`); return; }
+      used.add(id);
+      steps.push({type:"lesson", lesson:id, band, title:"Lesson: "+L.title});
+    });
+    steps.push({type:"exam", level:band, band, title:`Pass the ${band} exam`});
+  });
+  LESSONS.forEach(L=>{ if(!used.has(L.id))
+    warnings.push(`Lesson "${L.title}" (${L.level}) isn't on the path to any level yet — add it to BAND_LESSONS.`); });
+  return {steps, warnings};
+}
+const _path=buildCurriculum();
+const CURRICULUM=_path.steps;
+const PATH_WARNINGS=_path.warnings;
 function introducedCount(){ return Object.values(S.cards).filter(c=>c.introduced).length; }
 function stepDone(step){
   if(step.type==="words") return introducedCount()>=step.target;
   if(step.type==="lesson") return !!(S.lessons[step.lesson]&&S.lessons[step.lesson].done);
+  if(step.type==="exam") return examPassed(step.level);
   return false;
 }
 function currentStepIndex(){ for(let i=0;i<CURRICULUM.length;i++) if(!stepDone(CURRICULUM[i])) return i; return -1; }
@@ -1927,6 +1942,11 @@ function nextAction(){
   if(step && step.type==="words"){
     if(o.new>0) return {title:`Learn today's ${o.new} new words`,
       sub:`${step.title} — ${introducedCount()}/${step.target} met so far.`, cta:"Start drill →", run:()=>goDrill(false)};
+    // daily words done — slot in a grammar lesson from this level if any remain
+    const nl=LESSONS.find(l=>(BAND_LESSONS[step.band]||[]).includes(l.id)&&!lessonDoneId(l.id));
+    if(nl) return {title:"Lesson: "+nl.title,
+      sub:`Today's words are done — get some ${step.band} grammar in while you build toward ${step.target} words.`,
+      cta:"Open lesson →", run:()=>{ showView("lessons"); openLesson(nl.id); }};
     return {title:step.title, sub:`Today's new words are done — get ahead. ${introducedCount()}/${step.target} met.`,
       cta:"Practice more →", run:()=>goDrill(true)};
   }
@@ -1934,11 +1954,14 @@ function nextAction(){
     const L=LESSONS.find(l=>l.id===step.lesson);
     if(L) return {title:step.title, sub:"You've hit the vocab milestone — time for some grammar.",
       cta:"Open lesson →", run:()=>{ showView("lessons"); openLesson(L.id); }};
-    // lesson not built yet
+  }
+  if(step && step.type==="exam"){
+    if(readyForExam(step.level)) return {title:`Take the ${step.level} exam`,
+      sub:"You've finished this level's lessons and vocab — prove it and level up.", cta:"Go to exam →", run:()=>showView("exam")};
     if(o.new>0) return {title:`Learn today's ${o.new} new words`,
-      sub:`${step.title} is coming soon — keep building vocab in the meantime.`, cta:"Start drill →", run:()=>goDrill(false)};
-    return {title:"Keep building vocabulary", sub:`${step.title} is coming soon — get ahead on words while you wait.`,
-      cta:"Practice more →", run:()=>goDrill(true)};
+      sub:`Closing in on the ${step.level} exam — keep building vocab.`, cta:"Start drill →", run:()=>goDrill(false)};
+    return {title:`Toward the ${step.level} exam`, sub:"Finish this level's remaining lessons and word goal.",
+      cta:"See requirements →", run:()=>showView("exam")};
   }
   if(o.new>0) return {title:`Finish today's ${o.new} new words`, sub:"", cta:"Start drill →", run:()=>goDrill(false)};
   return {title:"You're all caught up 🎉", sub:"You've reached the end of the current path. Review anytime, or new units are coming.",
@@ -1948,17 +1971,34 @@ function nextAction(){
 function renderPath(){
   const idx=currentStepIndex();
   const el=$("path-list"); el.innerHTML="";
+  // Flag anything built but not wired into a level (self-check so nothing silently drops off)
+  if(PATH_WARNINGS.length){
+    const warn=document.createElement("div");
+    warn.style.cssText="border:1px solid var(--accent);background:var(--accent-soft);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:13px;line-height:1.55";
+    warn.innerHTML="⚠️ <b>Path gaps to fix</b> — built, but not on the path to any level:<br>"+PATH_WARNINGS.map(w=>"• "+w).join("<br>");
+    el.appendChild(warn);
+  }
+  let lastBand=null;
   CURRICULUM.forEach((step,i)=>{
+    if(step.band && step.band!==lastBand){
+      lastBand=step.band;
+      const h=document.createElement("div");
+      h.style.cssText="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:16px 0 8px";
+      h.textContent=step.band+(examPassed(step.band)?" · reached ✓":"");
+      el.appendChild(h);
+    }
     const done=stepDone(step), current=(i===idx);
-    const mark = done?"✓":(current?"→":(step.soon?"🔒":"○"));
+    const mark = done?"✓":(current?"→":"○");
     let right="";
     if(step.type==="words") right=Math.min(introducedCount(),step.target)+" / "+step.target+" met";
-    else { const r=S.lessons[step.lesson]; right= done?("✓ "+Math.round((r?r.best:0)*100)+"%"):(step.soon?"soon":""); }
+    else if(step.type==="lesson"){ const r=S.lessons[step.lesson]; right= done?("✓ "+Math.round((r?r.best:0)*100)+"%"):""; }
+    else if(step.type==="exam"){ right= done?("✓ "+Math.round((examRec(step.level).best||0)*100)+"%"):(readyForExam(step.level)?"ready →":""); }
     const item=document.createElement("div");
     item.className="path-item"+(current?" current":"")+(done?" done":"");
     item.innerHTML=`<span class="pm">${mark}</span><span class="pt">${step.title}</span><span class="pr">${right}</span>`;
-    const L=step.type==="lesson"&&LESSONS.find(l=>l.id===step.lesson);
-    if(L){ item.classList.add("clickable"); item.onclick=()=>{ showView("lessons"); openLesson(L.id); }; }
+    if(step.type==="lesson"){ const L=LESSONS.find(l=>l.id===step.lesson);
+      if(L){ item.classList.add("clickable"); item.onclick=()=>{ showView("lessons"); openLesson(L.id); }; } }
+    else if(step.type==="exam"){ item.classList.add("clickable"); item.onclick=()=>showView("exam"); }
     el.appendChild(item);
   });
   const doneCt=CURRICULUM.filter(stepDone).length;
