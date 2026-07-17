@@ -1,73 +1,73 @@
 {
   "cards": {
     "1": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "2": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "3": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "4": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "5": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "6": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "7": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "8": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "9": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "10": {
-      "box": 2,
-      "due": "2026-07-17",
+      "box": 3,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "11": {
@@ -141,17 +141,17 @@
       "introduced": true
     },
     "21": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-19",
       "lapses": 1,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "22": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-19",
       "lapses": 1,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "23": {
@@ -177,9 +177,9 @@
     },
     "26": {
       "box": 1,
-      "due": "2026-07-17",
-      "lapses": 1,
-      "reps": 3,
+      "due": "2026-07-18",
+      "lapses": 2,
+      "reps": 5,
       "introduced": true
     },
     "27": {
@@ -239,17 +239,17 @@
       "introduced": true
     },
     "35": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-19",
       "lapses": 3,
-      "reps": 5,
+      "reps": 6,
       "introduced": true
     },
     "36": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-19",
       "lapses": 1,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "37": {
@@ -260,10 +260,10 @@
       "introduced": true
     },
     "38": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-19",
       "lapses": 1,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "39": {
@@ -302,10 +302,10 @@
       "introduced": true
     },
     "44": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-19",
       "lapses": 2,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "45": {
@@ -386,10 +386,10 @@
       "introduced": true
     },
     "56": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-19",
       "lapses": 2,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "57": {
@@ -617,10 +617,10 @@
       "introduced": true
     },
     "89": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-19",
       "lapses": 2,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "90": {
@@ -743,10 +743,10 @@
       "introduced": true
     },
     "107": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-19",
       "lapses": 1,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "108": {
@@ -979,10 +979,80 @@
       "lapses": 0,
       "reps": 1,
       "introduced": true
+    },
+    "415": {
+      "box": 1,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "416": {
+      "box": 1,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "429": {
+      "box": 1,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "471": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "472": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "473": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "474": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "475": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "476": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "477": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
     }
   },
-  "streak": 2,
-  "lastCompleted": "2026-07-16",
+  "streak": 3,
+  "lastCompleted": "2026-07-17",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -992,6 +1062,10 @@
       "newDone": 10,
       "reviewDone": 0,
       "gDone": 15
+    },
+    "2026-07-17": {
+      "newDone": 3,
+      "reviewDone": 0
     }
   },
   "duoLevel": null,
@@ -1026,8 +1100,8 @@
   },
   "exams": {
     "A1": {
-      "passed": true,
-      "best": 0.9,
+      "passed": false,
+      "best": 0,
       "date": "2026-07-15"
     },
     "A2": {
@@ -1294,8 +1368,14 @@
     }
   },
   "activeThemes": [
-    "core",
-    "arts",
-    "emotion"
-  ]
+    "greet",
+    "pron",
+    "family",
+    "objects",
+    "places",
+    "verbs",
+    "adj",
+    "numtime"
+  ],
+  "migv": 2
 }
