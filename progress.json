@@ -1196,6 +1196,83 @@
       "lapses": 0,
       "reps": 1,
       "introduced": true
+    },
+    "499": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "500": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "501": {
+      "box": 1,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "502": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "503": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "504": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "505": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "506": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "507": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "508": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "509": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
     }
   },
   "streak": 3,
@@ -1211,7 +1288,7 @@
       "gDone": 15
     },
     "2026-07-17": {
-      "newDone": 7,
+      "newDone": 8,
       "reviewDone": 0
     }
   },
