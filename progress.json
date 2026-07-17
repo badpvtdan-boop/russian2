@@ -1495,9 +1495,9 @@
   },
   "exams": {
     "A1": {
-      "passed": false,
-      "best": 0,
-      "date": "2026-07-15"
+      "passed": true,
+      "best": 0.88,
+      "date": "2026-07-17"
     },
     "A2": {
       "passed": false,
