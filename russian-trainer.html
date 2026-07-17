@@ -1718,6 +1718,47 @@ const LESSONS=[{
     {q:"Сейча́с мы … в Москву́. (on our way now, by train)",opts:["е́дем","е́здим","идём","хо́дим"],a:0}
   ]
 },{
+  id:"numbers",
+  title:"Numbers & Quantifiers",
+  subtitle:"числительные · counting and the noun forms it triggers",
+  level:"A2",
+  explanation:`
+    <p>Counting in Russian has one famous complication: <b>the number changes the case of the noun after it</b>. Say "two" and the noun shifts; say "five" and it shifts again. The whole system comes down to <b>three buckets</b> — and they all lean on the <b>genitive</b> you already know.</p>
+    <h3>The three buckets</h3>
+    <table>
+      <tr><th>Number</th><th>Noun form</th><th>Example</th></tr>
+      <tr><td><b>1</b> (agrees in gender)</td><td>nominative singular</td><td class="ru">оди́н стол · одна́ кни́га · одно́ окно́</td></tr>
+      <tr><td><b>2, 3, 4</b></td><td><b>genitive singular</b></td><td class="ru">два бра́т<span class="ru">а</span> · три кни́г<span class="ru">и</span> · четы́ре часа́</td></tr>
+      <tr><td><b>5–20</b> (and most higher)</td><td><b>genitive plural</b></td><td class="ru">пять книг · де́сять рубл<span class="ru">е́й</span> · два́дцать лет</td></tr>
+    </table>
+    <h3>1 and 2 agree in gender</h3>
+    <p><span class="ru">оди́н</span> behaves like an adjective — it matches the noun: <span class="ru">оди́н дом</span> (m), <span class="ru">одна́ маши́на</span> (f), <span class="ru">одно́ сло́во</span> (n). And <b>two</b> has two forms: <span class="ru">два</span> for masculine/neuter, <span class="ru">две</span> for feminine — <span class="ru">два стола́</span> but <span class="ru">две кни́ги</span>. (3 and 4 don't change for gender.)</p>
+    <h3>Big numbers: look at the last word</h3>
+    <p>For compound numbers, only the <b>final digit</b> decides the noun's form: <span class="ru">два́дцать оди́н рубль</span> (nom. sing., because it ends in 1), <span class="ru">два́дцать два рубл<span class="ru">я́</span></span> (gen. sing.), <span class="ru">два́дцать пять рубл<span class="ru">е́й</span></span> (gen. plural). The one trap: <b>11–14</b> always take the <b>genitive plural</b> (<span class="ru">оди́ннадцать книг</span>), even though they "end" in 1–4.</p>
+    <h3>Quantity words work the same way</h3>
+    <p>Words of amount — <span class="ru">мно́го</span> (a lot), <span class="ru">ма́ло</span> (few/little), <span class="ru">не́сколько</span> (several), <span class="ru">ско́лько</span> (how many/much) — are followed by the <b>genitive</b>. For things you can count, that's the genitive <b>plural</b>: <span class="ru">мно́го книг, ско́лько студе́нтов</span>. For uncountable stuff, the genitive <b>singular</b>: <span class="ru">мно́го воды́, ма́ло вре́мени</span>.</p>
+    <p><i>Tie-in:</i> this is exactly the "after numbers &amp; quantity" job you met in the genitive lesson — now with the full 1 / 2–4 / 5+ picture.</p>`,
+  practice:[
+    {q:"У меня́ два … (брат).",opts:["бра́та","брат","бра́тья","бра́тьев"],a:0,why:"After 2 → genitive singular: два бра́та."},
+    {q:"У неё три … (кни́га).",opts:["кни́ги","кни́га","книг","кни́гу"],a:0,why:"After 3 → genitive singular; -и after г: три кни́ги."},
+    {q:"В кла́ссе пять … (студе́нт).",opts:["студе́нтов","студе́нт","студе́нта","студе́нты"],a:0,why:"After 5 → genitive plural: пять студе́нтов."},
+    {q:"Мне два́дцать … (год → 'years').",opts:["лет","го́да","год","го́ды"],a:0,why:"20 → genitive plural; год uses the special form лет: два́дцать лет."},
+    {q:"After 2, 3, 4 the counted noun takes the…",opts:["genitive singular","genitive plural","nominative","dative"],a:0,why:"2/3/4 → genitive singular: два бра́та, три кни́ги."},
+    {q:"After 5 and higher, the counted noun takes the…",opts:["genitive plural","genitive singular","nominative","accusative"],a:0,why:"5+ → genitive plural: пять книг, де́сять рубле́й."},
+    {q:"'two books' — кни́га is feminine, so:",opts:["две кни́ги","два кни́ги","две книг","два кни́га"],a:0,why:"two = две for feminine, + genitive singular: две кни́ги."},
+    {q:"«У меня́ мно́го …» (a lot of work).",opts:["рабо́ты","рабо́та","рабо́ту","рабо́т"],a:0,why:"мно́го + genitive; рабо́та is uncountable → genitive singular: мно́го рабо́ты."}
+  ],
+  test:[
+    {q:"У меня́ четы́ре … (сестра́).",opts:["сестры́","сестра́","сестёр","сестру́"],a:0},
+    {q:"В го́роде во́семь … (музе́й).",opts:["музе́ев","музе́й","музе́я","музе́и"],a:0},
+    {q:"After the number 1, the noun is in the…",opts:["nominative singular","genitive singular","genitive plural","dative"],a:0},
+    {q:"У нас три … (час → 'hours').",opts:["часа́","час","часо́в","часы́"],a:0},
+    {q:"Ему́ де́сять … (год → 'years').",opts:["лет","го́да","год","го́ды"],a:0},
+    {q:"'one window' — окно́ is neuter, so:",opts:["одно́ окно́","оди́н окно́","одна́ окно́","одно́ о́кна"],a:0},
+    {q:"У нас ма́ло … (вре́мя → 'time').",opts:["вре́мени","вре́мя","времена́","вре́менем"],a:0},
+    {q:"The word ско́лько ('how many') is followed by the…",opts:["genitive","nominative","accusative","dative"],a:0}
+  ]
+},{
   id:"genitive",
   title:"Genitive Case",
   subtitle:"родительный падеж · of / possession / absence",
@@ -2045,6 +2086,8 @@ const EXAMS=[
    {q:"Пода́рок для … (ма́ма).",opts:["ма́мы","ма́ма","ма́му","ма́ме"],a:0},
    {q:"У меня́ нет … (вре́мя → time).",opts:["вре́мени","вре́мя","вре́менем","времена́"],a:0},
    {q:"четы́ре … (час) — 'four hours'.",opts:["часа́","час","часо́в","часы́"],a:0},
+   {q:"пять … (кни́га) — 'five books'.",opts:["книг","кни́ги","кни́га","кни́гу"],a:0},
+   {q:"After 5 and higher, the counted noun is in the…",opts:["genitive plural","genitive singular","nominative","accusative"],a:0},
    {q:"Present tense in Russian is always which aspect?",opts:["Imperfective","Perfective","Either one","Neither"],a:0},
    {q:"Вчера́ я … э́ту кни́гу. (finished reading it)",opts:["прочита́л","чита́л","чита́ю","чита́ть"],a:0},
    {q:"Ка́ждый день я … . (I work — a habit)",opts:["рабо́таю","порабо́таю","рабо́тал","рабо́тать"],a:0},
@@ -2104,7 +2147,6 @@ const BAND_WORDS={A1:200,A2:750,B1:1500};
 const PLANNED_LESSONS={
   "noun-gender":{title:"Noun Gender", level:"A1"},
   "present-conj":{title:"Present Conjugations", level:"A1"},
-  "numbers":{title:"Numbers & Quantifiers", level:"A2"},
   "reflexive":{title:"Reflexive Verbs", level:"B1"}
 };
 function examRec(level){ if(!S.exams) S.exams={}; if(!S.exams[level]) S.exams[level]={passed:false,best:0}; return S.exams[level]; }
@@ -2551,6 +2593,20 @@ const GRAMMAR=[
   {q:"Он … к нам вчера́ ве́чером. (came / arrived)",opts:["пришёл","ушёл","шёл","ходи́л"],a:0,why:"при- = arrival; perfective past of прийти́ is пришёл."},
   {q:"Ле́том они́ ча́сто … за грани́цу. (travel abroad, repeatedly)",opts:["е́здят","е́дут","хо́дят","иду́т"],a:0,why:"Repeated trips by vehicle → многонапр. е́здить: е́здят."},
   {q:"Which pair means 'to go by vehicle'?",opts:["е́хать / е́здить","идти́ / ходи́ть","нести́ / носи́ть","бежа́ть / бе́гать"],a:0,why:"е́хать (one way) / е́здить (habit) = motion by transport."}
+]},
+{ lesson:"numbers", title:"Numbers & Quantifiers", level:"A2", items:[
+  {q:"два … (стол).",opts:["стола́","стол","столы́","столо́в"],a:0,why:"After 2 → genitive singular: два стола́."},
+  {q:"пять … (рубль).",opts:["рубле́й","рубль","рубля́","рубли́"],a:0,why:"After 5 → genitive plural: пять рубле́й."},
+  {q:"After 2 / 3 / 4, the noun is in the genitive…",opts:["singular","plural","nominative","dative"],a:0,why:"два бра́та, три кни́ги — genitive singular."},
+  {q:"After 5 and up, the noun is in the genitive…",opts:["plural","singular","nominative","accusative"],a:0,why:"пять книг, де́сять рубле́й — genitive plural."},
+  {q:"'two sisters' (сестра́ is feminine):",opts:["две сестры́","два сестры́","две сестёр","два сестра́"],a:0,why:"two = две for feminine, + genitive singular: две сестры́."},
+  {q:"Мне два́дцать оди́н … (год).",opts:["год","го́да","лет","го́ды"],a:0,why:"Compound ending in 1 → nominative singular: два́дцать оди́н год."},
+  {q:"Numbers 11–14 take the genitive…",opts:["plural","singular","nominative","dative"],a:0,why:"The 11–14 trap: genitive plural (оди́ннадцать книг), despite ending in 1–4."},
+  {q:"У меня́ мно́го … (друг).",opts:["друзе́й","друг","дру́га","дру́ги"],a:0,why:"мно́го + genitive; countable → genitive plural: мно́го друзе́й."},
+  {q:"В ко́мнате четы́ре … (окно́).",opts:["окна́","окно́","о́кон","о́кна"],a:0,why:"After 4 → genitive singular: четы́ре окна́."},
+  {q:"Ско́лько … в гру́ппе? (студе́нт)",opts:["студе́нтов","студе́нт","студе́нта","студе́нты"],a:0,why:"ско́лько + genitive; countable → genitive plural: ско́лько студе́нтов."},
+  {q:"семь … (день → 'days').",opts:["дней","день","дня","дни"],a:0,why:"After 7 → genitive plural; день → дней: семь дней."},
+  {q:"'one book' (кни́га is feminine):",opts:["одна́ кни́га","оди́н кни́га","одно́ кни́га","одна́ кни́ги"],a:0,why:"оди́н agrees in gender → одна́ кни́га (nominative singular)."}
 ]},
 { lesson:"genitive", title:"Genitive Case", level:"A2", items:[
   {q:"Э́то центр … (го́род).",opts:["го́рода","го́род","го́роду","го́родом"],a:0,why:"'Of' / possession, masculine hard → -а: центр го́рода."},
