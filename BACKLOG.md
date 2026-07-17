@@ -22,8 +22,13 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` not started
 - [x] **Level exams (per-CEFR mastery).** A1/A2/B1 exams (vocab + grammar), 85% to pass, unlock in order; the highest passed exam sets your official Level (source of truth), with readiness nudges on Home. New 🎓 Level tab.
 - [x] **Shuffled answer options.** Lesson practice/test options now randomize each render (previously the correct answer was always first). Drill and exams shuffle too.
 - [x] **Phase 5 — Grammar Review (spaced).** Completed lessons no longer end cold: each finished lesson feeds a **fresh** pool of ~12 review questions (distinct from the lesson's own practice/test items) into the same Leitner SRS as vocab, under a new `gcards` state map. A "🧠 Grammar review" section on the Drill tab shows what's due, capped at 15/day, mirrors vocab box logic (correct → advance box + interval; miss → box 0 + requeue in-session), and auto-seeds retroactively for already-completed lessons. Covers all topics, not just cases (aspect, verbs of motion included). Locked until you finish your first lesson; "review anyway" path when nothing's due.
+- [x] **Phase 6 — Proficiency-driven path overhaul.** The Home path was rebuilt around a real **A1→B1 proficiency sequence** (the intended course), not just "whatever we'd built." New word goals per level: **A1 200 / A2 750 / B1 1,500** (was 60/250/450). Lessons are ordered pedagogically within each level. Lessons that belong on the path but **aren't built yet are shown as "· gap" steps** (greyed, non-clickable) via a new `PLANNED_LESSONS` registry — so the path itself surfaces exactly what's left to build. The "Next up" recommender and the → current-step marker skip gaps (a not-yet-built lesson can't be the next thing to *do*), while the path display still lists them. Passing a level's exam still requires that level's lessons + word goal, so gaps correctly block the exam until filled.
+  - New A1 lessons built this pass: **Noun Gender** and **Present Conjugations** (see grammar units below).
+  - Remaining gaps surfaced on the path: **Past & Future** (A2), **Numbers & Quantifiers** (A2), **Reflexive Verbs** (B1). These are the next things to build.
 
 ### Grammar units built
+- [x] Noun gender (род существи́тельных) — A1 *(new)*
+- [x] Present conjugations (настоя́щее вре́мя, 1st & 2nd) — A1 *(new)*
 - [x] Prepositional case (предложный) — A1
 - [x] Accusative case (винительный) — A1
 - [x] Genitive case (родительный) — A2
@@ -49,12 +54,12 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 - [ ] **Pronoun declension** — я/ты/он… across cases (меня, тебе, о нём…).
 
 ## Verb / other grammar backlog
-- [ ] Present-tense conjugation (1st & 2nd conjugation patterns)
-- [ ] Past tense (gender/number agreement)
-- [ ] Future tense (compound imperfective vs. perfective)
-- [ ] Reflexive verbs (-ся)
+- [x] **Present-tense conjugation (1st & 2nd conjugation patterns)** — *shipped (A1)* as the **Present Conjugations** lesson.
+- [ ] **Past & Future** — *A2 path gap (next to build).* Past tense (gender/number agreement) + future (compound imperfective vs. perfective — pairs with the aspect lesson). One combined lesson, id `past-future`.
+- [ ] **Numbers & Quantifiers** — *A2 path gap (next to build).* Counting rules and the noun forms after 1 / 2–4 / 5+, plus quantity words (много, мало, сколько). Ties into genitive. Id `numbers`.
+- [ ] **Reflexive verbs (-ся / -сь)** — *B1 path gap (next to build).* Id `reflexive`.
 - [ ] Imperative mood
-- [ ] Numbers & counting (ties into genitive)
+- [ ] Noun gender — *shipped (A1)* (see grammar units built).
 
 ---
 
@@ -65,7 +70,7 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 - [ ] **Pronunciation check** — browser speech recognition to score spoken attempts (experimental; the weak piece).
 - [ ] **Bundled neural audio** — offline Silero/Piper clips per word + example sentence, with stress marks, for consistent high-quality pronunciation. (Deferred — adds an `audio/` folder.)
 - [x] **Level test** — *shipped as per-CEFR mastery exams* (A1/A2/B1). Replaces the word-count heuristic as the official Level. Next: add A2+ grammar depth (dative/instrumental/plurals) to the higher exams as those units ship; consider a B2 exam.
-- [~] **More vocab** — *in progress.* At 470 words with themed decks (Emotions, Arts) + frequency tiers. Next: more themes (News/politics, Work/business, Science), and grow toward ~1,000+ for a legitimate A2 vocabulary. Exam word-thresholds bumped to A1 60 / A2 250 / B1 450 to match the bigger deck.
+- [~] **More vocab** — *in progress.* At 470 words with themed decks (Emotions, Arts) + frequency tiers. Next: more themes (News/politics, Work/business, Science), and grow toward ~1,500+ for a legitimate A2→B1 vocabulary. Exam word-thresholds are now **A1 200 / A2 750 / B1 1,500** (Phase 6 overhaul) — the deck (470) now needs to grow to catch up to these goals, which is the point: the goals reflect real proficiency, and the path shows the shortfall honestly.
 
 ## Polish / nice-to-haves
 - [ ] Look & feel iteration 2 (accent tuning, maybe two-column Home, progress rings on stat cards).
@@ -77,7 +82,8 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 ---
 
 ## Suggested next steps
-1. **More themed decks** — News/politics, Work/business, Science (toward ~1,000+ words for a real A2 vocabulary). This is now the biggest gap: the six-case grammar spine is done, but vocabulary breadth is still early.
-2. **Pop quizzes** — quick win, adds the "test me randomly" feel you wanted.
-3. **Conversation practice** — the highest-value feature still missing.
-4. **Grammar depth beyond the cases** — plural declensions, adjective agreement, tenses (see grammar backlog) if you want to keep building the grammar track.
+The path now defines the plan. Fill the remaining path gaps (in path order), then grow the deck to match the new word goals.
+1. **Fill the A2 path gaps** — build **Past & Future** (`past-future`), then **Numbers & Quantifiers** (`numbers`). Same lesson format as the cases (explanation + 8 practice + 8 test + a 12-item grammar-review pool). Wire is already in place (`BAND_LESSONS.A2`, `PLANNED_LESSONS`); moving each id from `PLANNED_LESSONS` into a real `LESSONS`/`GRAMMAR` entry flips it from "gap" to a live step automatically.
+2. **Fill the B1 gap** — build **Reflexive Verbs** (`reflexive`).
+3. **Grow the deck toward the new word goals** — themed decks (News/politics, Work/business, Science) toward ~1,500 words, so the A2/B1 word goals become reachable.
+4. **Pop quizzes** and **conversation practice** — still the biggest missing *features* (vs. curriculum).

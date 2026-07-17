@@ -1213,6 +1213,99 @@ $("reset").onclick=()=>{ if(confirm("Erase all progress in this browser?")){ loc
 
 /* ---------------- Lessons ---------------- */
 const LESSONS=[{
+  id:"noun-gender",
+  title:"Noun Gender",
+  subtitle:"род существи́тельных · masculine, feminine, neuter",
+  level:"A1",
+  explanation:`
+    <p>Every Russian noun has a <b>gender</b> — masculine, feminine, or neuter. It isn't about biology; it's a grammatical label that decides how adjectives, pronouns, and past-tense verbs around the noun will look. The good news: for most words you can tell the gender just by looking at the <b>last letter</b>.</p>
+    <h3>The endings that give it away</h3>
+    <table>
+      <tr><th>Ends in…</th><th>Gender</th><th>Examples</th></tr>
+      <tr><td>a consonant</td><td><b>masculine</b></td><td class="ru">стол, дом, брат, го́род</td></tr>
+      <tr><td class="ru">-й</td><td><b>masculine</b></td><td class="ru">музе́й, чай, геро́й</td></tr>
+      <tr><td class="ru">-а / -я</td><td><b>feminine</b></td><td class="ru">кни́га, вода́, неде́ля, семья́</td></tr>
+      <tr><td class="ru">-о / -е</td><td><b>neuter</b></td><td class="ru">окно́, сло́во, мо́ре, зда́ние</td></tr>
+      <tr><td class="ru">-ь</td><td><b>masculine <i>or</i> feminine</b></td><td class="ru">слова́рь (m), день (m) · дверь (f), ночь (f)</td></tr>
+    </table>
+    <h3>The soft-sign (-ь) problem</h3>
+    <p>A noun ending in <b class="ru">-ь</b> can be either gender, so this ending you simply <b>learn word by word</b>. Two rough hints help: nouns ending in <span class="ru">-ость</span> (as in <span class="ru">но́вость</span> — news) and most ending in <span class="ru">-чь / -шь / -жь</span> (<span class="ru">ночь, до́чь, вещь</span>) are <b>feminine</b>; and words for male people (<span class="ru">гость</span> — guest, <span class="ru">царь</span> — tsar) are <b>masculine</b>. Beyond that, treat each -ь word's gender as part of the word.</p>
+    <h3>When meaning beats the ending</h3>
+    <p>A handful of nouns look feminine (they end in <b class="ru">-а / -я</b>) but are <b>masculine</b> because they name males: <span class="ru">па́па</span> (dad), <span class="ru">де́душка</span> (grandpa), <span class="ru">дя́дя</span> (uncle), <span class="ru">мужчи́на</span> (man). Real-world gender wins here. Men's names ending in -а/-я are masculine too (<span class="ru">Ва́ня, Ди́ма</span>).</p>
+    <h3>A couple of oddballs</h3>
+    <p>Ten nouns ending in <b class="ru">-мя</b> are <b>neuter</b>, not feminine — the two you'll meet early are <span class="ru">и́мя</span> (name) and <span class="ru">вре́мя</span> (time). And a few borrowed words like <span class="ru">ко́фе</span> and <span class="ru">кафе́</span> don't decline at all.</p>
+    <h3>Why it matters</h3>
+    <p>Gender isn't trivia — it drives agreement. <span class="ru">но́вый дом</span> (m), <span class="ru">но́вая маши́на</span> (f), <span class="ru">но́вое окно́</span> (n); and in the past tense <span class="ru">он рабо́тал / она́ рабо́тала / оно́ рабо́тало</span>. Get the gender right and the rest of the sentence falls into place.</p>`,
+  practice:[
+    {q:"«стол» — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0,why:"Ends in a consonant → masculine."},
+    {q:"«кни́га» — which gender?",opts:["feminine","masculine","neuter","it varies"],a:0,why:"Ends in -а → feminine."},
+    {q:"«окно́» — which gender?",opts:["neuter","masculine","feminine","it varies"],a:0,why:"Ends in -о → neuter."},
+    {q:"«музе́й» — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0,why:"Ends in -й → masculine."},
+    {q:"«мо́ре» — which gender?",opts:["neuter","masculine","feminine","it varies"],a:0,why:"Ends in -е → neuter."},
+    {q:"«дверь» — which gender?",opts:["feminine","masculine","neuter","it varies"],a:0,why:"Ends in -ь; дверь is one to memorize as feminine."},
+    {q:"«па́па» — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0,why:"Looks feminine (-а) but names a male → masculine."},
+    {q:"A noun ending in -о or -е is usually…",opts:["neuter","masculine","feminine","plural"],a:0,why:"-о / -е is the neuter signal: окно́, мо́ре."}
+  ],
+  test:[
+    {q:"«дом» — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0},
+    {q:"«вода́» — which gender?",opts:["feminine","masculine","neuter","it varies"],a:0},
+    {q:"«сло́во» — which gender?",opts:["neuter","masculine","feminine","it varies"],a:0},
+    {q:"«чай» — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0},
+    {q:"«неде́ля» — which gender?",opts:["feminine","masculine","neuter","it varies"],a:0},
+    {q:"«зда́ние» — which gender?",opts:["neuter","masculine","feminine","it varies"],a:0},
+    {q:"«дя́дя» (uncle) — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0},
+    {q:"Nouns ending in a consonant are usually…",opts:["masculine","feminine","neuter","plural"],a:0}
+  ]
+},{
+  id:"present-conj",
+  title:"Present Conjugations",
+  subtitle:"настоя́щее вре́мя · 1st & 2nd conjugation",
+  level:"A1",
+  explanation:`
+    <p>To say what someone <b>is doing now</b> or <b>does regularly</b>, you change a verb's ending to match the subject — that's <b>conjugation</b>. Russian present tense uses <b>one of two patterns</b>, called the <b>first</b> and <b>second</b> conjugations. (Only imperfective verbs have a present tense — a completed action can't be "in progress.")</p>
+    <h3>The two patterns side by side</h3>
+    <table>
+      <tr><th> </th><th class="ru">чита́ть — read (1st)</th><th class="ru">говори́ть — speak (2nd)</th></tr>
+      <tr><td class="ru">я</td><td class="ru">чита́ю</td><td class="ru">говорю́</td></tr>
+      <tr><td class="ru">ты</td><td class="ru">чита́ешь</td><td class="ru">говори́шь</td></tr>
+      <tr><td class="ru">он / она́</td><td class="ru">чита́ет</td><td class="ru">говори́т</td></tr>
+      <tr><td class="ru">мы</td><td class="ru">чита́ем</td><td class="ru">говори́м</td></tr>
+      <tr><td class="ru">вы</td><td class="ru">чита́ете</td><td class="ru">говори́те</td></tr>
+      <tr><td class="ru">они́</td><td class="ru">чита́ют</td><td class="ru">говоря́т</td></tr>
+    </table>
+    <h3>The tell-tale vowel: -е- vs. -и-</h3>
+    <p>The quickest way to spot which pattern a verb follows is the vowel in the middle of the endings. <b>First conjugation</b> shows an <b class="ru">-е-</b> (<span class="ru">чита́<b>е</b>шь, чита́<b>е</b>т, чита́<b>е</b>м</span>). <b>Second conjugation</b> shows an <b class="ru">-и-</b> (<span class="ru">говор<b>и</b>́шь, говор<b>и</b>́т, говор<b>и</b>́м</span>). The two ends — <span class="ru">я</span> and <span class="ru">они́</span> — don't show that vowel; instead they pair up:</p>
+    <table>
+      <tr><th> </th><th>1st conjugation</th><th>2nd conjugation</th></tr>
+      <tr><td class="ru">я</td><td>-ю (or -у)</td><td>-ю (or -у)</td></tr>
+      <tr><td class="ru">они́</td><td>-ют (or -ут)</td><td>-ят (or -ат)</td></tr>
+    </table>
+    <p>So a verb whose "they" form is <span class="ru">-ют/-ут</span> is first-conjugation; one whose "they" form is <span class="ru">-ят/-ат</span> is second.</p>
+    <h3>Rule of thumb for guessing the pattern</h3>
+    <p>Most verbs ending in <b class="ru">-ать / -ять</b> follow the <b>first</b> pattern (<span class="ru">чита́ть, рабо́тать, гуля́ть, знать, понима́ть</span>). Most ending in <b class="ru">-ить</b> follow the <b>second</b> (<span class="ru">говори́ть, люби́ть, кури́ть</span>), along with a group of <span class="ru">-еть</span> verbs (<span class="ru">смотре́ть, ви́деть</span>). It's a guide, not a law — a few common verbs break it — but it's right most of the time.</p>
+    <h3>The one bump: the "я" form of some 2nd-conj verbs</h3>
+    <p>Some second-conjugation verbs add or change a consonant in the <b>я</b> form only. The one you'll use constantly is <span class="ru">люби́ть</span> → <span class="ru">я <b>люблю́</b></span> (an extra <b class="ru">л</b>), then it's regular again: <span class="ru">ты лю́бишь, они́ лю́бят</span>. Learn these as they come; the rest of the paradigm is normal.</p>`,
+  practice:[
+    {q:"Я … кни́гу. (read)",opts:["чита́ю","чита́ешь","чита́ет","чита́ют"],a:0,why:"я → 1st-conj -ю: чита́ю."},
+    {q:"Ты … по-ру́сски. (speak)",opts:["говори́шь","говорю́","говори́т","говоря́т"],a:0,why:"ты, 2nd conj → -ишь: говори́шь."},
+    {q:"Он … в о́фисе. (work)",opts:["рабо́тает","рабо́таю","рабо́таешь","рабо́тают"],a:0,why:"он, 1st conj → -ет: рабо́тает."},
+    {q:"Мы … фильм. (watch — смотре́ть)",opts:["смо́трим","смо́трите","смотрю́","смо́трят"],a:0,why:"мы, 2nd conj → -им: смо́трим."},
+    {q:"Они́ … телеви́зор. (watch)",opts:["смо́трят","смо́трим","смо́трит","смотрю́"],a:0,why:"они́, 2nd conj → -ят: смо́трят."},
+    {q:"Вы … меня́? (understand — понима́ть)",opts:["понима́ете","понима́ем","понима́ю","понима́ют"],a:0,why:"вы, 1st conj → -ете: понима́ете."},
+    {q:"First-conjugation endings show which vowel?",opts:["-е- / -ё-","-и-","-а-","-о-"],a:0,why:"1st conj shows -е- (чита́ешь); 2nd shows -и- (говори́шь)."},
+    {q:"Я … тебя́. (love — люби́ть)",opts:["люблю́","любю́","лю́бишь","лю́бят"],a:0,why:"люби́ть is 2nd conj but the я-form adds л: люблю́."}
+  ],
+  test:[
+    {q:"Ты … журна́л. (read)",opts:["чита́ешь","чита́ю","чита́ет","чита́ют"],a:0},
+    {q:"Она́ … по-англи́йски. (speak)",opts:["говори́т","говорю́","говори́шь","говоря́т"],a:0},
+    {q:"Мы … в па́рке. (walk — гуля́ть)",opts:["гуля́ем","гуля́ете","гуля́ю","гуля́ют"],a:0},
+    {q:"Они́ … в о́фисе. (work)",opts:["рабо́тают","рабо́тает","рабо́таем","рабо́таю"],a:0},
+    {q:"Я … му́зыку. (love)",opts:["люблю́","любю́","лю́бишь","лю́бит"],a:0},
+    {q:"Вы хорошо́ … . (understand)",opts:["понима́ете","понима́ем","понима́ю","понима́ет"],a:0},
+    {q:"Second-conjugation endings show which vowel?",opts:["-и-","-е- / -ё-","-о-","-ы-"],a:0},
+    {q:"Он … телеви́зор ка́ждый ве́чер. (watch)",opts:["смо́трит","смо́трят","смотрю́","смо́трим"],a:0}
+  ]
+},{
   id:"prep-case",
   title:"Prepositional Case",
   subtitle:"предложный падеж · location & topic",
@@ -1769,8 +1862,24 @@ const EXAMS=[
    {q:"«Он давно́ здесь рабо́тает» means…",opts:["He has worked here a long time","He worked here once","He will work here soon","He no longer works here"],a:0}
  ]}
 ];
-const BAND_LESSONS={A1:["prep-case","accusative"],A2:["genitive","aspect","dative","instrumental"],B1:["motion"]};
-const BAND_WORDS={A1:60,A2:250,B1:450};
+/* The intended A1→B1 proficiency sequence. Lessons appear on the Home path in this order,
+   grouped by level, each level as: word goal → these lessons → the level exam.
+   Ids that aren't built yet are listed in PLANNED_LESSONS below and show up as "gaps". */
+const BAND_LESSONS={
+  A1:["noun-gender","present-conj","prep-case","accusative"],
+  A2:["past-future","aspect","numbers","genitive","dative","instrumental"],
+  B1:["reflexive","motion"]
+};
+const BAND_WORDS={A1:200,A2:750,B1:1500};
+/* Lessons that are part of the path but not built yet. Surfaced on the path as "· gap" steps
+   so nothing is silently missing. Move an id out of here (into a real LESSONS entry) to fill it. */
+const PLANNED_LESSONS={
+  "noun-gender":{title:"Noun Gender", level:"A1"},
+  "present-conj":{title:"Present Conjugations", level:"A1"},
+  "past-future":{title:"Past & Future", level:"A2"},
+  "numbers":{title:"Numbers & Quantifiers", level:"A2"},
+  "reflexive":{title:"Reflexive Verbs", level:"B1"}
+};
 function examRec(level){ if(!S.exams) S.exams={}; if(!S.exams[level]) S.exams[level]={passed:false,best:0}; return S.exams[level]; }
 function lessonDoneId(id){ return !!(S.lessons[id]&&S.lessons[id].done); }
 function bandLessonsDone(level){ return (BAND_LESSONS[level]||[]).every(lessonDoneId); }
@@ -1901,9 +2010,10 @@ function buildCurriculum(){
     else warnings.push(`Level ${band} has no word goal set (BAND_WORDS).`);
     (BAND_LESSONS[band]||[]).forEach(id=>{
       const L=LESSONS.find(l=>l.id===id);
-      if(!L){ warnings.push(`Level ${band} requires a lesson "${id}" that doesn't exist yet.`); return; }
-      used.add(id);
-      steps.push({type:"lesson", lesson:id, band, title:"Lesson: "+L.title});
+      if(L){ used.add(id); steps.push({type:"lesson", lesson:id, band, title:"Lesson: "+L.title}); return; }
+      const P=PLANNED_LESSONS[id];
+      if(P){ steps.push({type:"lesson", lesson:id, band, title:"Lesson: "+P.title, planned:true}); return; }
+      warnings.push(`Level ${band} requires a lesson "${id}" that doesn't exist yet.`);
     });
     steps.push({type:"exam", level:band, band, title:`Pass the ${band} exam`});
   });
@@ -1916,12 +2026,15 @@ const CURRICULUM=_path.steps;
 const PATH_WARNINGS=_path.warnings;
 function introducedCount(){ return Object.values(S.cards).filter(c=>c.introduced).length; }
 function stepDone(step){
+  if(step.planned) return false;                 // a gap can't be "done" until it's built
   if(step.type==="words") return introducedCount()>=step.target;
   if(step.type==="lesson") return !!(S.lessons[step.lesson]&&S.lessons[step.lesson].done);
   if(step.type==="exam") return examPassed(step.level);
   return false;
 }
-function currentStepIndex(){ for(let i=0;i<CURRICULUM.length;i++) if(!stepDone(CURRICULUM[i])) return i; return -1; }
+/* The "current" focus skips gaps — a not-yet-built lesson can't be the next thing to DO,
+   so the recommender and the → marker point at the first real, unfinished step. */
+function currentStepIndex(){ for(let i=0;i<CURRICULUM.length;i++){ const s=CURRICULUM[i]; if(s.planned) continue; if(!stepDone(s)) return i; } return -1; }
 
 function owedToday(){
   const t=today(); const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
@@ -1987,18 +2100,22 @@ function renderPath(){
       h.textContent=step.band+(examPassed(step.band)?" · reached ✓":"");
       el.appendChild(h);
     }
+    const planned=!!step.planned;
     const done=stepDone(step), current=(i===idx);
-    const mark = done?"✓":(current?"→":"○");
+    const mark = planned?"◔":(done?"✓":(current?"→":"○"));
     let right="";
-    if(step.type==="words") right=Math.min(introducedCount(),step.target)+" / "+step.target+" met";
+    if(planned) right="not built yet";
+    else if(step.type==="words") right=Math.min(introducedCount(),step.target)+" / "+step.target+" met";
     else if(step.type==="lesson"){ const r=S.lessons[step.lesson]; right= done?("✓ "+Math.round((r?r.best:0)*100)+"%"):""; }
     else if(step.type==="exam"){ right= done?("✓ "+Math.round((examRec(step.level).best||0)*100)+"%"):(readyForExam(step.level)?"ready →":""); }
     const item=document.createElement("div");
     item.className="path-item"+(current?" current":"")+(done?" done":"");
-    item.innerHTML=`<span class="pm">${mark}</span><span class="pt">${step.title}</span><span class="pr">${right}</span>`;
-    if(step.type==="lesson"){ const L=LESSONS.find(l=>l.id===step.lesson);
+    if(planned) item.style.opacity=".55";
+    const gapTag=planned?' <span style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-weight:800;border:1px solid var(--accent);border-radius:6px;padding:1px 5px;margin-left:6px">gap</span>':'';
+    item.innerHTML=`<span class="pm">${mark}</span><span class="pt">${step.title}${gapTag}</span><span class="pr">${right}</span>`;
+    if(!planned && step.type==="lesson"){ const L=LESSONS.find(l=>l.id===step.lesson);
       if(L){ item.classList.add("clickable"); item.onclick=()=>{ showView("lessons"); openLesson(L.id); }; } }
-    else if(step.type==="exam"){ item.classList.add("clickable"); item.onclick=()=>showView("exam"); }
+    else if(!planned && step.type==="exam"){ item.classList.add("clickable"); item.onclick=()=>showView("exam"); }
     el.appendChild(item);
   });
   const doneCt=CURRICULUM.filter(stepDone).length;
@@ -2110,6 +2227,34 @@ ghSummary();
 /* Fresh question pools — distinct from each lesson's own practice/test items.
    Format mirrors lessons: {q, opts, a, why}; a=0 (correct authored first); renderer shuffles. */
 const GRAMMAR=[
+{ lesson:"noun-gender", title:"Noun Gender", level:"A1", items:[
+  {q:"«телефо́н» — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0,why:"Ends in a consonant → masculine."},
+  {q:"«страна́» — which gender?",opts:["feminine","masculine","neuter","it varies"],a:0,why:"Ends in -а → feminine."},
+  {q:"«письмо́» — which gender?",opts:["neuter","masculine","feminine","it varies"],a:0,why:"Ends in -о → neuter."},
+  {q:"«геро́й» — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0,why:"Ends in -й → masculine."},
+  {q:"«ста́нция» — which gender?",opts:["feminine","masculine","neuter","it varies"],a:0,why:"Ends in -я (-ия) → feminine."},
+  {q:"«зда́ние» — which gender?",opts:["neuter","masculine","feminine","it varies"],a:0,why:"Ends in -е → neuter."},
+  {q:"«ночь» — which gender?",opts:["feminine","masculine","neuter","it varies"],a:0,why:"Ends in -ь; -чь nouns like ночь are feminine (learn -ь words individually)."},
+  {q:"«слова́рь» — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0,why:"Ends in -ь but is masculine — one to memorize."},
+  {q:"«де́душка» (grandpa) — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0,why:"Looks feminine (-а) but names a male → masculine."},
+  {q:"«вре́мя» — which gender?",opts:["neuter","feminine","masculine","it varies"],a:0,why:"The -мя nouns (вре́мя, и́мя) are neuter, not feminine."},
+  {q:"A noun ending in -й is…",opts:["masculine","feminine","neuter","plural"],a:0,why:"-й is a masculine ending: музе́й, чай, геро́й."},
+  {q:"«мужчи́на» (man) — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0,why:"Ends in -а but names a male → masculine (real-world gender wins)."}
+]},
+{ lesson:"present-conj", title:"Present Conjugations", level:"A1", items:[
+  {q:"Мы … кни́ги. (read)",opts:["чита́ем","чита́ете","чита́ю","чита́ют"],a:0,why:"мы, 1st conj → -ем: чита́ем."},
+  {q:"Ты … в кафе́. (work)",opts:["рабо́таешь","рабо́таю","рабо́тает","рабо́тают"],a:0,why:"ты, 1st conj → -ешь: рабо́таешь."},
+  {q:"Я … по-ру́сски. (speak)",opts:["говорю́","говори́шь","говори́т","говоря́т"],a:0,why:"я, 2nd conj → -ю: говорю́."},
+  {q:"Они́ … хорошо́. (understand)",opts:["понима́ют","понима́ем","понима́ет","понима́ю"],a:0,why:"они́, 1st conj → -ют: понима́ют."},
+  {q:"Она́ … журна́л. (read)",opts:["чита́ет","чита́ю","чита́ешь","чита́ют"],a:0,why:"она́, 1st conj → -ет: чита́ет."},
+  {q:"Вы … му́зыку? (love)",opts:["лю́бите","лю́бим","люблю́","лю́бят"],a:0,why:"вы, 2nd conj → -ите: лю́бите (the л only appears in the я-form)."},
+  {q:"A verb whose «они́» form ends in -ят / -ат is which conjugation?",opts:["second","first","neither","both"],a:0,why:"2nd conj: они́ говоря́т, смо́трят. (1st conj gives -ют/-ут.)"},
+  {q:"Мы … фильм ве́чером. (watch)",opts:["смо́трим","смо́трите","смотрю́","смо́трят"],a:0,why:"мы, 2nd conj → -им: смо́трим."},
+  {q:"Ты меня́ … ? (understand)",opts:["понима́ешь","понима́ю","понима́ет","понима́ют"],a:0,why:"ты, 1st conj → -ешь: понима́ешь."},
+  {q:"The Russian present tense exists only for which aspect?",opts:["imperfective","perfective","both","neither"],a:0,why:"A completed (perfective) action can't be in progress now — present is always imperfective."},
+  {q:"Он … в Москве́. (live — жить)",opts:["живёт","живёшь","живу́","живу́т"],a:0,why:"жить (1st conj, stressed endings): он живёт."},
+  {q:"Я … дру́гу ка́ждый день. (help — помога́ть)",opts:["помога́ю","помога́ешь","помога́ет","помога́ют"],a:0,why:"я, 1st conj → -ю: помога́ю."}
+]},
 { lesson:"prep-case", title:"Prepositional Case", level:"A1", items:[
   {q:"Мы у́чимся в … (университе́т).",opts:["университе́те","университе́т","университе́ту","университе́том"],a:0,why:"Location, masculine hard → add -е: в университе́те."},
   {q:"Кни́га лежи́т на … (по́лка).",opts:["по́лке","по́лка","по́лку","по́лкой"],a:0,why:"Location, feminine -а → -е: на по́лке."},
