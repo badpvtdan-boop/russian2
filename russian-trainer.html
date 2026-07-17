@@ -806,18 +806,156 @@ const DECK = [
  {id:467,ru:"изображение",en:"image/depiction",pos:"noun",note:"n",ex:"На стене висит изображение города.",theme:"arts",tier:3},
  {id:468,ru:"полотно",en:"canvas/(large) painting",pos:"noun",note:"n",ex:"Это огромное полотно.",theme:"arts",tier:3},
  {id:469,ru:"звучание",en:"sound/sonority",pos:"noun",note:"n",ex:"У оркестра богатое звучание.",theme:"arts",tier:3},
- {id:470,ru:"впечатление",en:"impression",pos:"noun",note:"n",ex:"Фильм произвёл сильное впечатление.",theme:"arts",tier:2}
+ {id:470,ru:"впечатление",en:"impression",pos:"noun",note:"n",ex:"Фильм произвёл сильное впечатление.",theme:"arts",tier:2},
+
+ /* ============================================================
+    A1 FOUNDATION VOCABULARY (ids 471+) — the 8 beginner categories.
+    Grouped by theme; drawn as daily new words when their deck is active.
+    ============================================================ */
+ /* ===== A1 · Greetings & Etiquette (theme "greet") ===== */
+ {id:471,ru:"привет",en:"hi/hello",pos:"phrase",ex:"Привет, как дела?",theme:"greet",tier:1},
+ {id:472,ru:"здравствуйте",en:"hello (polite)",pos:"phrase",ex:"Здравствуйте, меня зовут Анна.",theme:"greet",tier:1},
+ {id:473,ru:"пока",en:"bye",pos:"phrase",ex:"Пока, увидимся завтра!",theme:"greet",tier:1},
+ {id:474,ru:"до свидания",en:"goodbye",pos:"phrase",ex:"До свидания, до встречи.",theme:"greet",tier:1},
+ {id:475,ru:"спасибо",en:"thank you",pos:"phrase",ex:"Спасибо большое за помощь.",theme:"greet",tier:1},
+ {id:476,ru:"пожалуйста",en:"please / you're welcome",pos:"phrase",ex:"Дайте, пожалуйста, воды.",theme:"greet",tier:1},
+ {id:477,ru:"извините",en:"excuse me / sorry",pos:"phrase",ex:"Извините, где метро?",theme:"greet",tier:1},
+ {id:478,ru:"простите",en:"sorry / forgive me",pos:"phrase",ex:"Простите за опоздание.",theme:"greet",tier:1},
+ {id:479,ru:"да",en:"yes",pos:"phrase",ex:"Да, я согласен.",theme:"greet",tier:1},
+ {id:480,ru:"нет",en:"no",pos:"phrase",ex:"Нет, спасибо.",theme:"greet",tier:1},
+ {id:481,ru:"хорошо",en:"good / okay",pos:"phrase",ex:"Хорошо, я приду.",theme:"greet",tier:1},
+ {id:482,ru:"доброе утро",en:"good morning",pos:"phrase",ex:"Доброе утро! Как спалось?",theme:"greet",tier:1},
+ {id:483,ru:"добрый день",en:"good afternoon",pos:"phrase",ex:"Добрый день, чем могу помочь?",theme:"greet",tier:1},
+ {id:484,ru:"добрый вечер",en:"good evening",pos:"phrase",ex:"Добрый вечер, проходите.",theme:"greet",tier:1},
+ {id:485,ru:"спокойной ночи",en:"good night",pos:"phrase",ex:"Спокойной ночи, до завтра.",theme:"greet",tier:1},
+ {id:486,ru:"как дела",en:"how are you",pos:"phrase",ex:"Привет! Как дела?",theme:"greet",tier:1},
+ {id:487,ru:"меня зовут",en:"my name is",pos:"phrase",ex:"Меня зовут Иван.",theme:"greet",tier:1},
+ {id:488,ru:"очень приятно",en:"nice to meet you",pos:"phrase",ex:"Очень приятно познакомиться.",theme:"greet",tier:1},
+ {id:489,ru:"добро пожаловать",en:"welcome",pos:"phrase",ex:"Добро пожаловать домой!",theme:"greet",tier:1},
+ {id:490,ru:"конечно",en:"of course",pos:"phrase",ex:"Конечно, я помогу.",theme:"greet",tier:1},
+ /* ===== A1 · Personal Pronouns (theme "pron") ===== */
+ {id:491,ru:"я",en:"I",pos:"pron",ex:"Я студент.",theme:"pron",tier:1},
+ {id:492,ru:"ты",en:"you (informal)",pos:"pron",ex:"Ты знаешь ответ?",theme:"pron",tier:1},
+ {id:493,ru:"он",en:"he / it",pos:"pron",ex:"Он мой брат.",theme:"pron",tier:1},
+ {id:494,ru:"она",en:"she / it",pos:"pron",ex:"Она врач.",theme:"pron",tier:1},
+ {id:495,ru:"оно",en:"it",pos:"pron",ex:"Оно на столе.",theme:"pron",tier:1},
+ {id:496,ru:"мы",en:"we",pos:"pron",ex:"Мы идём домой.",theme:"pron",tier:1},
+ {id:497,ru:"вы",en:"you (formal/plural)",pos:"pron",ex:"Вы говорите по-русски?",theme:"pron",tier:1},
+ {id:498,ru:"они",en:"they",pos:"pron",ex:"Они живут в Москве.",theme:"pron",tier:1},
+ {id:499,ru:"кто",en:"who",pos:"pron",ex:"Кто это?",theme:"pron",tier:1},
+ {id:500,ru:"что",en:"what",pos:"pron",ex:"Что ты делаешь?",theme:"pron",tier:1},
+ /* ===== A1 · Family Members (theme "family") ===== */
+ {id:501,ru:"мама",en:"mom",pos:"noun",note:"f",ex:"Моя мама готовит ужин.",theme:"family",tier:1},
+ {id:502,ru:"папа",en:"dad",pos:"noun",note:"m",ex:"Мой папа на работе.",theme:"family",tier:1},
+ {id:503,ru:"брат",en:"brother",pos:"noun",note:"m",ex:"У меня есть старший брат.",theme:"family",tier:1},
+ {id:504,ru:"сестра",en:"sister",pos:"noun",note:"f",ex:"Моя сестра учится в школе.",theme:"family",tier:1},
+ {id:505,ru:"сын",en:"son",pos:"noun",note:"m",ex:"Их сын играет в футбол.",theme:"family",tier:1},
+ {id:506,ru:"дочь",en:"daughter",pos:"noun",note:"f",ex:"Их дочь очень умная.",theme:"family",tier:1},
+ {id:507,ru:"бабушка",en:"grandmother",pos:"noun",note:"f",ex:"Бабушка печёт пирог.",theme:"family",tier:1},
+ {id:508,ru:"дедушка",en:"grandfather",pos:"noun",note:"m",ex:"Дедушка читает газету.",theme:"family",tier:1},
+ {id:509,ru:"муж",en:"husband",pos:"noun",note:"m",ex:"Её муж — инженер.",theme:"family",tier:1},
+ {id:510,ru:"жена",en:"wife",pos:"noun",note:"f",ex:"Его жена — учитель.",theme:"family",tier:1},
+ {id:511,ru:"семья",en:"family",pos:"noun",note:"f",ex:"У нас большая семья.",theme:"family",tier:1},
+ {id:512,ru:"родители",en:"parents",pos:"noun",note:"pl",ex:"Мои родители живут в деревне.",theme:"family",tier:1},
+ /* ===== A1 · Everyday Objects (theme "objects") ===== */
+ {id:513,ru:"дом",en:"house/home",pos:"noun",note:"m",ex:"Это мой дом.",theme:"objects",tier:1},
+ {id:514,ru:"стол",en:"table",pos:"noun",note:"m",ex:"Книга на столе.",theme:"objects",tier:1},
+ {id:515,ru:"стул",en:"chair",pos:"noun",note:"m",ex:"Сядь на стул.",theme:"objects",tier:1},
+ {id:516,ru:"телефон",en:"phone",pos:"noun",note:"m",ex:"Где мой телефон?",theme:"objects",tier:1},
+ {id:517,ru:"компьютер",en:"computer",pos:"noun",note:"m",ex:"Компьютер не работает.",theme:"objects",tier:1},
+ {id:518,ru:"ключ",en:"key",pos:"noun",note:"m",ex:"Я потерял ключ.",theme:"objects",tier:1},
+ {id:519,ru:"сумка",en:"bag",pos:"noun",note:"f",ex:"Сумка очень тяжёлая.",theme:"objects",tier:1},
+ {id:520,ru:"ручка",en:"pen",pos:"noun",note:"f",ex:"Дай мне ручку.",theme:"objects",tier:1},
+ {id:521,ru:"бумага",en:"paper",pos:"noun",note:"f",ex:"Мне нужна чистая бумага.",theme:"objects",tier:1},
+ {id:522,ru:"хлеб",en:"bread",pos:"noun",note:"m",ex:"Купи свежий хлеб.",theme:"objects",tier:1},
+ {id:523,ru:"молоко",en:"milk",pos:"noun",note:"n",ex:"Молоко в холодильнике.",theme:"objects",tier:1},
+ {id:524,ru:"чай",en:"tea",pos:"noun",note:"m",ex:"Хочешь чай?",theme:"objects",tier:1},
+ {id:525,ru:"кофе",en:"coffee",pos:"noun",note:"m",ex:"Я пью кофе утром.",theme:"objects",tier:1},
+ {id:526,ru:"яблоко",en:"apple",pos:"noun",note:"n",ex:"Это красное яблоко.",theme:"objects",tier:1},
+ {id:527,ru:"часы",en:"watch/clock",pos:"noun",note:"pl",ex:"Мои часы спешат.",theme:"objects",tier:1},
+ {id:528,ru:"кровать",en:"bed",pos:"noun",note:"f",ex:"Кровать очень удобная.",theme:"objects",tier:1},
+ {id:529,ru:"лампа",en:"lamp",pos:"noun",note:"f",ex:"Включи лампу.",theme:"objects",tier:1},
+ {id:530,ru:"телевизор",en:"television",pos:"noun",note:"m",ex:"Телевизор в гостиной.",theme:"objects",tier:1},
+ {id:531,ru:"чашка",en:"cup",pos:"noun",note:"f",ex:"Чашка горячего чая.",theme:"objects",tier:1},
+ {id:532,ru:"тарелка",en:"plate",pos:"noun",note:"f",ex:"Тарелка на столе.",theme:"objects",tier:1},
+ {id:533,ru:"ложка",en:"spoon",pos:"noun",note:"f",ex:"Дай чистую ложку.",theme:"objects",tier:1},
+ {id:534,ru:"вилка",en:"fork",pos:"noun",note:"f",ex:"Вилка упала на пол.",theme:"objects",tier:1},
+ {id:535,ru:"нож",en:"knife",pos:"noun",note:"m",ex:"Острый нож режет хорошо.",theme:"objects",tier:1},
+ {id:536,ru:"одежда",en:"clothes",pos:"noun",note:"f",ex:"Моя одежда в шкафу.",theme:"objects",tier:1},
+ {id:537,ru:"рубашка",en:"shirt",pos:"noun",note:"f",ex:"Это новая рубашка.",theme:"objects",tier:1},
+ {id:538,ru:"платье",en:"dress",pos:"noun",note:"n",ex:"Красивое красное платье.",theme:"objects",tier:1},
+ {id:539,ru:"зонт",en:"umbrella",pos:"noun",note:"m",ex:"Возьми зонт, идёт дождь.",theme:"objects",tier:1},
+ {id:540,ru:"письмо",en:"letter",pos:"noun",note:"n",ex:"Я пишу письмо другу.",theme:"objects",tier:1},
+ {id:541,ru:"газета",en:"newspaper",pos:"noun",note:"f",ex:"Дедушка читает газету.",theme:"objects",tier:1},
+ {id:542,ru:"фотография",en:"photo",pos:"noun",note:"f",ex:"Покажи мне фотографию.",theme:"objects",tier:1},
+ {id:543,ru:"подарок",en:"gift",pos:"noun",note:"m",ex:"Это подарок для мамы.",theme:"objects",tier:1},
+ {id:544,ru:"цветок",en:"flower",pos:"noun",note:"m",ex:"Красивый цветок на окне.",theme:"objects",tier:1},
+ {id:545,ru:"собака",en:"dog",pos:"noun",note:"f",ex:"У меня есть собака.",theme:"objects",tier:1},
+ {id:546,ru:"кошка",en:"cat",pos:"noun",note:"f",ex:"Кошка спит на диване.",theme:"objects",tier:1},
+ /* ===== A1 · Common Places (theme "places") ===== */
+ {id:547,ru:"школа",en:"school",pos:"noun",note:"f",ex:"Дети идут в школу.",theme:"places",tier:1},
+ {id:548,ru:"университет",en:"university",pos:"noun",note:"m",ex:"Я учусь в университете.",theme:"places",tier:1},
+ {id:549,ru:"магазин",en:"shop/store",pos:"noun",note:"m",ex:"Я иду в магазин.",theme:"places",tier:1},
+ {id:550,ru:"ресторан",en:"restaurant",pos:"noun",note:"m",ex:"Мы ужинаем в ресторане.",theme:"places",tier:1},
+ {id:551,ru:"кафе",en:"cafe",pos:"noun",note:"n",ex:"Встретимся в кафе.",theme:"places",tier:1},
+ {id:552,ru:"больница",en:"hospital",pos:"noun",note:"f",ex:"Он работает в больнице.",theme:"places",tier:1},
+ {id:553,ru:"аптека",en:"pharmacy",pos:"noun",note:"f",ex:"Аптека рядом с домом.",theme:"places",tier:1},
+ {id:554,ru:"банк",en:"bank",pos:"noun",note:"m",ex:"Банк открыт до шести.",theme:"places",tier:1},
+ {id:555,ru:"почта",en:"post office",pos:"noun",note:"f",ex:"Я иду на почту.",theme:"places",tier:1},
+ {id:556,ru:"парк",en:"park",pos:"noun",note:"m",ex:"Мы гуляем в парке.",theme:"places",tier:1},
+ {id:557,ru:"вокзал",en:"train station",pos:"noun",note:"m",ex:"Встретимся на вокзале.",theme:"places",tier:1},
+ {id:558,ru:"аэропорт",en:"airport",pos:"noun",note:"m",ex:"Такси едет в аэропорт.",theme:"places",tier:1},
+ {id:559,ru:"гостиница",en:"hotel",pos:"noun",note:"f",ex:"Мы живём в гостинице.",theme:"places",tier:1},
+ {id:560,ru:"улица",en:"street",pos:"noun",note:"f",ex:"На улице идёт дождь.",theme:"places",tier:1},
+ {id:561,ru:"комната",en:"room",pos:"noun",note:"f",ex:"Моя комната светлая.",theme:"places",tier:1},
+ {id:562,ru:"кухня",en:"kitchen",pos:"noun",note:"f",ex:"Мама на кухне.",theme:"places",tier:1},
+ {id:563,ru:"офис",en:"office",pos:"noun",note:"m",ex:"Наш офис в центре.",theme:"places",tier:1},
+ {id:564,ru:"библиотека",en:"library",pos:"noun",note:"f",ex:"В библиотеке тихо.",theme:"places",tier:1},
+ /* ===== A1 · Numbers & Time (theme "numtime") ===== */
+ {id:565,ru:"один",en:"one",pos:"num",ex:"Один билет, пожалуйста.",theme:"numtime",tier:1},
+ {id:566,ru:"два",en:"two",pos:"num",ex:"У меня два брата.",theme:"numtime",tier:1},
+ {id:567,ru:"три",en:"three",pos:"num",ex:"Сейчас три часа.",theme:"numtime",tier:1},
+ {id:568,ru:"четыре",en:"four",pos:"num",ex:"Четыре времени года.",theme:"numtime",tier:1},
+ {id:569,ru:"пять",en:"five",pos:"num",ex:"Пять минут до начала.",theme:"numtime",tier:1},
+ {id:570,ru:"шесть",en:"six",pos:"num",ex:"Мне шесть лет.",theme:"numtime",tier:1},
+ {id:571,ru:"семь",en:"seven",pos:"num",ex:"Семь дней в неделе.",theme:"numtime",tier:1},
+ {id:572,ru:"восемь",en:"eight",pos:"num",ex:"Восемь часов утра.",theme:"numtime",tier:1},
+ {id:573,ru:"девять",en:"nine",pos:"num",ex:"В доме девять этажей.",theme:"numtime",tier:1},
+ {id:574,ru:"десять",en:"ten",pos:"num",ex:"Это стоит десять рублей.",theme:"numtime",tier:1},
+ {id:575,ru:"сегодня",en:"today",pos:"adv",ex:"Сегодня хорошая погода.",theme:"numtime",tier:1},
+ {id:576,ru:"завтра",en:"tomorrow",pos:"adv",ex:"Завтра будет дождь.",theme:"numtime",tier:1},
+ {id:577,ru:"вчера",en:"yesterday",pos:"adv",ex:"Вчера я был дома.",theme:"numtime",tier:1},
+ {id:578,ru:"сейчас",en:"now",pos:"adv",ex:"Сейчас три часа.",theme:"numtime",tier:1},
+ {id:579,ru:"час",en:"hour",pos:"noun",note:"m",ex:"Через час я приду.",theme:"numtime",tier:1},
+ {id:580,ru:"неделя",en:"week",pos:"noun",note:"f",ex:"На следующей неделе экзамен.",theme:"numtime",tier:1},
+ {id:581,ru:"месяц",en:"month",pos:"noun",note:"m",ex:"В этом месяце много работы.",theme:"numtime",tier:1}
 ];
 const DECK_BY_ID = Object.fromEntries(DECK.map(w=>[w.id,w]));
 // existing starter words are Core / tier 1 by default
 DECK.forEach(w=>{ if(!w.theme) w.theme="core"; if(w.tier==null) w.tier=1; });
+/* A1 proficiency re-tag: move fitting existing frequency words into the 8 beginner
+   categories. Ids stay the same, so any drilling progress on these cards is preserved. */
+const A1_RETAG={verbs:[51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100],adj:[101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130],family:[19,32,33],objects:[28,30,31,39,41,50],places:[8,16,25,47,415,416,429],numtime:[2,3,6,40,46]};
+Object.entries(A1_RETAG).forEach(([cat,ids])=>ids.forEach(id=>{ const w=DECK_BY_ID[id]; if(w){ w.theme=cat; w.tier=1; } }));
+
 const THEMES=[
-  {key:"core",    label:"Core frequency"},
-  {key:"emotion", label:"Emotions & psychology"},
-  {key:"arts",    label:"Arts & culture"}
+  // A1 foundation — the beginner core (active by default)
+  {key:"greet",   label:"Greetings & Etiquette", level:"A1"},
+  {key:"pron",    label:"Personal Pronouns",     level:"A1"},
+  {key:"family",  label:"Family Members",        level:"A1"},
+  {key:"objects", label:"Everyday Objects",      level:"A1"},
+  {key:"places",  label:"Common Places",         level:"A1"},
+  {key:"verbs",   label:"High-Frequency Verbs",  level:"A1"},
+  {key:"adj",     label:"Core Adjectives",       level:"A1"},
+  {key:"numtime", label:"Numbers & Time",        level:"A1"},
+  // A2+ / broader pools — abstract frequency words + themed decks
+  {key:"core",    label:"Core frequency",        level:"A2+"},
+  {key:"emotion", label:"Emotions & psychology", level:"A2+"},
+  {key:"arts",    label:"Arts & culture",        level:"A2+"}
 ];
+const A1_THEME_KEYS=["greet","pron","family","objects","places","verbs","adj","numtime"];
 function allThemeKeys(){ return THEMES.map(t=>t.key); }
-function activeThemes(){ const a=S.activeThemes; return (a&&a.length)?a:allThemeKeys(); }
+function activeThemes(){ const a=S.activeThemes; return (a&&a.length)?a:A1_THEME_KEYS.slice(); }
 function deckActive(w){ return activeThemes().includes(w.theme); }
 function unseenInTheme(key){ return DECK.filter(w=>w.theme===key && !(S.cards[w.id]&&S.cards[w.id].introduced)).length; }
 
@@ -833,10 +971,33 @@ const CEFR = [                              // rough known-word thresholds
 /* ---------------- State ---------------- */
 const KEY="rt_state_v1";
 function today(){return new Date().toISOString().slice(0,10);}
-function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:allThemeKeys()};}
+function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),migv:MIG_VERSION};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+/* One-time upgrades applied to an existing save. Keyed by migv so each runs once and
+   never touches cards / lessons / streak — only the specific fields it names. */
+const MIG_VERSION=2;
+/* Decide from the RAW saved object (before blank() fills defaults), so an existing
+   pre-v2 save is detected even though blank() now carries migv. */
+function migrate(s, raw){
+  if((raw.migv||0) < 2){
+    // v2 — A1 proficiency reset: drill the new A1 categories, and re-earn the A1 exam.
+    s.activeThemes = A1_THEME_KEYS.slice();
+    if(s.exams && s.exams.A1){ s.exams.A1.passed=false; s.exams.A1.best=0; }
+    s.migv = 2;
+    try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){}
+  }
+  return s;
+}
 let S = load();
-function load(){try{const s=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)));if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};if(!s.gcards)s.gcards={};if(!s.activeThemes||!s.activeThemes.length)s.activeThemes=allThemeKeys();return s;}catch(e){return blank()}}
+function load(){try{
+  const raw=JSON.parse(localStorage.getItem(KEY));
+  if(!raw) return blank();                        // brand-new user — blank is already A1-correct
+  const s=Object.assign(blank(),raw);
+  if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};if(!s.gcards)s.gcards={};
+  migrate(s, raw);
+  if(!s.activeThemes||!s.activeThemes.length)s.activeThemes=A1_THEME_KEYS.slice();
+  return s;
+}catch(e){return blank()}}
 function save(){localStorage.setItem(KEY,JSON.stringify(S));}
 
 /* ---------------- SRS helpers ---------------- */
@@ -864,7 +1025,15 @@ function renderDeckPicker(){
   const box=$("deck-picker"); if(!box) return;
   const act=activeThemes();
   box.innerHTML="";
+  let lastLevel=null;
   THEMES.forEach(t=>{
+    if(t.level!==lastLevel){
+      lastLevel=t.level;
+      const h=document.createElement("div");
+      h.style.cssText="font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:10px 2px 6px";
+      h.textContent = t.level==="A1" ? "A1 foundation" : "A2+ · broader vocabulary";
+      box.appendChild(h);
+    }
     const left=unseenInTheme(t.key);
     const on=act.includes(t.key);
     const b=document.createElement("button");
