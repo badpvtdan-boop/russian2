@@ -1404,7 +1404,7 @@
     },
     "present-conj": {
       "done": false,
-      "best": 0
+      "best": 0.625
     },
     "past-future": {
       "done": false,
