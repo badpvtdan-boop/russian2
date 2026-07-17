@@ -1098,6 +1098,48 @@
       "lapses": 0,
       "reps": 1,
       "introduced": true
+    },
+    "485": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "486": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "487": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "488": {
+      "box": 1,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "489": {
+      "box": 1,
+      "due": "2026-07-18",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "490": {
+      "box": 5,
+      "due": "2026-08-01",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
     }
   },
   "streak": 3,
@@ -1113,7 +1155,7 @@
       "gDone": 15
     },
     "2026-07-17": {
-      "newDone": 4,
+      "newDone": 6,
       "reviewDone": 0
     }
   },
