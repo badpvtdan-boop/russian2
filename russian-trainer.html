@@ -2515,7 +2515,7 @@ function knowSkip(){
   if(!cur) return;
   const c=card(cur.id);
   c.introduced=true;
-  c.box=Math.max(c.box, KNOWN_BOX+1);          // bank straight to "known"
+  var _kbTarget = cur.isNew ? (KNOWN_BOX+1) : (INTERVALS.length-1); c.box=Math.max(c.box, _kbTarget);          // bank straight to "known"
   c.reps=(c.reps||0)+1;
   c.due=daysAdd(today(), INTERVALS[Math.min(c.box, INTERVALS.length-1)]);
   save();
@@ -2640,7 +2640,7 @@ function nextCard(){
   $("choices").style.display = choiceMode ? "flex" : "none";
   $("check").classList.toggle("hide", choiceMode);
   $("reveal").classList.remove("hide");
-  $("know-skip").classList.toggle("hide", !cur.isNew);
+  $("know-skip").classList.remove("hide");
   $("know-skip").onclick=knowSkip;
 
   if(choiceMode){ buildChoices(w); $("kbd").style.display="none"; }

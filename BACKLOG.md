@@ -10,7 +10,7 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` not started
 
 - [x] **Phase 1 — Vocab drill.** Spaced repetition (Leitner/SM-2-lite), relentless requeue on misses, daily 10 new + 20 review, streak & debt tracking.
 - [x] **Rich deck (470 words).** Original 160 (Core tier 1) plus 310 added: Core frequency tiers 2–3, an Emotions/psychology/relationships deck (80), and an Arts/culture/literature deck (80). Every word tagged with `theme` + `tier`.
-- [x] **Deck picker + "I know this" skip.** Choose which themed decks feed daily new words (Drill tab); new words draw from active decks, easiest tier first. A per-word "✓ I know this" button banks a word straight to Known without drilling — lets an experienced learner burn past easy vocab.
+- [x] **Deck picker + "I know this" skip.** Choose which themed decks feed daily new words (Drill tab); new words draw from active decks, easiest tier first. A per-word "✓ I know this" button banks a word straight to Known without drilling — lets an experienced learner burn past easy vocab. Now also shown during **review** (not just new words): tapping it on a review card retires a clearly-mastered word to the longest interval (~60 days) so old easy words like *мама* stop cycling back.
 - [x] **Answer modes.** Multiple choice (5 options) and typed input with on-screen Cyrillic keyboard. Lenient grading (ё/е, stress marks, small typos).
 - [x] **Audio.** Browser TTS with a voice picker that prefers higher-quality voices.
 - [x] **Phase 2 — GitHub sync.** Token-in-browser, auto-save on session finish + manual Save/Load. Token kept out of committed `progress.json`.
