@@ -146,6 +146,7 @@
     <button id="tab-drill" class="tab">🎯 Drill</button>
     <button id="tab-lessons" class="tab">📘 Lessons</button>
     <button id="tab-exam" class="tab">🎓 Level</button>
+    <button id="tab-talk" class="tab">🗣 Talk</button>
   </nav>
 
   <div id="view-home" class="hide">
@@ -165,6 +166,22 @@
     <div class="card">
       <div class="foot"><b>Your path</b><span class="tag" id="path-progress" style="margin:0"></span></div>
       <div id="path-list" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <div id="view-talk" class="hide">
+    <div class="card">
+      <div class="stage-dots">🗣 Conversation practice</div>
+      <h2 style="margin:0 0 6px">Practice speaking with Claude</h2>
+      <p class="muted" style="margin-top:0">This app runs offline, so live conversation happens in a Claude chat. Copy the prompt below, paste it into a new Claude conversation, and start talking in Russian. It's tuned to your level and the words you're learning right now — Claude keeps corrections light and gives you a feedback report at the end.</p>
+      <div id="talk-meta" class="muted" style="font-size:13px;margin:10px 0"></div>
+      <textarea id="talk-prompt" readonly spellcheck="false" style="width:100%;min-height:230px;box-sizing:border-box;font:inherit;font-size:13px;line-height:1.5;padding:12px;border-radius:10px;border:1px solid rgba(120,110,90,.35);background:rgba(255,255,255,.55);color:inherit;resize:vertical"></textarea>
+      <div class="row" style="margin-top:12px;gap:8px;flex-wrap:wrap">
+        <button class="primary" id="talk-copy">📋 Copy prompt</button>
+        <button id="talk-open" style="background:transparent;border:1px solid rgba(120,110,90,.5);color:inherit;padding:10px 14px;border-radius:10px;cursor:pointer;font:inherit">Open Claude ↗</button>
+        <button id="talk-regen" style="background:transparent;border:1px solid rgba(120,110,90,.5);color:inherit;padding:10px 14px;border-radius:10px;cursor:pointer;font:inherit">↻ New session</button>
+      </div>
+      <p class="muted" style="font-size:12px;margin-top:14px">When you're done, type <b>стоп</b> in the chat — Claude will give you what went well, gentle corrections, and five new words to add to your deck.</p>
     </div>
   </div>
 
@@ -3856,13 +3873,13 @@ function nextAction(){
 
   if(step && step.type==="words"){
     if(o.new>0) return {title:`Learn today's ${o.new} new words`,
-      sub:`${step.title} — ${introducedCount()}/${step.target} met so far.`, cta:"Start drill →", run:()=>goDrill(false)};
+      sub:`${step.title} — ${introducedCount()}/${step.target} met · ${knownCount()} known so far.`, cta:"Start drill →", run:()=>goDrill(false)};
     // daily words done — slot in a grammar lesson from this level if any remain
     const nl=LESSONS.find(l=>(BAND_LESSONS[step.band]||[]).includes(l.id)&&!lessonDoneId(l.id));
     if(nl) return {title:"Lesson: "+nl.title,
       sub:`Today's words are done — get some ${step.band} grammar in while you build toward ${step.target} words.`,
       cta:"Open lesson →", run:()=>{ showView("lessons"); openLesson(nl.id); }};
-    return {title:step.title, sub:`Today's new words are done — get ahead. ${introducedCount()}/${step.target} met.`,
+    return {title:step.title, sub:`Today's new words are done — get ahead. ${introducedCount()}/${step.target} met · ${knownCount()} known.`,
       cta:"Practice more →", run:()=>goDrill(true)};
   }
   if(step && step.type==="lesson"){
@@ -3907,7 +3924,7 @@ function renderPath(){
     const mark = planned?"◔":(done?"✓":(current?"→":"○"));
     let right="";
     if(planned) right="not built yet";
-    else if(step.type==="words") right=Math.min(introducedCount(),step.target)+" / "+step.target+" met";
+    else if(step.type==="words") right=Math.min(introducedCount(),step.target)+" / "+step.target+" met · "+knownCount()+" known";
     else if(step.type==="lesson"){ const r=S.lessons[step.lesson]; right= done?("✓ "+Math.round((r?r.best:0)*100)+"%"):""; }
     else if(step.type==="exam"){ right= done?("✓ "+Math.round((examRec(step.level).best||0)*100)+"%"):(readyForExam(step.level)?"ready →":""); }
     const item=document.createElement("div");
@@ -3935,11 +3952,12 @@ function renderHome(){
   const passed=LESSONS.filter(L=>S.lessons[L.id]&&S.lessons[L.id].done).length;
   const stats=[
     {n:officialLevel()||"Untested",l:"Level (tested)"},
-    {n:knownCount(),l:"Words known"},
+    {n:introducedCount(),l:"Words met",t:"Words you've been shown at least once — exposure. A weak proxy for actually knowing them."},
+    {n:knownCount(),l:"Words known",t:"Words you've answered correctly across several spaced reviews — the honest 'retained' count. This is your real vocabulary."},
     {n:(S.streak||0),l:"Day streak"},
     {n:passed+" / "+LESSONS.length,l:"Lessons passed"}
   ];
-  $("home-stats").innerHTML=stats.map(s=>`<div class="stat"><div class="n">${s.n}</div><div class="l">${s.l}</div></div>`).join("");
+  $("home-stats").innerHTML=stats.map(s=>`<div class="stat"${s.t?` title="${s.t}"`:""}><div class="n">${s.n}</div><div class="l">${s.l}</div></div>`).join("");
 
   const nudge=$("exam-nudge");
   const nextExam=EXAMS.find(e=>!examPassed(e.level)&&examUnlocked(e.level));
@@ -3953,8 +3971,54 @@ function renderHome(){
   renderPath();
 }
 
+/* ---------------- Conversation practice (seed a Claude chat) ---------------- */
+function studyingWords(n){
+  const activeFirst=(a,b)=>(deckActive(b)-deckActive(a));
+  let pool=DECK.filter(w=>{const c=S.cards[w.id]; return c&&c.introduced&&c.box<KNOWN_BOX;});
+  pool.sort((a,b)=>activeFirst(a,b)||(a.box-b.box)||(a.id-b.id));
+  if(pool.length<n){ pool=pool.concat(DECK.filter(w=>{const c=S.cards[w.id]; return c&&c.box>=KNOWN_BOX;}).sort(activeFirst)); }
+  if(pool.length<n){ pool=pool.concat(DECK.filter(deckActive)); }
+  const seen=new Set(), out=[];
+  for(const w of pool){ if(!seen.has(w.id)){ seen.add(w.id); out.push(w);} if(out.length>=n) break; }
+  return out;
+}
+function buildConversationPrompt(){
+  const lvl=officialLevel()||"A1";
+  const met=introducedCount(), known=knownCount();
+  const words=studyingWords(14).map(w=>w.ru+" ("+w.en+")");
+  const wl=words.length?words.join(", "):"(no specific words yet — just keep it simple)";
+  return [
+"You are a warm, encouraging Russian conversation partner and tutor. I'm learning Russian. Follow these rules for our chat:",
+"",
+"ROLE & LEVEL",
+"- I'm at CEFR level "+lvl+". Speak at that level: vocabulary and grammar simple enough for "+lvl+", short sentences.",
+"- Have a natural, free-flowing conversation — no fixed topic. Greet me in Russian and ask one easy opening question, then let me steer the topic.",
+"- Stay mostly in Russian. When you use a word I probably don't know, add a short English gloss in parentheses right after it.",
+"",
+"CORRECTIONS (keep them light)",
+"- When I make a real mistake (grammar, wrong word, wrong case), gently fix it in ONE short line — show the corrected version — then continue naturally. Don't stop for tiny typos or missing stress marks.",
+"- Keep the conversation flowing; don't turn it into a lecture.",
+"",
+"END-OF-SESSION REPORT",
+"- When I type \"стоп\" (or \"done\"), end the chat and give a friendly report in three parts:",
+"  1. What I did well (2–3 specific things).",
+"  2. Corrections: up to 8 of my mistakes, each as \"what I wrote → correct version — one-line why\".",
+"  3. Five new words from what we actually discussed, formatted \"русское слово — English\", so I can add them to my flashcard deck.",
+"",
+"WORDS I'M CURRENTLY LEARNING (optional)",
+"- If it fits naturally, try to weave a few of these in, but don't force them: "+wl+".",
+"",
+"For context, I've met about "+met+" words and reliably know about "+known+". Please start the conversation now."
+  ].join("\n");
+}
+function renderTalk(){
+  const lvl=officialLevel()||"A1 (untested)";
+  const cnt=studyingWords(14).length;
+  const m=$("talk-meta"); if(m) m.innerHTML="Tuned for level <b>"+lvl+"</b> · reinforcing <b>"+cnt+"</b> word"+(cnt===1?"":"s")+" you're currently learning.";
+  const ta=$("talk-prompt"); if(ta) ta.value=buildConversationPrompt();
+}
 function showView(v){
-  ["home","drill","lessons","exam"].forEach(x=>{
+  ["home","drill","lessons","exam","talk"].forEach(x=>{
     $("view-"+x).classList.toggle("hide", x!==v);
     $("tab-"+x).classList.toggle("active", x===v);
   });
@@ -3962,11 +4026,21 @@ function showView(v){
   if(v==="lessons") renderLessons();
   if(v==="exam") renderExams();
   if(v==="drill"){ renderDeckPicker(); renderGrammarCard(); }
+  if(v==="talk") renderTalk();
 }
 $("tab-home").onclick=()=>showView("home");
 $("tab-drill").onclick=()=>showView("drill");
 $("tab-lessons").onclick=()=>showView("lessons");
 $("tab-exam").onclick=()=>showView("exam");
+$("tab-talk").onclick=()=>showView("talk");
+$("talk-regen").onclick=renderTalk;
+$("talk-open").onclick=()=>window.open("https://claude.ai/new","_blank");
+$("talk-copy").onclick=()=>{
+  const ta=$("talk-prompt"); if(!ta) return; ta.focus(); ta.select();
+  const flash=()=>{ const b=$("talk-copy"); const o=b.textContent; b.textContent="✓ Copied!"; setTimeout(()=>{b.textContent=o;},1500); };
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(ta.value).then(flash,()=>{ try{document.execCommand("copy");}catch(e){} flash(); }); }
+  else { try{document.execCommand("copy");}catch(e){} flash(); }
+};
 
 /* ---------------- GitHub sync (token stored separately from progress) ---------------- */
 const GHKEY="rt_gh_v1";
