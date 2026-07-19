@@ -3033,6 +3033,60 @@ const LESSONS=[{
     {q:"Он идёт на … (рабо́та).",opts:["рабо́ту","рабо́те","рабо́та","рабо́той"],a:0}
   ]
 },{
+  id:"case-map",
+  title:"The Case Map",
+  subtitle:"падежи́ · the nominative & the six-case overview",
+  level:"A2",
+  explanation:`
+    <p>Russian nouns <b>change their endings</b> depending on the job they do in a sentence. English mostly uses word order and little words ("to," "of," "with") to show those jobs; Russian bakes the job into the ending. Each ending pattern is called a <b>case</b>, and there are <b>six</b>. This lesson is the <b>map</b> — what each case is <i>for</i> — so the individual case lessons that follow have somewhere to hang.</p>
+    <h3>Home base: the nominative</h3>
+    <p>The <b>nominative</b> (<span class="ru">имени́тельный</span>) is the <b>dictionary form</b> — the shape you look a word up in — and it does one main job: it marks the <b>subject</b>, the one <i>doing</i> the action. It answers <b class="ru">кто? что?</b> (who? what?).</p>
+    <p><span class="ru">Сестра́ чита́ет</span> — <i>My sister is reading.</i> Here <span class="ru">сестра́</span> is the subject, so it's nominative. The nominative is also the form everything else <b>agrees with</b> — adjectives and past-tense verbs take their gender/number from the nominative subject. Think of it as the <b>starting shape</b>; the other five cases are what happens to that shape when the noun takes on a different job.</p>
+    <h3>The six cases at a glance</h3>
+    <table>
+      <tr><th>Case</th><th>Asks</th><th>Its job</th></tr>
+      <tr><td><b>Nominative</b></td><td class="ru">кто? что?</td><td>the <b>subject</b> (does the action) · dictionary form</td></tr>
+      <tr><td><b>Accusative</b></td><td class="ru">кого? что?</td><td>the <b>direct object</b> (receives the action)</td></tr>
+      <tr><td><b>Genitive</b></td><td class="ru">кого? чего?</td><td><b>of</b> / possession / absence (нет + gen)</td></tr>
+      <tr><td><b>Dative</b></td><td class="ru">кому? чему?</td><td><b>to / for</b> someone (the recipient)</td></tr>
+      <tr><td><b>Instrumental</b></td><td class="ru">кем? чем?</td><td><b>by / with</b> (the means or tool)</td></tr>
+      <tr><td><b>Prepositional</b></td><td class="ru">о ком? о чём?</td><td>location & topic — <b>only after a preposition</b></td></tr>
+    </table>
+    <h3>Same word, six shapes</h3>
+    <p>Watch one noun — <span class="ru">сестра́</span> (sister) — move through all six cases. Same sister, six endings, one per job:</p>
+    <table>
+      <tr><th>Case</th><th class="ru">сестра́ →</th><th>in a sentence</th></tr>
+      <tr><td>Nominative</td><td class="ru">сестра́</td><td class="ru">Сестра́ до́ма. <span style="color:var(--muted)">(Sister is home.)</span></td></tr>
+      <tr><td>Accusative</td><td class="ru">сестру́</td><td class="ru">Я ви́жу сестру́. <span style="color:var(--muted)">(I see my sister.)</span></td></tr>
+      <tr><td>Genitive</td><td class="ru">сестры́</td><td class="ru">кни́га сестры́ <span style="color:var(--muted)">(sister's book)</span></td></tr>
+      <tr><td>Dative</td><td class="ru">сестре́</td><td class="ru">Я звоню́ сестре́. <span style="color:var(--muted)">(I call my sister.)</span></td></tr>
+      <tr><td>Instrumental</td><td class="ru">сестро́й</td><td class="ru">с сестро́й <span style="color:var(--muted)">(with my sister)</span></td></tr>
+      <tr><td>Prepositional</td><td class="ru">о сестре́</td><td class="ru">о сестре́ <span style="color:var(--muted)">(about my sister)</span></td></tr>
+    </table>
+    <h3>Where you are on the map</h3>
+    <p>You've <b>already met three</b> of these: the <b>nominative</b> (every dictionary word), the <b>accusative</b> (the Accusative Case lesson), and the <b>prepositional</b> (the Prepositional Case lesson). The three coming up in A2 — <b>genitive, dative, instrumental</b> — each get their own lesson. This map is the frame; each lesson fills in one box with the actual endings for masculine, feminine, and neuter nouns.</p>
+    <p><i>One reassurance:</i> you don't memorize a giant grid all at once. You learn the cases <b>one at a time</b>, and this map is just so you always know which job you're working on and how it fits the whole.</p>`,
+  practice:[
+    {q:"What does a \"case\" change on a Russian noun?",opts:["its ending","its meaning","its gender","its stress only"],a:0,why:"A case changes the noun's ending to show its job in the sentence."},
+    {q:"The nominative case marks…",opts:["the subject (who/what does the action)","the direct object","possession","location"],a:0,why:"Nominative = the subject, and it's the dictionary form."},
+    {q:"The nominative is also known as the noun's…",opts:["dictionary / base form","plural form","past tense","preposition"],a:0,why:"Nominative is the form you'd look up in a dictionary."},
+    {q:"Which case is the direct object, asking «кого́? что?»?",opts:["Accusative","Nominative","Dative","Instrumental"],a:0,why:"Accusative = the direct object: я ви́жу сестру́."},
+    {q:"Which case shows 'to / for' someone (the recipient)?",opts:["Dative","Genitive","Accusative","Nominative"],a:0,why:"Dative = the recipient: я звоню́ сестре́."},
+    {q:"Which case means 'of / possession' and absence (нет + …)?",opts:["Genitive","Dative","Instrumental","Nominative"],a:0,why:"Genitive = possession/'of' and absence: кни́га сестры́, нет сестры́."},
+    {q:"Which case appears ONLY after a preposition?",opts:["Prepositional","Nominative","Accusative","Genitive"],a:0,why:"The prepositional never stands alone — always after в / на / о."},
+    {q:"In «Сестра́ чита́ет кни́гу», which word is nominative?",opts:["Сестра́","чита́ет","кни́гу","none of them"],a:0,why:"Сестра́ is the subject → nominative; кни́гу is the object → accusative."}
+  ],
+  test:[
+    {q:"Russian shows a noun's job in a sentence mainly through…",opts:["its ending (the case)","word order","capital letters","tone of voice"],a:0},
+    {q:"The dictionary / base form of a noun is its…",opts:["nominative","genitive","accusative","dative"],a:0},
+    {q:"The subject of a sentence goes in the…",opts:["nominative","accusative","instrumental","prepositional"],a:0},
+    {q:"«с сестро́й» (with my sister) — сестро́й is in the…",opts:["instrumental","dative","genitive","accusative"],a:0},
+    {q:"Which case is used for the direct object?",opts:["accusative","nominative","dative","genitive"],a:0},
+    {q:"«о сестре́» (about my sister) uses which case?",opts:["prepositional","genitive","dative","instrumental"],a:0},
+    {q:"How many cases does Russian have?",opts:["six","three","four","ten"],a:0},
+    {q:"Which three cases did you already meet back in A1?",opts:["nominative, accusative, prepositional","genitive, dative, instrumental","all six at once","only the nominative"],a:0}
+  ]
+},{
   id:"past-future",
   title:"Past & Future",
   subtitle:"прошедшее и будущее время · tenses beyond the present",
@@ -3771,7 +3825,10 @@ const EXAMS=[
    {q:"In писа́ть → написа́ть, the prefix на- does what?",opts:["only marks completion — same meaning","adds 'onto'","makes it a question","makes it reflexive"],a:0},
    {q:"записа́ть means…",opts:["write down / record","write (just finish)","sign","rewrite"],a:0},
    {q:"Which \"empty\" perfective prefix a verb takes is…",opts:["lexical — memorized with the verb","always с-","set by the gender","set by the ending"],a:0},
-   {q:"The prefix пере- (as in переписа́ть) adds the sense of…",opts:["re- / over (rewrite)","arrival","a little","out of"],a:0}
+   {q:"The prefix пере- (as in переписа́ть) adds the sense of…",opts:["re- / over (rewrite)","arrival","a little","out of"],a:0},
+   {q:"How many cases does Russian have?",opts:["Six","Three","Four","Ten"],a:0},
+   {q:"The subject of a sentence goes in which case?",opts:["Nominative","Accusative","Dative","Genitive"],a:0},
+   {q:"The nominative is also the noun's…",opts:["dictionary / base form","plural form","past tense","preposition"],a:0}
  ]},
  {level:"B1", title:"Intermediate exam", questions:[
    {q:"Я … в магази́н пря́мо сейча́с. (walking, one way)",opts:["иду́","хожу́","е́ду","несу́"],a:0},
@@ -3816,7 +3873,7 @@ const EXAMS=[
    Ids that aren't built yet are listed in PLANNED_LESSONS below and show up as "gaps". */
 const BAND_LESSONS={
   A1:["noun-gender","present-conj","prep-case","accusative"],
-  A2:["past-future","aspect","aspect-prefixes","meaning-prefixes","numbers","genitive","dative","instrumental"],
+  A2:["case-map","past-future","aspect","aspect-prefixes","meaning-prefixes","numbers","genitive","dative","instrumental"],
   B1:["reflexive","motion"]
 };
 const BAND_WORDS={A1:200,A2:750,B1:1500};
@@ -4289,6 +4346,20 @@ const GRAMMAR=[
   {q:"Я покупа́ю … (ру́чка).",opts:["ру́чку","ру́чка","ру́чке","ру́чкой"],a:0,why:"Feminine -а → -у: покупа́ю ру́чку."},
   {q:"For which nouns does animacy change the accusative?",opts:["Masculine","Feminine","Neuter","Plural only"],a:0,why:"Only masculine nouns change: animate take -а/-я, inanimate stay the same."},
   {q:"Мы смо́трим … (телеви́зор).",opts:["телеви́зор","телеви́зора","телеви́зору","телеви́зором"],a:0,why:"Inanimate masculine — no change: смо́трим телеви́зор."}
+]},
+{ lesson:"case-map", title:"The Case Map", level:"A2", items:[
+  {q:"A Russian noun's case is shown by…",opts:["its ending","word order","its article","punctuation"],a:0,why:"Russian marks a noun's job with the ending, not word order."},
+  {q:"The nominative case is used for…",opts:["the subject / dictionary form","the direct object","possession","location"],a:0,why:"Nominative = the subject, and it's the base dictionary form."},
+  {q:"Which case is the direct object?",opts:["Accusative","Nominative","Genitive","Dative"],a:0,why:"Accusative = the direct object (я ви́жу сестру́)."},
+  {q:"Which case marks 'to / for' a recipient?",opts:["Dative","Accusative","Genitive","Prepositional"],a:0,why:"Dative = recipient (я звоню́ сестре́)."},
+  {q:"Which case marks 'of / possession / absence'?",opts:["Genitive","Dative","Instrumental","Nominative"],a:0,why:"Genitive = possession/'of' and нет + genitive for absence."},
+  {q:"Which case marks 'by / with' a tool or means?",opts:["Instrumental","Dative","Genitive","Accusative"],a:0,why:"Instrumental = the means/tool (пишу́ ру́чкой)."},
+  {q:"Which case appears ONLY after a preposition?",opts:["Prepositional","Nominative","Accusative","Genitive"],a:0,why:"The prepositional never stands alone — always after в / на / о."},
+  {q:"The questions «кто? что?» point to which case?",opts:["Nominative","Accusative","Dative","Genitive"],a:0,why:"кто? что? (who/what does the action) → nominative."},
+  {q:"The questions «кому? чему?» point to which case?",opts:["Dative","Genitive","Instrumental","Nominative"],a:0,why:"кому? чему? (to whom/what) → dative."},
+  {q:"The questions «кем? чем?» point to which case?",opts:["Instrumental","Dative","Accusative","Genitive"],a:0,why:"кем? чем? (by/with whom/what) → instrumental."},
+  {q:"How many cases does Russian have?",opts:["Six","Four","Three","Eight"],a:0,why:"Six: nominative, accusative, genitive, dative, instrumental, prepositional."},
+  {q:"In «Брат чита́ет кни́гу», the subject «Брат» is in the…",opts:["Nominative","Accusative","Dative","Genitive"],a:0,why:"The subject (the one doing the action) is nominative; кни́гу (object) is accusative."}
 ]},
 { lesson:"past-future", title:"Past & Future", level:"A2", items:[
   {q:"Past tense of жить for «он»:",opts:["жил","жила́","жи́ло","жи́ли"],a:0,why:"Masculine → -л: он жил."},

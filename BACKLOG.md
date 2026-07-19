@@ -44,6 +44,7 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` not started
 - [x] Prepositional case (предложный) — A1
 - [x] Accusative case (винительный) — A1
 - [x] Genitive case (родительный) — A2
+- [x] Case map / nominative overview (падежи́ — the six-case orientation) — A2 *(new)*
 - [x] Verb aspect (imperfective / perfective) — A2
 - [x] Aspect pairs & the "empty" prefix (видовы́е па́ры, part 1) — A2 *(new)*
 - [x] Prefixes that change meaning (приста́вки, part 2) — A2 *(new)*
@@ -62,7 +63,7 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 - [x] **Genitive (родительный)** — *shipped.* Possession/"of", absence (нет + gen), prepositions (из, от, до, у, без, для), after numbers 2–4 / 5+, quantities.
 - [x] **Dative (дательный)** — *shipped (A2).* Indirect object / recipient verbs (incl. звонить, помогать), нравится + feelings, need/permission/age (мне нужно, мне 30 лет), prepositions к / по, pronoun table. Folded into the A2 exam + A2 mastery requirement.
 - [x] **Instrumental (творительный)** — *shipped (A2).* Means/tool (bare instrumental, no preposition), с + instr ("together with"), быть/стать/работать + instrumental for professions/roles, position prepositions (с, над, под, перед, за, между), verbs занима́ться / интересова́ться / горди́ться, pronoun table. **Now required for the A2 level** (added to `BAND_LESSONS.A2`); its 3 "get-ahead" questions were moved out of the B1 exam into the A2 exam (A2 now 26 Q, B1 refilled to 18). Feeds a 12-question grammar-review pool.
-- [ ] **Nominative overview** — short intro unit: what cases are, why they exist, the case "map." (Could go first as an orientation.)
+- [x] **Nominative overview / Case Map** — *shipped (A2).* Orientation unit, placed **first in `BAND_LESSONS.A2`**: what a case is (Russian marks a noun's job with the *ending*, not word order), the **nominative as home base** (the subject + dictionary form + the shape adjectives/past-tense verbs agree with), the **six cases at a glance** with their question words (кто? / кого? / кому? / кем? / о ком?…) and jobs, and one noun shown through all six — сестра́ → сестру́ → сестры́ → сестре́ → сестро́й → о сестре́. Frames the case lessons that follow (already met: nominative / accusative / prepositional; coming in A2: genitive / dative / instrumental), and reassures that cases are learned one at a time. Id `case-map` + a 12-item grammar-review pool; **3 case-concept questions added to the A2 exam** (bank 39 → 42). Headless-verified end-to-end (open → practice → test → ✅ pass → seeds 12 review items; no console errors; no curriculum warnings).
 - [ ] **Plural declensions** — how the case endings change in the plural.
 - [ ] **Adjective agreement** — adjectives matching noun gender/number/case across the cases.
 - [ ] **Pronoun declension** — я/ты/он… across cases (меня, тебе, о нём…).
