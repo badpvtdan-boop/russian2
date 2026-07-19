@@ -1795,7 +1795,8 @@
     },
     "2026-07-19": {
       "newDone": 1,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "gDone": 15
     }
   },
   "duoLevel": null,
@@ -2079,24 +2080,24 @@
       "introduced": true
     },
     "aspect#6": {
-      "box": 0,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 3,
+      "reps": 4,
       "introduced": true
     },
     "aspect#7": {
-      "box": 0,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 2,
+      "reps": 3,
       "introduced": true
     },
     "aspect#8": {
-      "box": 0,
-      "due": "2026-07-16",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "aspect#9": {
@@ -2114,87 +2115,87 @@
       "introduced": true
     },
     "aspect#11": {
-      "box": 0,
-      "due": "2026-07-16",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "noun-gender#0": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "noun-gender#1": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "noun-gender#2": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "noun-gender#3": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "noun-gender#4": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "noun-gender#5": {
-      "box": 0,
-      "due": "2026-07-17",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "noun-gender#6": {
-      "box": 0,
-      "due": "2026-07-17",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "noun-gender#7": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "noun-gender#8": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "noun-gender#9": {
-      "box": 0,
-      "due": "2026-07-17",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "noun-gender#10": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "noun-gender#11": {
