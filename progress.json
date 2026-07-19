@@ -1833,6 +1833,76 @@
       "lapses": 0,
       "reps": 1,
       "introduced": true
+    },
+    "1025": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "1026": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "1027": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "1028": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "1029": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "1030": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 2,
+      "reps": 3,
+      "introduced": true
+    },
+    "1031": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "1032": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "1033": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "1034": {
+      "box": 1,
+      "due": "2026-07-20",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
     }
   },
   "streak": 5,
@@ -1857,7 +1927,7 @@
       "reviewDone": 0
     },
     "2026-07-19": {
-      "newDone": 10,
+      "newDone": 20,
       "reviewDone": 0,
       "gDone": 30
     }
@@ -2458,7 +2528,8 @@
     "verbs",
     "adj",
     "numtime",
-    "home"
+    "home",
+    "calendar"
   ],
   "lastPopQuiz": "2026-07-19",
   "migv": 2
