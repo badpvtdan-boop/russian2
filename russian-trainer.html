@@ -2421,6 +2421,8 @@ const A1_THEME_KEYS=["greet","pron","family","objects","places","verbs","adj","n
 function allThemeKeys(){ return THEMES.map(t=>t.key); }
 function activeThemes(){ const a=S.activeThemes; return (a&&a.length)?a:A1_THEME_KEYS.slice(); }
 function deckActive(w){ return activeThemes().includes(w.theme); }
+function availNewCount(){ return DECK.filter(w=> deckActive(w) && !(S.cards[w.id]&&S.cards[w.id].introduced)).length; }
+function anyDeckHasUnseen(){ return DECK.some(w=> !(S.cards[w.id]&&S.cards[w.id].introduced)); }
 function unseenInTheme(key){ return DECK.filter(w=>w.theme===key && !(S.cards[w.id]&&S.cards[w.id].introduced)).length; }
 
 /* ---------------- Config ---------------- */
@@ -2769,7 +2771,7 @@ function updateBanner(){
   // count debt = due reviews not done + new not done
   const dueRev=DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;}).length;
   const owedRev=Math.max(0,Math.min(REVIEW_PER_DAY,dueRev)-log.reviewDone);
-  const owedNew=Math.max(0,NEW_PER_DAY-log.newDone);
+  const owedNew=Math.max(0,Math.min(NEW_PER_DAY-log.newDone, availNewCount()));
   const b=$("banner");
   if(owedRev+owedNew>0 && (log.newDone+log.reviewDone>0 || S.lastCompleted && S.lastCompleted!==t)){
     b.style.display="block";
@@ -3859,8 +3861,10 @@ function currentStepIndex(){ for(let i=0;i<CURRICULUM.length;i++){ const s=CURRI
 function owedToday(){
   const t=today(); const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
   const dueRev=DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;}).length;
+  const availNew=availNewCount();
   return { rev:Math.max(0,Math.min(REVIEW_PER_DAY,dueRev)-log.reviewDone),
-           new:Math.max(0,NEW_PER_DAY-log.newDone) };
+           new:Math.max(0,Math.min(NEW_PER_DAY-log.newDone, availNew)),
+           availNew };
 }
 function goDrill(extra){ showView("drill"); startSession(extra); }
 
@@ -3875,6 +3879,9 @@ function nextAction(){
   if(step && step.type==="words"){
     if(o.new>0) return {title:`Learn today's ${o.new} new words`,
       sub:`${step.title} — ${introducedCount()}/${step.target} met · ${knownCount()} known so far.`, cta:"Start drill →", run:()=>goDrill(false)};
+    if(o.availNew===0 && anyDeckHasUnseen()) return {title:"You've learned every word in your active decks",
+      sub:`Nice work — nothing new left to introduce here. Turn on another deck to keep building toward ${step.target} words.`,
+      cta:"Choose a deck →", run:()=>showView("drill")};
     // daily words done — slot in a grammar lesson from this level if any remain
     const nl=LESSONS.find(l=>(BAND_LESSONS[step.band]||[]).includes(l.id)&&!lessonDoneId(l.id));
     if(nl) return {title:"Lesson: "+nl.title,
