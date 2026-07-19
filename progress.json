@@ -1803,7 +1803,7 @@
     "2026-07-19": {
       "newDone": 2,
       "reviewDone": 0,
-      "gDone": 15
+      "gDone": 30
     }
   },
   "duoLevel": null,
@@ -1877,10 +1877,10 @@
   },
   "gcards": {
     "prep-case#0": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-07-21",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "prep-case#1": {
@@ -2108,10 +2108,10 @@
       "introduced": true
     },
     "aspect#9": {
-      "box": 0,
-      "due": "2026-07-18",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "aspect#10": {
@@ -2206,94 +2206,94 @@
       "introduced": true
     },
     "noun-gender#11": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#0": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#1": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#2": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#3": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#4": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#5": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#6": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#7": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#8": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#9": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#10": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "present-conj#11": {
-      "box": 0,
-      "due": "2026-07-17",
+      "box": 1,
+      "due": "2026-07-20",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     }
   },
