@@ -1914,6 +1914,18 @@
     "instrumental": {
       "done": false,
       "best": 0
+    },
+    "case-map": {
+      "done": true,
+      "best": 1
+    },
+    "aspect-prefixes": {
+      "done": false,
+      "best": 0
+    },
+    "meaning-prefixes": {
+      "done": false,
+      "best": 0
     }
   },
   "exams": {
@@ -2350,6 +2362,90 @@
       "due": "2026-07-20",
       "lapses": 0,
       "reps": 1,
+      "introduced": true
+    },
+    "case-map#0": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#1": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#2": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#3": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#4": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#5": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#6": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#7": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#8": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#9": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#10": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "case-map#11": {
+      "box": 0,
+      "due": "2026-07-19",
+      "lapses": 0,
+      "reps": 0,
       "introduced": true
     }
   },
