@@ -67,6 +67,24 @@ Priority order roughly by everyday usefulness. Each slots into the guided path w
 - [ ] **Adjective agreement** — adjectives matching noun gender/number/case across the cases.
 - [ ] **Pronoun declension** — я/ты/он… across cases (меня, тебе, о нём…).
 
+### A2→B1 "bridge" lessons (candidates — flagged 2026-07-19)
+Source: Gemini flagged these gaps in the current grammar spine; reviewed, confirmed as genuine, and priority-ranked here. **None built yet** — the call was to note, not build. Each would follow the standard lesson format (explanation + 8 practice + 8 test + a 12-item grammar-review pool) and add a few questions to the relevant exam bank. Placement when built: the A2→B1 boundary — late-A2 or early-B1 `BAND_LESSONS` entries (before Reflexive Verbs / Verbs of Motion).
+
+*High value — build first:*
+- [ ] **Relative clauses with кото́рый** — "the man who… / the book that…"; кото́рый agrees in gender & number with the noun it refers to, but takes its **case from its own clause**. The single biggest gap — you can't get past simple sentences without it.
+- [ ] **Reflexive possessive свой** — "his-own / her-own" vs. someone else's (его́ vs. свой); a constant error source. NB: this is **distinct** from the existing "Reflexive Verbs" (-ся) lesson — свой is about possession, not verbs.
+- [ ] **Short-form adjectives & predicatives** — до́лжен, ну́жен, рад, гото́в, бо́лен; short forms used in the predicate. Very high frequency (до́лжен = "have to").
+- [ ] **Negative pronouns + double negation** — никто́, ничто́/ничего́, никогда́, нигде́ … always with **не** on the verb (Russian requires the double negative; "nobody knows nothing" is correct here).
+
+*Useful, more specialized:*
+- [ ] **Linking ideas: что́бы / ли / reported speech** — что́бы + past for purpose & wishes; ли as the yes/no-question particle; reported speech (Russian has **no tense backshift**, so it's simpler than English). Clusters neatly into one lesson.
+- [ ] **Verbs of position** — стоя́ть/лежа́ть/сиде́ть (being in a position) vs. ста́вить/класть/ве́шать (putting into one).
+
+*Lower priority — nuance/polish:*
+- [ ] **Emphasis particles же, ведь, да́же** — discourse flavor; makes speech sound natural rather than teaching new structure. (ли is essential but fits better inside the что́бы lesson above.)
+
+*Vocabulary note (correcting the "1,500 is too few" concern):* no new words are needed for this — the deck already holds **2,003 words**. The "B1 1,500" figure is only the **exam-unlock gate**, not the size of the material, so Gemini's 2,000–2,500 target is effectively already available; the words just aren't all switched on in the deck picker. If more depth is wanted later, the move is a **B2 tier/goal**, not filling toward 1,500.
+
 ## Verb / other grammar backlog
 - [x] **Present-tense conjugation (1st & 2nd conjugation patterns)** — *shipped (A1)* as the **Present Conjugations** lesson.
 - [x] **Past & Future** — *shipped (A2).* Past tense (gender/number agreement, быть, aspect in the past, irregulars шёл/мог) + both futures (perfective simple vs. imperfective compound бу́ду + infinitive). Lesson id `past-future` + 12-item review pool; 2 questions added to the A2 exam.
