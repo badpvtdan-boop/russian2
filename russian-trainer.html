@@ -163,6 +163,7 @@
       <div class="row"><button class="primary" id="exam-nudge-cta">Take the exam →</button></div>
     </div>
     <div class="stats-grid" id="home-stats"></div>
+    <div class="row" style="margin:2px 0 10px"><button class="ghost" id="popquiz-btn">🎲 Quiz me</button></div>
     <div class="card">
       <div class="foot"><b>Your path</b><span class="tag" id="path-progress" style="margin:0"></span></div>
       <div id="path-list" style="margin-top:14px"></div>
@@ -2434,7 +2435,7 @@ const CEFR = [                              // rough known-word thresholds
 /* ---------------- State ---------------- */
 const KEY="rt_state_v1";
 function today(){return new Date().toISOString().slice(0,10);}
-function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),migv:MIG_VERSION};}
+function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),lastPopQuiz:null,migv:MIG_VERSION};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* One-time upgrades applied to an existing save. Keyed by migv so each runs once and
    never touches cards / lessons / streak — only the specific fields it names. */
@@ -4401,6 +4402,115 @@ $("g-more").onclick=()=>startGrammar(anyQueue());
 $("g-close").onclick=()=>renderGrammarCard();
 ensureGrammarSeeded();
 
+/* ---------------- Pop quiz (surprise, seen-material only, lightly graded) ---------------- */
+const POP_N = 8;
+let pqQs=[], pqIdx=0, pqScore=0, pqMiss=[];
+function popVocabPool(){ return DECK.filter(w=> S.cards[w.id] && S.cards[w.id].introduced); }
+function popGrammarPool(){ const out=[]; gTopicsDone().forEach(g=> g.items.forEach((it,i)=> out.push({it, gid:g.lesson+"#"+i}))); return out; }
+function popQuizPoolSize(){ return popVocabPool().length + popGrammarPool().length; }
+function pqMakeVocabQ(w){
+  const dir=S.direction;
+  const distr=shuffle(DECK.filter(x=>x.pos===w.pos && x.id!==w.id)).slice(0,4);
+  const pool=shuffle([w,...distr]);
+  const disp=x=> dir==="en-ru"? x.ru : x.en;
+  return { type:"vocab", id:w.id, prompt:(dir==="en-ru"?"Translate to Russian":"Translate to English"),
+    q:(dir==="en-ru"? w.en : w.ru), opts:pool.map(disp), a:pool.findIndex(x=>x.id===w.id), correct:disp(w) };
+}
+function pqMakeGrammarQ(item){
+  const order=shuffle(item.it.opts.map((o,i)=>({o,i})));
+  const a=order.findIndex(x=>x.i===item.it.a);
+  return { type:"grammar", gid:item.gid, prompt:"Grammar", q:item.it.q,
+    opts:order.map(x=>x.o), a, correct:(order[a]?order[a].o:item.it.opts[item.it.a]), why:item.it.why||"" };
+}
+function buildPopQuiz(n){
+  n=n||POP_N;
+  const vpool=shuffle(popVocabPool()), gpool=shuffle(popGrammarPool());
+  let wantV=Math.min(vpool.length, Math.ceil(n*0.6));
+  let wantG=Math.min(gpool.length, n-wantV);
+  wantV=Math.min(vpool.length, n-wantG);
+  const qs=[].concat(vpool.slice(0,wantV).map(pqMakeVocabQ)).concat(gpool.slice(0,wantG).map(pqMakeGrammarQ));
+  return shuffle(qs);
+}
+function pqEnsureOverlay(){
+  let o=$("popquiz-overlay"); if(o) return o;
+  o=document.createElement("div"); o.id="popquiz-overlay";
+  o.style.cssText="position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(40,35,25,.45);padding:16px";
+  o.innerHTML='<div class="card" id="pq-card" style="max-width:520px;width:100%;max-height:90vh;overflow:auto;margin:0"></div>';
+  document.body.appendChild(o); return o;
+}
+function pqShow(){ pqEnsureOverlay().style.display="flex"; }
+function pqHide(){ const o=$("popquiz-overlay"); if(o) o.style.display="none"; }
+function pqHomeRefresh(){ refreshBadges(); if(!$("view-home").classList.contains("hide")) renderHome(); }
+function pqClose(){ pqHide(); pqHomeRefresh(); }
+function startPopQuiz(auto){
+  const total=popQuizPoolSize();
+  if(total < (auto?4:1)){ if(!auto){ pqEnsureOverlay(); pqRenderEmpty(); pqShow(); } return false; }
+  pqQs=buildPopQuiz(Math.min(POP_N,total)); pqIdx=0; pqScore=0; pqMiss=[];
+  pqEnsureOverlay(); pqIntro(auto); pqShow(); return true;
+}
+function pqRenderEmpty(){
+  $("pq-card").innerHTML='<div class="stage-dots">🎲 Pop quiz</div><h2 style="margin-top:0">Nothing to quiz yet</h2>'
+    +'<p class="muted">Drill a few words (and pass a lesson or two) first — pop quizzes only test things you\'ve already seen.</p>'
+    +'<div class="row"><button class="primary" id="pq-done">OK</button></div>';
+  $("pq-done").onclick=pqClose;
+}
+function pqIntro(auto){
+  $("pq-card").innerHTML='<div class="stage-dots">🎲 Pop quiz</div>'
+    +'<h2 style="margin-top:0">'+(auto?"Surprise quiz!":"Quick quiz")+'</h2>'
+    +'<p class="muted">'+pqQs.length+' quick questions on words and grammar you\'ve already seen. A miss just slips that item back into your review — no pressure.</p>'
+    +'<div class="row"><button class="primary" id="pq-start">Start →</button><button class="ghost" id="pq-skip">Not now</button></div>';
+  $("pq-start").onclick=()=>{ pqIdx=0; pqScore=0; pqMiss=[]; pqQuestion(); };
+  $("pq-skip").onclick=pqClose;
+}
+function pqQuestion(){
+  const C=$("pq-card"), item=pqQs[pqIdx];
+  C.innerHTML='<div class="stage-dots">Question '+(pqIdx+1)+' of '+pqQs.length+' · '+(item.type==="grammar"?"grammar":"vocabulary")+'</div>'
+    +(item.type==="vocab"?'<div class="muted" style="margin-bottom:4px">'+item.prompt+'</div>':'')
+    +'<div class="qtext">'+item.q.replace(/…/g,"<b>…</b>")+'</div>'
+    +'<div id="pq-opts"></div>'
+    +'<div class="row"><button class="primary hide" id="pq-adv">Next →</button></div>';
+  const box=$("pq-opts"); let answered=false;
+  item.opts.forEach((opt,i)=>{
+    const b=document.createElement("button"); b.className="lopt"; b.textContent=opt;
+    b.onclick=()=>{
+      if(answered) return; answered=true;
+      const ok=(i===item.a);
+      if(ok) pqScore++; else pqMiss.push(item);
+      pqGrade(item, ok);
+      [...box.children].forEach((c,ci)=>{ c.disabled=true; if(ci===item.a) c.classList.add("correct"); else if(ci===i) c.classList.add("wrong"); });
+      if(item.type==="grammar" && item.why){ const wy=document.createElement("div"); wy.className="muted"; wy.style.marginTop="8px"; wy.innerHTML="💡 "+item.why; box.appendChild(wy); }
+      const adv=$("pq-adv"); adv.classList.remove("hide"); adv.textContent=(pqIdx<pqQs.length-1?"Next →":"See results →"); adv.focus();
+      adv.onclick=()=>{ if(pqIdx<pqQs.length-1){ pqIdx++; pqQuestion(); } else pqResult(); };
+    };
+    box.appendChild(b);
+  });
+}
+function pqGrade(item, ok){
+  const c = item.type==="vocab" ? card(item.id) : gcard(item.gid);
+  c.reps=(c.reps||0)+1; if(item.type==="grammar") c.introduced=true;
+  if(ok){ c.box=Math.min((c.box||0)+1, INTERVALS.length-1); c.due=daysAdd(today(), INTERVALS[c.box]); }
+  else { c.box=Math.max(0,(c.box||0)-1); c.lapses=(c.lapses||0)+1; c.due=today(); }
+  save();
+}
+function pqResult(){
+  const pct=pqQs.length?Math.round(pqScore/pqQs.length*100):0;
+  const note = pct>=80?"Sharp — ":pct>=50?"Nice — ":"";
+  let missHtml="";
+  if(pqMiss.length){
+    missHtml='<div style="margin-top:12px"><div class="muted" style="margin-bottom:6px">Worth another look — back in your reviews soon:</div>'
+      +pqMiss.map(m=>'<div class="lesson-item" style="cursor:default"><div>'+m.q.replace(/…/g,"…")+'</div><div class="st">'+m.correct+'</div></div>').join("")+'</div>';
+  }
+  $("pq-card").innerHTML='<div class="stage-dots">Result</div>'
+    +'<h2 style="margin-top:0">'+note+pqScore+' / '+pqQs.length+' right</h2>'
+    +'<p class="muted">'+(pqMiss.length?"The ones you missed have slipped back into your review rotation.":"Clean sweep — nothing knocked back.")+'</p>'
+    +missHtml
+    +'<div class="row" style="margin-top:12px"><button class="primary" id="pq-done">Done</button><button class="ghost" id="pq-again">Another →</button></div>';
+  $("pq-done").onclick=pqClose;
+  $("pq-again").onclick=()=>startPopQuiz(false);
+  pqHomeRefresh();
+}
+
+
 /* ---------------- Init ---------------- */
 $("direction").value=S.direction;
 $("answer-mode").value=S.answerMode;
@@ -4408,6 +4518,8 @@ if("speechSynthesis" in window) refreshVoices();
 refreshBadges(); updateBanner();
 startSession();
 showView("home");
+$("popquiz-btn").onclick=()=>startPopQuiz(false);
+if(S.lastPopQuiz!==today()){ if(startPopQuiz(true)){ S.lastPopQuiz=today(); save(); } }
 </script>
 </body>
 </html>
