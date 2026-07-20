@@ -1877,31 +1877,31 @@
       "introduced": true
     },
     "1031": {
-      "box": 1,
-      "due": "2026-07-20",
+      "box": 2,
+      "due": "2026-07-22",
       "lapses": 1,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "1032": {
-      "box": 1,
-      "due": "2026-07-20",
+      "box": 2,
+      "due": "2026-07-22",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "1033": {
       "box": 1,
-      "due": "2026-07-20",
-      "lapses": 1,
-      "reps": 2,
+      "due": "2026-07-21",
+      "lapses": 2,
+      "reps": 4,
       "introduced": true
     },
     "1034": {
-      "box": 1,
-      "due": "2026-07-20",
+      "box": 2,
+      "due": "2026-07-22",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "1035": {
