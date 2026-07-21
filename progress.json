@@ -2141,7 +2141,7 @@
     },
     "past-future": {
       "done": false,
-      "best": 0
+      "best": 0.625
     },
     "reflexive": {
       "done": false,
