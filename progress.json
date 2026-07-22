@@ -2234,8 +2234,8 @@
       "best": 1
     },
     "aspect-prefixes": {
-      "done": false,
-      "best": 0
+      "done": true,
+      "best": 1
     },
     "meaning-prefixes": {
       "done": false,
@@ -2842,6 +2842,90 @@
     "past-future#11": {
       "box": 0,
       "due": "2026-07-21",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#0": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#1": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#2": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#3": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#4": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#5": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#6": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#7": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#8": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#9": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#10": {
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "aspect-prefixes#11": {
+      "box": 0,
+      "due": "2026-07-22",
       "lapses": 0,
       "reps": 0,
       "introduced": true
