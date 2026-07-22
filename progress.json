@@ -57,17 +57,17 @@
       "introduced": true
     },
     "9": {
-      "box": 4,
-      "due": "2026-07-26",
+      "box": 5,
+      "due": "2026-08-06",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "10": {
-      "box": 4,
-      "due": "2026-07-28",
+      "box": 5,
+      "due": "2026-08-06",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "11": {
@@ -214,7 +214,7 @@
       "box": 7,
       "due": "2026-09-20",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "32": {
@@ -498,10 +498,10 @@
       "introduced": true
     },
     "72": {
-      "box": 5,
-      "due": "2026-07-30",
+      "box": 6,
+      "due": "2026-08-21",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "73": {
@@ -989,9 +989,9 @@
     },
     "416": {
       "box": 7,
-      "due": "2026-09-17",
+      "due": "2026-09-20",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "429": {
@@ -2553,10 +2553,10 @@
       "introduced": true
     },
     "noun-gender#6": {
-      "box": 1,
-      "due": "2026-07-20",
-      "lapses": 1,
-      "reps": 2,
+      "box": 0,
+      "due": "2026-07-22",
+      "lapses": 2,
+      "reps": 3,
       "introduced": true
     },
     "noun-gender#7": {
@@ -2630,10 +2630,10 @@
       "introduced": true
     },
     "present-conj#5": {
-      "box": 1,
-      "due": "2026-07-20",
+      "box": 2,
+      "due": "2026-07-24",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "present-conj#6": {
@@ -2791,10 +2791,10 @@
       "introduced": true
     },
     "past-future#4": {
-      "box": 0,
-      "due": "2026-07-21",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "past-future#5": {
