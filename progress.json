@@ -2173,7 +2173,8 @@
     },
     "2026-07-22": {
       "newDone": 10,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "gDone": 15
     }
   },
   "duoLevel": null,
@@ -2546,17 +2547,17 @@
       "introduced": true
     },
     "noun-gender#5": {
-      "box": 0,
-      "due": "2026-07-22",
-      "lapses": 2,
-      "reps": 3,
+      "box": 1,
+      "due": "2026-07-23",
+      "lapses": 3,
+      "reps": 5,
       "introduced": true
     },
     "noun-gender#6": {
-      "box": 0,
-      "due": "2026-07-22",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 2,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "noun-gender#7": {
@@ -2763,31 +2764,31 @@
       "introduced": true
     },
     "past-future#0": {
-      "box": 0,
-      "due": "2026-07-21",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "past-future#1": {
-      "box": 0,
-      "due": "2026-07-21",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "past-future#2": {
-      "box": 0,
-      "due": "2026-07-21",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "past-future#3": {
-      "box": 0,
-      "due": "2026-07-21",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-23",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "past-future#4": {
@@ -2798,66 +2799,66 @@
       "introduced": true
     },
     "past-future#5": {
-      "box": 0,
-      "due": "2026-07-21",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-23",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "past-future#6": {
-      "box": 0,
-      "due": "2026-07-21",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-23",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "past-future#7": {
-      "box": 0,
-      "due": "2026-07-21",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "past-future#8": {
-      "box": 0,
-      "due": "2026-07-21",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "past-future#9": {
-      "box": 0,
-      "due": "2026-07-21",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-23",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "past-future#10": {
-      "box": 0,
-      "due": "2026-07-21",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "past-future#11": {
-      "box": 0,
-      "due": "2026-07-21",
-      "lapses": 0,
-      "reps": 0,
+      "box": 1,
+      "due": "2026-07-23",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "aspect-prefixes#0": {
-      "box": 0,
-      "due": "2026-07-22",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "aspect-prefixes#1": {
-      "box": 0,
-      "due": "2026-07-22",
+      "box": 1,
+      "due": "2026-07-23",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "aspect-prefixes#2": {
