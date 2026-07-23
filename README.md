@@ -38,6 +38,14 @@ use the app. So:
 3. Stage source files **by name** (e.g. `git add russian-trainer.html`); avoid `git add .` so
    you never accidentally clobber `progress.json`.
 
+## Authoring lesson & story content
+
+Reading-story content must follow the **story authoring principles in `BACKLOG.md`** (search
+"Story authoring principles"): natural, real-life Russian in a coherent scene; unambiguous
+English glosses (no double-meaning words like "bright"); and grammatical gender surfaced rather
+than smoothed over — он/она/оно pointing at an *object* is translated "it," with the gloss saying
+*why*. Read those before writing any story.
+
 ## Files
 
 - `russian-trainer.html` — the entire app (self-contained: HTML, CSS, JS, deck, lessons).
