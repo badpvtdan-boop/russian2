@@ -2094,45 +2094,45 @@
       "introduced": true
     },
     "1062": {
-      "box": 1,
-      "due": "2026-07-23",
+      "box": 2,
+      "due": "2026-07-25",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "1063": {
-      "box": 1,
-      "due": "2026-07-23",
+      "box": 2,
+      "due": "2026-07-25",
       "lapses": 1,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "1064": {
       "box": 1,
-      "due": "2026-07-23",
-      "lapses": 1,
-      "reps": 2,
+      "due": "2026-07-24",
+      "lapses": 3,
+      "reps": 5,
       "introduced": true
     },
     "1065": {
       "box": 1,
-      "due": "2026-07-23",
-      "lapses": 1,
-      "reps": 2,
+      "due": "2026-07-24",
+      "lapses": 2,
+      "reps": 4,
       "introduced": true
     },
     "1066": {
-      "box": 0,
-      "due": "2026-07-23",
+      "box": 1,
+      "due": "2026-07-24",
       "lapses": 2,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "1067": {
-      "box": 1,
-      "due": "2026-07-23",
+      "box": 2,
+      "due": "2026-07-25",
       "lapses": 1,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "1068": {
