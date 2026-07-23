@@ -133,6 +133,11 @@
   .why{font-size:14px;color:var(--text);margin:6px 0 14px;padding:10px 12px;background:var(--panel2);border-radius:10px;display:none}
   .qtext{font-size:22px;margin:6px 0 16px}
   .qtext b{color:var(--accent)}
+  .story-body{font-size:21px;line-height:1.95;margin:12px 0}
+  .rword{border-bottom:1px dashed var(--accent);cursor:pointer;padding:0 1px}
+  .rword:hover,.rword.active{background:var(--accent-soft);border-radius:4px}
+  .story-gloss{min-height:1.7em;padding:9px 13px;background:var(--panel2);border-radius:10px;font-size:17px;color:var(--muted)}
+  .story-trans{font-size:16px;color:var(--muted);line-height:1.7;margin-top:8px;padding:10px 12px;background:var(--panel2);border-radius:10px}
 </style>
 </head>
 <body>
@@ -2891,7 +2896,21 @@ const LESSONS=[{
     {q:"«зда́ние» — which gender?",opts:["neuter","masculine","feminine","it varies"],a:0},
     {q:"«дя́дя» (uncle) — which gender?",opts:["masculine","feminine","neuter","it varies"],a:0},
     {q:"Nouns ending in a consonant are usually…",opts:["masculine","feminine","neuter","plural"],a:0}
-  ]
+  ],
+  story:{
+    title:"Мой дом",
+    blurb:"A little tour of a home. There's no plot — gender never is one — but watch how every он / она / оно and every adjective ending quietly tells you a noun's gender.",
+    sentences:["Это мой дом.","Дом большой и новый.","Вот комната.","Она светлая.","А это окно.","Оно большое.","Тут живёт моя семья.","Вот мама.","Она добрая.","Это папа.","Он высокий.","У нас есть кот.","Он чёрный.","А это его игрушка.","Она маленькая.","Я люблю мой дом и мою семью."],
+    translation:["This is my house.","The house is big and new.","Here is a room.","It (she) is bright.","And this is a window.","It is big.","My family lives here.","Here is Mom.","She is kind.","This is Dad.","He is tall.","We have a cat.","He is black.","And this is his toy.","It (she) is small.","I love my house and my family."],
+    gloss:{"это":"this / this is","мой":"my (with a masculine noun)","дом":"house (masc.)","большой":"big (masc.)","и":"and","новый":"new (masc.)","вот":"here is","комната":"room (fem.)","она":"she / it (for a feminine noun)","светлая":"bright, light (fem.)","а":"and / but","окно":"window (neuter)","оно":"it (for a neuter noun)","большое":"big (neuter)","тут":"here","живёт":"lives","моя":"my (with a feminine noun)","семья":"family (fem.)","мама":"mom (fem.)","добрая":"kind (fem.)","папа":"dad (masculine — despite the -а!)","он":"he / it (for a masculine noun)","высокий":"tall (masc.)","у":"at / by («у нас» = we have)","нас":"us","есть":"there is / have","кот":"cat (masc.)","чёрный":"black (masc.)","его":"his","игрушка":"toy (fem.)","маленькая":"small (fem.)","я":"I","люблю":"(I) love","мою":"my (feminine, object form)","семью":"family (feminine, object form)"},
+    questions:[
+      {q:"Какого рода «дом»? (What gender is «дом»?)",opts:["masculine","feminine","neuter","it varies"],a:0,why:"«дом» ends in a consonant → masculine, which is why the story says «он»."},
+      {q:"«Окно» — какого рода? (what gender?)",opts:["neuter","masculine","feminine","it varies"],a:0,why:"Ends in -о → neuter, so it's «оно»."},
+      {q:"«Папа» ends in -а, but the story calls it «он». Why?",opts:["It names a male → masculine","It's a mistake","Words in -а are always masculine","It's neuter"],a:0,why:"«папа» looks feminine (-а) but names a male, so it's masculine — meaning beats the ending."},
+      {q:"Which pronoun does the story use for «комната»?",opts:["она","он","оно","они"],a:0,why:"«комната» ends in -а → feminine → «она»."},
+      {q:"What is the house like?",opts:["big and new","small and old","new and small","big and old"],a:0,why:"«Дом большой и новый» — big and new."}
+    ]
+  }
 },{
   id:"present-conj",
   title:"Present Conjugations",
@@ -3616,7 +3635,7 @@ const LESSONS=[{
 }];
 const PASS=0.75;
 
-let curLesson=null, stage=null, pIdx=0, tIdx=0, tScore=0;
+let curLesson=null, stage=null, pIdx=0, tIdx=0, tScore=0, sqIdx=0, sqScore=0;
 
 function lessonRec(id){ if(!S.lessons[id]) S.lessons[id]={done:false,best:0}; return S.lessons[id]; }
 
@@ -3699,9 +3718,52 @@ function renderStage(){
         <button class="primary" id="l-retry">Retake test</button>
         <button id="l-review">Review lesson</button>
         <button class="ghost" id="l-back">← Lessons</button>
-      </div>`;
+      </div>
+      ${curLesson.story?`<div class="row" style="margin-top:10px"><button class="primary" id="l-story">📖 Read the story →</button></div>`:""}`;
     $("l-retry").onclick=()=>{ stage="test"; tIdx=0; tScore=0; renderStage(); };
     $("l-review").onclick=()=>{ stage="explain"; renderStage(); };
+    $("l-back").onclick=backToList;
+    if(curLesson.story) $("l-story").onclick=()=>{ stage="story"; renderStage(); };
+  }
+  else if(stage==="story"){
+    const st=curLesson.story;
+    R.innerHTML=`<div class="stage-dots">📖 Story · Read</div>
+      <h2 style="margin-top:0">${st.title}</h2>
+      ${st.blurb?`<p class="muted">${st.blurb}</p>`:""}
+      <p class="muted" style="font-size:14px">Tap any <u>underlined</u> word to see what it means.</p>
+      <div class="story-body ru">${storyBodyHtml(st)}</div>
+      <div id="story-gloss" class="story-gloss">Tap a word to see its meaning…</div>
+      <div class="row" style="margin-top:12px"><button id="l-trans">Show English</button></div>
+      <div id="l-trans-box" class="story-trans hide">${st.translation.join(" ")}</div>
+      <div class="row" style="margin-top:14px">
+        <button class="primary" id="l-storyq">Check comprehension →</button>
+        <button class="ghost" id="l-back">← Lessons</button>
+      </div>`;
+    wireStoryGloss();
+    $("l-trans").onclick=()=>{ $("l-trans-box").classList.toggle("hide"); };
+    $("l-storyq").onclick=()=>{ stage="storyq"; sqIdx=0; sqScore=0; renderStage(); };
+    $("l-back").onclick=backToList;
+  }
+  else if(stage==="storyq"){
+    const st=curLesson.story;
+    if(!st.questions||!st.questions.length){ stage="storyDone"; renderStage(); return; }
+    renderQuestion(st.questions[sqIdx], "📖 Story · Comprehension", sqIdx, st.questions.length, true, (ok)=>{
+      if(ok) sqScore++;
+      if(sqIdx<st.questions.length-1){ sqIdx++; renderStage(); }
+      else { stage="storyDone"; renderStage(); }
+    });
+  }
+  else if(stage==="storyDone"){
+    const st=curLesson.story;
+    R.innerHTML=`<div class="stage-dots">📖 Story · Done</div>
+      <h2 style="margin-top:0">Nice reading 📖</h2>
+      <p style="font-size:18px">You got <b>${sqScore} / ${st.questions.length}</b> on the comprehension check.</p>
+      <p class="muted">Reading isn't graded — it's here so the grammar you just learned settles into real sentences.</p>
+      <div class="row">
+        <button id="l-story-again">Read again</button>
+        <button class="ghost" id="l-back">← Lessons</button>
+      </div>`;
+    $("l-story-again").onclick=()=>{ stage="story"; renderStage(); };
     $("l-back").onclick=backToList;
   }
 }
@@ -3744,6 +3806,32 @@ function finishTest(){
   if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
   refreshBadges();
   stage="result"; renderStage();
+}
+
+/* ---------------- Story reading (per-lesson) ---------------- */
+function storyBodyHtml(st){
+  const g=st.gloss||{};
+  return st.sentences.map(function(s){
+    return s.split(/(\s+)/).map(function(tok){
+      if(/^\s+$/.test(tok)) return tok;
+      const m=tok.match(/^([«»"'(]*)([А-Яа-яЁё\-]+)([.,!?…:;»«"')]*)$/);
+      if(!m) return tok.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+      const pre=m[1], word=m[2], post=m[3];
+      const gl=g[word.toLowerCase()];
+      if(gl){ return pre+'<span class="rword" data-g="'+String(gl).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")+'">'+word+'</span>'+post; }
+      return pre+word+post;
+    }).join("");
+  }).join(" ");
+}
+function wireStoryGloss(){
+  const gl=$("story-gloss");
+  document.querySelectorAll("#lesson-runner .rword").forEach(function(sp){
+    sp.onclick=function(){
+      document.querySelectorAll("#lesson-runner .rword.active").forEach(function(x){x.classList.remove("active");});
+      sp.classList.add("active");
+      gl.innerHTML='<b class="ru">'+sp.textContent+'</b> — '+sp.getAttribute("data-g");
+    };
+  });
 }
 
 /* ---------------- Level exams (per-CEFR mastery) ---------------- */
