@@ -138,6 +138,9 @@
   .rword:hover,.rword.active{background:var(--accent-soft);border-radius:4px}
   .story-gloss{min-height:1.7em;padding:9px 13px;background:var(--panel2);border-radius:10px;font-size:17px;color:var(--muted)}
   .story-trans{font-size:16px;color:var(--muted);line-height:1.7;margin-top:8px;padding:10px 12px;background:var(--panel2);border-radius:10px}
+  .lesson-right{display:flex;align-items:center;gap:10px}
+  .story-chip{font-size:13px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--accent);cursor:pointer;white-space:nowrap}
+  .story-chip:hover{background:var(--accent-soft)}
 </style>
 </head>
 <body>
@@ -3657,8 +3660,12 @@ function renderLessons(){
     const el=document.createElement("div"); el.className="lesson-item";
     el.innerHTML=`<div><div style="font-size:17px;font-weight:600">${L.title}</div>
       <div class="st"><span class="lvl ${L.level}">${L.level}</span> ${L.subtitle}</div></div>
-      <div class="st ${r.done?"done":""}">${r.done?("✓ passed · best "+Math.round(r.best*100)+"%"):"Start →"}</div>`;
+      <div class="lesson-right">
+        ${L.story?`<button class="story-chip" type="button">📖 Story</button>`:""}
+        <div class="st ${r.done?"done":""}">${r.done?("✓ passed · best "+Math.round(r.best*100)+"%"):"Start →"}</div>
+      </div>`;
     el.onclick=()=>openLesson(L.id);
+    if(L.story){ const sc=el.querySelector(".story-chip"); sc.onclick=(e)=>{ e.stopPropagation(); openLessonStory(L.id); }; }
     list.appendChild(el);
   });
 }
@@ -3666,6 +3673,14 @@ function renderLessons(){
 function openLesson(id){
   curLesson=LESSONS.find(l=>l.id===id);
   stage="explain"; pIdx=0; tIdx=0; tScore=0;
+  $("lessons-list").classList.add("hide");
+  $("lesson-runner").classList.remove("hide");
+  renderStage();
+}
+function openLessonStory(id){
+  curLesson=LESSONS.find(l=>l.id===id);
+  if(!curLesson||!curLesson.story){ openLesson(id); return; }
+  stage="story"; sqIdx=0; sqScore=0;
   $("lessons-list").classList.add("hide");
   $("lesson-runner").classList.remove("hide");
   renderStage();
@@ -3679,8 +3694,10 @@ function renderStage(){
       <h2 style="margin-top:0">${L.title}</h2>
       <div class="lesson-body">${L.explanation}</div>
       <div class="row"><button class="primary" id="l-next">Start practice →</button>
+      ${L.story?`<button id="l-story-learn">📖 Read the story</button>`:""}
       <button class="ghost" id="l-back">← Lessons</button></div>`;
     $("l-next").onclick=()=>{ stage="practice"; pIdx=0; renderStage(); };
+    if(L.story) $("l-story-learn").onclick=()=>{ stage="story"; renderStage(); };
     $("l-back").onclick=backToList;
   }
   else if(stage==="practice"){
