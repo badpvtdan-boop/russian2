@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f4efe6">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Русский">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="icon.png">
 <title>Russian Trainer</title>
 <style>
   :root{
@@ -78,6 +85,7 @@
   .hide{display:none}
   .tabs{display:flex;gap:8px;margin-bottom:22px}
   .tab{padding:9px 16px;border-radius:999px}
+  .tab .ti{margin-right:7px}
   .tab.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
   .tab.active:hover{color:#fff}
   .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
@@ -141,6 +149,20 @@
   .lesson-right{display:flex;align-items:center;gap:10px}
   .story-chip{font-size:13px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--accent);cursor:pointer;white-space:nowrap}
   .story-chip:hover{background:var(--accent-soft)}
+  /* ---------- Phone layout (small screens / iPhone) ---------- */
+  button{touch-action:manipulation}
+  @media(max-width:600px){
+    main{padding:18px 12px 60px}
+    .card{padding:18px 14px}
+    .tabs{gap:4px}
+    .tab{flex:1 1 0;min-width:0;padding:7px 2px 6px;border-radius:14px;text-align:center;white-space:nowrap;overflow:hidden}
+    .tab .ti{display:block;margin:0;font-size:17px;line-height:1.25}
+    .tab .tl{display:block;font-size:11px;line-height:1.3}
+    .lesson-item{flex-wrap:wrap}
+    .lesson-item .st{white-space:normal}
+    .lesson-right{margin-left:auto}
+    .settings input,.settings select{font-size:16px}
+  }
 </style>
 </head>
 <body>
@@ -150,11 +172,11 @@
 
 <main>
   <nav class="tabs">
-    <button id="tab-home" class="tab active">🏠 Home</button>
-    <button id="tab-drill" class="tab">🎯 Drill</button>
-    <button id="tab-lessons" class="tab">📘 Lessons</button>
-    <button id="tab-exam" class="tab">🎓 Level</button>
-    <button id="tab-talk" class="tab">🗣 Talk</button>
+    <button id="tab-home" class="tab active"><span class="ti">🏠</span><span class="tl">Home</span></button>
+    <button id="tab-drill" class="tab"><span class="ti">🎯</span><span class="tl">Drill</span></button>
+    <button id="tab-lessons" class="tab"><span class="ti">📘</span><span class="tl">Lessons</span></button>
+    <button id="tab-exam" class="tab"><span class="ti">🎓</span><span class="tl">Level</span></button>
+    <button id="tab-talk" class="tab"><span class="ti">🗣</span><span class="tl">Talk</span></button>
   </nav>
 
   <div id="view-home" class="hide">
