@@ -2749,7 +2749,8 @@
     },
     "2026-07-31": {
       "newDone": 10,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "gDone": 15
     }
   },
   "duoLevel": null,
@@ -2898,73 +2899,73 @@
       "introduced": true
     },
     "prep-case#9": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-08-02",
       "lapses": 2,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "prep-case#10": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-08-02",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "prep-case#11": {
       "box": 1,
-      "due": "2026-07-17",
-      "lapses": 0,
-      "reps": 1,
+      "due": "2026-08-01",
+      "lapses": 1,
+      "reps": 3,
       "introduced": true
     },
     "accusative#0": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-08-02",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "accusative#1": {
       "box": 1,
-      "due": "2026-07-17",
-      "lapses": 0,
-      "reps": 1,
+      "due": "2026-08-01",
+      "lapses": 1,
+      "reps": 3,
       "introduced": true
     },
     "accusative#2": {
-      "box": 1,
-      "due": "2026-07-17",
+      "box": 2,
+      "due": "2026-08-02",
       "lapses": 1,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "accusative#3": {
-      "box": 1,
-      "due": "2026-07-18",
+      "box": 2,
+      "due": "2026-08-02",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "accusative#4": {
-      "box": 1,
-      "due": "2026-07-18",
+      "box": 2,
+      "due": "2026-08-02",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "accusative#5": {
       "box": 1,
-      "due": "2026-07-18",
-      "lapses": 0,
-      "reps": 1,
+      "due": "2026-08-01",
+      "lapses": 1,
+      "reps": 3,
       "introduced": true
     },
     "accusative#6": {
       "box": 1,
-      "due": "2026-07-18",
-      "lapses": 0,
-      "reps": 1,
+      "due": "2026-08-01",
+      "lapses": 1,
+      "reps": 3,
       "introduced": true
     },
     "accusative#7": {
@@ -3017,10 +3018,10 @@
       "introduced": true
     },
     "aspect#2": {
-      "box": 0,
-      "due": "2026-07-27",
-      "lapses": 2,
-      "reps": 3,
+      "box": 1,
+      "due": "2026-08-01",
+      "lapses": 3,
+      "reps": 5,
       "introduced": true
     },
     "aspect#3": {
@@ -3031,10 +3032,10 @@
       "introduced": true
     },
     "aspect#4": {
-      "box": 0,
-      "due": "2026-07-29",
-      "lapses": 2,
-      "reps": 3,
+      "box": 1,
+      "due": "2026-08-01",
+      "lapses": 3,
+      "reps": 5,
       "introduced": true
     },
     "aspect#5": {
@@ -3157,10 +3158,10 @@
       "introduced": true
     },
     "noun-gender#10": {
-      "box": 0,
-      "due": "2026-07-25",
+      "box": 1,
+      "due": "2026-08-01",
       "lapses": 1,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "noun-gender#11": {
@@ -3304,10 +3305,10 @@
       "introduced": true
     },
     "case-map#7": {
-      "box": 0,
-      "due": "2026-07-28",
-      "lapses": 3,
-      "reps": 4,
+      "box": 1,
+      "due": "2026-08-01",
+      "lapses": 4,
+      "reps": 6,
       "introduced": true
     },
     "case-map#8": {
@@ -3388,10 +3389,10 @@
       "introduced": true
     },
     "past-future#7": {
-      "box": 0,
-      "due": "2026-07-25",
-      "lapses": 1,
-      "reps": 2,
+      "box": 1,
+      "due": "2026-08-01",
+      "lapses": 2,
+      "reps": 4,
       "introduced": true
     },
     "past-future#8": {
