@@ -2467,7 +2467,9 @@ const CEFR = [                              // rough known-word thresholds
 
 /* ---------------- State ---------------- */
 const KEY="rt_state_v1";
-function today(){return new Date().toISOString().slice(0,10);}
+/* LOCAL calendar date, not UTC — with toISOString(), evenings after 7pm (US Central)
+   were logged as "tomorrow", silently breaking streaks for daily users. */
+function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),lastPopQuiz:null,migv:MIG_VERSION};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* One-time upgrades applied to an existing save. Keyed by migv so each runs once and
@@ -4373,23 +4375,48 @@ function ghStatus(msg,ok){ const el=$("gh-status"); if(!el)return; el.textConten
 function ghSummary(){ if(ghConfigured()) ghStatus("Configured: "+GH.owner+"/"+GH.repo+" @ "+GH.branch); else ghStatus("Not configured."); }
 
 async function ghFetchExisting(){
-  const r=await fetch(ghUrl()+"?ref="+encodeURIComponent(GH.branch),{headers:ghHeaders()});
+  /* cache:"no-store" matters: GitHub's API answers carry max-age=60, and iOS Safari will happily
+     re-serve a cached (stale) sha for up to a minute — which makes the PUT fail with 409. */
+  const r=await fetch(ghUrl()+"?ref="+encodeURIComponent(GH.branch),{headers:ghHeaders(),cache:"no-store"});
   if(r.status===404) return {sha:null,json:null};
   if(!r.ok) throw new Error(r.status+" "+(await r.text()).slice(0,120));
   const d=await r.json();
   let json=null; try{ json=JSON.parse(b64dec((d.content||"").replace(/\n/g,""))); }catch(e){}
   return {sha:d.sha,json};
 }
+/* A state is "blank" if it has no introduced words, no passed lessons and no streak —
+   i.e. what a freshly wiped browser looks like. Used to stop a wiped device from
+   overwriting a real backup, and to self-restore from the backup on startup. */
+function stateLooksBlank(s){
+  return Object.values((s&&s.cards)||{}).filter(c=>c.introduced).length===0
+    && !Object.values((s&&s.lessons)||{}).some(l=>l&&l.done)
+    && !(s&&s.streak>0);
+}
 async function ghSave(auto){
   if(!ghConfigured()){ if(!auto) ghStatus("Fill in owner, repo, path and token first.",false); return; }
   try{
     ghStatus("Saving…");
-    const {sha}=await ghFetchExisting();
-    const body={ message:"progress "+new Date().toISOString(), content:b64enc(JSON.stringify(S,null,2)), branch:GH.branch };
-    if(sha) body.sha=sha;
-    const r=await fetch(ghUrl(),{method:"PUT",headers:ghHeaders(),body:JSON.stringify(body)});
-    if(!r.ok) throw new Error(r.status+" "+(await r.text()).slice(0,120));
-    ghStatus("Saved "+new Date().toLocaleTimeString(),true);
+    let lastErr=null;
+    for(let attempt=1;attempt<=3;attempt++){
+      const {sha,json}=await ghFetchExisting();
+      /* Wipe guard: never quietly overwrite a real backup with an empty state. */
+      if(attempt===1 && json && stateLooksBlank(S) && !stateLooksBlank(json)){
+        const met=Object.values(json.cards||{}).filter(c=>c.introduced).length;
+        if(auto){ ghStatus("Auto-save skipped — this browser is empty but the GitHub backup has "+met+" words. Tap ⬇ Load from GitHub.",false); return; }
+        if(!confirm("This browser has NO progress, but your GitHub backup has "+met+" words met.\n\nOverwrite the backup with an empty state? Usually you want ⬇ Load from GitHub instead.")){ ghStatus("Save cancelled — backup kept. Tap ⬇ Load from GitHub to get it.",false); return; }
+      }
+      const body={ message:"progress "+new Date().toISOString(), content:b64enc(JSON.stringify(S,null,2)), branch:GH.branch };
+      if(sha) body.sha=sha;
+      const r=await fetch(ghUrl(),{method:"PUT",headers:ghHeaders(),cache:"no-store",body:JSON.stringify(body)});
+      if(r.ok){ ghStatus("Saved "+new Date().toLocaleTimeString(),true); return; }
+      const errText=(await r.text()).slice(0,120);
+      lastErr=new Error(r.status+" "+errText);
+      /* 409/422 = the sha we sent didn't match (stale answer or a save raced us).
+         Re-fetch the current sha and try again, briefly backing off. */
+      if(r.status===409||r.status===422){ ghStatus("Retrying save… ("+attempt+"/3)"); await new Promise(res=>setTimeout(res,700*attempt)); continue; }
+      throw lastErr;
+    }
+    throw lastErr;
   }catch(e){ ghStatus("Save failed: "+e.message,false); }
 }
 async function ghLoad(){
@@ -4877,6 +4904,21 @@ startSession();
 showView("home");
 $("popquiz-btn").onclick=()=>startPopQuiz(false);
 if(S.lastPopQuiz!==today()){ if(startPopQuiz(true)){ S.lastPopQuiz=today(); save(); } }
+/* Backup self-restore: iOS sometimes wipes a web app's local storage. If this browser
+   is blank but GitHub sync is configured and the backup has real progress, pull it in
+   automatically instead of starting from zero. */
+(async function ghAutoRestore(){
+  if(typeof ghConfigured!=="function" || !ghConfigured() || !stateLooksBlank(S)) return;
+  try{
+    ghStatus("This browser is empty — checking your GitHub backup…");
+    const {json}=await ghFetchExisting();
+    if(json && !stateLooksBlank(json)){
+      S=Object.assign(blank(),json); save();
+      ghStatus("Progress restored from your GitHub backup — reloading…",true);
+      setTimeout(()=>location.reload(),700);
+    } else ghSummary();
+  }catch(e){ ghSummary(); }
+})();
 </script>
 </body>
 </html>
