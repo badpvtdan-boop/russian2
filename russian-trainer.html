@@ -352,6 +352,7 @@
         </div>
         <div class="tag" id="gh-status">Not configured.</div>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-08-02.1</b> · streaks count any finished study (drills, lessons, grammar, exams)</div>
       </div>
     </div>
   </div>
@@ -2769,16 +2770,22 @@ function showFeedback(ok,w){
   renderProgress();
 }
 
+/* Any finished study — drill, lesson test, grammar review, exam — keeps the streak
+   alive. (It used to be drills only, so lesson-only days looked like skipped days.) */
+function creditStudyDay(){
+  const t=today();
+  if(S.lastCompleted===t) return;
+  S.streak = (S.lastCompleted===daysAdd(t,-1))? S.streak+1 : 1;
+  S.lastCompleted=t; save();
+  refreshBadges();
+}
 function finishSession(){
   $("drill").classList.add("hide");
   $("done").classList.remove("hide");
   // streak update: mark today complete if any work done
   const t=today();
   const l=S.dailyLog[t];
-  if(l && (l.newDone||l.reviewDone) && S.lastCompleted!==t){
-    S.streak = (S.lastCompleted===daysAdd(t,-1))? S.streak+1 : 1;
-    S.lastCompleted=t; save();
-  }
+  if(l && (l.newDone||l.reviewDone)) creditStudyDay();
   const done = l? (l.newDone+l.reviewDone):0;
   $("done-msg").textContent = `You cleared ${done} card${done===1?"":"s"} today. Come back tomorrow — reviews will be waiting.`;
   refreshBadges(); updateBanner();
@@ -3844,6 +3851,7 @@ function finishTest(){
   rec.best=Math.max(rec.best||0,pct);
   if(pct>=PASS){ rec.done=true; ensureGrammarSeeded(); }  // newly-passed lesson feeds grammar review
   save();
+  creditStudyDay();  // a finished lesson test counts as studying today, pass or fail
   if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
   refreshBadges();
   stage="result"; renderStage();
@@ -4111,6 +4119,7 @@ function finishExam(){
   rec.best=Math.max(rec.best||0,pct);
   if(pct>=EXAM_PASS){ rec.passed=true; rec.date=today(); }
   save();
+  creditStudyDay();  // a finished exam counts as studying today
   if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
   refreshBadges();
   examStage("result");
@@ -4749,6 +4758,7 @@ function finishGrammar(){
   $("g-done-msg").textContent = gDoneN>0
     ? `You reviewed ${gDoneN} item${gDoneN===1?"":"s"}.` + (left>0?` ${left} still due today.`:` Nothing else due — see you tomorrow.`)
     : `Nothing due right now — you're all caught up.`;
+  if(gDoneN>0) creditStudyDay();  // reviewed at least one item = studied today
   refreshBadges();
   if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
 }
