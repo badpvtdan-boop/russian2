@@ -219,12 +219,6 @@
   <div id="view-drill">
   <div id="banner" class="banner"></div>
 
-  <div class="card" id="deck-picker-card">
-    <div class="foot"><b>Daily word decks</b><span class="tag" style="margin:0">Tap to choose what feeds your new words</span></div>
-    <div id="deck-picker" style="margin-top:10px"></div>
-    <div class="tag" style="margin-top:6px">Already know a word? Hit <b>✓ I know this</b> during the drill to bank it as known without drilling.</div>
-  </div>
-
   <!-- DRILL -->
   <div id="drill" class="card">
     <div class="bar"><div id="progbar"></div></div>
@@ -264,6 +258,19 @@
     <h2>Done for today ✅</h2>
     <p class="muted" id="done-msg"></p>
     <button class="ghost" id="practice-more">Keep practicing</button>
+  </div>
+
+  <!-- DECK PICKER (collapsible, below the drill so the words stay front and center) -->
+  <div class="card" id="deck-picker-card">
+    <div class="foot" id="deck-toggle" style="cursor:pointer;user-select:none">
+      <b><span id="deck-chev">▸</span> Daily word decks</b>
+      <span class="tag" style="margin:0" id="deck-summary"></span>
+    </div>
+    <div id="deck-body" class="hide">
+      <div class="tag" style="margin-top:8px">Tap to choose what feeds your new words</div>
+      <div id="deck-picker" style="margin-top:10px"></div>
+      <div class="tag" style="margin-top:6px">Already know a word? Hit <b>✓ I know this</b> during the drill to bank it as known without drilling.</div>
+    </div>
   </div>
 
   <!-- GRAMMAR REVIEW -->
@@ -352,7 +359,7 @@
         </div>
         <div class="tag" id="gh-status">Not configured.</div>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-08-02.1</b> · streaks count any finished study (drills, lessons, grammar, exams)</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-08-03.1</b> · drill-first layout, collapsible word decks</div>
       </div>
     </div>
   </div>
@@ -2547,7 +2554,21 @@ function renderDeckPicker(){
     };
     box.appendChild(b);
   });
+  refreshDeckCollapse();
 }
+/* Collapsible deck picker: collapsed by default so the drill stays front and center.
+   Open/closed choice is remembered in this browser (UI preference, not synced progress). */
+const UIKEY="rt_ui_v1";
+let UIP; try{ UIP=JSON.parse(localStorage.getItem(UIKEY)||"{}"); }catch(e){ UIP={}; }
+function refreshDeckCollapse(){
+  const body=$("deck-body"); if(!body) return;
+  body.classList.toggle("hide", !UIP.decksOpen);
+  $("deck-chev").textContent = UIP.decksOpen ? "▾" : "▸";
+  const act=activeThemes();
+  const left=act.reduce((n,k)=>n+unseenInTheme(k),0);
+  $("deck-summary").textContent = act.length+" of "+THEMES.length+" decks on · "+left+" new left";
+}
+document.getElementById("deck-toggle").onclick=()=>{ UIP.decksOpen=!UIP.decksOpen; localStorage.setItem(UIKEY,JSON.stringify(UIP)); refreshDeckCollapse(); };
 function knowSkip(){
   if(!cur) return;
   const c=card(cur.id);
