@@ -359,7 +359,7 @@
         </div>
         <div class="tag" id="gh-status">Not configured.</div>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-08-03.1</b> · drill-first layout, collapsible word decks</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-08-03.2</b> · stale-device guard: a device that's behind the backup asks before loading, and can't silently overwrite newer progress</div>
       </div>
     </div>
   </div>
@@ -4422,6 +4422,15 @@ function stateLooksBlank(s){
     && !Object.values((s&&s.lessons)||{}).some(l=>l&&l.done)
     && !(s&&s.streak>0);
 }
+/* Most recent study date recorded in a state (lastCompleted or any dailyLog day).
+   Used to detect a STALE device: one whose newest activity is older than the backup's.
+   A stale device must never silently overwrite newer progress (the "old Mac clobbers
+   the phone's backup" failure). YYYY-MM-DD strings compare correctly as strings. */
+function newestActivity(s){
+  let m=(s&&s.lastCompleted)||"";
+  Object.keys((s&&s.dailyLog)||{}).forEach(k=>{ if(k>m) m=k; });
+  return m;
+}
 async function ghSave(auto){
   if(!ghConfigured()){ if(!auto) ghStatus("Fill in owner, repo, path and token first.",false); return; }
   try{
@@ -4434,6 +4443,14 @@ async function ghSave(auto){
         const met=Object.values(json.cards||{}).filter(c=>c.introduced).length;
         if(auto){ ghStatus("Auto-save skipped — this browser is empty but the GitHub backup has "+met+" words. Tap ⬇ Load from GitHub.",false); return; }
         if(!confirm("This browser has NO progress, but your GitHub backup has "+met+" words met.\n\nOverwrite the backup with an empty state? Usually you want ⬇ Load from GitHub instead.")){ ghStatus("Save cancelled — backup kept. Tap ⬇ Load from GitHub to get it.",false); return; }
+      }
+      /* Stale-device guard: this device's newest study day is OLDER than the backup's —
+         another device has progressed since this one last synced. Overwriting would
+         erase that newer progress. */
+      if(attempt===1 && json && newestActivity(json) > newestActivity(S)){
+        const rN=newestActivity(json), lN=newestActivity(S)||"none";
+        if(auto){ ghStatus("Auto-save skipped — the backup has newer progress (last study "+rN+") than this device ("+lN+"). Tap ⬇ Load from GitHub first.",false); return; }
+        if(!confirm("Your GitHub backup has NEWER progress (last study "+rN+") than this device ("+lN+").\n\nOverwrite the newer backup with this device's older state? Usually you want ⬇ Load from GitHub instead.")){ ghStatus("Save cancelled — newer backup kept. Tap ⬇ Load from GitHub to catch this device up.",false); return; }
       }
       const body={ message:"progress "+new Date().toISOString(), content:b64enc(JSON.stringify(S,null,2)), branch:GH.branch };
       if(sha) body.sha=sha;
@@ -4935,19 +4952,38 @@ startSession();
 showView("home");
 $("popquiz-btn").onclick=()=>startPopQuiz(false);
 if(S.lastPopQuiz!==today()){ if(startPopQuiz(true)){ S.lastPopQuiz=today(); save(); } }
-/* Backup self-restore: iOS sometimes wipes a web app's local storage. If this browser
-   is blank but GitHub sync is configured and the backup has real progress, pull it in
-   automatically instead of starting from zero. */
+/* Backup self-restore + freshness check on startup.
+   Case 1 — this browser is BLANK (iOS wiped it): pull the backup in automatically.
+   Case 2 — this browser has progress but is BEHIND the backup (you studied on another
+   device since this one last synced): ASK, showing both dates. We never auto-load over
+   real local progress, because "newer" can't prove the backup includes this device's
+   work — the human knows which device is right. Either answer is safe: declining keeps
+   this device's state, and the stale-device save guard will still protect the backup. */
 (async function ghAutoRestore(){
-  if(typeof ghConfigured!=="function" || !ghConfigured() || !stateLooksBlank(S)) return;
+  if(typeof ghConfigured!=="function" || !ghConfigured()) return;
+  const blankLocal=stateLooksBlank(S);
   try{
-    ghStatus("This browser is empty — checking your GitHub backup…");
+    if(blankLocal) ghStatus("This browser is empty — checking your GitHub backup…");
     const {json}=await ghFetchExisting();
-    if(json && !stateLooksBlank(json)){
+    if(!json){ ghSummary(); return; }
+    if(blankLocal && !stateLooksBlank(json)){
       S=Object.assign(blank(),json); save();
       ghStatus("Progress restored from your GitHub backup — reloading…",true);
       setTimeout(()=>location.reload(),700);
-    } else ghSummary();
+      return;
+    }
+    if(!blankLocal && !stateLooksBlank(json) && newestActivity(json) > newestActivity(S)){
+      const rN=newestActivity(json), lN=newestActivity(S)||"none";
+      if(confirm("Your GitHub backup has newer progress (last study "+rN+") than this device ("+lN+").\n\nLoad the newer backup now? (Recommended if you've been studying on another device.)")){
+        S=Object.assign(blank(),json); save();
+        ghStatus("Loaded newer progress from your GitHub backup — reloading…",true);
+        setTimeout(()=>location.reload(),700);
+        return;
+      }
+      ghStatus("Kept this device's state. Its next save will ask before overwriting the newer backup.");
+      return;
+    }
+    ghSummary();
   }catch(e){ ghSummary(); }
 })();
 </script>
