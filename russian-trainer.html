@@ -355,11 +355,11 @@
         </label>
         <div class="row">
           <button class="primary" id="gh-save">⬆ Save to GitHub</button>
-          <button id="gh-load">⬇ Load from GitHub</button>
+          <button id="gh-load">🔄 Sync now</button>
         </div>
         <div class="tag" id="gh-status">Not configured.</div>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-08-03.2</b> · stale-device guard: a device that's behind the backup asks before loading, and can't silently overwrite newer progress</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-08-04.1</b> · merge-based sync: devices combine progress instead of overwriting each other — auto-syncs on open, no dialogs, nothing can be lost</div>
       </div>
     </div>
   </div>
@@ -2795,9 +2795,13 @@ function showFeedback(ok,w){
    alive. (It used to be drills only, so lesson-only days looked like skipped days.) */
 function creditStudyDay(){
   const t=today();
-  if(S.lastCompleted===t) return;
-  S.streak = (S.lastCompleted===daysAdd(t,-1))? S.streak+1 : 1;
-  S.lastCompleted=t; save();
+  const l=S.dailyLog[t]||(S.dailyLog[t]={newDone:0,reviewDone:0});
+  l.studied=true;   // marks lesson/grammar/exam-only days in the log so merges & streaks see them
+  if(S.lastCompleted!==t){
+    S.streak = (S.lastCompleted===daysAdd(t,-1))? S.streak+1 : 1;
+    S.lastCompleted=t;
+  }
+  save();
   refreshBadges();
 }
 function finishSession(){
@@ -4414,23 +4418,75 @@ async function ghFetchExisting(){
   let json=null; try{ json=JSON.parse(b64dec((d.content||"").replace(/\n/g,""))); }catch(e){}
   return {sha:d.sha,json};
 }
-/* A state is "blank" if it has no introduced words, no passed lessons and no streak —
-   i.e. what a freshly wiped browser looks like. Used to stop a wiped device from
-   overwriting a real backup, and to self-restore from the backup on startup. */
-function stateLooksBlank(s){
-  return Object.values((s&&s.cards)||{}).filter(c=>c.introduced).length===0
-    && !Object.values((s&&s.lessons)||{}).some(l=>l&&l.done)
-    && !(s&&s.streak>0);
-}
-/* Most recent study date recorded in a state (lastCompleted or any dailyLog day).
-   Used to detect a STALE device: one whose newest activity is older than the backup's.
-   A stale device must never silently overwrite newer progress (the "old Mac clobbers
-   the phone's backup" failure). YYYY-MM-DD strings compare correctly as strings. */
-function newestActivity(s){
+/* ============ MERGE-BASED SYNC ============
+   Instead of one copy overwriting the other (last-writer-wins, which required guard
+   dialogs), local state and the GitHub backup are MERGED field-by-field. mergeStates
+   is commutative-in-effect and idempotent, so device order stops mattering and no
+   save can lose the other device's work. The old wipe/stale guards became unnecessary:
+   merging with a blank state is the identity, and merging with a newer backup adopts it. */
+function newestActivity(s){  // latest study date in a state; YYYY-MM-DD compares correctly as strings
   let m=(s&&s.lastCompleted)||"";
   Object.keys((s&&s.dailyLog)||{}).forEach(k=>{ if(k>m) m=k; });
   return m;
 }
+function betterCard(a,b){    // the copy that has learned more: reps, then box, then later due
+  if(!a) return b; if(!b) return a;
+  if((a.reps||0)!==(b.reps||0)) return (a.reps||0)>(b.reps||0)?a:b;
+  if((a.box||0)!==(b.box||0)) return (a.box||0)>(b.box||0)?a:b;
+  return ((a.due||"")>=(b.due||""))?a:b;
+}
+function hasStudy(l){ return !!(l&&(l.newDone||l.reviewDone||l.gDone||l.studied)); }
+function mergeStates(sa,sb){
+  const a=Object.assign(blank(),sa||{}), b=Object.assign(blank(),sb||{});
+  const newer = newestActivity(b)>newestActivity(a) ? b : a;   // source for per-user preferences
+  const m=blank();
+  // word cards & grammar cards: per item, keep whichever copy has learned more
+  ["cards","gcards"].forEach(f=>{
+    const ids=Object.keys(a[f]).concat(Object.keys(b[f]).filter(k=>!(k in a[f]))).sort();
+    ids.forEach(id=>{ m[f][id]=Object.assign({},betterCard(a[f][id],b[f][id])); });
+  });
+  // daily log: union of days; when both know a day, per-field max (never sum — avoids double-count)
+  const days=Object.keys(a.dailyLog).concat(Object.keys(b.dailyLog).filter(k=>!(k in a.dailyLog))).sort();
+  days.forEach(d=>{
+    const x=a.dailyLog[d]||{}, y=b.dailyLog[d]||{};
+    const e={newDone:Math.max(x.newDone||0,y.newDone||0), reviewDone:Math.max(x.reviewDone||0,y.reviewDone||0)};
+    const g=Math.max(x.gDone||0,y.gDone||0); if(g) e.gDone=g;
+    if(x.studied||y.studied) e.studied=true;
+    m.dailyLog[d]=e;
+  });
+  // lessons: done anywhere = done; best score overall
+  Object.keys(a.lessons).concat(Object.keys(b.lessons).filter(k=>!(k in a.lessons))).sort().forEach(id=>{
+    const x=a.lessons[id]||{}, y=b.lessons[id]||{};
+    m.lessons[id]={done:!!(x.done||y.done), best:Math.max(x.best||0,y.best||0)};
+  });
+  // exams: passed anywhere = passed; best score; earliest pass date
+  Object.keys(a.exams).concat(Object.keys(b.exams).filter(k=>!(k in a.exams))).sort().forEach(lv=>{
+    const x=a.exams[lv]||{}, y=b.exams[lv]||{};
+    const e={passed:!!(x.passed||y.passed), best:Math.max(x.best||0,y.best||0)};
+    const dts=[x.date,y.date].filter(Boolean).sort(); if(dts.length) e.date=dts[0];
+    m.exams[lv]=e;
+  });
+  // lastCompleted: latest anywhere. streak: recomputed by walking consecutive studied
+  // days back from lastCompleted in the MERGED log, but never below a streak either
+  // side legitimately holds for that same end date (protects lesson-only legacy days).
+  m.lastCompleted=[a.lastCompleted,b.lastCompleted].filter(Boolean).sort().pop()||null;
+  let run=0;
+  if(m.lastCompleted){
+    run=1; let d=daysAdd(m.lastCompleted,-1), cap=0;
+    while(hasStudy(m.dailyLog[d]) && cap<3650){ run++; d=daysAdd(d,-1); cap++; }
+  }
+  const cand=[run];
+  if(a.lastCompleted===m.lastCompleted) cand.push(a.streak||0);
+  if(b.lastCompleted===m.lastCompleted) cand.push(b.streak||0);
+  m.streak=Math.max.apply(null,cand);
+  // preferences travel with the device used most recently
+  ["duoLevel","direction","answerMode","voiceName","lastPopQuiz"].forEach(k=>{ m[k]=newer[k]; });
+  m.activeThemes=(newer.activeThemes||A1_THEME_KEYS).slice();
+  m.migv=Math.max(a.migv||0,b.migv||0);
+  return m;
+}
+/* Canonical form for change detection: merge(s,s) normalizes key order and defaults. */
+function canonState(s){ return JSON.stringify(mergeStates(s,s)); }
 async function ghSave(auto){
   if(!ghConfigured()){ if(!auto) ghStatus("Fill in owner, repo, path and token first.",false); return; }
   try{
@@ -4438,28 +4494,15 @@ async function ghSave(auto){
     let lastErr=null;
     for(let attempt=1;attempt<=3;attempt++){
       const {sha,json}=await ghFetchExisting();
-      /* Wipe guard: never quietly overwrite a real backup with an empty state. */
-      if(attempt===1 && json && stateLooksBlank(S) && !stateLooksBlank(json)){
-        const met=Object.values(json.cards||{}).filter(c=>c.introduced).length;
-        if(auto){ ghStatus("Auto-save skipped — this browser is empty but the GitHub backup has "+met+" words. Tap ⬇ Load from GitHub.",false); return; }
-        if(!confirm("This browser has NO progress, but your GitHub backup has "+met+" words met.\n\nOverwrite the backup with an empty state? Usually you want ⬇ Load from GitHub instead.")){ ghStatus("Save cancelled — backup kept. Tap ⬇ Load from GitHub to get it.",false); return; }
-      }
-      /* Stale-device guard: this device's newest study day is OLDER than the backup's —
-         another device has progressed since this one last synced. Overwriting would
-         erase that newer progress. */
-      if(attempt===1 && json && newestActivity(json) > newestActivity(S)){
-        const rN=newestActivity(json), lN=newestActivity(S)||"none";
-        if(auto){ ghStatus("Auto-save skipped — the backup has newer progress (last study "+rN+") than this device ("+lN+"). Tap ⬇ Load from GitHub first.",false); return; }
-        if(!confirm("Your GitHub backup has NEWER progress (last study "+rN+") than this device ("+lN+").\n\nOverwrite the newer backup with this device's older state? Usually you want ⬇ Load from GitHub instead.")){ ghStatus("Save cancelled — newer backup kept. Tap ⬇ Load from GitHub to catch this device up.",false); return; }
-      }
+      if(json){ S=mergeStates(S,json); save(); }   // fold in anything the backup knows that we don't
       const body={ message:"progress "+new Date().toISOString(), content:b64enc(JSON.stringify(S,null,2)), branch:GH.branch };
       if(sha) body.sha=sha;
       const r=await fetch(ghUrl(),{method:"PUT",headers:ghHeaders(),cache:"no-store",body:JSON.stringify(body)});
-      if(r.ok){ ghStatus("Saved "+new Date().toLocaleTimeString(),true); return; }
+      if(r.ok){ ghStatus("Saved "+new Date().toLocaleTimeString(),true); refreshBadges(); return; }
       const errText=(await r.text()).slice(0,120);
       lastErr=new Error(r.status+" "+errText);
       /* 409/422 = the sha we sent didn't match (stale answer or a save raced us).
-         Re-fetch the current sha and try again, briefly backing off. */
+         Re-fetch, re-merge and try again, briefly backing off. */
       if(r.status===409||r.status===422){ ghStatus("Retrying save… ("+attempt+"/3)"); await new Promise(res=>setTimeout(res,700*attempt)); continue; }
       throw lastErr;
     }
@@ -4468,15 +4511,16 @@ async function ghSave(auto){
 }
 async function ghLoad(){
   if(!ghConfigured()){ ghStatus("Fill in owner, repo, path and token first.",false); return; }
-  if(!confirm("Load progress from GitHub and overwrite what's in this browser?")) return;
+  if(!confirm("Sync now? This combines this browser's progress with the GitHub backup — nothing is lost on either side.")) return;
   try{
-    ghStatus("Loading…");
+    ghStatus("Syncing…");
     const {json}=await ghFetchExisting();
     if(!json){ ghStatus("No progress file found in the repo yet — Save first.",false); return; }
-    S=Object.assign(blank(),json); save();
-    ghStatus("Loaded — reloading…",true);
+    S=mergeStates(S,json); save();
+    await ghSave(true);   // push the combined result so the backup converges too
+    ghStatus("Synced — reloading…",true);
     setTimeout(()=>location.reload(),500);
-  }catch(e){ ghStatus("Load failed: "+e.message,false); }
+  }catch(e){ ghStatus("Sync failed: "+e.message,false); }
 }
 
 ["owner","repo","branch","path","token"].forEach(k=>{
@@ -4952,39 +4996,22 @@ startSession();
 showView("home");
 $("popquiz-btn").onclick=()=>startPopQuiz(false);
 if(S.lastPopQuiz!==today()){ if(startPopQuiz(true)){ S.lastPopQuiz=today(); save(); } }
-/* Backup self-restore + freshness check on startup.
-   Case 1 — this browser is BLANK (iOS wiped it): pull the backup in automatically.
-   Case 2 — this browser has progress but is BEHIND the backup (you studied on another
-   device since this one last synced): ASK, showing both dates. We never auto-load over
-   real local progress, because "newer" can't prove the backup includes this device's
-   work — the human knows which device is right. Either answer is safe: declining keeps
-   this device's state, and the stale-device save guard will still protect the backup. */
-(async function ghAutoRestore(){
+/* Startup auto-sync: quietly merge with the GitHub backup on every open. A wiped
+   browser gets its progress back (merge with blank = the backup), a device that was
+   behind catches up, and nothing on either side can be lost — no dialogs needed. */
+(async function ghAutoSync(){
   if(typeof ghConfigured!=="function" || !ghConfigured()) return;
-  const blankLocal=stateLooksBlank(S);
   try{
-    if(blankLocal) ghStatus("This browser is empty — checking your GitHub backup…");
     const {json}=await ghFetchExisting();
-    if(!json){ ghSummary(); return; }
-    if(blankLocal && !stateLooksBlank(json)){
-      S=Object.assign(blank(),json); save();
-      ghStatus("Progress restored from your GitHub backup — reloading…",true);
-      setTimeout(()=>location.reload(),700);
-      return;
+    if(!json) return;
+    const before=canonState(S);
+    const merged=mergeStates(S,json);
+    if(JSON.stringify(merged)!==before){
+      S=merged; save();
+      ghStatus("Synced with your GitHub backup — reloading…",true);
+      setTimeout(()=>location.reload(),600);
     }
-    if(!blankLocal && !stateLooksBlank(json) && newestActivity(json) > newestActivity(S)){
-      const rN=newestActivity(json), lN=newestActivity(S)||"none";
-      if(confirm("Your GitHub backup has newer progress (last study "+rN+") than this device ("+lN+").\n\nLoad the newer backup now? (Recommended if you've been studying on another device.)")){
-        S=Object.assign(blank(),json); save();
-        ghStatus("Loaded newer progress from your GitHub backup — reloading…",true);
-        setTimeout(()=>location.reload(),700);
-        return;
-      }
-      ghStatus("Kept this device's state. Its next save will ask before overwriting the newer backup.");
-      return;
-    }
-    ghSummary();
-  }catch(e){ ghSummary(); }
+  }catch(e){ /* offline or API hiccup — carry on with local state */ }
 })();
 </script>
 </body>
