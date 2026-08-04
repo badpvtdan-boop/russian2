@@ -2478,6 +2478,9 @@ const KEY="rt_state_v1";
 /* LOCAL calendar date, not UTC — with toISOString(), evenings after 7pm (US Central)
    were logged as "tomorrow", silently breaking streaks for daily users. */
 function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+/* INVARIANT: any new field added here MUST also be added to mergeStates() in the same
+   change. Merge is the only safety layer now (the wipe/stale guards are gone) — mergeStates
+   rebuilds state from blank(), so a field it doesn't handle is silently reset on every sync. */
 function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),lastPopQuiz:null,migv:MIG_VERSION};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* One-time upgrades applied to an existing save. Keyed by migv so each runs once and

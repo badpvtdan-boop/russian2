@@ -37,6 +37,9 @@ use the app. So:
    would overwrite the browser's `progress.json` and destroy saved progress.
 3. Stage source files **by name** (e.g. `git add russian-trainer.html`); avoid `git add .` so
    you never accidentally clobber `progress.json`.
+4. **Any new field added to the saved state (`blank()`) MUST be added to `mergeStates()` in the
+   same change** — merge is the only safety layer now; a field it doesn't handle is silently
+   reset on every sync.
 
 ## Authoring lesson & story content
 
