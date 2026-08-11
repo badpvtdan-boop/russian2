@@ -127,10 +127,10 @@
       "introduced": true
     },
     "19": {
-      "box": 5,
-      "due": "2026-08-11",
+      "box": 6,
+      "due": "2026-09-10",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true
     },
     "20": {
@@ -148,10 +148,10 @@
       "introduced": true
     },
     "22": {
-      "box": 1,
-      "due": "2026-08-11",
+      "box": 2,
+      "due": "2026-08-13",
       "lapses": 2,
-      "reps": 9,
+      "reps": 10,
       "introduced": true
     },
     "23": {
@@ -750,10 +750,10 @@
       "introduced": true
     },
     "108": {
-      "box": 5,
-      "due": "2026-08-11",
+      "box": 6,
+      "due": "2026-09-10",
       "lapses": 1,
-      "reps": 6,
+      "reps": 7,
       "introduced": true
     },
     "109": {
@@ -799,17 +799,17 @@
       "introduced": true
     },
     "115": {
-      "box": 5,
-      "due": "2026-08-11",
+      "box": 6,
+      "due": "2026-09-10",
       "lapses": 1,
-      "reps": 6,
+      "reps": 7,
       "introduced": true
     },
     "116": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 4,
-      "reps": 14,
+      "reps": 15,
       "introduced": true
     },
     "117": {
@@ -918,10 +918,10 @@
       "introduced": true
     },
     "132": {
-      "box": 5,
-      "due": "2026-08-11",
+      "box": 6,
+      "due": "2026-09-10",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true
     },
     "133": {
@@ -1604,10 +1604,10 @@
       "introduced": true
     },
     "557": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 2,
-      "reps": 9,
+      "reps": 10,
       "introduced": true
     },
     "558": {
@@ -1779,66 +1779,66 @@
       "introduced": true
     },
     "582": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "583": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "584": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "585": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "586": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "587": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "588": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "589": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "590": {
-      "box": 3,
-      "due": "2026-08-11",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 1,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "591": {
@@ -1849,17 +1849,17 @@
       "introduced": true
     },
     "592": {
-      "box": 2,
-      "due": "2026-08-11",
+      "box": 3,
+      "due": "2026-08-15",
       "lapses": 2,
-      "reps": 6,
+      "reps": 7,
       "introduced": true
     },
     "593": {
-      "box": 3,
-      "due": "2026-08-12",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "594": {
@@ -1870,10 +1870,10 @@
       "introduced": true
     },
     "595": {
-      "box": 2,
-      "due": "2026-08-11",
+      "box": 3,
+      "due": "2026-08-15",
       "lapses": 2,
-      "reps": 6,
+      "reps": 7,
       "introduced": true
     },
     "596": {
@@ -1891,17 +1891,17 @@
       "introduced": true
     },
     "598": {
-      "box": 3,
-      "due": "2026-08-12",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "599": {
-      "box": 2,
-      "due": "2026-08-11",
+      "box": 3,
+      "due": "2026-08-15",
       "lapses": 3,
-      "reps": 7,
+      "reps": 8,
       "introduced": true
     },
     "600": {
@@ -1940,10 +1940,10 @@
       "introduced": true
     },
     "605": {
-      "box": 1,
-      "due": "2026-08-11",
+      "box": 2,
+      "due": "2026-08-13",
       "lapses": 4,
-      "reps": 8,
+      "reps": 9,
       "introduced": true
     },
     "606": {
@@ -2269,10 +2269,10 @@
       "introduced": true
     },
     "844": {
-      "box": 4,
-      "due": "2026-08-15",
+      "box": 5,
+      "due": "2026-08-26",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "845": {
@@ -2374,10 +2374,10 @@
       "introduced": true
     },
     "859": {
-      "box": 3,
-      "due": "2026-08-12",
+      "box": 4,
+      "due": "2026-08-18",
       "lapses": 1,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "860": {
@@ -2474,6 +2474,76 @@
     "873": {
       "box": 1,
       "due": "2026-08-11",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "874": {
+      "box": 1,
+      "due": "2026-08-12",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "875": {
+      "box": 1,
+      "due": "2026-08-12",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "876": {
+      "box": 1,
+      "due": "2026-08-12",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "877": {
+      "box": 1,
+      "due": "2026-08-12",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "878": {
+      "box": 1,
+      "due": "2026-08-12",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "879": {
+      "box": 1,
+      "due": "2026-08-12",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "880": {
+      "box": 1,
+      "due": "2026-08-12",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "881": {
+      "box": 1,
+      "due": "2026-08-12",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "882": {
+      "box": 1,
+      "due": "2026-08-12",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "883": {
+      "box": 1,
+      "due": "2026-08-12",
       "lapses": 0,
       "reps": 1,
       "introduced": true
@@ -2787,10 +2857,10 @@
       "introduced": true
     },
     "1061": {
-      "box": 4,
-      "due": "2026-08-06",
+      "box": 5,
+      "due": "2026-08-26",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "1062": {
@@ -3242,8 +3312,8 @@
       "introduced": true
     }
   },
-  "streak": 7,
-  "lastCompleted": "2026-08-10",
+  "streak": 8,
+  "lastCompleted": "2026-08-11",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -3347,6 +3417,11 @@
       "studied": true
     },
     "2026-08-10": {
+      "newDone": 10,
+      "reviewDone": 0,
+      "studied": true
+    },
+    "2026-08-11": {
       "newDone": 10,
       "reviewDone": 0,
       "studied": true
@@ -3498,10 +3573,10 @@
       "introduced": true
     },
     "accusative#7": {
-      "box": 1,
-      "due": "2026-07-18",
-      "lapses": 0,
-      "reps": 1,
+      "box": 0,
+      "due": "2026-08-11",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "accusative#8": {
@@ -3869,10 +3944,10 @@
       "introduced": true
     },
     "noun-gender#10": {
-      "box": 1,
-      "due": "2026-08-01",
+      "box": 2,
+      "due": "2026-08-13",
       "lapses": 1,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "noun-gender#11": {
@@ -3890,10 +3965,10 @@
       "introduced": true
     },
     "noun-gender#3": {
-      "box": 1,
-      "due": "2026-07-20",
+      "box": 2,
+      "due": "2026-08-13",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "noun-gender#4": {
@@ -4205,6 +4280,6 @@
     "health",
     "work"
   ],
-  "lastPopQuiz": "2026-08-10",
+  "lastPopQuiz": "2026-08-11",
   "migv": 2
 }
