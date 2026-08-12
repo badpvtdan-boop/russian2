@@ -219,9 +219,9 @@
     },
     "32": {
       "box": 7,
-      "due": "2026-09-20",
+      "due": "2026-10-09",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "33": {
@@ -463,10 +463,10 @@
       "introduced": true
     },
     "67": {
-      "box": 6,
-      "due": "2026-08-18",
+      "box": 7,
+      "due": "2026-10-09",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "68": {
@@ -953,10 +953,10 @@
       "introduced": true
     },
     "137": {
-      "box": 5,
-      "due": "2026-08-14",
+      "box": 6,
+      "due": "2026-09-09",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true
     },
     "138": {
@@ -2962,10 +2962,10 @@
       "introduced": true
     },
     "1076": {
-      "box": 2,
-      "due": "2026-08-02",
-      "lapses": 3,
-      "reps": 8,
+      "box": 1,
+      "due": "2026-08-10",
+      "lapses": 4,
+      "reps": 9,
       "introduced": true
     },
     "1077": {
@@ -3727,10 +3727,10 @@
       "introduced": true
     },
     "aspect-prefixes#5": {
-      "box": 3,
-      "due": "2026-08-05",
+      "box": 4,
+      "due": "2026-08-17",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "aspect-prefixes#6": {
@@ -3875,9 +3875,9 @@
     },
     "genitive#2": {
       "box": 0,
-      "due": "2026-08-04",
-      "lapses": 0,
-      "reps": 0,
+      "due": "2026-08-10",
+      "lapses": 1,
+      "reps": 1,
       "introduced": true
     },
     "genitive#3": {
@@ -3910,9 +3910,9 @@
     },
     "genitive#7": {
       "box": 0,
-      "due": "2026-08-04",
-      "lapses": 0,
-      "reps": 0,
+      "due": "2026-08-10",
+      "lapses": 1,
+      "reps": 1,
       "introduced": true
     },
     "genitive#8": {
