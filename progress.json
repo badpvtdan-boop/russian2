@@ -275,9 +275,9 @@
     },
     "40": {
       "box": 7,
-      "due": "2026-09-16",
+      "due": "2026-10-11",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "41": {
@@ -477,10 +477,10 @@
       "introduced": true
     },
     "69": {
-      "box": 6,
-      "due": "2026-08-29",
+      "box": 7,
+      "due": "2026-10-11",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "70": {
@@ -722,10 +722,10 @@
       "introduced": true
     },
     "104": {
-      "box": 6,
-      "due": "2026-08-29",
+      "box": 7,
+      "due": "2026-10-11",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "105": {
@@ -1297,9 +1297,9 @@
     },
     "513": {
       "box": 7,
-      "due": "2026-10-03",
+      "due": "2026-10-11",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "514": {
@@ -1331,10 +1331,10 @@
       "introduced": true
     },
     "518": {
-      "box": 6,
-      "due": "2026-09-03",
+      "box": 7,
+      "due": "2026-10-11",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "519": {
@@ -3531,10 +3531,10 @@
       "introduced": true
     },
     "accusative#11": {
-      "box": 1,
-      "due": "2026-07-18",
-      "lapses": 0,
-      "reps": 1,
+      "box": 0,
+      "due": "2026-08-12",
+      "lapses": 1,
+      "reps": 2,
       "introduced": true
     },
     "accusative#2": {
@@ -3657,10 +3657,10 @@
       "introduced": true
     },
     "aspect#7": {
-      "box": 1,
-      "due": "2026-07-24",
-      "lapses": 3,
-      "reps": 5,
+      "box": 0,
+      "due": "2026-08-12",
+      "lapses": 4,
+      "reps": 6,
       "introduced": true
     },
     "aspect#8": {
@@ -4084,10 +4084,10 @@
       "introduced": true
     },
     "past-future#8": {
-      "box": 1,
-      "due": "2026-07-23",
+      "box": 2,
+      "due": "2026-08-14",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "past-future#9": {
@@ -4280,6 +4280,6 @@
     "health",
     "work"
   ],
-  "lastPopQuiz": "2026-08-11",
+  "lastPopQuiz": "2026-08-12",
   "migv": 2
 }
