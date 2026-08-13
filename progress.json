@@ -37,9 +37,9 @@
     },
     "6": {
       "box": 7,
-      "due": "2026-09-19",
+      "due": "2026-10-12",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true
     },
     "7": {
@@ -785,10 +785,10 @@
       "introduced": true
     },
     "113": {
-      "box": 5,
-      "due": "2026-08-17",
+      "box": 6,
+      "due": "2026-09-12",
       "lapses": 3,
-      "reps": 10,
+      "reps": 11,
       "introduced": true
     },
     "114": {
@@ -2143,10 +2143,10 @@
       "introduced": true
     },
     "634": {
-      "box": 1,
-      "due": "2026-08-10",
-      "lapses": 1,
-      "reps": 2,
+      "box": 0,
+      "due": "2026-08-13",
+      "lapses": 2,
+      "reps": 3,
       "introduced": true
     },
     "635": {
@@ -2360,10 +2360,10 @@
       "introduced": true
     },
     "857": {
-      "box": 3,
-      "due": "2026-08-10",
+      "box": 4,
+      "due": "2026-08-20",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true
     },
     "858": {
@@ -2843,10 +2843,10 @@
       "introduced": true
     },
     "1049": {
-      "box": 2,
-      "due": "2026-08-01",
+      "box": 3,
+      "due": "2026-08-17",
       "lapses": 4,
-      "reps": 10,
+      "reps": 11,
       "introduced": true
     },
     "1050": {
@@ -3929,9 +3929,9 @@
     },
     "genitive#1": {
       "box": 0,
-      "due": "2026-08-04",
-      "lapses": 0,
-      "reps": 0,
+      "due": "2026-08-13",
+      "lapses": 1,
+      "reps": 1,
       "introduced": true
     },
     "genitive#10": {
@@ -3977,17 +3977,17 @@
       "introduced": true
     },
     "genitive#6": {
-      "box": 0,
-      "due": "2026-08-04",
+      "box": 1,
+      "due": "2026-08-14",
       "lapses": 0,
-      "reps": 0,
+      "reps": 1,
       "introduced": true
     },
     "genitive#7": {
-      "box": 0,
-      "due": "2026-08-10",
+      "box": 1,
+      "due": "2026-08-14",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "genitive#8": {
@@ -4355,6 +4355,6 @@
     "health",
     "work"
   ],
-  "lastPopQuiz": "2026-08-12",
+  "lastPopQuiz": "2026-08-13",
   "migv": 2
 }
