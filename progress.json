@@ -2660,6 +2660,76 @@
       "reps": 4,
       "introduced": true
     },
+    "900": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "901": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "902": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "903": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "904": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "905": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "906": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "907": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
+    "908": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true
+    },
+    "909": {
+      "box": 1,
+      "due": "2026-08-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true
+    },
     "1017": {
       "box": 5,
       "due": "2026-08-20",
@@ -3554,8 +3624,8 @@
       "gDone": 5
     },
     "2026-08-16": {
-      "newDone": 0,
-      "reviewDone": 20,
+      "newDone": 10,
+      "reviewDone": 21,
       "studied": true
     }
   },
@@ -4410,7 +4480,8 @@
     "home",
     "calendar",
     "health",
-    "work"
+    "work",
+    "weather"
   ],
   "lastPopQuiz": "2026-08-16",
   "migv": 2
