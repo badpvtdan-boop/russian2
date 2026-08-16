@@ -3659,9 +3659,9 @@
     },
     "accusative#11": {
       "box": 0,
-      "due": "2026-08-12",
-      "lapses": 1,
-      "reps": 2,
+      "due": "2026-08-15",
+      "lapses": 2,
+      "reps": 3,
       "introduced": true
     },
     "accusative#2": {
@@ -3785,9 +3785,9 @@
     },
     "aspect#7": {
       "box": 0,
-      "due": "2026-08-12",
-      "lapses": 4,
-      "reps": 6,
+      "due": "2026-08-15",
+      "lapses": 5,
+      "reps": 7,
       "introduced": true
     },
     "aspect#8": {
@@ -4407,6 +4407,6 @@
     "health",
     "work"
   ],
-  "lastPopQuiz": "2026-08-16",
+  "lastPopQuiz": "2026-08-15",
   "migv": 2
 }
