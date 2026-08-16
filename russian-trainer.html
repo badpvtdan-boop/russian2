@@ -359,7 +359,7 @@
         </div>
         <div class="tag" id="gh-status">Not configured.</div>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-08-04.1</b> · merge-based sync: devices combine progress instead of overwriting each other — auto-syncs on open, no dialogs, nothing can be lost</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-08-16.1</b> · streak credited per-item (drills incl. reviews, grammar) so abandoned sessions still count; sync derives the streak from the log</div>
       </div>
     </div>
   </div>
@@ -2757,7 +2757,7 @@ function resolve(ok){
   if(ok){
     // advance
     if(!c.introduced){ c.introduced=true; logDay(cur.isNew); }
-    else if(!cur.isNew){ /* review */ }
+    else if(!cur.isNew){ logDay(false); }   // a completed review logs reviewDone + credits the day
     c.box=Math.min(c.box+1, INTERVALS.length-1);
     c.due=daysAdd(today(), INTERVALS[c.box]);
     queue.shift();                    // leaves today's queue
@@ -2777,6 +2777,7 @@ function logDay(wasNew){
   const t=today();
   const l=S.dailyLog[t]||(S.dailyLog[t]={newDone:0,reviewDone:0});
   if(wasNew) l.newDone++; else l.reviewDone++;
+  creditStudyDay();   // credit the streak on the first item logged, not at the finish screen
 }
 
 function showFeedback(ok,w){
@@ -2803,17 +2804,16 @@ function creditStudyDay(){
   if(S.lastCompleted!==t){
     S.streak = (S.lastCompleted===daysAdd(t,-1))? S.streak+1 : 1;
     S.lastCompleted=t;
+    save();          // only on the first credit of the day; per-item counter is persisted by
+    refreshBadges(); // the caller's own save() (resolve @2771, gradeGrammarCard @4802, finish*)
   }
-  save();
-  refreshBadges();
 }
 function finishSession(){
   $("drill").classList.add("hide");
   $("done").classList.remove("hide");
-  // streak update: mark today complete if any work done
+  // streak is now credited per-item in logDay(); here we just show today's count
   const t=today();
   const l=S.dailyLog[t];
-  if(l && (l.newDone||l.reviewDone)) creditStudyDay();
   const done = l? (l.newDone+l.reviewDone):0;
   $("done-msg").textContent = `You cleared ${done} card${done===1?"":"s"} today. Come back tomorrow — reviews will be waiting.`;
   refreshBadges(); updateBanner();
@@ -4469,10 +4469,15 @@ function mergeStates(sa,sb){
     const dts=[x.date,y.date].filter(Boolean).sort(); if(dts.length) e.date=dts[0];
     m.exams[lv]=e;
   });
-  // lastCompleted: latest anywhere. streak: recomputed by walking consecutive studied
-  // days back from lastCompleted in the MERGED log, but never below a streak either
-  // side legitimately holds for that same end date (protects lesson-only legacy days).
-  m.lastCompleted=[a.lastCompleted,b.lastCompleted].filter(Boolean).sort().pop()||null;
+  // lastCompleted: the MERGED LOG is the single source of truth — take the newest day
+  // that satisfies hasStudy(), NOT the max of the two sides' stored lastCompleted. This
+  // makes a study day newer than a stale lastCompleted visible again (self-heals days
+  // that were logged but never credited). streak: walk consecutive studied days back
+  // from there, never below a streak either side legitimately holds for that end date.
+  // cap at local today() so a future/mis-dated entry (clock skew across devices) can't
+  // hijack the anchor and collapse a real streak to 1.
+  const studiedDays=Object.keys(m.dailyLog).filter(k=>hasStudy(m.dailyLog[k]) && k<=today()).sort();
+  m.lastCompleted=studiedDays.length?studiedDays[studiedDays.length-1]:null;
   let run=0;
   if(m.lastCompleted){
     run=1; let d=daysAdd(m.lastCompleted,-1), cap=0;
@@ -4784,7 +4789,7 @@ function gDoneToday(){ const l=S.dailyLog[today()]; return (l&&l.gDone)||0; }
 function dueQueue(){ const budget=Math.max(0,GRAMMAR_PER_DAY-gDoneToday()); return grammarItemsDue().slice(0,budget).map(x=>({...x,firstTry:true})); }
 function anyQueue(){ const due=grammarItemsDue(); const base=due.length?due:grammarAllItems(); return base.slice(0,GRAMMAR_PER_DAY).map(x=>({...x,firstTry:true})); }
 
-function logGrammarDay(){ const t=today(); const l=S.dailyLog[t]||(S.dailyLog[t]={newDone:0,reviewDone:0}); l.gDone=(l.gDone||0)+1; }
+function logGrammarDay(){ const t=today(); const l=S.dailyLog[t]||(S.dailyLog[t]={newDone:0,reviewDone:0}); l.gDone=(l.gDone||0)+1; creditStudyDay(); }
 
 function gradeGrammarCard(ok){
   const c=gcard(gcur.id); c.reps=(c.reps||0)+1; c.introduced=true;
@@ -4843,8 +4848,7 @@ function finishGrammar(){
   $("g-done-msg").textContent = gDoneN>0
     ? `You reviewed ${gDoneN} item${gDoneN===1?"":"s"}.` + (left>0?` ${left} still due today.`:` Nothing else due — see you tomorrow.`)
     : `Nothing due right now — you're all caught up.`;
-  if(gDoneN>0) creditStudyDay();  // reviewed at least one item = studied today
-  refreshBadges();
+  refreshBadges();   // streak already credited per-item in logGrammarDay()
   if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
 }
 function renderGrammarCard(){
