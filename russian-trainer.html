@@ -359,7 +359,7 @@
         </div>
         <div class="tag" id="gh-status">Not configured.</div>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-08-16.1</b> · streak credited per-item (drills incl. reviews, grammar) so abandoned sessions still count; sync derives the streak from the log</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-08-16.2</b> · cards now stamp lastReviewed (local date) on every review; merge keeps the later date</div>
       </div>
     </div>
   </div>
@@ -2578,6 +2578,7 @@ function knowSkip(){
   c.introduced=true;
   var _kbTarget = cur.isNew ? (KNOWN_BOX+1) : (INTERVALS.length-1); c.box=Math.max(c.box, _kbTarget);          // bank straight to "known"
   c.reps=(c.reps||0)+1;
+  c.lastReviewed=today();   // banking "I know this" is an interaction today
   c.due=daysAdd(today(), INTERVALS[Math.min(c.box, INTERVALS.length-1)]);
   save();
   queue.shift();
@@ -2754,6 +2755,7 @@ function resolve(ok){
   const w=DECK_BY_ID[cur.id];
   const c=card(cur.id);
   c.reps++;
+  c.lastReviewed=today();   // local YYYY-MM-DD; a review happened (correct or not)
   if(ok){
     // advance
     if(!c.introduced){ c.introduced=true; logDay(cur.isNew); }
@@ -4439,6 +4441,8 @@ function betterCard(a,b){    // the copy that has learned more: reps, then box, 
   return ((a.due||"")>=(b.due||""))?a:b;
 }
 function hasStudy(l){ return !!(l&&(l.newDone||l.reviewDone||l.gDone||l.studied)); }
+/* later of two YYYY-MM-DD dates; undefined loses to any real date, both undefined -> undefined */
+function laterDate(x,y){ return (x&&y) ? (x>=y?x:y) : (x||y||undefined); }
 function mergeStates(sa,sb){
   const a=Object.assign(blank(),sa||{}), b=Object.assign(blank(),sb||{});
   const newer = newestActivity(b)>newestActivity(a) ? b : a;   // source for per-user preferences
@@ -4446,7 +4450,13 @@ function mergeStates(sa,sb){
   // word cards & grammar cards: per item, keep whichever copy has learned more
   ["cards","gcards"].forEach(f=>{
     const ids=Object.keys(a[f]).concat(Object.keys(b[f]).filter(k=>!(k in a[f]))).sort();
-    ids.forEach(id=>{ m[f][id]=Object.assign({},betterCard(a[f][id],b[f][id])); });
+    ids.forEach(id=>{
+      const merged=Object.assign({},betterCard(a[f][id],b[f][id]));
+      // lastReviewed is monotonic: keep the later of the two regardless of which card won.
+      const lr=laterDate(a[f][id]&&a[f][id].lastReviewed, b[f][id]&&b[f][id].lastReviewed);
+      if(lr) merged.lastReviewed=lr; else delete merged.lastReviewed;   // never fabricate a date
+      m[f][id]=merged;
+    });
   });
   // daily log: union of days; when both know a day, per-field max (never sum — avoids double-count)
   const days=Object.keys(a.dailyLog).concat(Object.keys(b.dailyLog).filter(k=>!(k in a.dailyLog))).sort();
@@ -4792,7 +4802,7 @@ function anyQueue(){ const due=grammarItemsDue(); const base=due.length?due:gram
 function logGrammarDay(){ const t=today(); const l=S.dailyLog[t]||(S.dailyLog[t]={newDone:0,reviewDone:0}); l.gDone=(l.gDone||0)+1; creditStudyDay(); }
 
 function gradeGrammarCard(ok){
-  const c=gcard(gcur.id); c.reps=(c.reps||0)+1; c.introduced=true;
+  const c=gcard(gcur.id); c.reps=(c.reps||0)+1; c.introduced=true; c.lastReviewed=today();
   if(ok){
     c.box=Math.min(c.box+1, INTERVALS.length-1);
     c.due=daysAdd(today(), INTERVALS[c.box]);
@@ -4970,7 +4980,7 @@ function pqQuestion(){
 }
 function pqGrade(item, ok){
   const c = item.type==="vocab" ? card(item.id) : gcard(item.gid);
-  c.reps=(c.reps||0)+1; if(item.type==="grammar") c.introduced=true;
+  c.reps=(c.reps||0)+1; if(item.type==="grammar") c.introduced=true; c.lastReviewed=today();
   if(ok){ c.box=Math.min((c.box||0)+1, INTERVALS.length-1); c.due=daysAdd(today(), INTERVALS[c.box]); }
   else { c.box=Math.max(0,(c.box||0)-1); c.lapses=(c.lapses||0)+1; c.due=today(); }
   save();

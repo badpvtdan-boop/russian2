@@ -30,8 +30,9 @@ function extractFn(name) {
 }
 
 const FNS = [
-  "today", "daysAdd", "hasStudy", "betterCard", "newestActivity",
+  "today", "daysAdd", "hasStudy", "laterDate", "betterCard", "newestActivity",
   "blank", "mergeStates", "creditStudyDay", "logDay", "logGrammarDay",
+  "card", "gcard", "resolve", "gradeGrammarCard",
 ];
 
 // Sandbox globals the extracted functions reference.
@@ -39,8 +40,17 @@ const sandbox = {
   S: null,
   A1_THEME_KEYS: [],
   MIG_VERSION: 2,
-  save() {},          // no localStorage in Node
-  refreshBadges() {}, // no DOM in Node
+  INTERVALS: [0, 1, 2, 4, 7, 15, 30, 60],
+  KNOWN_BOX: 4,
+  save() {},            // no localStorage in Node
+  refreshBadges() {},   // no DOM in Node
+  renderProgress() {},  // no DOM
+  renderGProgress() {}, // no DOM
+  showFeedback() {},    // no DOM (resolve() calls it at the end)
+  // drill/grammar session globals the real review functions read/mutate:
+  cur: null, queue: [], sessionDone: 0,
+  gq: [], gcur: null, gDoneN: 0,
+  DECK_BY_ID: {},
   console,
 };
 vm.createContext(sandbox);
@@ -202,6 +212,75 @@ function studiedRange(startISO, endISO) {
   check("guard-move: reviewDone accumulates (==1)", l.reviewDone === 1);
   check("guard-move: streak bumped exactly once (5->6)", sandbox.S.streak === 6);
   check("guard-move: creditStudyDay saved only on first credit (1 save)", saves === 1);
+})();
+
+/* ===== lastReviewed: reviewing a card stamps today's local date ===== */
+(function reviewStampsLastReviewed() {
+  FAKE_TODAY = "2026-08-16";
+  sandbox.S = freshState();
+  sandbox.cur = { id: "v1", isNew: false, firstTry: false };
+  sandbox.queue = [sandbox.cur];
+  sandbox.sessionDone = 0;
+  sandbox.DECK_BY_ID = { v1: { id: "v1", ru: "дом", en: "house", pos: "noun" } };
+  sandbox.resolve(true); // a correct vocab review
+  check("review (correct) stamps lastReviewed = today", sandbox.S.cards["v1"].lastReviewed === "2026-08-16");
+})();
+
+(function lapseAlsoStamps() {
+  FAKE_TODAY = "2026-08-16";
+  sandbox.S = freshState();
+  sandbox.cur = { id: "v2", isNew: false, firstTry: false };
+  sandbox.queue = [sandbox.cur];
+  sandbox.DECK_BY_ID = { v2: { id: "v2", ru: "х", en: "y", pos: "noun" } };
+  sandbox.resolve(false); // a FAILED review — a review still happened
+  check("lapse (wrong) also stamps lastReviewed", sandbox.S.cards["v2"].lastReviewed === "2026-08-16");
+})();
+
+(function grammarReviewStamps() {
+  FAKE_TODAY = "2026-08-16";
+  sandbox.S = freshState();
+  sandbox.gcur = { id: "g1" };
+  sandbox.gq = [{ id: "g1" }];
+  sandbox.gDoneN = 0;
+  sandbox.gradeGrammarCard(true); // grammar review stamps the gcard
+  check("grammar review stamps gcard lastReviewed", sandbox.S.gcards["g1"].lastReviewed === "2026-08-16");
+})();
+
+/* ===== lastReviewed: merge is monotonic and never fabricates ===== */
+(function mergeTakesLaterDate() {
+  const a = freshState({ cards: { 1: { reps: 5, box: 2, due: "2026-08-20", lastReviewed: "2026-08-10" } } });
+  const b = freshState({ cards: { 1: { reps: 5, box: 2, due: "2026-08-20", lastReviewed: "2026-08-14" } } });
+  const m = sandbox.mergeStates(a, b);
+  check("merge: takes the later lastReviewed (08-14)", m.cards["1"].lastReviewed === "2026-08-14");
+  // commutative
+  const m2 = sandbox.mergeStates(b, a);
+  check("merge: later-date is order-independent", m2.cards["1"].lastReviewed === "2026-08-14");
+})();
+
+(function mergeOneSideUndefined() {
+  const a = freshState({ cards: { 1: { reps: 5, box: 2, due: "2026-08-20", lastReviewed: "2026-08-12" } } });
+  const b = freshState({ cards: { 1: { reps: 5, box: 2, due: "2026-08-20" } } }); // no lastReviewed
+  const m = sandbox.mergeStates(a, b);
+  check("merge: defined date wins over undefined (a,b)", m.cards["1"].lastReviewed === "2026-08-12");
+  const m2 = sandbox.mergeStates(b, a);
+  check("merge: defined date wins over undefined (b,a)", m2.cards["1"].lastReviewed === "2026-08-12");
+})();
+
+(function mergeBothUndefined() {
+  const a = freshState({ cards: { 1: { reps: 5, box: 2, due: "2026-08-20" } } });
+  const b = freshState({ cards: { 1: { reps: 3, box: 1, due: "2026-08-18" } } });
+  const m = sandbox.mergeStates(a, b);
+  check("merge: both undefined -> field absent (not fabricated)",
+    !("lastReviewed" in m.cards["1"]) && m.cards["1"].lastReviewed === undefined);
+})();
+
+(function legacyCardSurvivesUnchanged() {
+  // A pre-feature card (no lastReviewed) must survive a merge without gaining a date.
+  const legacy = { reps: 8, box: 5, due: "2026-09-01", lapses: 1, introduced: true };
+  const a = freshState({ cards: { 99: { ...legacy } } });
+  const m = sandbox.mergeStates(a, sandbox.blank());
+  check("legacy card: no lastReviewed fabricated by merge", !("lastReviewed" in m.cards["99"]));
+  check("legacy card: scheduling fields preserved", m.cards["99"].reps === 8 && m.cards["99"].box === 5 && m.cards["99"].due === "2026-09-01");
 })();
 
 /* ---- report ---- */
