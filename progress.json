@@ -355,10 +355,11 @@
     },
     "51": {
       "box": 7,
-      "due": "2026-09-16",
+      "due": "2026-10-20",
       "lapses": 0,
-      "reps": 3,
-      "introduced": true
+      "reps": 4,
+      "introduced": true,
+      "lastReviewed": "2026-08-21"
     },
     "52": {
       "box": 6,
@@ -1289,10 +1290,11 @@
     },
     "509": {
       "box": 7,
-      "due": "2026-10-03",
+      "due": "2026-10-20",
       "lapses": 0,
-      "reps": 2,
-      "introduced": true
+      "reps": 3,
+      "introduced": true,
+      "lastReviewed": "2026-08-21"
     },
     "510": {
       "box": 7,
@@ -1810,12 +1812,12 @@
       "lastReviewed": "2026-08-19"
     },
     "581": {
-      "box": 6,
-      "due": "2026-09-18",
+      "box": 7,
+      "due": "2026-10-20",
       "lapses": 0,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-08-19"
+      "lastReviewed": "2026-08-21"
     },
     "582": {
       "box": 5,
@@ -2114,11 +2116,12 @@
       "introduced": true
     },
     "622": {
-      "box": 1,
-      "due": "2026-08-21",
+      "box": 2,
+      "due": "2026-08-23",
       "lapses": 4,
-      "reps": 11,
-      "introduced": true
+      "reps": 12,
+      "introduced": true,
+      "lastReviewed": "2026-08-21"
     },
     "623": {
       "box": 4,
@@ -3592,11 +3595,12 @@
       "introduced": true
     },
     "1081": {
-      "box": 4,
-      "due": "2026-08-22",
+      "box": 5,
+      "due": "2026-09-05",
       "lapses": 1,
-      "reps": 6,
-      "introduced": true
+      "reps": 7,
+      "introduced": true,
+      "lastReviewed": "2026-08-21"
     },
     "1082": {
       "box": 3,
@@ -4326,11 +4330,12 @@
       "introduced": true
     },
     "aspect-prefixes#1": {
-      "box": 1,
-      "due": "2026-07-23",
+      "box": 2,
+      "due": "2026-08-23",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-08-21"
     },
     "aspect-prefixes#10": {
       "box": 1,
@@ -4771,11 +4776,12 @@
       "introduced": true
     },
     "prep-case#2": {
-      "box": 2,
-      "due": "2026-07-22",
+      "box": 3,
+      "due": "2026-08-25",
       "lapses": 0,
-      "reps": 2,
-      "introduced": true
+      "reps": 3,
+      "introduced": true,
+      "lastReviewed": "2026-08-21"
     },
     "prep-case#3": {
       "box": 3,
@@ -4842,11 +4848,12 @@
       "introduced": true
     },
     "present-conj#10": {
-      "box": 1,
-      "due": "2026-07-20",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "box": 0,
+      "due": "2026-08-21",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-08-21"
     },
     "present-conj#11": {
       "box": 1,
@@ -4928,6 +4935,6 @@
     "weather",
     "food"
   ],
-  "lastPopQuiz": "2026-08-20",
+  "lastPopQuiz": "2026-08-21",
   "migv": 2
 }
