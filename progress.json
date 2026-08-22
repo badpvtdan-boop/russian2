@@ -1375,10 +1375,10 @@
       "introduced": true
     },
     "521": {
-      "box": 6,
-      "due": "2026-09-18",
+      "box": 7,
+      "due": "2026-10-21",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
       "lastReviewed": "2026-08-19"
     },
@@ -1944,10 +1944,10 @@
       "introduced": true
     },
     "598": {
-      "box": 5,
-      "due": "2026-09-02",
+      "box": 6,
+      "due": "2026-09-21",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
       "lastReviewed": "2026-08-18"
     },
@@ -2643,10 +2643,10 @@
       "introduced": true
     },
     "689": {
-      "box": 1,
-      "due": "2026-08-21",
+      "box": 2,
+      "due": "2026-08-24",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true
     },
     "690": {
@@ -2678,10 +2678,10 @@
       "introduced": true
     },
     "694": {
-      "box": 1,
-      "due": "2026-08-22",
+      "box": 2,
+      "due": "2026-08-24",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-08-21"
     },
@@ -3273,10 +3273,10 @@
       "introduced": true
     },
     "1022": {
-      "box": 5,
-      "due": "2026-08-20",
+      "box": 6,
+      "due": "2026-09-21",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true
     },
     "1023": {
@@ -4272,9 +4272,9 @@
     },
     "accusative#11": {
       "box": 0,
-      "due": "2026-08-15",
-      "lapses": 2,
-      "reps": 3,
+      "due": "2026-08-22",
+      "lapses": 3,
+      "reps": 4,
       "introduced": true
     },
     "accusative#2": {
@@ -4385,10 +4385,10 @@
       "introduced": true
     },
     "aspect#5": {
-      "box": 2,
-      "due": "2026-07-20",
+      "box": 3,
+      "due": "2026-08-26",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "aspect#6": {
@@ -4712,10 +4712,10 @@
       "introduced": true
     },
     "noun-gender#3": {
-      "box": 2,
-      "due": "2026-08-13",
+      "box": 3,
+      "due": "2026-08-26",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true
     },
     "noun-gender#4": {
@@ -5033,6 +5033,6 @@
     "weather",
     "food"
   ],
-  "lastPopQuiz": "2026-08-21",
+  "lastPopQuiz": "2026-08-22",
   "migv": 2
 }
