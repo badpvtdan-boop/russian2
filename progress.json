@@ -2919,12 +2919,12 @@
       "lastReviewed": "2026-08-28"
     },
     "716": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 1,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-08-23"
+      "lastReviewed": "2026-08-29"
     },
     "717": {
       "box": 1,
@@ -2935,12 +2935,12 @@
       "lastReviewed": "2026-08-28"
     },
     "718": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-08-23"
+      "lastReviewed": "2026-08-29"
     },
     "719": {
       "box": 3,
@@ -2951,12 +2951,12 @@
       "lastReviewed": "2026-08-28"
     },
     "720": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-08-23"
+      "lastReviewed": "2026-08-29"
     },
     "721": {
       "box": 8,
@@ -2975,12 +2975,12 @@
       "lastReviewed": "2026-08-28"
     },
     "723": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 1,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-08-23"
+      "lastReviewed": "2026-08-29"
     },
     "724": {
       "box": 3,
@@ -2991,12 +2991,12 @@
       "lastReviewed": "2026-08-28"
     },
     "725": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-08-23"
+      "lastReviewed": "2026-08-29"
     },
     "842": {
       "box": 5,
@@ -3160,11 +3160,12 @@
       "introduced": true
     },
     "864": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 1,
-      "reps": 5,
-      "introduced": true
+      "reps": 6,
+      "introduced": true,
+      "lastReviewed": "2026-08-29"
     },
     "865": {
       "box": 3,
@@ -3209,25 +3210,28 @@
       "introduced": true
     },
     "871": {
-      "box": 2,
-      "due": "2026-08-27",
-      "lapses": 2,
-      "reps": 6,
-      "introduced": true
+      "box": 1,
+      "due": "2026-08-30",
+      "lapses": 3,
+      "reps": 8,
+      "introduced": true,
+      "lastReviewed": "2026-08-29"
     },
     "872": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 2,
-      "reps": 5,
-      "introduced": true
+      "reps": 6,
+      "introduced": true,
+      "lastReviewed": "2026-08-29"
     },
     "873": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 0,
-      "reps": 2,
-      "introduced": true
+      "reps": 3,
+      "introduced": true,
+      "lastReviewed": "2026-08-29"
     },
     "874": {
       "box": 2,
@@ -3238,32 +3242,36 @@
       "lastReviewed": "2026-08-28"
     },
     "875": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 0,
-      "reps": 2,
-      "introduced": true
+      "reps": 3,
+      "introduced": true,
+      "lastReviewed": "2026-08-29"
     },
     "876": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 1,
-      "reps": 4,
-      "introduced": true
+      "reps": 5,
+      "introduced": true,
+      "lastReviewed": "2026-08-29"
     },
     "877": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 2,
-      "reps": 5,
-      "introduced": true
+      "reps": 6,
+      "introduced": true,
+      "lastReviewed": "2026-08-29"
     },
     "878": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 2,
-      "reps": 5,
-      "introduced": true
+      "reps": 6,
+      "introduced": true,
+      "lastReviewed": "2026-08-29"
     },
     "879": {
       "box": 3,
@@ -3313,12 +3321,12 @@
       "introduced": true
     },
     "885": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 3,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-08-24"
+      "lastReviewed": "2026-08-29"
     },
     "886": {
       "box": 2,
@@ -3385,12 +3393,12 @@
       "lastReviewed": "2026-08-27"
     },
     "895": {
-      "box": 2,
-      "due": "2026-08-27",
-      "lapses": 5,
-      "reps": 10,
+      "box": 1,
+      "due": "2026-08-30",
+      "lapses": 7,
+      "reps": 13,
       "introduced": true,
-      "lastReviewed": "2026-08-25"
+      "lastReviewed": "2026-08-29"
     },
     "896": {
       "box": 2,
@@ -3401,11 +3409,12 @@
       "lastReviewed": "2026-08-26"
     },
     "897": {
-      "box": 2,
-      "due": "2026-08-27",
-      "lapses": 0,
-      "reps": 2,
-      "introduced": true
+      "box": 1,
+      "due": "2026-08-30",
+      "lapses": 1,
+      "reps": 4,
+      "introduced": true,
+      "lastReviewed": "2026-08-29"
     },
     "898": {
       "box": 2,
@@ -3423,12 +3432,12 @@
       "lastReviewed": "2026-08-26"
     },
     "900": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-08-23"
+      "lastReviewed": "2026-08-29"
     },
     "901": {
       "box": 3,
@@ -3439,12 +3448,12 @@
       "lastReviewed": "2026-08-28"
     },
     "902": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-08-23"
+      "lastReviewed": "2026-08-29"
     },
     "903": {
       "box": 3,
@@ -3455,12 +3464,12 @@
       "lastReviewed": "2026-08-28"
     },
     "904": {
-      "box": 2,
-      "due": "2026-08-27",
+      "box": 3,
+      "due": "2026-09-06",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-08-23"
+      "lastReviewed": "2026-08-29"
     },
     "905": {
       "box": 3,
@@ -4839,7 +4848,7 @@
     },
     "2026-08-29": {
       "newDone": 10,
-      "reviewDone": 21,
+      "reviewDone": 40,
       "studied": true
     }
   },
