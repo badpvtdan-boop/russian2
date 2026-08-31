@@ -1347,12 +1347,12 @@
       "introduced": true
     },
     "512": {
-      "box": 8,
-      "due": "2027-08-25",
+      "box": 7,
+      "due": "2026-10-30",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-08-25"
+      "lastReviewed": "2026-08-31"
     },
     "513": {
       "box": 7,
@@ -2135,12 +2135,12 @@
       "lastReviewed": "2026-08-26"
     },
     "617": {
-      "box": 5,
-      "due": "2026-10-01",
+      "box": 6,
+      "due": "2026-09-30",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-08-26"
+      "lastReviewed": "2026-08-31"
     },
     "618": {
       "box": 5,
@@ -2167,12 +2167,12 @@
       "lastReviewed": "2026-08-21"
     },
     "621": {
-      "box": 5,
-      "due": "2026-09-05",
+      "box": 6,
+      "due": "2026-09-30",
       "lapses": 1,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-08-21"
+      "lastReviewed": "2026-08-31"
     },
     "622": {
       "box": 3,
@@ -2247,12 +2247,12 @@
       "lastReviewed": "2026-08-27"
     },
     "631": {
-      "box": 5,
-      "due": "2026-09-11",
+      "box": 6,
+      "due": "2026-09-30",
       "lapses": 1,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-08-27"
+      "lastReviewed": "2026-08-31"
     },
     "632": {
       "box": 5,
@@ -4178,11 +4178,12 @@
       "introduced": true
     },
     "1050": {
-      "box": 5,
-      "due": "2026-09-02",
+      "box": 6,
+      "due": "2026-09-30",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-08-31"
     },
     "1051": {
       "box": 3,
@@ -5405,11 +5406,12 @@
       "lastReviewed": "2026-08-18"
     },
     "genitive#2": {
-      "box": 1,
-      "due": "2026-08-15",
-      "lapses": 1,
-      "reps": 2,
-      "introduced": true
+      "box": 0,
+      "due": "2026-08-31",
+      "lapses": 2,
+      "reps": 3,
+      "introduced": true,
+      "lastReviewed": "2026-08-31"
     },
     "genitive#3": {
       "box": 0,
@@ -5499,11 +5501,12 @@
       "introduced": true
     },
     "noun-gender#3": {
-      "box": 3,
-      "due": "2026-08-26",
+      "box": 4,
+      "due": "2026-09-07",
       "lapses": 0,
-      "reps": 3,
-      "introduced": true
+      "reps": 4,
+      "introduced": true,
+      "lastReviewed": "2026-08-31"
     },
     "noun-gender#4": {
       "box": 2,
@@ -5759,11 +5762,12 @@
       "introduced": true
     },
     "present-conj#3": {
-      "box": 4,
-      "due": "2026-08-07",
+      "box": 5,
+      "due": "2026-09-15",
       "lapses": 0,
-      "reps": 4,
-      "introduced": true
+      "reps": 5,
+      "introduced": true,
+      "lastReviewed": "2026-08-31"
     },
     "present-conj#4": {
       "box": 1,
@@ -5825,6 +5829,6 @@
     "food",
     "transport"
   ],
-  "lastPopQuiz": "2026-08-30",
+  "lastPopQuiz": "2026-08-31",
   "migv": 4
 }
