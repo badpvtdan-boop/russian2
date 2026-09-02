@@ -4553,12 +4553,12 @@
       "introduced": true
     },
     "1076": {
-      "box": 2,
-      "due": "2026-08-28",
-      "lapses": 5,
-      "reps": 12,
+      "box": 1,
+      "due": "2026-09-03",
+      "lapses": 6,
+      "reps": 14,
       "introduced": true,
-      "lastReviewed": "2026-08-24"
+      "lastReviewed": "2026-09-02"
     },
     "1077": {
       "box": 3,
@@ -5144,7 +5144,7 @@
     },
     "2026-09-02": {
       "newDone": 0,
-      "reviewDone": 39,
+      "reviewDone": 40,
       "studied": true
     }
   },
