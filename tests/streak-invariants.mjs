@@ -33,15 +33,17 @@ const FNS = [
   "today", "daysAdd", "hasStudy", "laterDate", "betterCard", "newestActivity",
   "blank", "mergeStates", "creditStudyDay", "logDay", "logGrammarDay",
   "card", "gcard", "resolve", "gradeGrammarCard",
+  "loadOn", "projectedLoad", "balancedDue",
 ];
 
 // Sandbox globals the extracted functions reference.
 const sandbox = {
   S: null,
   A1_THEME_KEYS: [],
-  MIG_VERSION: 2,
-  INTERVALS: [0, 1, 2, 4, 7, 15, 30, 60],
-  KNOWN_BOX: 4,
+  // Read straight from the app so these can never drift from the shipped ladder.
+  MIG_VERSION: Number(/\bMIG_VERSION\s*=\s*(\d+)/.exec(src)[1]),
+  INTERVALS: JSON.parse(/\bINTERVALS\s*=\s*(\[[^\]]*\])/.exec(src)[1]),
+  KNOWN_BOX: Number(/\bKNOWN_BOX\s*=\s*(\d+)/.exec(src)[1]),
   save() {},            // no localStorage in Node
   refreshBadges() {},   // no DOM in Node
   renderProgress() {},  // no DOM

@@ -257,7 +257,7 @@
   <div id="done" class="card done hide">
     <h2>Done for today ✅</h2>
     <p class="muted" id="done-msg"></p>
-    <button class="ghost" id="practice-more">Keep practicing</button>
+    <button class="ghost" id="practice-more" title="Extra practice beyond today's plan — this deliberately goes past the daily 10 new / 20 review caps.">Extra practice (past today's plan)</button>
   </div>
 
   <!-- DECK PICKER (collapsible, below the drill so the words stay front and center) -->
@@ -359,7 +359,7 @@
         </div>
         <div class="tag" id="gh-status">Not configured.</div>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-08-16.2</b> · cards now stamp lastReviewed (local date) on every review; merge keeps the later date</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-08-22.2</b> · backlog fix: reviews ordered most-overdue-first, missed new words no longer eat review slots, caps rebalanced to 5 new / 40 reviews, intervals extended to a year, extra practice now serves overdue reviews first, and scheduling is load-balanced so cohorts stop returning as one lump</div>
       </div>
     </div>
   </div>
@@ -2465,9 +2465,23 @@ function anyDeckHasUnseen(){ return DECK.some(w=> !(S.cards[w.id]&&S.cards[w.id]
 function unseenInTheme(key){ return DECK.filter(w=>w.theme===key && !(S.cards[w.id]&&S.cards[w.id].introduced)).length; }
 
 /* ---------------- Config ---------------- */
-const NEW_PER_DAY = 10, REVIEW_PER_DAY = 20;
+/* These two are NOT independent. With the INTERVALS ladder below, every new word costs
+   6 reviews on its way to the top box, so N new words/day generates ~6N reviews/day forever.
+   The old 10/20 pair was a 3x structural deficit: it could only ever sustain ~3.3 new words
+   a day, and the difference piled up as an unclearable backlog. Keep REVIEW_PER_DAY >= 6-8x
+   NEW_PER_DAY, or the debt comes back. */
+const NEW_PER_DAY = 5, REVIEW_PER_DAY = 40;
 const GRAMMAR_PER_DAY = 15;               // max grammar-review items surfaced per day
-const INTERVALS = [0,1,2,4,7,15,30,60];   // days by box
+/* Backlog controls. A due pile bigger than REVIEW_PER_DAY can ever clear is a trap: the
+   home card reads "Review 20" every day forever while the pile keeps growing. These bound it. */
+const BACKLOG_PAUSE_NEW = 40;             // due pile above this (2 days' worth) = no new words today
+const BACKLOG_CATCHUP_PER_DAY = 12;       // overdue cards folded back in per day by the v3 spread
+const BACKLOG_MAX_HORIZON = 45;           // ...but never spread further out than this many days
+/* Days by box. The long tail matters: capping at 60 days meant a mature 4,000-word deck
+   would still demand ~65 reviews/day just for maintenance. Reaching out to a year drops that
+   ~4x, at the cost of one extra review per word to fully mature. Existing saves need no
+   migration — a card's box number keeps its meaning, the upper rungs just space out. */
+const INTERVALS = [0,1,3,7,16,35,75,160,365];   // days by box
 const KNOWN_BOX = 4;                        // box>=4 counts as "known"
 const CEFR = [                              // rough known-word thresholds
   {band:"A1",min:0},{band:"A2",min:400},{band:"B1",min:1000},{band:"B2",min:2000}
@@ -2485,18 +2499,77 @@ function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLev
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* One-time upgrades applied to an existing save. Keyed by migv so each runs once and
    never touches cards / lessons / streak — only the specific fields it names. */
-const MIG_VERSION=2;
+const MIG_VERSION=4;
 /* Decide from the RAW saved object (before blank() fills defaults), so an existing
    pre-v2 save is detected even though blank() now carries migv. */
 function migrate(s, raw){
+  let touched=false;
   if((raw.migv||0) < 2){
     // v2 — A1 proficiency reset: drill the new A1 categories, and re-earn the A1 exam.
     s.activeThemes = A1_THEME_KEYS.slice();
     if(s.exams && s.exams.A1){ s.exams.A1.passed=false; s.exams.A1.best=0; }
-    s.migv = 2;
-    try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){}
+    s.migv = 2; touched=true;
   }
+  if((raw.migv||0) < 3){
+    // v3 — backlog amnesty. Reviews went unlogged for two weeks (a since-fixed bug in
+    // resolve()), leaving a due pile several hundred deep. At REVIEW_PER_DAY that pile can
+    // never be cleared, so "Review 20 due today" would show every day forever. Redistribute
+    // the OVERDUE cards across the next few weeks, weakest boxes soonest. Nothing is lost:
+    // box, reps and lapses are untouched — only `due` moves, and only forward.
+    spreadBacklog(s);
+    s.migv = 3; touched=true;
+  }
+  if((raw.migv||0) < 4){
+    // v4 — one-time smoothing of the schedule that already exists. Load balancing (see
+    // balancedDue) only shapes cards as they come up for review, so days already stacked
+    // above the cap stay stacked for weeks. This levels them once, up front.
+    rebalanceSchedule(s);
+    s.migv = 4; touched=true;
+  }
+  if(touched){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} }
   return s;
+}
+/* Level days that are already scheduled above the daily cap by nudging their overflow onto
+   nearby lighter days — the same small shift balancedDue() applies going forward, applied
+   once to the existing schedule. Never moves a card earlier than tomorrow, and never further
+   than its own slack, so no card is meaningfully rescheduled. */
+function rebalanceSchedule(s){
+  const t=today(), cards=(s&&s.cards)||{};
+  const ids=Object.keys(cards)
+    .filter(id=>{const c=cards[id]; return c && c.introduced && c.due && c.due > t;})
+    .sort((a,b)=>String(cards[a].due).localeCompare(String(cards[b].due)) || (+a)-(+b));
+  const load={};
+  ids.forEach(id=>{ const d=cards[id].due; load[d]=(load[d]||0)+1; });
+  ids.forEach(id=>{
+    const c=cards[id], d=c.due;
+    if((load[d]||0) <= REVIEW_PER_DAY) return;             // this day is already fine
+    const iv=INTERVALS[Math.min(c.box||0, INTERVALS.length-1)] || 1;
+    const slack=Math.min(3, Math.max(1, Math.round(iv*0.15)));
+    let best=d, bestN=load[d];
+    for(let k=-slack;k<=slack;k++){
+      if(!k) continue;
+      const nd=daysAdd(d,k);
+      if(nd<=t) continue;                                   // never pull a card into today
+      const n=load[nd]||0;
+      if(n<bestN){ best=nd; bestN=n; }
+    }
+    if(best!==d){ load[d]--; load[best]=(load[best]||0)+1; c.due=best; }
+  });
+}
+/* Fold an unclearable overdue pile back into a schedule the daily cap can actually keep up
+   with. Weakest cards (lowest box, then most overdue) come back first. Cards already due
+   today or later are left exactly where they are. */
+function spreadBacklog(s){
+  const t=today(), cards=(s&&s.cards)||{};
+  const overdue=Object.keys(cards).filter(id=>{
+    const c=cards[id]; return c && c.introduced && c.due && c.due < t;
+  }).sort((a,b)=>{
+    const x=cards[a], y=cards[b];
+    return (x.box||0)-(y.box||0) || String(x.due).localeCompare(String(y.due)) || (+a)-(+b);
+  });
+  if(overdue.length <= REVIEW_PER_DAY) return;   // a normal day or two behind — leave it alone
+  const perDay=Math.max(BACKLOG_CATCHUP_PER_DAY, Math.ceil(overdue.length/BACKLOG_MAX_HORIZON));
+  overdue.forEach((id,i)=>{ cards[id].due = daysAdd(t, Math.floor(i/perDay)); });
 }
 let S = load();
 function load(){try{
@@ -2515,17 +2588,60 @@ function card(id){ if(!S.cards[id]) S.cards[id]={box:0,due:today(),lapses:0,reps
 function daysAdd(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);}
 function knownCount(){return Object.values(S.cards).filter(c=>c.introduced&&c.box>=KNOWN_BOX).length;}
 
+/* Every introduced card whose due date has arrived — MOST OVERDUE FIRST, weakest box first
+   inside a day. The order is load-bearing: buildQueue only ever serves the first
+   REVIEW_PER_DAY of these, so the old deck-order slice stranded every high-id card behind a
+   large backlog and re-served the same low-id words day after day. */
+function dueReviewIds(){
+  const t=today();
+  return DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;})
+             .sort((a,b)=>{
+               const x=S.cards[a.id], y=S.cards[b.id];
+               return String(x.due).localeCompare(String(y.due)) || (x.box||0)-(y.box||0) || a.id-b.id;
+             })
+             .map(w=>w.id);
+}
+function dueReviewCount(){ return dueReviewIds().length; }
+/* How many introduced cards are already parked on an exact day. */
+function loadOn(d){ let n=0; for(const id in S.cards){ const c=S.cards[id]; if(c.introduced&&c.due===d) n++; } return n; }
+/* Everything that will be due on or before `d`, net of what today's cap can clear — i.e. the
+   pile you'd actually face on that day if you finish today's session. */
+function projectedLoad(d){
+  let n=0; for(const id in S.cards){ const c=S.cards[id]; if(c.introduced&&c.due<=d) n++; }
+  return Math.max(0, n-REVIEW_PER_DAY);
+}
+/* Spaced repetition naturally schedules whole cohorts onto the same day — every card answered
+   together comes back together — which is how a 40-card cap turns into a 70-card day. Nudge
+   each card to the lightest day in a small window around its ideal interval. The shift is at
+   most 15% of the interval and never more than 3 days, well inside the noise of any SM-2-style
+   ladder, but it flattens the waves permanently instead of one backlog at a time. */
+function balancedDue(box){
+  const iv=INTERVALS[Math.min(box, INTERVALS.length-1)];
+  const ideal=daysAdd(today(), iv);
+  if(iv<=1) return ideal;                       // too tight to move without changing the drill
+  const slack=Math.min(3, Math.max(1, Math.round(iv*0.15)));
+  let best=ideal, bestN=loadOn(ideal);
+  for(let k=-slack;k<=slack;k++){
+    if(!k) continue;
+    const d=daysAdd(today(), Math.max(1, iv+k));
+    const n=loadOn(d);
+    if(n<bestN){ best=d; bestN=n; }
+  }
+  return best;
+}
+/* New words are gated behind the review backlog, as the spec always intended. Deep in debt,
+   introducing more would only grow the pile you can't clear. */
+function newAllowedToday(){ return dueReviewCount() > BACKLOG_PAUSE_NEW ? 0 : NEW_PER_DAY; }
+
 function buildQueue(){
   const t=today();
   const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
-  // due reviews among introduced cards
-  let reviews=DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;})
-                  .map(w=>w.id);
-  reviews=reviews.slice(0,Math.max(0,REVIEW_PER_DAY-log.reviewDone));
+  // due reviews among introduced cards, most overdue first
+  let reviews=dueReviewIds().slice(0,Math.max(0,REVIEW_PER_DAY-log.reviewDone));
   // new words not yet introduced, limited to active decks, easiest (lowest tier) first
   let news=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced) && deckActive(w))
                .sort((a,b)=>a.tier-b.tier||a.id-b.id).map(w=>w.id);
-  news=news.slice(0,Math.max(0,NEW_PER_DAY-log.newDone));
+  news=news.slice(0,Math.max(0,newAllowedToday()-log.newDone));
   // reviews first, then new
   return reviews.concat(news).map(id=>({id,isNew:!(S.cards[id]&&S.cards[id].introduced),firstTry:true}));
 }
@@ -2664,16 +2780,39 @@ const $=id=>document.getElementById(id);
 
 function startSession(extra){
   if(extra){
-    // "Keep practicing": pull the NEXT batch of never-seen words (active decks, easiest first)
-    let fresh=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced) && deckActive(w))
-                  .sort((a,b)=>a.tier-b.tier||a.id-b.id).map(w=>w.id);
-    if(fresh.length){
-      queue=fresh.slice(0,NEW_PER_DAY).map(id=>({id,isNew:true,firstTry:true}));
-    } else {
-      // whole deck seen — fall back to a shuffled review of everything
-      queue=shuffle(DECK.filter(w=>S.cards[w.id]&&S.cards[w.id].introduced))
-                    .map(w=>({id:w.id,isNew:false,firstTry:true}));
+    /* EXTRA PRACTICE — work beyond today's plan, in the order that actually helps.
+       This used to hand back unseen words whenever ANY remained, and the deck holds ~2,000
+       words against a few hundred introduced, so it never once served an overdue review and
+       it silently bypassed the new-word backlog gate: the button undid the very pause meant
+       to stop the pile growing. Priority now:
+         1. reviews that are due but fell past today's cap — being behind IS the reason to do extra
+         2. new words, but only while the backlog gate is open
+         3. otherwise the nearest not-yet-due cards, reviewed a little early
+       Bounded to one session's worth in every branch. */
+    const t=today();
+    const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
+    const o=owedToday();
+    // skip the part of the due pile today's plan already covers; the rest is genuine extra
+    let picks=dueReviewIds().slice(Math.max(0,REVIEW_PER_DAY-log.reviewDone))
+                            .slice(0,REVIEW_PER_DAY)
+                            .map(id=>({id,isNew:false,firstTry:true}));
+    /* Today's new words land on TOMORROW's pile (box 1 is a 1-day interval), so "nothing is
+       due right now" is the wrong question to ask before handing out more. Unchecked, that
+       turned a fully cleared day into a 69-card tomorrow. Look at where the words land. */
+    const tomorrowClear = projectedLoad(daysAdd(t,1)) < REVIEW_PER_DAY;
+    if(!o.newsPaused && tomorrowClear){
+      const fresh=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced) && deckActive(w))
+                      .sort((a,b)=>a.tier-b.tier||a.id-b.id).map(w=>w.id);
+      picks=picks.concat(fresh.slice(0,NEW_PER_DAY).map(id=>({id,isNew:true,firstTry:true})));
     }
+    if(!picks.length){
+      // nothing due and no new words available (gate closed or deck exhausted): review early
+      picks=DECK.filter(w=>S.cards[w.id]&&S.cards[w.id].introduced)
+                .sort((a,b)=>String(S.cards[a.id].due).localeCompare(String(S.cards[b.id].due))||a.id-b.id)
+                .slice(0,REVIEW_PER_DAY)
+                .map(w=>({id:w.id,isNew:false,firstTry:true}));
+    }
+    queue=picks;
   } else {
     queue=buildQueue();
   }
@@ -2758,15 +2897,18 @@ function resolve(ok){
   c.lastReviewed=today();   // local YYYY-MM-DD; a review happened (correct or not)
   if(ok){
     // advance
-    if(!c.introduced){ c.introduced=true; logDay(cur.isNew); }
-    else if(!cur.isNew){ logDay(false); }   // a completed review logs reviewDone + credits the day
+    /* Log this card ONCE. A missed new word is introduced (and logged as new) on the miss,
+       then requeued with isNew=false — without the `logged` latch its eventual correct answer
+       fell through to logDay(false) and silently ate one of the day's 20 review slots. */
+    if(!c.introduced){ c.introduced=true; logDay(true); cur.logged=true; }
+    else if(!cur.logged){ logDay(false); cur.logged=true; }   // a completed review logs reviewDone
     c.box=Math.min(c.box+1, INTERVALS.length-1);
-    c.due=daysAdd(today(), INTERVALS[c.box]);
+    c.due=balancedDue(c.box);
     queue.shift();                    // leaves today's queue
     sessionDone++;
   }else{
     c.box=0; c.due=today(); c.lapses++;
-    if(!c.introduced){ c.introduced=true; logDay(cur.isNew); } // count the intro
+    if(!c.introduced){ c.introduced=true; logDay(true); cur.logged=true; } // count the intro, once
     // relentless: requeue to the back, no longer "new" prompt
     const item=queue.shift(); item.isNew=false; item.firstTry=false; queue.push(item);
   }
@@ -2838,17 +2980,18 @@ function refreshBadges(){
 function updateBanner(){
   const t=today();
   const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
-  // count debt = due reviews not done + new not done
-  const dueRev=DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;}).length;
-  const owedRev=Math.max(0,Math.min(REVIEW_PER_DAY,dueRev)-log.reviewDone);
-  const owedNew=Math.max(0,Math.min(NEW_PER_DAY-log.newDone, availNewCount()));
+  const o=owedToday();
   const b=$("banner");
-  if(owedRev+owedNew>0 && (log.newDone+log.reviewDone>0 || S.lastCompleted && S.lastCompleted!==t)){
+  const parts=[];
+  if(o.new>0) parts.push(o.new+" new");
+  if(o.rev>0) parts.push(o.rev+" review"+(o.rev===1?"":"s"));
+  if(parts.length){
+    const started = (log.newDone+log.reviewDone>0) || (S.lastCompleted && S.lastCompleted!==t);
     b.style.display="block";
-    b.textContent=`📌 Owed today: ${owedNew} new + ${owedRev} review${owedRev===1?"":"s"}.`;
-  }else if(owedRev+owedNew>0){
+    b.textContent=(started?"📌 Owed today: ":"Today's goal: ")+parts.join(" + ")+".";
+  }else if(o.newsPaused){
     b.style.display="block";
-    b.textContent=`Today's goal: ${owedNew} new + ${owedRev} review${owedRev===1?"":"s"}.`;
+    b.textContent=`✅ Today's reviews are done. New words stay paused until the due pile drops below ${BACKLOG_PAUSE_NEW} — ${o.dueRev} still due.`;
   }else{ b.style.display="none"; }
 }
 
@@ -4209,11 +4352,12 @@ function currentStepIndex(){ for(let i=0;i<CURRICULUM.length;i++){ const s=CURRI
 
 function owedToday(){
   const t=today(); const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
-  const dueRev=DECK.filter(w=>{const c=S.cards[w.id];return c&&c.introduced&&c.due<=t;}).length;
+  const dueRev=dueReviewCount();
   const availNew=availNewCount();
+  const newCap=newAllowedToday();
   return { rev:Math.max(0,Math.min(REVIEW_PER_DAY,dueRev)-log.reviewDone),
-           new:Math.max(0,Math.min(NEW_PER_DAY-log.newDone, availNew)),
-           availNew };
+           new:Math.max(0,Math.min(newCap-log.newDone, availNew)),
+           availNew, dueRev, newsPaused:newCap===0 };
 }
 function goDrill(extra){ showView("drill"); startSession(extra); }
 
@@ -4228,6 +4372,15 @@ function nextAction(){
   if(step && step.type==="words"){
     if(o.new>0) return {title:`Learn today's ${o.new} new words`,
       sub:`${step.title} — ${introducedCount()}/${step.target} met · ${knownCount()} known so far.`, cta:"Start drill →", run:()=>goDrill(false)};
+    if(o.newsPaused){
+      const lp=LESSONS.find(l=>(BAND_LESSONS[step.band]||[]).includes(l.id)&&!lessonDoneId(l.id));
+      if(lp) return {title:"Lesson: "+lp.title,
+        sub:`Today's reviews are done. New words are paused while you clear the backlog (${o.dueRev} still due) — grammar in the meantime.`,
+        cta:"Open lesson →", run:()=>{ showView("lessons"); openLesson(lp.id); }};
+      return {title:"Today's reviews are done ✅",
+        sub:`New words are paused until the due pile drops below ${BACKLOG_PAUSE_NEW} — ${o.dueRev} still due. Clearing ${REVIEW_PER_DAY} a day is the fastest way out; come back tomorrow.`,
+        cta:"", run:null};
+    }
     if(o.availNew===0 && anyDeckHasUnseen()) return {title:"You've learned every word in your active decks",
       sub:`Nice work — nothing new left to introduce here. Turn on another deck to keep building toward ${step.target} words.`,
       cta:"Choose a deck →", run:()=>showView("drill")};

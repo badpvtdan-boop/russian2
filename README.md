@@ -14,7 +14,10 @@ Everything runs locally; progress is saved in the browser and synced to GitHub.
 
 - **Home** — a "Next up" recommender and a guided path (vocab milestones + grammar units).
 - **Drill** — spaced repetition over a 160-word deck (50 nouns w/ gender, 50 verbs w/ aspect,
-  60 adjectives). 10 new + 20 review per day; misses come back until answered. Multiple-choice
+  60 adjectives). 5 new + 40 review per day (see the load invariant below); reviews are served
+  most-overdue-first, due dates are load-balanced so cohorts don't all return on the same day,
+  and misses come back until answered. "Extra practice" serves overdue reviews before new
+  words, and won't introduce new words into an already-overloaded tomorrow. Multiple-choice
   or typed input with an on-screen Cyrillic keyboard. Lenient grading. Audio via browser TTS.
 - **Lessons** — explain → practice → scored test (75% to pass). Units: Prepositional case,
   Accusative case, Verb aspect, Verbs of motion.
@@ -40,6 +43,21 @@ use the app. So:
 4. **Any new field added to the saved state (`blank()`) MUST be added to `mergeStates()` in the
    same change** — merge is the only safety layer now; a field it doesn't handle is silently
    reset on every sync.
+5. **`REVIEW_PER_DAY` and `NEW_PER_DAY` are not independent.** With the `INTERVALS` ladder,
+   every new word costs `INTERVALS.length - 2` reviews on its way to the top box, so N new
+   words a day generates that many times N reviews a day *forever*. The original 10/20 pair
+   was a 3x deficit — it could only ever sustain ~3.3 new words a day, and the difference
+   piled up as a backlog no daily cap could clear. If you raise `NEW_PER_DAY`, raise
+   `REVIEW_PER_DAY` with it; `tests/backlog-invariants.mjs` fails if you don't.
+
+## Tests
+
+    node tests/streak-invariants.mjs
+    node tests/backlog-invariants.mjs
+
+Both extract the real function bodies out of `russian-trainer.html` and run them in a Node vm,
+so they exercise the shipped code rather than a copy that can drift. Run them after touching
+the SRS engine, the daily caps, or `mergeStates`.
 
 ## Authoring lesson & story content
 
