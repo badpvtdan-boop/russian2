@@ -20,7 +20,10 @@ Everything runs locally; progress is saved in the browser and synced to GitHub.
   words, and won't introduce new words into an already-overloaded tomorrow. Multiple-choice
   or typed input with an on-screen Cyrillic keyboard. Lenient grading. Audio via browser TTS.
 - **Lessons** — explain → practice → scored test (75% to pass). Units: Prepositional case,
-  Accusative case, Verb aspect, Verbs of motion.
+  Accusative case, Verb aspect, Verbs of motion. A lesson carrying too much for one screen can
+  instead declare `steps`: a sequence of one-idea chunks, each immediately practising the point
+  it just taught, followed by a `recap` and then the same graded test. Lessons without `steps`
+  keep the original single-screen flow untouched.
 
 ## Data & sync
 
@@ -54,10 +57,12 @@ use the app. So:
 
     node tests/streak-invariants.mjs
     node tests/backlog-invariants.mjs
+    node tests/lesson-invariants.mjs
 
-Both extract the real function bodies out of `russian-trainer.html` and run them in a Node vm,
-so they exercise the shipped code rather than a copy that can drift. Run them after touching
-the SRS engine, the daily caps, or `mergeStates`.
+All three read the real code out of `russian-trainer.html` and run it in a Node vm, so they
+exercise what ships rather than a copy that can drift. Run the first two after touching the
+SRS engine, the daily caps, or `mergeStates`; run the third after touching lesson content or
+the lesson runner.
 
 ## Authoring lesson & story content
 

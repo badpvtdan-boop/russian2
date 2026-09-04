@@ -133,6 +133,14 @@
   .lesson-body th{background:var(--panel2)}
   .lesson-body .ru{color:var(--accent);font-weight:600}
   .stage-dots{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+  /* Stepped-lesson progress. One segment per idea plus a final segment for the recap,
+     so a long unit reads as a short walk instead of one undifferentiated wall. */
+  .lprog{display:flex;gap:4px;margin:-4px 0 16px}
+  .lprog i{flex:1;height:4px;border-radius:2px;background:var(--line)}
+  .lprog i.done{background:var(--accent)}
+  .lprog i.now{background:var(--accent);opacity:.45}
+  .step-note{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+    padding:10px 14px;margin:14px 0 0;font-size:15px;color:var(--muted)}
   .lopt{display:block;width:100%;text-align:left;font-size:18px;padding:12px 14px;margin-bottom:8px}
   .lopt:hover{color:var(--text)}
   .lopt:disabled{cursor:default}
@@ -359,7 +367,7 @@
         </div>
         <div class="tag" id="gh-status">Not configured.</div>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-08-22.2</b> · backlog fix: reviews ordered most-overdue-first, missed new words no longer eat review slots, caps rebalanced to 5 new / 40 reviews, intervals extended to a year, extra practice now serves overdue reviews first, and scheduling is load-balanced so cohorts stop returning as one lump</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-09-04.1</b> · lessons can now be taught as a series of small steps — one idea, then practice on just that idea, then the next — with a recap before the graded test. Prefixes That Change Meaning is the first unit rebuilt this way (7 steps, 16 practice questions). The test itself is unchanged.</div>
       </div>
     </div>
   </div>
@@ -3479,6 +3487,147 @@ const LESSONS=[{
   title:"Prefixes That Change Meaning",
   subtitle:"приста́вки · where the perfective comes from (part 2)",
   level:"A2",
+  /* Taught as SEVEN small ideas rather than one screen. This unit carries ~15 separate facts
+     (two tables plus a mechanism), and as a single wall it had no checkpoint until the graded
+     test — you found out it hadn't landed only at the end. Each step below teaches one point
+     and practises just that point. `explanation` and `practice` below are the legacy
+     single-screen versions, kept as a fallback; the runner uses `steps` whenever present.
+     Practice is deliberately weighted toward the direction and amount prefixes, because six
+     of the eight graded questions come from those two ideas. */
+  steps:[
+    {
+      title:"A prefix can build a whole new verb",
+      html:`
+        <p>Last lesson the prefix was <b>empty</b> — it only stamped "completed." <span class="ru">писа́ть</span> → <span class="ru">написа́ть</span> is still just "write."</p>
+        <p>This lesson is the prefix's <b>other job</b>: carrying real meaning and building a <b>brand-new verb</b>.</p>
+        <p style="font-size:19px"><span class="ru">писа́ть</span> (write) → <span class="ru">записа́ть</span> (write <b>down</b> / record)</p>
+        <p>That is not "write, finished." It is a different action. The prefix <span class="ru">за-</span> did that.</p>`,
+      note:"One more thing to file away: adding a prefix always makes the verb <b>perfective</b>. That matters in the next step.",
+      practice:[
+        {q:"записа́ть means…",opts:["write down / record","write (just finish)","rewrite","sign"],a:0,why:"за- adds the sense 'down / onto' → записа́ть = write it down."},
+        {q:"Add a meaning-bearing prefix to a verb and the verb you get is…",opts:["perfective","imperfective","reflexive","past tense"],a:0,why:"A prefix always makes it perfective — which is exactly why you then have to rebuild an imperfective."}
+      ]
+    },
+    {
+      title:"Getting an imperfective back: -ыва- / -ива-",
+      html:`
+        <p><span class="ru">записа́ть</span> is perfective — one completed act. So how do you say it as a <b>process</b> or a <b>habit</b>? "I <i>was</i> writing it down." "I write things down."</p>
+        <p>You can't just drop the prefix — that hands you back plain <span class="ru">писа́ть</span> ("write"), and you've lost the "down."</p>
+        <p>Instead you <b>rebuild</b> the imperfective with a suffix, usually <b class="ru">-ыва-</b> / <b class="ru">-ива-</b>:</p>
+        <table>
+          <tr><th>Perfective</th><th>Rebuilt imperfective</th></tr>
+          <tr><td class="ru">записа́ть</td><td class="ru">запи́сывать</td></tr>
+          <tr><td class="ru">подписа́ть</td><td class="ru">подпи́сывать</td></tr>
+          <tr><td class="ru">переписа́ть</td><td class="ru">перепи́сывать</td></tr>
+        </table>
+        <p>So each meaning prefix gives you a <b>whole new aspect pair</b>.</p>`,
+      practice:[
+        {q:"To turn the perfective подписа́ть into an imperfective, you…",opts:["add a suffix: подпи́сывать","drop the prefix","add -ся","change the gender"],a:0,why:"Meaning-prefix perfectives rebuild their imperfective with -ыва- / -ива-."},
+        {q:"запи́сывать is…",opts:["imperfective — the process or the habit","perfective — one completed act","a past tense","a reflexive verb"],a:0,why:"The -ыва- suffix is what rebuilt it as the imperfective half of the pair."}
+      ]
+    },
+    {
+      title:"One root, six verbs",
+      html:`
+        <p>Now watch how far a single root stretches once prefixes carry meaning. All of these are <span class="ru">писа́ть</span>:</p>
+        <table>
+          <tr><th>Verb (pf / impf)</th><th>Prefix sense</th><th>Meaning</th></tr>
+          <tr><td class="ru">написа́ть</td><td>— (empty)</td><td>write (just finish)</td></tr>
+          <tr><td class="ru">записа́ть / запи́сывать</td><td class="ru">за- (down/onto)</td><td>write down, record</td></tr>
+          <tr><td class="ru">подписа́ть / подпи́сывать</td><td class="ru">под- (under)</td><td>sign</td></tr>
+          <tr><td class="ru">переписа́ть / перепи́сывать</td><td class="ru">пере- (re-/over)</td><td>rewrite, copy over</td></tr>
+          <tr><td class="ru">вы́писать / выпи́сывать</td><td class="ru">вы- (out)</td><td>write out, copy out</td></tr>
+          <tr><td class="ru">описа́ть / опи́сывать</td><td class="ru">о- (around/about)</td><td>describe</td></tr>
+        </table>
+        <p>Six meanings from one root — every difference coming from the prefix. <span class="ru">подписа́ть</span> is worth a second look: your name goes <i>under</i> the document, so <span class="ru">под-</span> ("under") = sign.</p>`,
+      practice:[
+        {q:"переписа́ть means…",opts:["rewrite / copy over","write down","sign","describe"],a:0,why:"пере- = re- / over → rewrite, copy over."},
+        {q:"подписа́ть means…",opts:["sign","write down","rewrite","describe"],a:0,why:"под- (under) + писа́ть → put your name under it = sign."}
+      ]
+    },
+    {
+      title:"Direction prefixes, part 1 — coming and going",
+      html:`
+        <p>A big group of prefixes is simply <b>spatial</b>. They're easiest to see on <span class="ru">идти́</span> (to go), where the prefix is doing nothing but pointing:</p>
+        <table>
+          <tr><th>Prefix</th><th>Sense</th><th>Verb</th></tr>
+          <tr><td class="ru">при-</td><td>arrival</td><td class="ru">прийти́ — arrive</td></tr>
+          <tr><td class="ru">у-</td><td>away / off</td><td class="ru">уйти́ — leave</td></tr>
+          <tr><td class="ru">в- / во-</td><td>into</td><td class="ru">войти́ — go in, enter</td></tr>
+          <tr><td class="ru">вы-</td><td>out</td><td class="ru">вы́йти — go out</td></tr>
+        </table>
+        <p>Two opposite pairs: <span class="ru">при-</span> / <span class="ru">у-</span> (arriving vs leaving) and <span class="ru">в-</span> / <span class="ru">вы-</span> (in vs out).</p>`,
+      practice:[
+        {q:"The prefix у- (as in уйти́) means…",opts:["away / off","arrival","into","across"],a:0,why:"у- = leaving, going away. Its opposite is при- (arrival)."},
+        {q:"Which prefix means 'arrival'?",opts:["при- (прийти́)","у- (уйти́)","вы- (вы́йти)","пере- (перейти́)"],a:0,why:"при- = arrival — coming to where you are."},
+        {q:"войти́ means…",opts:["go in / enter","go out","approach","leave"],a:0,why:"в- / во- = into. Its opposite, вы́йти, is going out."},
+        {q:"вы́йти means…",opts:["go out","go in","cross","approach"],a:0,why:"вы- = out. Same вы- as вы́писать, to write out."}
+      ]
+    },
+    {
+      title:"Direction prefixes, part 2 — под- and пере-",
+      html:`
+        <p>Two more spatial prefixes deserve their own look, because you've <b>already met them</b> on <span class="ru">писа́ть</span>:</p>
+        <table>
+          <tr><th>Prefix</th><th>Sense</th><th>On идти́</th><th>On писа́ть</th></tr>
+          <tr><td class="ru">под-</td><td>up to / under</td><td class="ru">подойти́ — approach</td><td class="ru">подписа́ть — sign</td></tr>
+          <tr><td class="ru">пере-</td><td>across / over again</td><td class="ru">перейти́ — cross</td><td class="ru">переписа́ть — rewrite</td></tr>
+        </table>
+        <p>Same prefix, same core sense, different root. That's the whole system working: learn the prefix once and you can guess at it on verbs you've never seen.</p>`,
+      practice:[
+        {q:"подойти́ means…",opts:["approach / come up to","cross","leave","arrive"],a:0,why:"под- = up to. The same под- puts your name under a document in подписа́ть."},
+        {q:"Which prefix means 'across' or 're-do'?",opts:["пере- (перейти́, переписа́ть)","при-","по-","у-"],a:0,why:"пере- = across (cross a street) or over again (rewrite)."}
+      ]
+    },
+    {
+      title:"Amount-of-action prefixes — по-, за-, до-",
+      html:`
+        <p>This group doesn't move anything through space. Instead it shapes <b>how much of the action happens</b> — where it starts, how long it runs, whether it reaches the end:</p>
+        <table>
+          <tr><th>Prefix</th><th>Sense</th><th>Example</th></tr>
+          <tr><td class="ru">по-</td><td>a little / for a while</td><td class="ru">поговори́ть — talk for a while</td></tr>
+          <tr><td class="ru">за-</td><td>start doing it</td><td class="ru">заговори́ть — start talking</td></tr>
+          <tr><td class="ru">до-</td><td>carry through to the end</td><td class="ru">дочита́ть — read to the end, finish reading</td></tr>
+        </table>
+        <p>All three on one verb: <span class="ru">поговори́ть</span> (talk a bit) · <span class="ru">заговори́ть</span> (start talking) · and with reading, <span class="ru">дочита́ть</span> (get to the last page).</p>`,
+      practice:[
+        {q:"заговори́ть means…",opts:["start talking","talk a while","finish talking","talk across"],a:0,why:"за- marks the START of the action."},
+        {q:"дочита́ть means…",opts:["finish reading (read to the end)","start reading","re-read","read a little"],a:0,why:"до- = carry it through to the end point."},
+        {q:"The prefix по- often adds the sense of…",opts:["a little / for a while (поговори́ть)","arrival","out of","across"],a:0,why:"по- + a verb = do a bit of it, for a while."}
+      ]
+    },
+    {
+      title:"The catch: the same prefix can do either job",
+      html:`
+        <p>Here's what ties both lessons together, and it's the part worth slowing down for.</p>
+        <p>The <i>same</i> prefix can be <b>empty</b> on one verb and <b>meaningful</b> on another:</p>
+        <table>
+          <tr><th>Verb</th><th>What по- does</th></tr>
+          <tr><td class="ru">стро́ить → постро́ить</td><td><b>empty</b> — still just "build," now finished</td></tr>
+          <tr><td class="ru">говори́ть → поговори́ть</td><td><b>meaning</b> — "talk <i>for a while</i>"</td></tr>
+        </table>
+        <p>So you can never judge a prefix in the abstract. You judge it <b>on each verb</b>.</p>
+        <h3>Your check, same as last lesson</h3>
+        <p><b>Does the prefixed verb still mean the same thing?</b> <span class="ru">написа́ть</span> = write (same meaning → empty prefix). <span class="ru">записа́ть</span> = write <i>down</i> (new meaning → a meaning prefix). Same base verb, two very different prefixes.</p>`,
+      practice:[
+        {q:"постро́ить and поговори́ть — the по- is…",opts:["empty in постро́ить, but adds 'for a while' in поговори́ть","meaningful in both","empty in both","the other way round"],a:0,why:"Same prefix, different job depending on the verb — which is why you judge it per verb."},
+        {q:"написа́ть vs записа́ть — the difference is…",opts:["написа́ть just completes 'write'; записа́ть means 'write down' (new meaning)","they are identical","both mean 'sign'","both are imperfective"],a:0,why:"An empty prefix keeps the meaning; a meaning prefix builds a new verb."}
+      ]
+    }
+  ],
+  recap:`
+    <p>Seven ideas, one page. This is the whole unit — skim it before the test.</p>
+    <table>
+      <tr><th>The idea</th><th>In short</th></tr>
+      <tr><td>1 · A new verb</td><td><span class="ru">писа́ть</span> → <span class="ru">записа́ть</span> (write down). The prefix carries meaning and builds a different verb — always <b>perfective</b>.</td></tr>
+      <tr><td>2 · Imperfective back</td><td>Rebuild it with <b class="ru">-ыва- / -ива-</b>: <span class="ru">записа́ть → запи́сывать</span>. Never by dropping the prefix.</td></tr>
+      <tr><td>3 · One root, many verbs</td><td><span class="ru">написа́ть · записа́ть · подписа́ть · переписа́ть · вы́писать · описа́ть</span> — six meanings from one root.</td></tr>
+      <tr><td>4 · Direction I</td><td><span class="ru">при-</span> arrive · <span class="ru">у-</span> away · <span class="ru">в-</span> into · <span class="ru">вы-</span> out</td></tr>
+      <tr><td>5 · Direction II</td><td><span class="ru">под-</span> up to / under (подойти́, подписа́ть) · <span class="ru">пере-</span> across / re-do (перейти́, переписа́ть)</td></tr>
+      <tr><td>6 · Amount of action</td><td><span class="ru">по-</span> a while · <span class="ru">за-</span> start · <span class="ru">до-</span> to the end</td></tr>
+      <tr><td>7 · The catch</td><td>The same prefix can be empty on one verb and meaningful on another (<span class="ru">постро́ить</span> vs <span class="ru">поговори́ть</span>). Judge it per verb.</td></tr>
+    </table>
+    <p><b>The one question to carry into the test:</b> does the prefixed verb still mean the same thing? Same meaning → empty prefix. New meaning → a meaning prefix.</p>`,
   explanation:`
     <p>Last lesson the prefix was <b>empty</b> — it only stamped "completed." This lesson is the prefix's <b>other job</b>: carrying real meaning and building a <b>brand-new verb</b>. Same small set of prefixes — but now they <i>mean</i> something.</p>
     <h3>The mechanism</h3>
@@ -3843,6 +3992,7 @@ const LESSONS=[{
 const PASS=0.75;
 
 let curLesson=null, stage=null, pIdx=0, tIdx=0, tScore=0, sqIdx=0, sqScore=0;
+let sIdx=0;   // which idea of a stepped lesson we're on
 
 function lessonRec(id){ if(!S.lessons[id]) S.lessons[id]={done:false,best:0}; return S.lessons[id]; }
 
@@ -3874,9 +4024,25 @@ function renderLessons(){
   });
 }
 
+/* A lesson may declare `steps`: a sequence of one-idea chunks, each teaching a single
+   point and immediately practising just that point. Lessons without `steps` keep the
+   original one-screen explain -> practice -> test flow, untouched. */
+function lessonSteps(L){ return (L && L.steps && L.steps.length) ? L.steps : null; }
+/* Segments = one per idea, plus a final one for the recap. */
+function stepProgress(n,total){
+  let s='<div class="lprog" aria-hidden="true">';
+  for(let i=0;i<total;i++) s+='<i class="'+(i<n?"done":(i===n?"now":""))+'"></i>';
+  return s+"</div>";
+}
+function advanceStep(){
+  const steps=lessonSteps(curLesson);
+  if(sIdx < steps.length-1){ sIdx++; stage="stepLearn"; }
+  else { stage = curLesson.recap ? "recap" : "testIntro"; }
+  renderStage();
+}
 function openLesson(id){
   curLesson=LESSONS.find(l=>l.id===id);
-  stage="explain"; pIdx=0; tIdx=0; tScore=0;
+  stage=lessonSteps(curLesson)?"stepLearn":"explain"; sIdx=0; pIdx=0; tIdx=0; tScore=0;
   $("lessons-list").classList.add("hide");
   $("lesson-runner").classList.remove("hide");
   renderStage();
@@ -3893,7 +4059,48 @@ function backToList(){ curLesson=null; renderLessons(); }
 
 function renderStage(){
   const R=$("lesson-runner"); const L=curLesson;
-  if(stage==="explain"){
+  const STEPS=lessonSteps(L);
+  /* ---- Stepped flow: teach one idea, practise that idea, then the next ---- */
+  if(stage==="stepLearn"){
+    const st=STEPS[sIdx], last=(sIdx===STEPS.length-1);
+    R.innerHTML=`<div class="stage-dots">Idea ${sIdx+1} of ${STEPS.length} · Learn</div>
+      ${stepProgress(sIdx, STEPS.length+1)}
+      <h2 style="margin-top:0">${st.title}</h2>
+      <div class="lesson-body">${st.html}</div>
+      ${st.note?`<div class="step-note">${st.note}</div>`:""}
+      <div class="row"><button class="primary" id="l-next">${(st.practice&&st.practice.length)?"Practice this →":(last?"Continue →":"Next idea →")}</button>
+      ${sIdx>0?`<button id="l-prev">← Previous idea</button>`:""}
+      <button class="ghost" id="l-back">← Lessons</button></div>`;
+    $("l-next").onclick=()=>{
+      if(st.practice&&st.practice.length){ stage="stepPractice"; pIdx=0; renderStage(); }
+      else advanceStep();
+    };
+    if(sIdx>0) $("l-prev").onclick=()=>{ sIdx--; stage="stepLearn"; renderStage(); };
+    $("l-back").onclick=backToList;
+  }
+  else if(stage==="stepPractice"){
+    const st=STEPS[sIdx];
+    renderQuestion(st.practice[pIdx], `Idea ${sIdx+1} of ${STEPS.length} · Practice (not scored)`,
+      pIdx, st.practice.length, true, ()=>{
+        if(pIdx<st.practice.length-1){ pIdx++; renderStage(); }
+        else advanceStep();
+      }, stepProgress(sIdx, STEPS.length+1));
+  }
+  else if(stage==="recap"){
+    R.innerHTML=`<div class="stage-dots">Recap · the whole picture</div>
+      ${stepProgress(STEPS.length, STEPS.length+1)}
+      <h2 style="margin-top:0">${L.title} — all of it in one place</h2>
+      <div class="lesson-body">${L.recap}</div>
+      <div class="row"><button class="primary" id="l-next">Continue to the test →</button>
+      <button id="l-restart">↺ Walk through it again</button>
+      ${L.story?`<button id="l-story-learn">📖 Read the story</button>`:""}
+      <button class="ghost" id="l-back">← Lessons</button></div>`;
+    $("l-next").onclick=()=>{ stage="testIntro"; renderStage(); };
+    $("l-restart").onclick=()=>{ sIdx=0; stage="stepLearn"; renderStage(); };
+    if(L.story) $("l-story-learn").onclick=()=>{ stage="story"; renderStage(); };
+    $("l-back").onclick=backToList;
+  }
+  else if(stage==="explain"){
     R.innerHTML=`<div class="stage-dots">Step 1 of 3 · Learn</div>
       <h2 style="margin-top:0">${L.title}</h2>
       <div class="lesson-body">${L.explanation}</div>
@@ -3911,9 +4118,11 @@ function renderStage(){
     });
   }
   else if(stage==="testIntro"){
-    R.innerHTML=`<div class="stage-dots">Step 3 of 3 · Test</div>
+    R.innerHTML=`<div class="stage-dots">${STEPS?"Graded test":"Step 3 of 3 · Test"}</div>
       <h2 style="margin-top:0">Now for the graded test 📝</h2>
-      <p style="font-size:17px">The practice round you just finished <b>doesn't count</b> — it was there to help you learn, with a hint after each answer.</p>
+      <p style="font-size:17px">${STEPS
+        ?"The practice questions along the way <b>didn't count</b> — they were there to check each idea as you met it, with a hint after every answer."
+        :"The practice round you just finished <b>doesn't count</b> — it was there to help you learn, with a hint after each answer."}</p>
       <p class="muted">This part <b>is</b> scored: <b>${L.test.length} questions</b>, no hints, and you need <b>${Math.round(PASS*100)}%</b> to pass and mark the lesson complete. You can retake it as many times as you like.</p>
       <div class="row"><button class="primary" id="l-starttest">Start graded test →</button>
       <button class="ghost" id="l-back">← Lessons</button></div>`;
@@ -3921,7 +4130,7 @@ function renderStage(){
     $("l-back").onclick=backToList;
   }
   else if(stage==="test"){
-    renderQuestion(L.test[tIdx], "Step 3 of 3 · Graded test", tIdx, L.test.length, false, (wasCorrect)=>{
+    renderQuestion(L.test[tIdx], STEPS?"Graded test":"Step 3 of 3 · Graded test", tIdx, L.test.length, false, (wasCorrect)=>{
       if(wasCorrect) tScore++;
       if(tIdx<L.test.length-1){ tIdx++; renderStage(); }
       else finishTest();
@@ -3942,7 +4151,12 @@ function renderStage(){
       </div>
       ${curLesson.story?`<div class="row" style="margin-top:10px"><button class="primary" id="l-story">📖 Read the story →</button></div>`:""}`;
     $("l-retry").onclick=()=>{ stage="test"; tIdx=0; tScore=0; renderStage(); };
-    $("l-review").onclick=()=>{ stage="explain"; renderStage(); };
+    $("l-review").onclick=()=>{
+      const S=lessonSteps(curLesson);
+      if(S){ if(curLesson.recap){ stage="recap"; } else { sIdx=0; stage="stepLearn"; } }
+      else stage="explain";
+      renderStage();
+    };
     $("l-back").onclick=backToList;
     if(curLesson.story) $("l-story").onclick=()=>{ stage="story"; renderStage(); };
   }
@@ -3989,9 +4203,10 @@ function renderStage(){
   }
 }
 
-function renderQuestion(item, label, idx, total, showWhy, onNext){
+function renderQuestion(item, label, idx, total, showWhy, onNext, progress){
   const R=$("lesson-runner");
   R.innerHTML=`<div class="stage-dots">${label} · ${idx+1} of ${total}</div>
+    ${progress||""}
     <div class="qtext">${item.q.replace(/…/g,"<b>…</b>")}</div>
     <div id="l-opts"></div>
     <div class="why" id="l-why"></div>
