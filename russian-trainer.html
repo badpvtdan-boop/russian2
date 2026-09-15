@@ -366,8 +366,12 @@
           <button id="gh-load">🔄 Sync now</button>
         </div>
         <div class="tag" id="gh-status">Not configured.</div>
+        <div class="row" style="margin-top:14px">
+          <button id="diag-run">🩺 Streak check</button>
+        </div>
+        <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-09-04.1</b> · lessons can now be taught as a series of small steps — one idea, then practice on just that idea, then the next — with a recap before the graded test. Prefixes That Change Meaning is the first unit rebuilt this way (7 steps, 16 practice questions). The test itself is unchanged.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-09-15.1</b> · the study streak is now rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from. · <br>Previously:  · lessons can now be taught as a series of small steps — one idea, then practice on just that idea, then the next — with a recap before the graded test. Prefixes That Change Meaning is the first unit rebuilt this way (7 steps, 16 practice questions). The test itself is unchanged.</div>
       </div>
     </div>
   </div>
@@ -4868,6 +4872,32 @@ function healStreak(s){
   if((s.streak||0)!==streak){ s.streak=streak; changed=true; }
   return changed;
 }
+/* A plain-text readout of everything the streak is computed from — which file is
+   actually open, what the log knows, what the cards know, and what healStreak would
+   make of it. Diagnosis only: it clones the state and changes nothing. */
+function streakDiag(){
+  const t=today(), L=[];
+  L.push("build 2026-09-15.1");
+  L.push("page  "+location.href);
+  L.push("today "+t+"   streak "+(S.streak||0)+"   lastCompleted "+(S.lastCompleted||"(none)"));
+  const stamps={};
+  ["cards","gcards"].forEach(f=>{ const o=S[f]||{}; Object.keys(o).forEach(id=>{ const d=o[id]&&o[id].lastReviewed; if(d) stamps[d]=(stamps[d]||0)+1; }); });
+  const stampDays=Object.keys(stamps).sort();
+  L.push("card stamps: "+stampDays.reduce((n,d)=>n+stamps[d],0)+" on "+stampDays.length+" days · newest "+(stampDays.length?stampDays[stampDays.length-1]:"(none)"));
+  L.push("");
+  L.push("last 14 days (log · cards stamped):");
+  for(let i=0;i<14;i++){
+    const d=daysAdd(t,-i), e=S.dailyLog[d], c=stamps[d]||0;
+    const log=e? (e.newDone||0)+"/"+(e.reviewDone||0)+"/"+(e.gDone||0)+(e.studied?" studied":" NOT-credited") : "no entry";
+    L.push("  "+d+"  "+log.padEnd(22)+" cards "+c+((hasStudy(e)||c)?"":"   <-- gap"));
+  }
+  const clone=JSON.parse(JSON.stringify(S));
+  healStreak(clone);
+  L.push("");
+  L.push("heal would give: anchor "+(clone.lastCompleted||"(none)")+"  streak "+(clone.streak||0));
+  L.push(healStreak===undefined? "healStreak MISSING (old build)" : "healStreak present");
+  return L.join("\n");
+}
 function mergeStates(sa,sb){
   const a=Object.assign(blank(),sa||{}), b=Object.assign(blank(),sb||{});
   const newer = newestActivity(b)>newestActivity(a) ? b : a;   // source for per-user preferences
@@ -4968,6 +4998,7 @@ async function ghLoad(){
 });
 $("gh-auto").checked=GH.autoSave!==false;
 $("gh-auto").onchange=e=>{ GH.autoSave=e.target.checked; ghSaveCfg(); };
+$("diag-run").onclick=()=>{ const el=$("diag-out"); el.style.display="block"; el.textContent=streakDiag(); };
 $("gh-save").onclick=()=>ghSave(false);
 $("gh-load").onclick=ghLoad;
 ghSummary();
