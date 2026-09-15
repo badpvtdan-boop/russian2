@@ -32,6 +32,7 @@ function extractFn(name) {
 const FNS = [
   "today", "daysAdd", "hasStudy", "laterDate", "betterCard", "newestActivity",
   "blank", "mergeStates", "creditStudyDay", "logDay", "logGrammarDay",
+  "studyDays", "lastStudyDay", "streakEndingAt", "healStreak",
   "card", "gcard", "resolve", "gradeGrammarCard",
   "loadOn", "projectedLoad", "balancedDue",
 ];
@@ -283,6 +284,109 @@ function studiedRange(startISO, endISO) {
   const m = sandbox.mergeStates(a, sandbox.blank());
   check("legacy card: no lastReviewed fabricated by merge", !("lastReviewed" in m.cards["99"]));
   check("legacy card: scheduling fields preserved", m.cards["99"].reps === 8 && m.cards["99"].box === 5 && m.cards["99"].due === "2026-09-01");
+})();
+
+/* ===== daysAdd: pure date math, no local-time drift =====
+   The old local getDate/setDate version returned 10-31 for daysAdd("2026-11-02",-1),
+   so the day after every fall-back looked like a broken streak. */
+(function daysAddAcrossDst() {
+  /* The bug only shows outside UTC, and CI/dev machines here run UTC — so pin the
+     process to Danny's zone for this check or it passes against the broken version. */
+  const realTZ = process.env.TZ;
+  process.env.TZ = "America/Chicago";
+  const back = sandbox.daysAdd("2026-11-02", -1);
+  check("daysAdd: day after DST fall-back steps back one real day", back === "2026-11-01");
+  check("daysAdd: forward across the same boundary", sandbox.daysAdd("2026-11-01", 1) === "2026-11-02");
+  // exhaustive: every day of 2026-2027 steps back exactly one calendar day
+  let bad = 0, d = "2026-01-01";
+  for (let i = 0; i < 730; i++) {
+    const next = sandbox.daysAdd(d, 1);
+    if (sandbox.daysAdd(next, -1) !== d) bad++;
+    d = next;
+  }
+  check("daysAdd: round-trips on all 730 days of 2026-2027 (America/Chicago)", bad === 0);
+  if (realTZ === undefined) delete process.env.TZ; else process.env.TZ = realTZ;
+})();
+
+(function dstDayDoesNotBreakStreak() {
+  const realTZ = process.env.TZ;
+  process.env.TZ = "America/Chicago";
+  FAKE_TODAY = "2026-11-02";
+  sandbox.S = freshState({ streak: 29, lastCompleted: "2026-11-01",
+    dailyLog: studiedRange("2026-10-05", "2026-11-01") });
+  sandbox.logDay(true);
+  check("DST: streak continues into 11-02 (not reset to 1)", sandbox.S.streak === 30);
+  if (realTZ === undefined) delete process.env.TZ; else process.env.TZ = realTZ;
+})();
+
+/* ===== Evidence: a card reviewed that day proves the day ===== */
+(function cardStampIsEvidence() {
+  FAKE_TODAY = "2026-09-15";
+  const set = sandbox.studyDays(freshState({
+    dailyLog: studiedRange("2026-09-10", "2026-09-13"),
+    cards: { v1: { reps: 3, box: 2, lastReviewed: "2026-09-14" } },
+  }));
+  check("evidence: card lastReviewed counts as a studied day", set["2026-09-14"] === true);
+  check("evidence: run walks through the card-only day", sandbox.streakEndingAt(set, "2026-09-14") === 5);
+})();
+
+(function futureStampIgnored() {
+  FAKE_TODAY = "2026-09-15";
+  const set = sandbox.studyDays(freshState({
+    cards: { v1: { lastReviewed: "2026-09-22" } },   // clock skew on another device
+  }));
+  check("evidence: a future card stamp is ignored", set["2026-09-22"] === undefined);
+})();
+
+/* ===== Danny's 09-15 case: one uncredited day no longer wipes the streak =====
+   09-14 was studied (cards stamped) but never credited — lastCompleted stuck at 09-13.
+   Old behaviour: today's first answer reset the streak to 1. */
+(function uncreditedDayDoesNotWipe() {
+  FAKE_TODAY = "2026-09-15";
+  const log = studiedRange("2026-08-16", "2026-09-13");   // 29 days ending 09-13
+  sandbox.S = freshState({ streak: 29, lastCompleted: "2026-09-13", dailyLog: log,
+    cards: { v1: { reps: 9, box: 3, lastReviewed: "2026-09-14" } } });
+  sandbox.logDay(true);   // first answer of 09-15
+  check("uncredited day: streak continues to 31, not 1", sandbox.S.streak === 31);
+  check("uncredited day: anchor is today", sandbox.S.lastCompleted === "2026-09-15");
+})();
+
+(function loadTimeHeal() {
+  FAKE_TODAY = "2026-09-15";
+  const log = studiedRange("2026-08-16", "2026-09-13");
+  const s = freshState({ streak: 1, lastCompleted: "2026-09-15", dailyLog: log,
+    cards: { v1: { reps: 9, box: 3, lastReviewed: "2026-09-14" } } });
+  s.dailyLog["2026-09-15"] = { newDone: 1, reviewDone: 0, studied: true };
+  const changed = sandbox.healStreak(s);   // what load() does on the next reload
+  check("heal: an already-reset streak is rebuilt to 31", s.streak === 31);
+  check("heal: reports that it changed something", changed === true);
+  check("heal: the card-only day is written back into the log",
+    !!(s.dailyLog["2026-09-14"] && s.dailyLog["2026-09-14"].studied === true));
+})();
+
+(function healIsIdempotent() {
+  FAKE_TODAY = "2026-09-15";
+  const s = freshState({ streak: 1, lastCompleted: "2026-09-13",
+    dailyLog: studiedRange("2026-09-10", "2026-09-15") });
+  sandbox.healStreak(s);
+  const once = JSON.stringify(s);
+  const changed = sandbox.healStreak(s);
+  check("heal: second pass changes nothing", changed === false && JSON.stringify(s) === once);
+})();
+
+/* ===== A genuine miss still resets ===== */
+(function realMissStillResets() {
+  FAKE_TODAY = "2026-09-15";
+  const log = studiedRange("2026-08-16", "2026-09-13");   // nothing at all on 09-14
+  sandbox.S = freshState({ streak: 29, lastCompleted: "2026-09-13", dailyLog: log });
+  sandbox.logDay(true);
+  check("real miss: streak honestly resets to 1", sandbox.S.streak === 1);
+})();
+
+(function healNeverInventsAStreak() {
+  FAKE_TODAY = "2026-09-15";
+  const s = freshState({ streak: 0, lastCompleted: null });
+  check("heal: blank state left alone", sandbox.healStreak(s) === false && s.streak === 0 && s.lastCompleted === null);
 })();
 
 /* ---- report ---- */

@@ -2586,6 +2586,7 @@ function load(){try{
   const s=Object.assign(blank(),raw);
   if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};if(!s.gcards)s.gcards={};
   migrate(s, raw);
+  healStreak(s);   // rebuild streak/lastCompleted from evidence before anything reads them
   if(!s.activeThemes||!s.activeThemes.length)s.activeThemes=A1_THEME_KEYS.slice();
   return s;
 }catch(e){return blank()}}
@@ -2593,7 +2594,11 @@ function save(){localStorage.setItem(KEY,JSON.stringify(S));}
 
 /* ---------------- SRS helpers ---------------- */
 function card(id){ if(!S.cards[id]) S.cards[id]={box:0,due:today(),lapses:0,reps:0,introduced:false}; return S.cards[id]; }
-function daysAdd(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);}
+/* Pure UTC arithmetic on a YYYY-MM-DD string. The old version built a Date from the
+   string (UTC midnight) and then stepped it with LOCAL getDate/setDate, which lands a
+   day early across a DST fall-back: daysAdd("2026-11-02",-1) returned 2026-10-31, so
+   "was yesterday studied?" answered no and a live streak collapsed to 1 every November. */
+function daysAdd(d,n){const p=String(d).split("-");const x=new Date(Date.UTC(+p[0],(+p[1]||1)-1,+p[2]||1));x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10);}
 function knownCount(){return Object.values(S.cards).filter(c=>c.introduced&&c.box>=KNOWN_BOX).length;}
 
 /* Every introduced card whose due date has arrived — MOST OVERDUE FIRST, weakest box first
@@ -2954,7 +2959,12 @@ function creditStudyDay(){
   const l=S.dailyLog[t]||(S.dailyLog[t]={newDone:0,reviewDone:0});
   l.studied=true;   // marks lesson/grammar/exam-only days in the log so merges & streaks see them
   if(S.lastCompleted!==t){
-    S.streak = (S.lastCompleted===daysAdd(t,-1))? S.streak+1 : 1;
+    /* Derived, not incremented: walk yesterday-ward through everything that proves a
+       study day. A day the log forgot but the cards remember still counts, so one
+       uncredited day no longer wipes the streak. The stored anchor is only ever a
+       floor (+1 when it really is yesterday), never the sole source of truth. */
+    const run=streakEndingAt(studyDays(S),t);
+    S.streak=Math.max(run, (S.lastCompleted===daysAdd(t,-1))? (S.streak||0)+1 : 1);
     S.lastCompleted=t;
     save();          // only on the first credit of the day; per-item counter is persisted by
     refreshBadges(); // the caller's own save() (resolve @2771, gradeGrammarCard @4802, finish*)
@@ -4811,6 +4821,53 @@ function betterCard(a,b){    // the copy that has learned more: reps, then box, 
 function hasStudy(l){ return !!(l&&(l.newDone||l.reviewDone||l.gDone||l.studied)); }
 /* later of two YYYY-MM-DD dates; undefined loses to any real date, both undefined -> undefined */
 function laterDate(x,y){ return (x&&y) ? (x>=y?x:y) : (x||y||undefined); }
+/* ---------------- Study-day evidence ----------------
+   The streak is DERIVED, never remembered. A day counts as studied if anything in the
+   save says so: its dailyLog entry, a word or grammar card stamped lastReviewed that
+   day, or an exam passed that day. The log alone was never enough — a day could be
+   logged without being credited (a gDone entry with no `studied` flag), and an older
+   build logged nothing at all for lesson-only days. Either way lastCompleted stopped
+   pointing at yesterday, and the next day's first answer read that as a broken streak
+   and reset to 1. Card stamps survive all of it, so they are evidence too. */
+function studyDays(s){
+  const t=today(), set=Object.create(null);
+  const mark=d=>{ if(typeof d==="string" && d && d<=t) set[d]=true; };
+  const log=(s&&s.dailyLog)||{};
+  Object.keys(log).forEach(d=>{ if(hasStudy(log[d])) mark(d); });
+  ["cards","gcards"].forEach(f=>{ const o=(s&&s[f])||{}; Object.keys(o).forEach(id=>{ if(o[id]) mark(o[id].lastReviewed); }); });
+  const ex=(s&&s.exams)||{};
+  Object.keys(ex).forEach(k=>{ if(ex[k]&&ex[k].passed) mark(ex[k].date); });
+  return set;
+}
+/* Newest studied day (never later than local today), or null when nothing is known. */
+function lastStudyDay(set){ const d=Object.keys(set).sort(); return d.length? d[d.length-1] : null; }
+/* Consecutive studied days ending at `end`, inclusive. */
+function streakEndingAt(set,end){
+  if(!end||!set[end]) return 0;
+  let run=1, d=daysAdd(end,-1), cap=0;
+  while(set[d] && cap<3650){ run++; d=daysAdd(d,-1); cap++; }
+  return run;
+}
+/* Rebuild lastCompleted and streak from the evidence, and write the days that only the
+   cards knew about back into dailyLog, so the repair persists and travels through sync.
+   Never lowers a streak the state legitimately holds for the same anchor day. Runs on
+   every load, so a save that lost its anchor heals itself on the next reload. */
+function healStreak(s){
+  if(!s) return false;
+  if(!s.dailyLog) s.dailyLog={};
+  const set=studyDays(s), anchor=lastStudyDay(set);
+  if(!anchor) return false;                 // no evidence at all — leave the save untouched
+  let changed=false;
+  Object.keys(set).forEach(d=>{
+    const e=s.dailyLog[d]||(s.dailyLog[d]={newDone:0,reviewDone:0});
+    if(!e.studied){ e.studied=true; changed=true; }
+  });
+  const keep=(s.lastCompleted===anchor)? (s.streak||0) : 0;
+  const streak=Math.max(streakEndingAt(set,anchor),keep);
+  if(s.lastCompleted!==anchor){ s.lastCompleted=anchor; changed=true; }
+  if((s.streak||0)!==streak){ s.streak=streak; changed=true; }
+  return changed;
+}
 function mergeStates(sa,sb){
   const a=Object.assign(blank(),sa||{}), b=Object.assign(blank(),sb||{});
   const newer = newestActivity(b)>newestActivity(a) ? b : a;   // source for per-user preferences
@@ -4854,17 +4911,13 @@ function mergeStates(sa,sb){
   // from there, never below a streak either side legitimately holds for that end date.
   // cap at local today() so a future/mis-dated entry (clock skew across devices) can't
   // hijack the anchor and collapse a real streak to 1.
-  const studiedDays=Object.keys(m.dailyLog).filter(k=>hasStudy(m.dailyLog[k]) && k<=today()).sort();
-  m.lastCompleted=studiedDays.length?studiedDays[studiedDays.length-1]:null;
-  let run=0;
-  if(m.lastCompleted){
-    run=1; let d=daysAdd(m.lastCompleted,-1), cap=0;
-    while(hasStudy(m.dailyLog[d]) && cap<3650){ run++; d=daysAdd(d,-1); cap++; }
-  }
-  const cand=[run];
+  const set=studyDays(m);
+  m.lastCompleted=lastStudyDay(set);
+  const cand=[0];
   if(a.lastCompleted===m.lastCompleted) cand.push(a.streak||0);
   if(b.lastCompleted===m.lastCompleted) cand.push(b.streak||0);
   m.streak=Math.max.apply(null,cand);
+  healStreak(m);   // walks the run, and backfills `studied` on evidence-only days
   // preferences travel with the device used most recently
   ["duoLevel","direction","answerMode","voiceName","lastPopQuiz"].forEach(k=>{ m[k]=newer[k]; });
   m.activeThemes=(newer.activeThemes||A1_THEME_KEYS).slice();

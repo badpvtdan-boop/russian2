@@ -53,6 +53,8 @@ const INTERVALS_SRC = JSON.parse(/\bINTERVALS\s*=\s*(\[[^\]]*\])/.exec(src)[1]);
 const FNS = [
   "today", "daysAdd", "blank", "shuffle", "activeThemes", "deckActive",
   "card", "creditStudyDay", "logDay", "resolve", "loadOn", "projectedLoad", "balancedDue",
+  "hasStudy", "studyDays", "lastStudyDay", "streakEndingAt",   // creditStudyDay derives the streak from these
+
   "rebalanceSchedule",
   "spreadBacklog", "dueReviewIds", "dueReviewCount", "newAllowedToday",
   "buildQueue", "owedToday", "availNewCount", "startSession",
