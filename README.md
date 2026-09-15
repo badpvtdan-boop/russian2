@@ -10,6 +10,16 @@ offline HTML; progress backs up to this repo.
 Open `russian-trainer.html` in any modern browser (double-click it). No install, no server.
 Everything runs locally; progress is saved in the browser and synced to GitHub.
 
+**Day to day it runs from a home-screen icon on the phone, off a hosted copy served from
+this repo — not from a local clone.** Two things follow, and both have already bitten:
+
+- **A source edit does not reach the phone until it is pushed.** Editing the working copy
+  fixes nothing on the device that's actually being used. Push, then reload on the phone,
+  then confirm the **App version** line in Settings matches what you just shipped.
+- **That device's storage is the only copy of the live state**, and iOS can reclaim it
+  without asking. The backup in this repo is the safety net — see cold-start restore in
+  `BACKLOG.md`.
+
 ## What's inside
 
 - **Home** — a "Next up" recommender and a guided path (vocab milestones + grammar units).

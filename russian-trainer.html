@@ -371,7 +371,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-09-15.1</b> · the study streak is now rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from. · <br>Previously:  · lessons can now be taught as a series of small steps — one idea, then practice on just that idea, then the next — with a recap before the graded test. Prefixes That Change Meaning is the first unit rebuilt this way (7 steps, 16 practice questions). The test itself is unchanged.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-09-15.2</b> · the study streak is now rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from. · <br>Previously:  · lessons can now be taught as a series of small steps — one idea, then practice on just that idea, then the next — with a recap before the graded test. Prefixes That Change Meaning is the first unit rebuilt this way (7 steps, 16 practice questions). The test itself is unchanged.</div>
       </div>
     </div>
   </div>
@@ -4877,7 +4877,7 @@ function healStreak(s){
    make of it. Diagnosis only: it clones the state and changes nothing. */
 function streakDiag(){
   const t=today(), L=[];
-  L.push("build 2026-09-15.1");
+  L.push("build 2026-09-15.2");
   L.push("page  "+location.href);
   L.push("today "+t+"   streak "+(S.streak||0)+"   lastCompleted "+(S.lastCompleted||"(none)"));
   const stamps={};
@@ -4895,6 +4895,7 @@ function streakDiag(){
   healStreak(clone);
   L.push("");
   L.push("heal would give: anchor "+(clone.lastCompleted||"(none)")+"  streak "+(clone.streak||0));
+  L.push("backup: "+(ghConfigured()? GH.owner+"/"+GH.repo+" "+GH.branch+" "+GH.path : "NOT configured on this device")+"  ·  save looks "+(stateLooksEmpty(S)?"EMPTY":"populated"));
   L.push(healStreak===undefined? "healStreak MISSING (old build)" : "healStreak present");
   return L.join("\n");
 }
@@ -5002,6 +5003,39 @@ $("diag-run").onclick=()=>{ const el=$("diag-out"); el.style.display="block"; el
 $("gh-save").onclick=()=>ghSave(false);
 $("gh-load").onclick=ghLoad;
 ghSummary();
+
+/* ---------------- Cold-start restore ----------------
+   The phone is the primary device, and iOS reclaims a web app's storage without asking
+   (days unused, low disk, an app-data purge, or re-adding the icon). The failure was
+   silent: the app came back looking brand-new, and the first answer of the day wrote a
+   1-day streak over a month of history — with no sign that anything had been lost.
+   So: if the save is EMPTY and a backup is configured, pull the backup before anything
+   is written. Nothing can be lost doing this — mergeStates() keeps the union of both
+   sides, and a blank local copy can never erase the backup either, because ghSave()
+   merges with the remote before it writes. */
+function stateLooksEmpty(s){
+  if(!s) return true;
+  const c=s.cards||{}, l=s.lessons||{};
+  if(Object.keys(s.dailyLog||{}).length) return false;
+  if(Object.keys(c).some(id=>c[id]&&(c[id].introduced||c[id].reps))) return false;
+  if(Object.keys(l).some(k=>l[k]&&l[k].done)) return false;
+  return true;
+}
+const RESTORE_TRIED="rt_restore_tried";
+async function ghRestoreIfEmpty(){
+  if(!ghConfigured()||!stateLooksEmpty(S)) return false;
+  try{ if(sessionStorage.getItem(RESTORE_TRIED)) return false; sessionStorage.setItem(RESTORE_TRIED,"1"); }catch(e){}
+  try{
+    ghStatus("Save is empty — restoring from the GitHub backup…");
+    const {json}=await ghFetchExisting();
+    if(!json||stateLooksEmpty(json)){ ghStatus("Nothing in the backup to restore yet.",false); return false; }
+    S=mergeStates(S,json); save();
+    ghStatus("Restored from GitHub — streak "+(S.streak||0)+", "+knownCount()+" words known.",true);
+    refreshBadges(); updateBanner(); renderHome(); renderPath();
+    return true;
+  }catch(e){ ghStatus("Restore failed: "+e.message,false); return false; }
+}
+ghRestoreIfEmpty();
 
 /* ================= Grammar Review (spaced review of completed lessons) ================= */
 /* Fresh question pools — distinct from each lesson's own practice/test items.

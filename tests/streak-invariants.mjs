@@ -32,7 +32,7 @@ function extractFn(name) {
 const FNS = [
   "today", "daysAdd", "hasStudy", "laterDate", "betterCard", "newestActivity",
   "blank", "mergeStates", "creditStudyDay", "logDay", "logGrammarDay",
-  "studyDays", "lastStudyDay", "streakEndingAt", "healStreak",
+  "studyDays", "lastStudyDay", "streakEndingAt", "healStreak", "stateLooksEmpty",
   "card", "gcard", "resolve", "gradeGrammarCard",
   "loadOn", "projectedLoad", "balancedDue",
 ];
@@ -387,6 +387,40 @@ function studiedRange(startISO, endISO) {
   FAKE_TODAY = "2026-09-15";
   const s = freshState({ streak: 0, lastCompleted: null });
   check("heal: blank state left alone", sandbox.healStreak(s) === false && s.streak === 0 && s.lastCompleted === null);
+})();
+
+/* ===== Cold-start restore: what counts as an empty save =====
+   iOS can reclaim the web app's storage; the app then looks brand-new and the first
+   answer writes a 1-day streak over a month of history. ghRestoreIfEmpty() pulls the
+   backup first — but only when the save really is empty. */
+(function emptyDetection() {
+  check("empty: a fresh blank() save is empty", sandbox.stateLooksEmpty(sandbox.blank()) === true);
+  check("empty: null/undefined treated as empty", sandbox.stateLooksEmpty(null) === true);
+  check("empty: preferences alone don't count as progress",
+    sandbox.stateLooksEmpty(freshState({ direction: "ru-en", voiceName: "Milena", answerMode: "type" })) === true);
+  check("empty: untouched cards don't count as progress",
+    sandbox.stateLooksEmpty(freshState({ cards: { v1: { box: 0, reps: 0, introduced: false } } })) === true);
+})();
+
+(function notEmptyDetection() {
+  check("not empty: one logged day", sandbox.stateLooksEmpty(freshState({ dailyLog: studiedRange("2026-09-14", "2026-09-14") })) === false);
+  check("not empty: an introduced card", sandbox.stateLooksEmpty(freshState({ cards: { v1: { box: 2, reps: 4, introduced: true } } })) === false);
+  check("not empty: a card with reps but no introduced flag (legacy save)",
+    sandbox.stateLooksEmpty(freshState({ cards: { v1: { box: 1, reps: 2 } } })) === false);
+  check("not empty: a completed lesson", sandbox.stateLooksEmpty(freshState({ lessons: { prep: { done: true, best: 0.9 } } })) === false);
+})();
+
+(function restoredBackupRebuildsTheStreak() {
+  // The wiped-phone path end to end: empty local save + the backup -> merge -> real streak.
+  FAKE_TODAY = "2026-09-15";
+  const backup = freshState({ streak: 29, lastCompleted: "2026-09-13",
+    dailyLog: studiedRange("2026-08-16", "2026-09-13"),
+    cards: { v1: { reps: 9, box: 3, introduced: true, lastReviewed: "2026-09-14" } } });
+  const wiped = sandbox.blank();
+  check("restore: the wiped save is detected as empty", sandbox.stateLooksEmpty(wiped) === true);
+  const merged = sandbox.mergeStates(wiped, backup);
+  check("restore: merged streak is 30, not 1", merged.streak === 30);
+  check("restore: merged anchor is the card-stamped 09-14", merged.lastCompleted === "2026-09-14");
 })();
 
 /* ---- report ---- */
