@@ -39,8 +39,20 @@ this repo — not from a local clone.** Two things follow, and both have already
 
 - **`progress.json`** holds all learning state (words, scheduling, streak, lesson scores).
 - The app writes it **directly to this repo from the browser** via the GitHub API
-  (Settings → GitHub sync; auto-saves on session finish). Learning state lives in the
-  browser's localStorage and is pushed as `progress.json`.
+  (Settings → GitHub sync). Learning state lives in the browser's localStorage and is
+  pushed as `progress.json`.
+- **A day must never live on one device.** Pushing used to happen only when a session
+  reached a finish screen, so closing the app on card 39 of 40 left that day's only copy
+  in one browser's storage. Now every local write marks the state dirty and a push
+  follows: forced on the first credit of a new day, debounced ~15s after any later
+  change, and flushed on `visibilitychange`/`pagehide` — the last moment a phone can
+  send anything. `ghSave()` calls `save(true)` so it never re-arms the scheduler it is
+  already servicing.
+- **The home screen states the backup's health** and says so in orange when it is bad:
+  never pushed from this device, sync not configured here, pushes failing (with the real
+  error), or local changes not yet sent. A device that silently never backs up was how
+  2026-09-14 was lost: a second copy of the app has its own localStorage, and the token
+  lives in that same storage, so an unconfigured copy pushed nothing and said nothing.
 - **Do not hand-edit or commit `progress.json` from a local clone.** The browser owns it.
 
 ## Working on the source (important)
@@ -55,8 +67,14 @@ use the app. So:
    you never accidentally clobber `progress.json`.
 4. **Any new field added to the saved state (`blank()`) MUST be added to `mergeStates()` in the
    same change** — merge is the only safety layer now; a field it doesn't handle is silently
-   reset on every sync.
-5. **`REVIEW_PER_DAY` and `NEW_PER_DAY` are not independent.** With the `INTERVALS` ladder,
+   reset on every sync. Device-local facts (when this browser last pushed) deliberately live
+   in their own localStorage key, NOT in the saved state, so they never travel through merge.
+5. **Never write through `localStorage.setItem(KEY, …)` directly; go through `save()`.** It runs
+   `saveGuard()`, which refuses a blank state on top of a populated one — the exact shape of the
+   wipe — and it reports write failures instead of swallowing them. Likewise `load()` never lets
+   an unreadable save be silently replaced: the bytes are copied aside under `rt_state_corrupt_*`
+   and `LOCAL_FAULT` is set so the UI can say the device is not actually brand-new.
+6. **`REVIEW_PER_DAY` and `NEW_PER_DAY` are not independent.** With the `INTERVALS` ladder,
    every new word costs `INTERVALS.length - 2` reviews on its way to the top box, so N new
    words a day generates that many times N reviews a day *forever*. The original 10/20 pair
    was a 3x deficit — it could only ever sustain ~3.3 new words a day, and the difference
@@ -68,11 +86,13 @@ use the app. So:
     node tests/streak-invariants.mjs
     node tests/backlog-invariants.mjs
     node tests/lesson-invariants.mjs
+    node tests/sync-invariants.mjs
 
-All three read the real code out of `russian-trainer.html` and run it in a Node vm, so they
+All four read the real code out of `russian-trainer.html` and run it in a Node vm, so they
 exercise what ships rather than a copy that can drift. Run the first two after touching the
-SRS engine, the daily caps, or `mergeStates`; run the third after touching lesson content or
-the lesson runner.
+SRS engine, the daily caps, or `mergeStates`; the third after touching lesson content or the
+lesson runner; the fourth after touching `save`/`load`, `saveGuard`, the sync scheduler, or
+anything that decides when progress leaves the device.
 
 ## Authoring lesson & story content
 

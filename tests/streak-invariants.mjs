@@ -46,6 +46,9 @@ const sandbox = {
   INTERVALS: JSON.parse(/\bINTERVALS\s*=\s*(\[[^\]]*\])/.exec(src)[1]),
   KNOWN_BOX: Number(/\bKNOWN_BOX\s*=\s*(\d+)/.exec(src)[1]),
   save() {},            // no localStorage in Node
+  // creditStudyDay() now pushes the newly-credited day straight to the backup; count the calls.
+  SYNCS: [],
+  flushSync(why) { sandboxSyncs.push(why); },
   refreshBadges() {},   // no DOM in Node
   renderProgress() {},  // no DOM
   renderGProgress() {}, // no DOM
@@ -56,6 +59,8 @@ const sandbox = {
   DECK_BY_ID: {},
   console,
 };
+const sandboxSyncs = [];
+sandbox.flushSync = (why) => sandboxSyncs.push(why);
 vm.createContext(sandbox);
 vm.runInContext(FNS.map(extractFn).join("\n"), sandbox);
 
@@ -421,6 +426,23 @@ function studiedRange(startISO, endISO) {
   const merged = sandbox.mergeStates(wiped, backup);
   check("restore: merged streak is 30, not 1", merged.streak === 30);
   check("restore: merged anchor is the card-stamped 09-14", merged.lastCompleted === "2026-09-14");
+})();
+
+(function creditPushesToBackupImmediately() {
+  // The 09-14 shape: a day credited on the device but never sent anywhere. The first
+  // answer of a new day must reach the backup on its own, not wait for a finish screen.
+  FAKE_TODAY = "2026-08-17";
+  sandboxSyncs.length = 0;
+  sandbox.S = freshState({ streak: 5, lastCompleted: "2026-08-16" });
+  sandbox.logDay(true);
+  check("credit: the first answer of a new day pushes at once", sandboxSyncs.length === 1);
+  check("credit: and it is a forced push, not a debounced one", sandboxSyncs[0] === "forced");
+  sandbox.logDay(false);
+  sandbox.logDay(true);
+  check("credit: later answers the same day do not re-push from the credit path", sandboxSyncs.length === 1);
+  FAKE_TODAY = "2026-08-18";
+  sandbox.logDay(true);
+  check("credit: the next day pushes again", sandboxSyncs.length === 2);
 })();
 
 /* ---- report ---- */

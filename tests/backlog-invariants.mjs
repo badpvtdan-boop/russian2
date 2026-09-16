@@ -70,7 +70,7 @@ const sandbox = {
   BACKLOG_PAUSE_NEW, BACKLOG_CATCHUP_PER_DAY, BACKLOG_MAX_HORIZON,
   DECK: [], DECK_BY_ID: {},
   cur: null, queue: [], sessionDone: 0, sessionTotal: 0,
-  save() {}, refreshBadges() {}, renderProgress() {}, showFeedback() {},
+  save() {}, refreshBadges() {}, renderProgress() {}, showFeedback() {}, flushSync() {},
   nextCard() {}, finishSession() {},
   $: () => ({ classList: { add() {}, remove() {} }, style: {}, focus() {} }),
   console,

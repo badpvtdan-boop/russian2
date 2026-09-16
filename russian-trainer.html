@@ -201,6 +201,7 @@
       <div class="row"><button class="primary" id="exam-nudge-cta">Take the exam →</button></div>
     </div>
     <div class="stats-grid" id="home-stats"></div>
+    <div id="backup-line" class="muted" style="margin:8px 0 2px;font-size:13px;line-height:1.35"></div>
     <div class="row" style="margin:2px 0 10px"><button class="ghost" id="popquiz-btn">🎲 Quiz me</button></div>
     <div class="card">
       <div class="foot"><b>Your path</b><span class="tag" id="path-progress" style="margin:0"></span></div>
@@ -371,7 +372,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-09-15.2</b> · the study streak is now rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from. · <br>Previously:  · lessons can now be taught as a series of small steps — one idea, then practice on just that idea, then the next — with a recap before the graded test. Prefixes That Change Meaning is the first unit rebuilt this way (7 steps, 16 practice questions). The test itself is unchanged.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-09-16.1</b> · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -2583,18 +2584,149 @@ function spreadBacklog(s){
   const perDay=Math.max(BACKLOG_CATCHUP_PER_DAY, Math.ceil(overdue.length/BACKLOG_MAX_HORIZON));
   overdue.forEach((id,i)=>{ cards[id].due = daysAdd(t, Math.floor(i/perDay)); });
 }
+/* ---------------- Backup scheduling ----------------
+   The old rule was "push when a session reaches a finish screen". That let a day be fully
+   credited locally and never leave the device: close the app on card 39 of 40 and the only
+   copy of that day is this browser's storage — which iOS reclaims without asking, and which
+   a second copy of the app (a file:// clone, another browser) never shares. Now every local
+   write marks the state dirty and a push follows: debounced so a 40-card session costs a
+   handful of requests, flushed the moment the page is hidden, and forced on the first credit
+   of a new day so a freshly-credited day is never held on one device. */
+const SYNCKEY="rt_sync_v1";
+const SYNC_DEBOUNCE_MS=15000;
+let SYNCST; try{ SYNCST=JSON.parse(localStorage.getItem(SYNCKEY)||"{}"); }catch(e){ SYNCST={}; }
+const SYNC={ dirtyAt:null, timer:null, inFlight:false, again:false };
+/* GH and $ are declared further down, so every early caller reaches them through a guard —
+   `typeof` alone still throws on a let in its temporal dead zone. */
+function ghReady(){ try{ return typeof GH!=="undefined" && GH.autoSave!==false && ghConfigured(); }catch(e){ return false; } }
+function syncRecord(ok,msg){
+  if(ok){ SYNCST.lastOk=new Date().toISOString(); SYNCST.lastErr=null; }
+  else { SYNCST.lastErr={at:new Date().toISOString(), msg:String(msg||"").slice(0,120)}; }
+  try{ localStorage.setItem(SYNCKEY,JSON.stringify(SYNCST)); }catch(e){}
+  refreshBackupLine();
+}
+function markDirty(){
+  SYNC.dirtyAt=Date.now();
+  refreshBackupLine();
+  if(!ghReady() || SYNC.timer || SYNC.inFlight) return;
+  SYNC.timer=setTimeout(()=>{ SYNC.timer=null; flushSync("debounce"); }, SYNC_DEBOUNCE_MS);
+}
+/* why==="forced" pushes even when nothing is marked dirty (the day-credit path). */
+async function flushSync(why){
+  if(!ghReady()) return false;
+  if(!SYNC.dirtyAt && why!=="forced") return false;
+  if(SYNC.inFlight){ SYNC.again=true; return false; }
+  if(SYNC.timer){ clearTimeout(SYNC.timer); SYNC.timer=null; }
+  SYNC.inFlight=true;
+  const mark=SYNC.dirtyAt;
+  try{ await ghSave(true); }
+  finally{
+    SYNC.inFlight=false;
+    if(SYNC.dirtyAt===mark) SYNC.dirtyAt=null;   // nothing else changed while we were pushing
+    if(SYNC.again){ SYNC.again=false; markDirty(); }
+  }
+  return true;
+}
+/* Backgrounded, swiped away, screen locked — the last moment anything can be sent. */
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") flushSync("hidden"); });
+window.addEventListener("pagehide",()=>{ flushSync("hidden"); });
+
+/* Age of the last successful backup, in words. Pure, so it can be tested. */
+function backupAge(lastOkISO, nowMs){
+  if(!lastOkISO) return null;
+  const ms=nowMs-Date.parse(lastOkISO);
+  if(!isFinite(ms)) return null;
+  const min=Math.floor(ms/60000);
+  if(min<1) return "just now";
+  if(min<60) return min+(min===1?" min ago":" min ago");
+  const hr=Math.floor(min/60);
+  if(hr<24) return hr+(hr===1?" hour ago":" hours ago");
+  const dy=Math.floor(hr/24);
+  return dy+(dy===1?" day ago":" days ago");
+}
+/* What the home screen should say about this device's backup. Pure: given the facts, return
+   {level,text}. Anything but "ok" means recent work exists in only one place. */
+function backupStatus(o){
+  if(o.localFault) return {level:"bad", text:"⚠︎ "+o.localFault};
+  if(!o.configured) return {level:"warn", text:"⚠︎ Not backed up on this device — set up GitHub sync in Settings"};
+  if(o.lastErr) return {level:"bad", text:"⚠︎ Backup failing since "+(backupAge(o.lastErr.at,o.now)||"just now")+" — "+o.lastErr.msg};
+  const age=backupAge(o.lastOk,o.now);
+  if(!age) return {level:"warn", text:"⚠︎ Never backed up from this device"};
+  if(o.dirty) return {level:"warn", text:"Not yet backed up — last backup "+age};
+  return {level:"ok", text:"Backed up "+age};
+}
+function refreshBackupLine(){
+  try{
+    const el=$("backup-line"); if(!el) return;
+    const st=backupStatus({
+      localFault: LOCAL_FAULT,
+      configured: ghReady(),
+      lastOk: SYNCST.lastOk, lastErr: SYNCST.lastErr,
+      dirty: !!SYNC.dirtyAt, now: Date.now()
+    });
+    el.textContent=st.text;
+    el.style.color = st.level==="ok" ? "var(--muted)" : st.level==="warn" ? "var(--warn)" : "var(--bad)";
+  }catch(e){}
+}
+
+/* ---------------- Local persistence ----------------
+   This device's storage is the only copy of the live state, so both ways it used to be
+   destroyed are closed here.
+   1. load() swallowed ANY error and returned blank(). The bytes were still in localStorage,
+      but the next save() wrote a blank state straight over them. Now an unreadable save is
+      copied aside under a timestamped key before anything else runs, and the failure is
+      remembered so the UI says so instead of looking brand-new.
+   2. save() wrote whatever it was handed. saveGuard() refuses a blank state on top of a
+      populated one — the exact shape of the wipe. A real new user writes over nothing and
+      is unaffected. A refusal is reported, never swallowed. */
+const CORRUPT_PREFIX="rt_state_corrupt_";
+let LOCAL_FAULT=null;   // why the last local read or write went wrong, in words, or null
+/* May `next` be written over the raw string already stored? Pure. */
+function saveGuard(next, storedRaw){
+  if(!storedRaw) return {ok:true};                        // nothing there to lose
+  let prev=null;
+  try{ prev=JSON.parse(storedRaw); }catch(e){ return {ok:true, preserve:true}; }
+  if(!prev || typeof prev!=="object") return {ok:true};
+  if(stateLooksEmpty(next) && !stateLooksEmpty(prev))
+    return {ok:false, reason:"a blank state was blocked from overwriting this device\u2019s save"};
+  return {ok:true};
+}
+function load(){
+  let raw=null;
+  try{ raw=localStorage.getItem(KEY); }
+  catch(e){ LOCAL_FAULT="this browser will not let the app read its saved progress"; return blank(); }
+  if(!raw) return blank();                          // brand-new user — blank is already A1-correct
+  let parsed=null;
+  try{ parsed=JSON.parse(raw); }catch(e){ parsed=null; }
+  if(!parsed || typeof parsed!=="object"){
+    /* Unreadable. Keep the bytes — they may still be recoverable by hand — and remember that
+       this is NOT a fresh install, so nothing downstream treats the blank as the truth. */
+    try{ localStorage.setItem(CORRUPT_PREFIX+new Date().toISOString().replace(/[:.]/g,"-"), raw); }catch(e){}
+    LOCAL_FAULT="the save on this device could not be read — a copy was kept, and the GitHub backup is the good copy";
+    return blank();
+  }
+  try{
+    const s=Object.assign(blank(),parsed);
+    if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};if(!s.gcards)s.gcards={};
+    migrate(s, parsed);
+    healStreak(s);   // rebuild streak/lastCompleted from evidence before anything reads them
+    if(!s.activeThemes||!s.activeThemes.length)s.activeThemes=A1_THEME_KEYS.slice();
+    return s;
+  }catch(e){ LOCAL_FAULT="the save on this device could not be loaded: "+e.message; return blank(); }
+}
+/* quiet=true skips the dirty mark — used by ghSave(), which is already pushing. */
+function save(quiet){
+  let storedRaw=null;
+  try{ storedRaw=localStorage.getItem(KEY); }catch(e){}
+  const g=saveGuard(S,storedRaw);
+  if(!g.ok){ LOCAL_FAULT=g.reason; refreshBackupLine(); return false; }
+  try{ localStorage.setItem(KEY,JSON.stringify(S)); }
+  catch(e){ LOCAL_FAULT="this device refused to save: "+e.message; refreshBackupLine(); return false; }
+  LOCAL_FAULT=null;
+  if(!quiet) markDirty();
+  return true;
+}
 let S = load();
-function load(){try{
-  const raw=JSON.parse(localStorage.getItem(KEY));
-  if(!raw) return blank();                        // brand-new user — blank is already A1-correct
-  const s=Object.assign(blank(),raw);
-  if(!s.exams)s.exams={};if(!s.lessons)s.lessons={};if(!s.gcards)s.gcards={};
-  migrate(s, raw);
-  healStreak(s);   // rebuild streak/lastCompleted from evidence before anything reads them
-  if(!s.activeThemes||!s.activeThemes.length)s.activeThemes=A1_THEME_KEYS.slice();
-  return s;
-}catch(e){return blank()}}
-function save(){localStorage.setItem(KEY,JSON.stringify(S));}
 
 /* ---------------- SRS helpers ---------------- */
 function card(id){ if(!S.cards[id]) S.cards[id]={box:0,due:today(),lapses:0,reps:0,introduced:false}; return S.cards[id]; }
@@ -2972,6 +3104,7 @@ function creditStudyDay(){
     S.lastCompleted=t;
     save();          // only on the first credit of the day; per-item counter is persisted by
     refreshBadges(); // the caller's own save() (resolve @2771, gradeGrammarCard @4802, finish*)
+    flushSync("forced");   // a day just credited must not spend the rest of the day on one device
   }
 }
 function finishSession(){
@@ -4707,6 +4840,7 @@ function renderHome(){
     $("exam-nudge-cta").onclick=()=>{ showView("exam"); openExam(nextExam.level); };
   } else nudge.classList.add("hide");
 
+  refreshBackupLine();
   renderPath();
 }
 
@@ -4877,7 +5011,7 @@ function healStreak(s){
    make of it. Diagnosis only: it clones the state and changes nothing. */
 function streakDiag(){
   const t=today(), L=[];
-  L.push("build 2026-09-15.2");
+  L.push("build 2026-09-16.1");
   L.push("page  "+location.href);
   L.push("today "+t+"   streak "+(S.streak||0)+"   lastCompleted "+(S.lastCompleted||"(none)"));
   const stamps={};
@@ -4896,6 +5030,9 @@ function streakDiag(){
   L.push("");
   L.push("heal would give: anchor "+(clone.lastCompleted||"(none)")+"  streak "+(clone.streak||0));
   L.push("backup: "+(ghConfigured()? GH.owner+"/"+GH.repo+" "+GH.branch+" "+GH.path : "NOT configured on this device")+"  ·  save looks "+(stateLooksEmpty(S)?"EMPTY":"populated"));
+  L.push("last push OK: "+(SYNCST.lastOk||"(never from this device)")+(SYNC.dirtyAt?"   ·  UNPUSHED changes pending":""));
+  if(SYNCST.lastErr) L.push("last push error: "+SYNCST.lastErr.at+"  "+SYNCST.lastErr.msg);
+  L.push("local fault: "+(LOCAL_FAULT||"none"));
   L.push(healStreak===undefined? "healStreak MISSING (old build)" : "healStreak present");
   return L.join("\n");
 }
@@ -4964,11 +5101,11 @@ async function ghSave(auto){
     let lastErr=null;
     for(let attempt=1;attempt<=3;attempt++){
       const {sha,json}=await ghFetchExisting();
-      if(json){ S=mergeStates(S,json); save(); }   // fold in anything the backup knows that we don't
+      if(json){ S=mergeStates(S,json); save(true); }   // fold in anything the backup knows that we don't
       const body={ message:"progress "+new Date().toISOString(), content:b64enc(JSON.stringify(S,null,2)), branch:GH.branch };
       if(sha) body.sha=sha;
       const r=await fetch(ghUrl(),{method:"PUT",headers:ghHeaders(),cache:"no-store",body:JSON.stringify(body)});
-      if(r.ok){ ghStatus("Saved "+new Date().toLocaleTimeString(),true); refreshBadges(); return; }
+      if(r.ok){ syncRecord(true); ghStatus("Saved "+new Date().toLocaleTimeString(),true); refreshBadges(); return; }
       const errText=(await r.text()).slice(0,120);
       lastErr=new Error(r.status+" "+errText);
       /* 409/422 = the sha we sent didn't match (stale answer or a save raced us).
@@ -4977,7 +5114,7 @@ async function ghSave(auto){
       throw lastErr;
     }
     throw lastErr;
-  }catch(e){ ghStatus("Save failed: "+e.message,false); }
+  }catch(e){ syncRecord(false,e.message); ghStatus("Save failed: "+e.message,false); }
 }
 async function ghLoad(){
   if(!ghConfigured()){ ghStatus("Fill in owner, repo, path and token first.",false); return; }
