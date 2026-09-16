@@ -5141,74 +5141,90 @@
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "studied": true
     },
     "2026-07-16": {
       "newDone": 10,
       "reviewDone": 0,
-      "gDone": 15
+      "gDone": 15,
+      "studied": true
     },
     "2026-07-17": {
       "newDone": 23,
       "reviewDone": 0,
-      "gDone": 15
+      "gDone": 15,
+      "studied": true
     },
     "2026-07-18": {
       "newDone": 7,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "studied": true
     },
     "2026-07-19": {
       "newDone": 20,
       "reviewDone": 0,
-      "gDone": 30
+      "gDone": 30,
+      "studied": true
     },
     "2026-07-20": {
       "newDone": 10,
       "reviewDone": 0,
-      "gDone": 15
+      "gDone": 15,
+      "studied": true
     },
     "2026-07-21": {
       "newDone": 10,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "studied": true
     },
     "2026-07-22": {
       "newDone": 10,
       "reviewDone": 0,
-      "gDone": 15
+      "gDone": 15,
+      "studied": true
     },
     "2026-07-23": {
       "newDone": 10,
       "reviewDone": 0,
-      "gDone": 15
+      "gDone": 15,
+      "studied": true
     },
     "2026-07-25": {
       "newDone": 10,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "studied": true
     },
     "2026-07-26": {
       "newDone": 10,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "studied": true
     },
     "2026-07-27": {
       "newDone": 10,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "studied": true
     },
     "2026-07-28": {
       "newDone": 7,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "studied": true
     },
     "2026-07-30": {
       "newDone": 10,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "studied": true
     },
     "2026-07-31": {
       "newDone": 10,
       "reviewDone": 0,
-      "gDone": 15
+      "gDone": 15,
+      "studied": true
     },
     "2026-08-02": {
       "newDone": 10,
-      "reviewDone": 0
+      "reviewDone": 0,
+      "studied": true
     },
     "2026-08-04": {
       "newDone": 10,
@@ -5263,7 +5279,8 @@
     "2026-08-14": {
       "newDone": 0,
       "reviewDone": 0,
-      "gDone": 5
+      "gDone": 5,
+      "studied": true
     },
     "2026-08-16": {
       "newDone": 10,
