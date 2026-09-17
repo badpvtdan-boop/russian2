@@ -1488,12 +1488,12 @@
       "introduced": true
     },
     "527": {
-      "box": 7,
-      "due": "2027-02-19",
+      "box": 8,
+      "due": "2027-09-17",
       "lapses": 0,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-12"
+      "lastReviewed": "2026-09-17"
     },
     "528": {
       "box": 7,
@@ -4971,12 +4971,12 @@
       "lastReviewed": "2026-09-11"
     },
     "1105": {
-      "box": 2,
+      "box": 1,
       "due": "2026-09-17",
-      "lapses": 4,
-      "reps": 9,
+      "lapses": 5,
+      "reps": 10,
       "introduced": true,
-      "lastReviewed": "2026-09-13"
+      "lastReviewed": "2026-09-17"
     },
     "1106": {
       "box": 2,
@@ -5529,11 +5529,12 @@
   },
   "gcards": {
     "accusative#0": {
-      "box": 2,
-      "due": "2026-08-02",
+      "box": 3,
+      "due": "2026-09-24",
       "lapses": 0,
-      "reps": 2,
-      "introduced": true
+      "reps": 3,
+      "introduced": true,
+      "lastReviewed": "2026-09-17"
     },
     "accusative#1": {
       "box": 3,
@@ -6013,12 +6014,12 @@
       "introduced": true
     },
     "noun-gender#3": {
-      "box": 4,
-      "due": "2026-09-07",
+      "box": 5,
+      "due": "2026-10-22",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-08-31"
+      "lastReviewed": "2026-09-17"
     },
     "noun-gender#4": {
       "box": 2,
