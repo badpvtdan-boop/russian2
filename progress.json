@@ -2565,12 +2565,12 @@
       "lastReviewed": "2026-08-18"
     },
     "664": {
-      "box": 5,
-      "due": "2026-10-24",
+      "box": 6,
+      "due": "2026-12-02",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-09-16"
+      "lastReviewed": "2026-09-18"
     },
     "665": {
       "box": 5,
@@ -5112,12 +5112,12 @@
       "lastReviewed": "2026-09-11"
     },
     "1122": {
-      "box": 1,
-      "due": "2026-09-18",
+      "box": 2,
+      "due": "2026-09-21",
       "lapses": 7,
-      "reps": 13,
+      "reps": 14,
       "introduced": true,
-      "lastReviewed": "2026-09-17"
+      "lastReviewed": "2026-09-18"
     },
     "1123": {
       "box": 4,
@@ -5838,11 +5838,12 @@
       "introduced": true
     },
     "case-map#2": {
-      "box": 1,
-      "due": "2026-07-21",
+      "box": 2,
+      "due": "2026-09-21",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-09-18"
     },
     "case-map#3": {
       "box": 2,
