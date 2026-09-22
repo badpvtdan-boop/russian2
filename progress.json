@@ -294,11 +294,12 @@
       "introduced": true
     },
     "40": {
-      "box": 7,
-      "due": "2026-10-11",
+      "box": 8,
+      "due": "2027-09-22",
       "lapses": 0,
-      "reps": 4,
-      "introduced": true
+      "reps": 5,
+      "introduced": true,
+      "lastReviewed": "2026-09-22"
     },
     "41": {
       "box": 7,
@@ -3507,12 +3508,12 @@
       "lastReviewed": "2026-09-04"
     },
     "852": {
-      "box": 6,
-      "due": "2026-11-23",
+      "box": 7,
+      "due": "2027-03-01",
       "lapses": 0,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-09-09"
+      "lastReviewed": "2026-09-22"
     },
     "853": {
       "box": 5,
@@ -5852,11 +5853,12 @@
       "introduced": true
     },
     "aspect-prefixes#8": {
-      "box": 1,
-      "due": "2026-07-24",
+      "box": 2,
+      "due": "2026-09-25",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-09-22"
     },
     "aspect-prefixes#9": {
       "box": 2,
