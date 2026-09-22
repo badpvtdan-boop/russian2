@@ -2468,12 +2468,12 @@
       "lastReviewed": "2026-09-19"
     },
     "647": {
-      "box": 1,
-      "due": "2026-09-16",
+      "box": 2,
+      "due": "2026-09-24",
       "lapses": 7,
-      "reps": 15,
+      "reps": 16,
       "introduced": true,
-      "lastReviewed": "2026-09-15"
+      "lastReviewed": "2026-09-22"
     },
     "648": {
       "box": 1,
@@ -5512,7 +5512,7 @@
     },
     "2026-09-22": {
       "newDone": 0,
-      "reviewDone": 12,
+      "reviewDone": 13,
       "studied": true
     }
   },
