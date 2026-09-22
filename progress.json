@@ -3331,12 +3331,12 @@
       "lastReviewed": "2026-09-16"
     },
     "819": {
-      "box": 1,
-      "due": "2026-09-18",
+      "box": 2,
+      "due": "2026-09-25",
       "lapses": 3,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-09-17"
+      "lastReviewed": "2026-09-22"
     },
     "820": {
       "box": 3,
@@ -5182,8 +5182,8 @@
       "lastReviewed": "2026-08-27"
     }
   },
-  "streak": 7,
-  "lastCompleted": "2026-09-21",
+  "streak": 8,
+  "lastCompleted": "2026-09-22",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -5506,6 +5506,11 @@
     "2026-09-21": {
       "newDone": 0,
       "reviewDone": 40,
+      "studied": true
+    },
+    "2026-09-22": {
+      "newDone": 0,
+      "reviewDone": 0,
       "studied": true
     }
   },
@@ -6184,10 +6189,11 @@
     },
     "past-future#5": {
       "box": 0,
-      "due": "2026-08-15",
-      "lapses": 2,
-      "reps": 3,
-      "introduced": true
+      "due": "2026-09-22",
+      "lapses": 3,
+      "reps": 4,
+      "introduced": true,
+      "lastReviewed": "2026-09-22"
     },
     "past-future#6": {
       "box": 1,
@@ -6416,6 +6422,6 @@
     "transport",
     "shop"
   ],
-  "lastPopQuiz": "2026-09-21",
+  "lastPopQuiz": "2026-09-22",
   "migv": 4
 }
