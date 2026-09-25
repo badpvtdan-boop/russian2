@@ -3765,12 +3765,12 @@
       "lastReviewed": "2026-09-10"
     },
     "882": {
-      "box": 2,
-      "due": "2026-09-21",
+      "box": 3,
+      "due": "2026-10-02",
       "lapses": 4,
-      "reps": 10,
+      "reps": 11,
       "introduced": true,
-      "lastReviewed": "2026-09-17"
+      "lastReviewed": "2026-09-25"
     },
     "883": {
       "box": 5,
