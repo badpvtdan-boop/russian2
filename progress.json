@@ -1961,12 +1961,12 @@
       "lastReviewed": "2026-08-21"
     },
     "582": {
-      "box": 6,
-      "due": "2026-09-29",
+      "box": 7,
+      "due": "2027-03-03",
       "lapses": 0,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-08-30"
+      "lastReviewed": "2026-09-24"
     },
     "583": {
       "box": 6,
@@ -6238,11 +6238,12 @@
       "lastReviewed": "2026-09-10"
     },
     "past-future#8": {
-      "box": 2,
-      "due": "2026-08-14",
-      "lapses": 0,
-      "reps": 2,
-      "introduced": true
+      "box": 1,
+      "due": "2026-09-24",
+      "lapses": 1,
+      "reps": 3,
+      "introduced": true,
+      "lastReviewed": "2026-09-24"
     },
     "past-future#9": {
       "box": 1,
