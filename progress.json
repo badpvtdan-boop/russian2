@@ -5202,8 +5202,8 @@
       "lastReviewed": "2026-08-27"
     }
   },
-  "streak": 10,
-  "lastCompleted": "2026-09-24",
+  "streak": 11,
+  "lastCompleted": "2026-09-25",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -5542,6 +5542,11 @@
       "newDone": 0,
       "reviewDone": 40,
       "studied": true
+    },
+    "2026-09-25": {
+      "newDone": 0,
+      "reviewDone": 0,
+      "studied": true
     }
   },
   "duoLevel": null,
@@ -5758,11 +5763,11 @@
     },
     "aspect#3": {
       "box": 0,
-      "due": "2026-08-19",
-      "lapses": 1,
-      "reps": 2,
+      "due": "2026-09-25",
+      "lapses": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-08-19"
+      "lastReviewed": "2026-09-25"
     },
     "aspect#4": {
       "box": 0,
@@ -6455,6 +6460,6 @@
     "transport",
     "shop"
   ],
-  "lastPopQuiz": "2026-09-24",
+  "lastPopQuiz": "2026-09-25",
   "migv": 4
 }
