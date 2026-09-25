@@ -8,18 +8,20 @@
       "introduced": true
     },
     "2": {
-      "box": 7,
-      "due": "2026-09-19",
+      "box": 8,
+      "due": "2027-09-27",
       "lapses": 0,
-      "reps": 4,
-      "introduced": true
+      "reps": 5,
+      "introduced": true,
+      "lastReviewed": "2026-09-24"
     },
     "3": {
-      "box": 7,
-      "due": "2026-09-19",
+      "box": 8,
+      "due": "2027-09-27",
       "lapses": 0,
-      "reps": 4,
-      "introduced": true
+      "reps": 5,
+      "introduced": true,
+      "lastReviewed": "2026-09-24"
     },
     "4": {
       "box": 7,
@@ -30,11 +32,12 @@
       "lastReviewed": "2026-09-16"
     },
     "5": {
-      "box": 7,
-      "due": "2026-09-19",
+      "box": 8,
+      "due": "2027-09-21",
       "lapses": 0,
-      "reps": 4,
-      "introduced": true
+      "reps": 5,
+      "introduced": true,
+      "lastReviewed": "2026-09-24"
     },
     "6": {
       "box": 7,
@@ -400,11 +403,12 @@
       "lastReviewed": "2026-08-29"
     },
     "53": {
-      "box": 7,
-      "due": "2026-09-19",
+      "box": 8,
+      "due": "2027-09-22",
       "lapses": 0,
-      "reps": 4,
-      "introduced": true
+      "reps": 5,
+      "introduced": true,
+      "lastReviewed": "2026-09-24"
     },
     "54": {
       "box": 8,
@@ -4527,12 +4531,12 @@
       "lastReviewed": "2026-09-06"
     },
     "1042": {
-      "box": 2,
-      "due": "2026-09-19",
+      "box": 3,
+      "due": "2026-10-02",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-15"
+      "lastReviewed": "2026-09-24"
     },
     "1043": {
       "box": 6,
@@ -4831,12 +4835,12 @@
       "lastReviewed": "2026-09-22"
     },
     "1080": {
-      "box": 4,
-      "due": "2026-09-19",
+      "box": 5,
+      "due": "2026-11-01",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-03"
+      "lastReviewed": "2026-09-24"
     },
     "1081": {
       "box": 7,
@@ -5536,7 +5540,7 @@
     },
     "2026-09-24": {
       "newDone": 0,
-      "reviewDone": 26,
+      "reviewDone": 32,
       "studied": true
     }
   },
