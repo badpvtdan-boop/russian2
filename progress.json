@@ -5896,12 +5896,12 @@
       "lastReviewed": "2026-09-22"
     },
     "aspect-prefixes#9": {
-      "box": 2,
-      "due": "2026-09-14",
+      "box": 3,
+      "due": "2026-10-02",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-09-11"
+      "lastReviewed": "2026-09-25"
     },
     "case-map#0": {
       "box": 1,
