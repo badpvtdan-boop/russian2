@@ -2471,12 +2471,12 @@
       "lastReviewed": "2026-09-24"
     },
     "644": {
-      "box": 2,
+      "box": 1,
       "due": "2026-09-28",
-      "lapses": 20,
-      "reps": 31,
+      "lapses": 21,
+      "reps": 32,
       "introduced": true,
-      "lastReviewed": "2026-09-26"
+      "lastReviewed": "2026-09-28"
     },
     "645": {
       "box": 3,
