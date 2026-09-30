@@ -332,11 +332,11 @@
     },
     "43": {
       "box": 8,
-      "due": "2027-09-26",
+      "due": "2027-09-29",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-09-25"
+      "lastReviewed": "2026-09-29"
     },
     "44": {
       "box": 6,
@@ -2079,12 +2079,12 @@
       "lastReviewed": "2026-08-28"
     },
     "595": {
-      "box": 2,
-      "due": "2026-09-26",
+      "box": 3,
+      "due": "2026-10-06",
       "lapses": 3,
-      "reps": 12,
+      "reps": 13,
       "introduced": true,
-      "lastReviewed": "2026-09-22"
+      "lastReviewed": "2026-09-29"
     },
     "596": {
       "box": 6,
@@ -5664,12 +5664,12 @@
   },
   "gcards": {
     "accusative#0": {
-      "box": 3,
-      "due": "2026-09-24",
+      "box": 4,
+      "due": "2026-10-15",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-09-17"
+      "lastReviewed": "2026-09-29"
     },
     "accusative#1": {
       "box": 3,
@@ -6344,11 +6344,12 @@
       "lastReviewed": "2026-09-23"
     },
     "prep-case#4": {
-      "box": 2,
-      "due": "2026-07-23",
+      "box": 3,
+      "due": "2026-10-06",
       "lapses": 1,
-      "reps": 3,
-      "introduced": true
+      "reps": 4,
+      "introduced": true,
+      "lastReviewed": "2026-09-29"
     },
     "prep-case#5": {
       "box": 0,
