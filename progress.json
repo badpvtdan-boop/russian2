@@ -1,11 +1,12 @@
 {
   "cards": {
     "1": {
-      "box": 7,
-      "due": "2026-09-26",
+      "box": 8,
+      "due": "2027-10-01",
       "lapses": 0,
-      "reps": 5,
-      "introduced": true
+      "reps": 6,
+      "introduced": true,
+      "lastReviewed": "2026-09-29"
     },
     "2": {
       "box": 8,
@@ -206,18 +207,20 @@
       "lastReviewed": "2026-09-29"
     },
     "27": {
-      "box": 7,
-      "due": "2026-09-26",
+      "box": 8,
+      "due": "2027-10-02",
       "lapses": 0,
-      "reps": 5,
-      "introduced": true
+      "reps": 6,
+      "introduced": true,
+      "lastReviewed": "2026-09-29"
     },
     "28": {
-      "box": 7,
-      "due": "2026-09-26",
+      "box": 8,
+      "due": "2027-09-30",
       "lapses": 0,
-      "reps": 5,
-      "introduced": true
+      "reps": 6,
+      "introduced": true,
+      "lastReviewed": "2026-09-29"
     },
     "29": {
       "box": 7,
@@ -3551,12 +3554,12 @@
       "lastReviewed": "2026-09-29"
     },
     "854": {
-      "box": 5,
-      "due": "2026-09-26",
+      "box": 6,
+      "due": "2026-12-11",
       "lapses": 1,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-08-22"
+      "lastReviewed": "2026-09-29"
     },
     "855": {
       "box": 5,
@@ -5577,7 +5580,7 @@
     },
     "2026-09-29": {
       "newDone": 0,
-      "reviewDone": 26,
+      "reviewDone": 30,
       "studied": true
     }
   },
