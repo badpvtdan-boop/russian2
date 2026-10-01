@@ -167,12 +167,12 @@
       "lastReviewed": "2026-09-20"
     },
     "22": {
-      "box": 6,
-      "due": "2026-11-21",
+      "box": 7,
+      "due": "2027-03-09",
       "lapses": 2,
-      "reps": 14,
+      "reps": 15,
       "introduced": true,
-      "lastReviewed": "2026-09-07"
+      "lastReviewed": "2026-09-30"
     },
     "23": {
       "box": 7,
@@ -4210,12 +4210,12 @@
       "lastReviewed": "2026-09-26"
     },
     "936": {
-      "box": 4,
-      "due": "2026-10-11",
+      "box": 5,
+      "due": "2026-11-04",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-25"
+      "lastReviewed": "2026-09-30"
     },
     "937": {
       "box": 4,
@@ -5217,8 +5217,8 @@
       "lastReviewed": "2026-08-27"
     }
   },
-  "streak": 15,
-  "lastCompleted": "2026-09-29",
+  "streak": 16,
+  "lastCompleted": "2026-09-30",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -5581,6 +5581,11 @@
     "2026-09-29": {
       "newDone": 0,
       "reviewDone": 40,
+      "studied": true
+    },
+    "2026-09-30": {
+      "newDone": 0,
+      "reviewDone": 0,
       "studied": true
     }
   },
@@ -6045,11 +6050,11 @@
     },
     "genitive#10": {
       "box": 0,
-      "due": "2026-08-18",
-      "lapses": 2,
-      "reps": 2,
+      "due": "2026-09-30",
+      "lapses": 3,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-08-18"
+      "lastReviewed": "2026-09-30"
     },
     "genitive#11": {
       "box": 2,
