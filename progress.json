@@ -3954,12 +3954,12 @@
       "lastReviewed": "2026-09-15"
     },
     "903": {
-      "box": 4,
-      "due": "2026-09-30",
+      "box": 5,
+      "due": "2026-11-09",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-13"
+      "lastReviewed": "2026-10-02"
     },
     "904": {
       "box": 5,
@@ -5603,7 +5603,7 @@
     },
     "2026-10-02": {
       "newDone": 0,
-      "reviewDone": 22,
+      "reviewDone": 23,
       "studied": true
     }
   },
