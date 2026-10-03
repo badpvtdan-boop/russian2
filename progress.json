@@ -6381,12 +6381,12 @@
       "lastReviewed": "2026-09-23"
     },
     "prep-case#4": {
-      "box": 3,
-      "due": "2026-10-06",
+      "box": 4,
+      "due": "2026-10-19",
       "lapses": 1,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-29"
+      "lastReviewed": "2026-10-03"
     },
     "prep-case#5": {
       "box": 0,
