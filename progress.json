@@ -6264,11 +6264,12 @@
       "lastReviewed": "2026-09-18"
     },
     "past-future#2": {
-      "box": 1,
-      "due": "2026-07-23",
-      "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "box": 0,
+      "due": "2026-10-02",
+      "lapses": 1,
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-10-02"
     },
     "past-future#3": {
       "box": 1,
@@ -6476,11 +6477,12 @@
       "lastReviewed": "2026-09-02"
     },
     "present-conj#6": {
-      "box": 4,
-      "due": "2026-08-16",
-      "lapses": 0,
-      "reps": 4,
-      "introduced": true
+      "box": 3,
+      "due": "2026-10-02",
+      "lapses": 1,
+      "reps": 5,
+      "introduced": true,
+      "lastReviewed": "2026-10-02"
     },
     "present-conj#7": {
       "box": 2,
