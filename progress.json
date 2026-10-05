@@ -3693,12 +3693,12 @@
       "lastReviewed": "2026-09-26"
     },
     "870": {
-      "box": 2,
-      "due": "2026-10-02",
-      "lapses": 3,
-      "reps": 11,
+      "box": 0,
+      "due": "2026-10-05",
+      "lapses": 4,
+      "reps": 12,
       "introduced": true,
-      "lastReviewed": "2026-09-29"
+      "lastReviewed": "2026-10-05"
     },
     "871": {
       "box": 4,
@@ -4389,12 +4389,12 @@
       "lastReviewed": "2026-08-25"
     },
     "1021": {
-      "box": 2,
-      "due": "2026-10-02",
-      "lapses": 4,
-      "reps": 14,
+      "box": 0,
+      "due": "2026-10-05",
+      "lapses": 5,
+      "reps": 15,
       "introduced": true,
-      "lastReviewed": "2026-09-29"
+      "lastReviewed": "2026-10-05"
     },
     "1022": {
       "box": 7,
