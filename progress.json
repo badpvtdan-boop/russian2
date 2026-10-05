@@ -1622,11 +1622,12 @@
       "lastReviewed": "2026-10-05"
     },
     "532": {
-      "box": 7,
-      "due": "2026-10-03",
+      "box": 8,
+      "due": "2027-10-05",
       "lapses": 0,
-      "reps": 2,
-      "introduced": true
+      "reps": 3,
+      "introduced": true,
+      "lastReviewed": "2026-10-05"
     },
     "533": {
       "box": 7,
