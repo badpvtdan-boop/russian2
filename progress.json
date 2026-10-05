@@ -2517,12 +2517,12 @@
       "lastReviewed": "2026-09-30"
     },
     "648": {
-      "box": 1,
-      "due": "2026-10-03",
-      "lapses": 13,
-      "reps": 26,
+      "box": 0,
+      "due": "2026-10-05",
+      "lapses": 14,
+      "reps": 27,
       "introduced": true,
-      "lastReviewed": "2026-10-02"
+      "lastReviewed": "2026-10-05"
     },
     "649": {
       "box": 5,
