@@ -2521,8 +2521,8 @@
     "648": {
       "box": 0,
       "due": "2026-10-05",
-      "lapses": 14,
-      "reps": 27,
+      "lapses": 15,
+      "reps": 28,
       "introduced": true,
       "lastReviewed": "2026-10-05"
     },
