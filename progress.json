@@ -3605,12 +3605,12 @@
       "lastReviewed": "2026-10-03"
     },
     "859": {
-      "box": 5,
-      "due": "2026-10-10",
-      "lapses": 1,
-      "reps": 6,
+      "box": 4,
+      "due": "2026-10-05",
+      "lapses": 2,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-09-08"
+      "lastReviewed": "2026-10-05"
     },
     "860": {
       "box": 6,
@@ -6369,12 +6369,12 @@
       "introduced": true
     },
     "prep-case#11": {
-      "box": 5,
-      "due": "2026-11-02",
+      "box": 6,
+      "due": "2026-12-19",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-28"
+      "lastReviewed": "2026-10-05"
     },
     "prep-case#2": {
       "box": 2,
