@@ -355,7 +355,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-09-22.1</b> · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-10-05.1</b> · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -2765,11 +2765,19 @@ function balancedDue(box){
    introducing more would only grow the pile you can't clear. */
 function newAllowedToday(){ return dueReviewCount() > BACKLOG_PAUSE_NEW ? 0 : NEW_PER_DAY; }
 
+/* THE list of reviews owed today — the home card's number and the drill's queue are both
+   read from here, so they can never disagree. The home card used to compute its own figure
+   (min(cap, due) - done) while the drill sliced the pile (due.slice(0, cap - done)); those
+   differ whenever the pile is under the cap, so the card under-counted what the drill served. */
+function todaysReviewIds(){
+  const log=S.dailyLog[today()]||{newDone:0,reviewDone:0};
+  return dueReviewIds().slice(0,Math.max(0,REVIEW_PER_DAY-(log.reviewDone||0)));
+}
 function buildQueue(){
   const t=today();
   const log=S.dailyLog[t]||{newDone:0,reviewDone:0};
   // due reviews among introduced cards, most overdue first
-  let reviews=dueReviewIds().slice(0,Math.max(0,REVIEW_PER_DAY-log.reviewDone));
+  let reviews=todaysReviewIds();
   // new words not yet introduced, limited to active decks, easiest (lowest tier) first
   let news=DECK.filter(w=>!(S.cards[w.id]&&S.cards[w.id].introduced) && deckActive(w))
                .sort((a,b)=>a.tier-b.tier||a.id-b.id).map(w=>w.id);
@@ -2823,7 +2831,14 @@ document.getElementById("deck-toggle").onclick=()=>{ UIP.decksOpen=!UIP.decksOpe
 function knowSkip(){
   if(!cur) return;
   const c=card(cur.id);
+  /* Banking a REVIEW word with "I know this" finishes that review, so it counts toward the
+     day's review quota exactly like a correct answer. It used to count for nothing: the word
+     left the due pile, the next-most-overdue word slid into its slot, and the home card said
+     "Review 2 due today" forever. A brand-new word is different — knowing it already means
+     nothing was learned, so it is not counted and a genuinely new word takes its place. */
+  const wasReview = c.introduced && !cur.isNew;
   c.introduced=true;
+  if(wasReview && !cur.logged){ logDay(false); cur.logged=true; }
   var _kbTarget = cur.isNew ? (KNOWN_BOX+1) : (INTERVALS.length-1); c.box=Math.max(c.box, _kbTarget);          // bank straight to "known"
   c.reps=(c.reps||0)+1;
   c.lastReviewed=today();   // banking "I know this" is an interaction today
@@ -4700,7 +4715,7 @@ function owedToday(){
   const dueRev=dueReviewCount();
   const availNew=availNewCount();
   const newCap=newAllowedToday();
-  return { rev:Math.max(0,Math.min(REVIEW_PER_DAY,dueRev)-log.reviewDone),
+  return { rev:todaysReviewIds().length,
            new:Math.max(0,Math.min(newCap-log.newDone, availNew)),
            availNew, dueRev, newsPaused:newCap===0 };
 }

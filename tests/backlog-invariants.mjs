@@ -58,6 +58,7 @@ const FNS = [
   "rebalanceSchedule",
   "spreadBacklog", "dueReviewIds", "dueReviewCount", "newAllowedToday",
   "buildQueue", "owedToday", "availNewCount", "startSession",
+  "todaysReviewIds", "knowSkip",
 ];
 
 const sandbox = {
@@ -435,6 +436,77 @@ function drillAll(alwaysCorrect = true) {
   check("e2e: backlog is cleared, not just deferred", sandbox.dueReviewCount() <= REVIEW_PER_DAY);
   check("e2e: work actually happened", cleared > 250);
   check("e2e: cards actually matured", Object.values(sandbox.S.cards).filter(c => c.box >= 6).length > 100);
+})();
+
+
+/* ===== 9. "I know this" on a review finishes it — the home card must clear =====
+   Replays 2026-10-05 as it actually stood: 54 cards due, 38 of 40 reviews logged. The home
+   card said "Review 2", the drill served the two most-overdue words, both were banked with
+   "I know this" — and because a bank didn't count, the next two slid in and the card said
+   "Review 2" again, every time, until the pile itself ran dry. */
+(function knowThisCounts() {
+  FAKE_TODAY = "2026-10-05";
+  makeDeck(200);
+  sandbox.S = stateWith(54, () => "2026-10-03", 7);
+  sandbox.S.dailyLog[FAKE_TODAY] = { newDone: 0, reviewDone: REVIEW_PER_DAY - 2, studied: true };
+  check("know: home card starts at 2", sandbox.owedToday().rev === 2);
+  for (let round = 0; round < 3; round++) {
+    sandbox.queue = sandbox.buildQueue();
+    sandbox.sessionTotal = sandbox.queue.length; sandbox.sessionDone = 0;
+    let guard = 0;
+    while (sandbox.queue.length && guard++ < 50) { sandbox.cur = sandbox.queue[0]; sandbox.knowSkip(); }
+  }
+  check("know: banking both reviews clears the home card", sandbox.owedToday().rev === 0);
+  check("know: and the drill has no reviews left to serve", sandbox.buildQueue().filter(q => !q.isNew).length === 0);
+  check("know: exactly the cap was logged, no more", (sandbox.S.dailyLog[FAKE_TODAY] || {}).reviewDone === REVIEW_PER_DAY);
+})();
+
+/* ===== 10. "I know this" on a brand-new word does NOT use up a review or new slot ===== */
+(function knowThisNewWord() {
+  FAKE_TODAY = "2026-10-05";
+  makeDeck(50);
+  sandbox.S = stateWith(0, () => FAKE_TODAY);
+  sandbox.queue = [{ id: 1, isNew: true, firstTry: true }];
+  sandbox.cur = sandbox.queue[0];
+  sandbox.knowSkip();
+  const log = sandbox.S.dailyLog[FAKE_TODAY] || { newDone: 0, reviewDone: 0 };
+  check("know-new: no review logged", (log.reviewDone || 0) === 0);
+  check("know-new: no new-word slot spent", (log.newDone || 0) === 0);
+  check("know-new: the word is banked as known", sandbox.S.cards[1].introduced && sandbox.S.cards[1].box >= sandbox.KNOWN_BOX);
+})();
+
+/* ===== 11. A miss then "I know this" counts the review once, not twice ===== */
+(function missThenKnow() {
+  FAKE_TODAY = "2026-10-05";
+  makeDeck(50);
+  sandbox.S = stateWith(5, () => "2026-10-04");
+  sandbox.queue = sandbox.buildQueue().filter(q => q.id === 1);
+  sandbox.cur = sandbox.queue[0];
+  sandbox.resolve(false);                          // wrong -> back of the queue, due today
+  check("miss: a wrong review is due again today", sandbox.S.cards[1].due === FAKE_TODAY);
+  check("miss: a wrong answer alone logs nothing", !(sandbox.S.dailyLog[FAKE_TODAY] || {}).reviewDone);
+  sandbox.cur = sandbox.queue[0];
+  sandbox.knowSkip();
+  sandbox.queue = [{ id: 1, isNew: false, firstTry: true, logged: true }];
+  sandbox.cur = sandbox.queue[0];
+  sandbox.knowSkip();                              // a second bank of an already-logged item
+  check("miss: miss + bank logs exactly one review", (sandbox.S.dailyLog[FAKE_TODAY] || {}).reviewDone === 1);
+})();
+
+/* ===== 12. The home card and the drill read the SAME list ===== */
+(function homeMatchesDrill() {
+  makeDeck(200);
+  const cases = [[10, 0], [10, 5], [30, 25], [54, 38], [54, 40], [120, 0], [120, 39], [0, 0]];
+  let allMatch = true;
+  cases.forEach(([due, done]) => {
+    FAKE_TODAY = "2026-10-05";
+    sandbox.S = stateWith(due, () => "2026-10-04");
+    sandbox.S.dailyLog[FAKE_TODAY] = { newDone: 0, reviewDone: done };
+    const home = sandbox.owedToday().rev;
+    const served = sandbox.buildQueue().filter(q => !q.isNew).length;
+    if (home !== served) { allMatch = false; console.log(`  mismatch: ${due} due, ${done} done -> home ${home}, drill ${served}`); }
+  });
+  check("same-list: home card number == reviews the drill serves", allMatch);
 })();
 
 console.log(`Backlog invariants: ${pass}/${pass + fail} passing`);

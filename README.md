@@ -26,7 +26,7 @@ this repo — not from a local clone.** Two things follow, and both have already
 - **Drill** — spaced repetition over a 160-word deck (50 nouns w/ gender, 50 verbs w/ aspect,
   60 adjectives). 5 new + 40 review per day (see the load invariant below); reviews are served
   most-overdue-first, due dates are load-balanced so cohorts don't all return on the same day,
-  and misses come back until answered. "Extra practice" serves overdue reviews before new
+  and misses come back until answered. "I know this" on a review word counts as finishing that review (it used to count for nothing, so the home card's "Review N" never cleared); on a brand-new word it doesn't, so a genuinely new word takes its place. The home card's review number and the drill's review queue both come from `todaysReviewIds()`, so they always agree. "Extra practice" serves overdue reviews before new
   words, and won't introduce new words into an already-overloaded tomorrow. Multiple-choice
   or typed input with an on-screen Cyrillic keyboard. Lenient grading. Audio via browser TTS.
 - **Lessons** — explain → practice → scored test (75% to pass). Units: Prepositional case,
