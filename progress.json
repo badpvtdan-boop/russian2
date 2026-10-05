@@ -3121,8 +3121,8 @@
     "723": {
       "box": 0,
       "due": "2026-10-05",
-      "lapses": 2,
-      "reps": 6,
+      "lapses": 3,
+      "reps": 7,
       "introduced": true,
       "lastReviewed": "2026-10-05"
     },
