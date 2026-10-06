@@ -3194,18 +3194,18 @@
       "lastReviewed": "2026-10-06"
     },
     "729": {
-      "box": 0,
-      "due": "2026-10-06",
+      "box": 1,
+      "due": "2026-10-07",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-10-06"
     },
     "730": {
-      "box": 0,
-      "due": "2026-10-06",
+      "box": 1,
+      "due": "2026-10-07",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-10-06"
     },
