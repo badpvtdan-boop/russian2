@@ -110,6 +110,70 @@ for (const L of LESSONS) {
   ok(!(L.recap && !L.steps), "lesson " + L.id + ": no recap without steps");
 }
 
+/* ---- Reshaped lessons (2026-10-06): sentences to keep, common questions, and a test
+   that explains every answer and tests the DECISION with whole sentences. ---- */
+for (const L of LESSONS) {
+  if (!L.sentences) continue;
+  const w = "lesson " + L.id;
+  ok(L.sentences.length >= 3 && L.sentences.length <= 7, w + ": hands over 3-7 sentences to keep");
+  L.sentences.forEach((x, i) => {
+    const sw = w + " sentence " + (i + 1);
+    ok(typeof x.ru === "string" && x.ru.trim().length > 0, sw + ": has the Russian");
+    ok(typeof x.en === "string" && x.en.trim().length > 0, sw + ": has the English");
+    ok(typeof x.why === "string" && x.why.trim().length > 0, sw + ": says which rule it carries");
+    const wr = x.wrong || [];
+    ok(wr.length >= 2, sw + ": has near-misses for review");
+    ok(new Set(wr.concat([x.ru])).size === wr.length + 1, sw + ": near-misses are distinct and never the answer");
+  });
+  (L.test || []).forEach((q, i) => ok(typeof q.why === "string" && q.why.length > 0,
+    w + " test q" + (i + 1) + ": explains itself after the pick"));
+  const whole = (L.test || []).filter(q => q.opts.every(o => o.trim().includes(" "))).length;
+  ok(whole * 2 >= (L.test || []).length,
+     w + ": at least half the test is whole-sentence choices (tests the decision, not the ending table)");
+  ok(Array.isArray(L.faq) && L.faq.length > 0, w + ": answers the usual follow-up questions");
+  (L.faq || []).forEach((f, i) => ok(!!f.q && !!f.a, w + " faq " + (i + 1) + ": has a question and an answer"));
+}
+
+/* Every lesson on the path exists, and every lesson exists on the path. */
+const bandSrc = /const\s+BAND_LESSONS\s*=\s*(\{[\s\S]*?\});/.exec(src)[1];
+const BAND_LESSONS = vm.runInNewContext("(" + bandSrc + ")");
+const onPath = Object.values(BAND_LESSONS).flat();
+const lessonIds = new Set(LESSONS.map(l => l.id));
+onPath.forEach(id => ok(lessonIds.has(id), "path: lesson " + id + " exists"));
+LESSONS.forEach(l => ok(onPath.includes(l.id), "path: lesson " + l.id + " is on the path"));
+
+/* Grammar-review pools: each belongs to a real lesson, every item explains itself, and after
+   the lessons' sentences are folded in (the app's own code, run here) every review id is unique. */
+const GRAMMAR = vm.runInNewContext("(" + extractArray("GRAMMAR") + ")");
+function extractFn(name) {
+  const start = src.indexOf("function " + name + "(");
+  if (start < 0) throw new Error("function not found: " + name);
+  let depth = 0, i = src.indexOf("{", start);
+  for (; i < src.length; i++) { if (src[i] === "{") depth++; else if (src[i] === "}") { depth--; if (depth === 0) { i++; break; } } }
+  return src.slice(start, i);
+}
+const ctx = vm.createContext({ LESSONS, GRAMMAR });
+vm.runInContext(extractFn("sentenceGrammarItems") + "\n" + extractFn("gItemId"), ctx);
+const addSrc = /\(function addSentenceItems\(\)\{[\s\S]*?\}\)\(\);/.exec(src);
+ok(!!addSrc, "grammar: sentence items are folded into review at load");
+if (addSrc) vm.runInContext(addSrc[0], ctx);
+const seen = new Set();
+let dup = 0;
+GRAMMAR.forEach(g => {
+  ok(lessonIds.has(g.lesson), "grammar pool " + g.lesson + ": belongs to a real lesson");
+  g.items.forEach((it, i) => {
+    checkQ("grammar " + g.lesson + " #" + i, it, true);
+    const id = ctx.gItemId(g, it, i);
+    if (seen.has(id)) dup++; seen.add(id);
+  });
+});
+ok(dup === 0, "grammar: every review id is unique (" + dup + " duplicates)");
+LESSONS.filter(l => l.sentences).forEach(L => {
+  const g = GRAMMAR.find(x => x.lesson === L.id);
+  ok(!!g && g.items.filter(it => it.say).length === L.sentences.length,
+     "grammar: lesson " + L.id + "'s sentences all come back in review");
+});
+
 console.log("\nLesson invariants: " + pass + "/" + (pass + fails.length) + " passing");
 if (fails.length) {
   console.log("\nFAILED:");

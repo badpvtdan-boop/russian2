@@ -34,6 +34,16 @@ this repo — not from a local clone.** Two things follow, and both have already
   instead declare `steps`: a sequence of one-idea chunks, each immediately practising the point
   it just taught, followed by a `recap` and then the same graded test. Lessons without `steps`
   keep the original single-screen flow untouched.
+  A lesson can also carry **`sentences`** (3–7 everyday sentences, each with `ru`, `en`, `why` and
+  near-miss `wrong` versions) and **`faq`** (the follow-up questions people always ask). The
+  sentences are shown with audio before the recap, listed on the **📝 My sentences** page once the
+  lesson is passed, and folded into grammar review as "say it in Russian" items (review ids
+  `lesson#s0…`). Lessons with sentences must explain every test answer (`why`, shown only after the
+  pick is scored) and make at least half the test whole-sentence choices, so the test checks the
+  decision rather than spotting the one option with the right-looking ending. Any passed lesson
+  has **↻ Refresh**: its summary, sentences and a quick unscored quiz from its review pool.
+  The Instrumental is the first lesson in this shape (2026-10-06), modelled on a Gemini lesson that
+  worked: majority rules only, one idea at a time, five sentences to keep.
 
 ## Data & sync
 

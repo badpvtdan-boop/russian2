@@ -137,7 +137,7 @@
      so a long unit reads as a short walk instead of one undifferentiated wall. */
   .lprog{display:flex;gap:4px;margin:-4px 0 16px}
   .lprog i{flex:1;height:4px;border-radius:2px;background:var(--line)}
-  .lprog i.done{background:var(--accent)}
+  .lprog i.done{background:var(--accent);padding:0}   /* padding:0 — the generic .done{padding:20px} (finish screen) was swelling these into blocks */
   .lprog i.now{background:var(--accent);opacity:.45}
   .step-note{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
     padding:10px 14px;margin:14px 0 0;font-size:15px;color:var(--muted)}
@@ -155,6 +155,20 @@
   .story-gloss{min-height:1.7em;padding:9px 13px;background:var(--panel2);border-radius:10px;font-size:17px;color:var(--muted)}
   .story-trans{font-size:16px;color:var(--muted);line-height:1.7;margin-top:8px;padding:10px 12px;background:var(--panel2);border-radius:10px}
   .lesson-right{display:flex;align-items:center;gap:10px}
+  .sent{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .sent:last-child{border-bottom:0}
+  .sent .say{flex:none;font-size:18px;padding:6px 10px;line-height:1}
+  .sent .s-ru{font-size:20px;font-weight:600}
+  .sent .s-en{color:var(--muted);font-size:15px}
+  .sent .s-why{font-size:14px;margin-top:2px}
+  .faq{margin-top:16px;border-top:1px solid var(--line);padding-top:10px}
+  .faq h4{margin:0 0 6px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+  .faq details{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;background:var(--panel)}
+  .faq summary{cursor:pointer;font-weight:600}
+  .faq details div{margin-top:6px;font-size:15px}
+  .faq .faq-fold{background:var(--panel2)}
+  .faq .faq-fold > div details{background:var(--panel)}
+  .lesson-head-row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
   .story-chip{font-size:13px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--accent);cursor:pointer;white-space:nowrap}
   .story-chip:hover{background:var(--accent-soft)}
   /* ---------- Phone layout (small screens / iPhone) ---------- */
@@ -355,7 +369,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-10-05.1</b> · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-10-06.1</b> · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -3858,7 +3872,7 @@ const LESSONS=[{
       <tr><th>Transitive (takes an object)</th><th>Reflexive (no object)</th></tr>
       <tr><td class="ru">Я учу́ ру́сский язы́к<br><span style="color:var(--muted)">I study Russian (a thing)</span></td><td class="ru">Я учу́сь в шко́ле<br><span style="color:var(--muted)">I study at school (no object)</span></td></tr>
     </table>
-    <p>Many reflexive verbs instead pair with the <b>instrumental</b> — you met these in the Instrumental lesson: <span class="ru">занима́ться спо́ртом</span> (do sports), <span class="ru">интересова́ться му́зыкой</span> (be interested in music), <span class="ru">горди́ться</span> (be proud of).</p>`,
+    <p>Many reflexive verbs instead pair with the <b>instrumental</b> — you met these in the second Instrumental lesson: <span class="ru">занима́ться спо́ртом</span> (do sports), <span class="ru">интересова́ться му́зыкой</span> (be interested in music), <span class="ru">горди́ться</span> (be proud of).</p>`,
   practice:[
     {q:"я-form of учи́ться (to study):",opts:["учу́сь","учи́шься","у́чится","учу́ся"],a:0,why:"After a vowel the tail is -сь: я учу́ + сь → учу́сь."},
     {q:"он-form of учи́ться:",opts:["у́чится","у́чишься","учу́сь","у́чатся"],a:0,why:"After a consonant the tail is -ся: он у́чится."},
@@ -3867,7 +3881,7 @@ const LESSONS=[{
     {q:"A -ся verb can NOT take a…",opts:["direct object (accusative)","subject","preposition","adverb"],a:0,why:"Reflexive verbs are intransitive — the -ся fills the object slot, so no accusative object."},
     {q:"Which verb means 'to study / attend school' (intransitive)?",opts:["учи́ться","учи́ть","знать","чита́ть"],a:0,why:"учи́ться (reflexive, intransitive) = to study; учи́ть (transitive) = to study/learn something."},
     {q:"Past tense, feminine, of смея́ться (to laugh):",opts:["смея́лась","смея́лся","смея́лись","смея́ется"],a:0,why:"Past + -лась (feminine, -сь after the vowel): смея́лась."},
-    {q:"занима́ться (to be busy with) takes a noun in the…",opts:["instrumental","accusative","dative","genitive"],a:0,why:"занима́ться спо́ртом — the instrumental (a reflexive verb from the Instrumental lesson)."}
+    {q:"занима́ться (to be busy with) takes a noun in the…",opts:["instrumental","accusative","dative","genitive"],a:0,why:"занима́ться спо́ртом — the instrumental (a reflexive verb from the second Instrumental lesson)."}
   ],
   test:[
     {q:"мы-form of учи́ться:",opts:["у́чимся","у́читесь","у́чится","учу́сь"],a:0},
@@ -4077,67 +4091,294 @@ const LESSONS=[{
 },{
   id:"instrumental",
   title:"Instrumental Case",
-  subtitle:"творительный падеж · by / with · как",
+  subtitle:"творительный падеж · with whom? · with what?",
   level:"A2",
-  explanation:`
-    <p>The <b>instrumental case</b> answers <b>"with what?"</b> or <b>"by what means?"</b> — the <b>tool</b> or <b>method</b> used to do something. In <i>"I write <b>with a pen</b>"</i>, the pen goes in the instrumental: <span class="ru">Я пишу́ ру́чкой</span>. It's the last of the six everyday cases, and it has a few other important jobs too: saying who you're <b>together with</b>, naming a <b>profession or role</b>, and following a set of position prepositions.</p>
-    <h3>How the noun ending changes (singular)</h3>
-    <table>
-      <tr><th>Noun type</th><th>Ending</th><th>Example</th></tr>
-      <tr><td>Masculine hard</td><td>add <b>-ом</b></td><td>стол → стол<span class="ru">о́м</span>; нож → нож<span class="ru">о́м</span></td></tr>
-      <tr><td>Masculine soft (<b>-й / -ь</b>)</td><td>→ <b>-ем / -ём</b></td><td>музе́й → музе́<span class="ru">ем</span>; слова́рь → словар<span class="ru">ём</span></td></tr>
-      <tr><td>Neuter <b>-о / -е</b></td><td>→ <b>-ом / -ем</b></td><td>окно́ → окн<span class="ru">о́м</span>; мо́ре → мо́р<span class="ru">ем</span></td></tr>
-      <tr><td>Feminine <b>-а / -я</b></td><td>→ <b>-ой / -ей</b></td><td>маши́на → маши́н<span class="ru">ой</span>; неде́ля → неде́л<span class="ru">ей</span></td></tr>
-      <tr><td>Feminine <b>-ь</b></td><td>→ <b>-ью</b></td><td>дверь → две́р<span class="ru">ью</span>; ночь → но́ч<span class="ru">ью</span></td></tr>
-    </table>
-    <p><b>Spelling note:</b> after <span class="ru">ж ш щ ч ц</span>, an <i>unstressed</i> ending is written <b>-ем / -ей</b>, not -ом/-ой: <span class="ru">ме́сяцем, това́рищем</span>. When the ending is stressed it stays -о́м: <span class="ru">отцо́м, ножо́м</span>.</p>
-    <h3>Job 1 — the means or tool ("with / by", NO preposition)</h3>
-    <p>When something is the <b>instrument</b> you act with, it goes in the bare instrumental — <b>no</b> word for "with": <span class="ru">писа́ть ру́чкой</span> (write with a pen), <span class="ru">ре́зать ножо́м</span> (cut with a knife), <span class="ru">е́хать по́ездом</span> (go by train). This is the case's namesake job.</p>
-    <h3>Job 2 — "together with" someone (с + instrumental)</h3>
-    <p>To say you're <b>accompanied by</b> someone or something, use <span class="ru">с</span> + instrumental: <span class="ru">ко́фе с молоко́м</span> (coffee with milk), <span class="ru">я иду́ с дру́гом</span> (I'm going with a friend). <b>Watch the contrast:</b> a <i>tool</i> takes the bare instrumental (<span class="ru">пишу́ ру́чкой</span>), but <i>company</i> takes <span class="ru">с</span> (<span class="ru">иду́ с бра́том</span>). Same case, but "with a pen" has no с and "with my brother" does.</p>
-    <h3>Job 3 — professions & roles (быть / стать / рабо́тать + instrumental)</h3>
-    <p>With <span class="ru">быть</span> (to be — in the past/future), <span class="ru">стать</span> (to become), and <span class="ru">рабо́тать</span> (to work as), the role goes in the instrumental: <span class="ru">Он рабо́тает учи́телем</span> (he works as a teacher), <span class="ru">Она́ хо́чет стать врачо́м</span> (she wants to become a doctor), <span class="ru">Ра́ньше я был студе́нтом</span> (I used to be a student). Note: present-tense "is" (<span class="ru">Он учи́тель</span>) stays nominative — only быть in past/future and стать trigger the instrumental.</p>
-    <h3>Job 4 — after these position prepositions</h3>
-    <table>
-      <tr><th>Prep.</th><th>Meaning</th><th>Example</th></tr>
-      <tr><td class="ru">с</td><td>with (together)</td><td>с дру́г<span class="ru">ом</span> — with a friend</td></tr>
-      <tr><td class="ru">над</td><td>above / over</td><td>над стол<span class="ru">о́м</span> — above the table</td></tr>
-      <tr><td class="ru">под</td><td>under</td><td>под крова́т<span class="ru">ью</span> — under the bed</td></tr>
-      <tr><td class="ru">пе́ред</td><td>in front of / before</td><td>пе́ред до́м<span class="ru">ом</span> — in front of the house</td></tr>
-      <tr><td class="ru">за</td><td>behind / beyond</td><td>за го́род<span class="ru">ом</span> — out of town</td></tr>
-      <tr><td class="ru">ме́жду</td><td>between</td><td>ме́жду на́ми — between us</td></tr>
-    </table>
-    <p>A few common verbs also demand the instrumental: <span class="ru">занима́ться</span> (to be busy with / do — <span class="ru">занима́ться спо́ртом</span>), <span class="ru">интересова́ться</span> (to be interested in — <span class="ru">интересова́ться му́зыкой</span>), <span class="ru">горди́ться</span> (to be proud of).</p>
-    <h3>The pronouns</h3>
-    <table>
-      <tr><th>я</th><th>ты</th><th>он / оно́</th><th>она́</th><th>мы</th><th>вы</th><th>они́</th></tr>
-      <tr><td class="ru">мной</td><td class="ru">тобо́й</td><td class="ru">им</td><td class="ru">ей</td><td class="ru">на́ми</td><td class="ru">ва́ми</td><td class="ru">и́ми</td></tr>
-    </table>`,
-  practice:[
-    {q:"Я пишу́ письмо́ … (ру́чка).",opts:["ру́чкой","ру́чка","ру́чку","ру́чке"],a:0,why:"A tool → bare instrumental; feminine -а → -ой: пишу́ ру́чкой."},
-    {q:"Я ре́жу хлеб … (нож). (with a knife — a tool)",opts:["ножо́м","с ножо́м","ножа́","нож"],a:0,why:"A tool takes the bare instrumental, no 'с': ре́жу ножо́м."},
-    {q:"Я люблю́ ко́фе с … (молоко́).",opts:["молоко́м","молоко́","молока́","молоку́"],a:0,why:"'Together with' → с + instrumental; neuter -о → -ом: с молоко́м."},
-    {q:"Он рабо́тает … (учи́тель). (as a teacher)",opts:["учи́телем","учи́тель","учи́теля","учи́телю"],a:0,why:"Profession with рабо́тать → instrumental; soft -ь → -ем: учи́телем."},
-    {q:"Мы е́дем … (по́езд). (by train)",opts:["по́ездом","по́езд","по́езда","с по́ездом"],a:0,why:"'By means of' transport → bare instrumental: е́дем по́ездом."},
-    {q:"Я ем суп … (ло́жка).",opts:["ло́жкой","ло́жка","ло́жку","ло́жке"],a:0,why:"A tool → bare instrumental; feminine -а → -ой: ло́жкой."},
-    {q:"Я иду́ в кино́ с … (друг). (with a friend)",opts:["дру́гом","друг","дру́га","дру́гу"],a:0,why:"Company → с + instrumental; masculine hard → -ом: с дру́гом."},
-    {q:"Ра́ньше он был … (студе́нт).",opts:["студе́нтом","студе́нт","студе́нта","студе́нту"],a:0,why:"был (past of 'to be') → instrumental role: был студе́нтом."}
+  /* Rebuilt 2026-10-06 around what worked for Danny in a Gemini session: only the majority
+     rules, one idea at a time, five real sentences to keep, and a test that checks the
+     DECISION (с or no с, which ending) with whole-sentence choices instead of four case forms
+     of one word, where the only instrumental-looking option gave the answer away. Jobs and
+     roles, position words, the verbs that take this case and the pronouns moved to the
+     follow-on lesson "instrumental-more". */
+  steps:[
+    {
+      title:"Two kinds of “with”",
+      html:`
+        <p>English uses one word, <b>with</b>, for two different ideas. Russian keeps them apart.</p>
+        <table>
+          <tr><th>The idea</th><th>Russian</th><th>Example</th></tr>
+          <tr><td><b>Together with</b> someone</td><td><span class="ru">с</span> + instrumental</td><td><span class="ru">Я гуля́ю <b>с ма́мой</b>.</span><br>I'm walking with mom.</td></tr>
+          <tr><td><b>Using</b> something</td><td>instrumental alone — <b>no</b> <span class="ru">с</span></td><td><span class="ru">Я пишу́ <b>ру́чкой</b>.</span><br>I'm writing with a pen.</td></tr>
+        </table>
+        <p>The question to ask: is it <b>keeping me company</b>, or am I <b>using</b> it? Mom walks along with you. The pen doesn't — you use it. Think of it as "I write pen-ly."</p>`,
+      note:"Both words change their ending the same way (ма́ма → ма́мой, ру́чка → ру́чкой). The only difference is whether с goes in front.",
+      practice:[
+        {q:"“I'm walking with mom.”",opts:["Я гуля́ю с ма́мой.","Я гуля́ю ма́мой.","Я гуля́ю с ма́ма.","Я гуля́ю ма́ма."],a:0,why:"Mom is company, so с goes in front, and ма́ма → ма́мой."},
+        {q:"“I'm writing with a pen.”",opts:["Я пишу́ ру́чкой.","Я пишу́ с ру́чкой.","Я пишу́ ру́чка.","Я пишу́ с ру́чка."],a:0,why:"You're using the pen, so no с — just the changed ending: ру́чкой. (с ру́чкой would mean the pen is keeping you company.)"},
+        {q:"Which “with” needs с?",opts:["with my brother","with a knife","with a spoon","with a pen"],a:0,why:"Your brother is company. A knife, a spoon and a pen are things you use, so they take no с."}
+      ]
+    },
+    {
+      title:"Words ending in -а → -ой",
+      html:`
+        <p>Most feminine words end in <b>-а</b>. Swap the <b>-а</b> for <b class="ru">-ой</b>:</p>
+        <table>
+          <tr><th>Dictionary form</th><th>Instrumental</th><th></th></tr>
+          <tr><td class="ru">ма́ма</td><td class="ru">ма́м<b>ой</b></td><td>mom</td></tr>
+          <tr><td class="ru">ру́чка</td><td class="ru">ру́чк<b>ой</b></td><td>pen</td></tr>
+          <tr><td class="ru">сестра́</td><td class="ru">сестр<b>о́й</b></td><td>sister</td></tr>
+          <tr><td class="ru">ло́жка</td><td class="ru">ло́жк<b>ой</b></td><td>spoon</td></tr>
+        </table>
+        <p><b>How it sounds:</b> <span class="ru">-ой</span> rhymes with "boy." <span class="ru">ма́мой</span> = <i>MAH-moy</i>, <span class="ru">ру́чкой</span> = <i>ROOCH-koy</i>.</p>`,
+      practice:[
+        {q:"Я ем суп … (ло́жка).",opts:["ло́жкой","с ло́жкой","ло́жка","ло́жку"],a:0,why:"A spoon is something you use, so no с. ло́жка → ло́жкой."},
+        {q:"“I'm talking with my sister.”",opts:["Я говорю́ с сестро́й.","Я говорю́ сестро́й.","Я говорю́ с сестра́.","Я говорю́ с сестру́."],a:0,why:"Your sister is company, so с. сестра́ → сестро́й."}
+      ]
+    },
+    {
+      title:"Words ending in a consonant, -о or -е → -ом / -ем",
+      html:`
+        <p>Masculine words that end in a <b>consonant</b> just <b>add</b> <b class="ru">-ом</b>:</p>
+        <table>
+          <tr><th>Dictionary form</th><th>Instrumental</th><th></th></tr>
+          <tr><td class="ru">друг</td><td class="ru">дру́г<b>ом</b></td><td>friend</td></tr>
+          <tr><td class="ru">брат</td><td class="ru">бра́т<b>ом</b></td><td>brother</td></tr>
+          <tr><td class="ru">нож</td><td class="ru">нож<b>о́м</b></td><td>knife</td></tr>
+        </table>
+        <p>Neuter words ending in <b>-о</b> also end up with <b class="ru">-ом</b>; the few ending in <b>-е</b> get <b class="ru">-ем</b>:</p>
+        <table>
+          <tr><td class="ru">молоко́</td><td class="ru">молок<b>о́м</b></td><td>milk</td></tr>
+          <tr><td class="ru">мо́ре</td><td class="ru">мо́р<b>ем</b></td><td>sea</td></tr>
+        </table>`,
+      practice:[
+        {q:"“I'm talking with a friend.”",opts:["Я говорю́ с дру́гом.","Я говорю́ дру́гом.","Я говорю́ с дру́га.","Я говорю́ с друг."],a:0,why:"A friend is company, so с. друг ends in a consonant, so add -ом: дру́гом."},
+        {q:"Я ре́жу хлеб … (нож).",opts:["ножо́м","с ножо́м","нож","ножа́"],a:0,why:"A knife is something you use, so no с. Add -ом: ножо́м."},
+        {q:"молоко́ in the instrumental is…",opts:["молоко́м","молоко́й","молоке́м","молоко́"],a:0,why:"A neuter word ending in -о takes -ом: молоко́м."}
+      ]
+    },
+    {
+      title:"Words ending in -я → -ей",
+      html:`
+        <p>Feminine words that end in <b>-я</b> swap it for <b class="ru">-ей</b>:</p>
+        <table>
+          <tr><th>Dictionary form</th><th>Instrumental</th><th></th></tr>
+          <tr><td class="ru">тётя</td><td class="ru">тёт<b>ей</b></td><td>aunt</td></tr>
+          <tr><td class="ru">Та́ня</td><td class="ru">Та́н<b>ей</b></td><td>Tanya</td></tr>
+          <tr><td class="ru">неде́ля</td><td class="ru">неде́л<b>ей</b></td><td>week</td></tr>
+        </table>
+        <p><b>How it sounds:</b> <span class="ru">-ей</span> rhymes with "day," not "boy." <span class="ru">тётей</span> = <i>TYOH-tay</i>. So <span class="ru">-ой</span> and <span class="ru">-ей</span> sound different: <i>oy</i> vs <i>ay</i>.</p>`,
+      note:"There are two smaller groups you'll meet in the next lesson: feminine words ending in -ь take -ью (ночь → но́чью), and masculine words ending in -ь take -ем (учи́тель → учи́телем).",
+      practice:[
+        {q:"“I live with my aunt.”",opts:["Я живу́ с тётей.","Я живу́ с тётой.","Я живу́ тётей.","Я живу́ с тётю."],a:0,why:"Your aunt is company, so с. тётя ends in -я, so it takes -ей: тётей."},
+        {q:"The ending of тётей sounds like…",opts:["“ay” as in day","“oy” as in boy","“om”","“ee” as in see"],a:0,why:"-ей rhymes with day. -ой (ма́мой) is the one that rhymes with boy."}
+      ]
+    },
+    {
+      title:"Food and drink: с joins things together",
+      html:`
+        <p>This is the one that catches people out. Milk isn't a person, so <i>coffee with milk</i> feels like it should take no <span class="ru">с</span>. But you aren't <b>using</b> the milk to do something — it's <b>together with</b> the coffee. So it takes <span class="ru">с</span>:</p>
+        <table>
+          <tr><td class="ru">ко́фе с молоко́м</td><td>coffee with milk</td></tr>
+          <tr><td class="ru">чай с лимо́ном</td><td>tea with lemon</td></tr>
+          <tr><td class="ru">хлеб с ма́слом</td><td>bread with butter</td></tr>
+          <tr><td class="ru">пи́цца с сы́ром</td><td>pizza with cheese</td></tr>
+        </table>
+        <h3>The “using” test</h3>
+        <p>Try swapping <i>with</i> for <i>using</i>. If it still makes sense, there's no <span class="ru">с</span>:</p>
+        <p>"I write <b>using</b> a pen" ✓ → <span class="ru">пишу́ ру́чкой</span><br>
+        "I drink coffee <b>using</b> milk" ✗ → <span class="ru">ко́фе с молоко́м</span></p>`,
+      practice:[
+        {q:"“I drink coffee with milk.”",opts:["Я пью ко́фе с молоко́м.","Я пью ко́фе молоко́м.","Я пью ко́фе с молока́.","Я пью ко́фе с молоко́."],a:0,why:"The milk goes together with the coffee — you aren't using it — so с, and молоко́ → молоко́м."},
+        {q:"“Tea with lemon.”",opts:["Чай с лимо́ном.","Чай лимо́ном.","Чай с лимо́на.","Чай с лимо́н."],a:0,why:"Food and drink that go together take с. лимо́н + -ом = лимо́ном."},
+        {q:"Which one passes the “using” test (so no с)?",opts:["I cut bread with a knife","I drink tea with lemon","I live with my aunt","I eat bread with butter"],a:0,why:"“I cut bread using a knife” still makes sense, so it's ножо́м with no с. The others are company or things that go together."}
+      ]
+    }
   ],
+  sentences:[
+    {ru:"Я гуля́ю с ма́мой.",en:"I'm walking with mom.",why:"Mom is company, so с. ма́ма → ма́мой.",wrong:["Я гуля́ю ма́мой.","Я гуля́ю с ма́ма.","Я гуля́ю с ма́му."]},
+    {ru:"Я пишу́ ру́чкой.",en:"I'm writing with a pen.",why:"You use the pen, so no с. ру́чка → ру́чкой.",wrong:["Я пишу́ с ру́чкой.","Я пишу́ ру́чка.","Я пишу́ ру́чку."]},
+    {ru:"Я говорю́ с дру́гом.",en:"I'm talking with a friend.",why:"A friend is company, so с. друг + -ом = дру́гом.",wrong:["Я говорю́ дру́гом.","Я говорю́ с дру́га.","Я говорю́ с друг."]},
+    {ru:"Я живу́ с тётей.",en:"I live with my aunt.",why:"Company, so с. тётя ends in -я, so it takes -ей: тётей.",wrong:["Я живу́ с тётой.","Я живу́ тётей.","Я живу́ с тётя."]},
+    {ru:"Я пью ко́фе с молоко́м.",en:"I drink coffee with milk.",why:"Things that go together take с. молоко́ → молоко́м.",wrong:["Я пью ко́фе молоко́м.","Я пью ко́фе с молока́.","Я пью ко́фе с молоко́."]}
+  ],
+  faq:[
+    {q:"Why does “with mom” need с but “with a pen” doesn't?",a:"With mom you're doing something <b>together</b> (с кем? — with whom?), and that always takes <span class=\"ru\">с</span>. With a pen you're <b>using</b> it (чем? — with what?), and a thing you use takes the ending alone. Same ending in both cases; the only difference is the с."},
+    {q:"Do -ой and -ей sound the same?",a:"No. <span class=\"ru\">-ой</span> rhymes with <i>boy</i> (<span class=\"ru\">ма́мой</span>, MAH-moy). <span class=\"ru\">-ей</span> rhymes with <i>day</i> (<span class=\"ru\">тётей</span>, TYOH-tay), and it softens the letter in front of it."},
+    {q:"Why doesn't ко́фе change?",a:"A handful of borrowed words ending in a vowel never change at all, in any case: <span class=\"ru\">ко́фе, метро́, кино́, такси́, кафе́</span>. So it's <span class=\"ru\">с ко́фе</span>, <span class=\"ru\">в кафе́</span>. You'll recognise them because they look foreign."},
+    {q:"What about words ending in -ь?",a:"Two small groups, covered in the next lesson. Feminine words ending in -ь take <b class=\"ru\">-ью</b>: <span class=\"ru\">ночь → но́чью, дверь → две́рью</span>. Masculine words ending in -ь take <b class=\"ru\">-ем</b>: <span class=\"ru\">учи́тель → учи́телем</span>."},
+    {q:"When does с turn into со?",a:"When the next word starts with a hard-to-say cluster of consonants. The one you'll hear constantly is <span class=\"ru\">со мной</span> (with me). Others are rare — don't worry about them."},
+    {q:"Can I say “by bus” this way too?",a:"Yes — <span class=\"ru\">е́хать авто́бусом</span> (go by bus) is the same “using” idea. In everyday speech you'll more often hear <span class=\"ru\">на авто́бусе</span>; both are fine."}
+  ],
+  recap:`
+    <p>The whole lesson on one page — skim it before the test.</p>
+    <table>
+      <tr><th>The idea</th><th>In short</th></tr>
+      <tr><td>Two kinds of “with”</td><td><b>Together with</b> → <span class="ru">с</span> + instrumental (<span class="ru">с ма́мой</span>). <b>Using</b> → instrumental alone (<span class="ru">ру́чкой</span>).</td></tr>
+      <tr><td>-а → -ой</td><td><span class="ru">ма́ма → ма́мой, ру́чка → ру́чкой</span> · sounds like “boy”</td></tr>
+      <tr><td>consonant → -ом</td><td><span class="ru">друг → дру́гом, нож → ножо́м</span></td></tr>
+      <tr><td>-о / -е → -ом / -ем</td><td><span class="ru">молоко́ → молоко́м, мо́ре → мо́рем</span></td></tr>
+      <tr><td>-я → -ей</td><td><span class="ru">тётя → тётей</span> · sounds like “day”</td></tr>
+      <tr><td>Food &amp; drink</td><td>Things that go together take <span class="ru">с</span>: <span class="ru">ко́фе с молоко́м</span>.</td></tr>
+    </table>
+    <p><b>The one question to carry into the test:</b> can you swap “with” for “using”? Yes → no с. No → с.</p>`,
   test:[
-    {q:"Я рису́ю … (каранда́ш). (with a pencil)",opts:["карандашо́м","каранда́ш","карандаша́","карандашу́"],a:0},
-    {q:"Чай с … (лимо́н).",opts:["лимо́ном","лимо́н","лимо́на","лимо́ну"],a:0},
-    {q:"Она́ хо́чет стать … (врач).",opts:["врачо́м","врач","врача́","врачу́"],a:0},
-    {q:"Мы говори́м с … (сестра́).",opts:["сестро́й","сестра́","сестру́","сестры́"],a:0},
-    {q:"Я лечу́ … (самолёт). (by plane)",opts:["самолётом","самолёт","самолёта","с самолётом"],a:0},
-    {q:"Ла́мпа виси́т над … (стол).",opts:["столо́м","стол","стола́","столу́"],a:0},
-    {q:"Я занима́юсь … (спорт).",opts:["спо́ртом","спорт","спо́рта","спо́рту"],a:0},
-    {q:"Ты пойдёшь со … (я)? (with me)",opts:["мной","меня́","мне","я"],a:0}
+    {q:"“I'm playing with my brother.”",opts:["Я игра́ю с бра́том.","Я игра́ю бра́том.","Я игра́ю с бра́та.","Я игра́ю с брат."],a:0,why:"Your brother is company, so с. брат + -ом = бра́том."},
+    {q:"“I eat soup with a spoon.”",opts:["Я ем суп ло́жкой.","Я ем суп с ло́жкой.","Я ем суп ло́жка.","Я ем суп с ло́жку."],a:0,why:"You use the spoon, so no с: ло́жкой. (суп с ло́жкой would be soup that comes with a spoon.)"},
+    {q:"“I cut bread with a knife.”",opts:["Я ре́жу хлеб ножо́м.","Я ре́жу хлеб с ножо́м.","Я ре́жу хлеб нож.","Я ре́жу хлеб ножа́."],a:0,why:"“Using a knife” makes sense, so no с. нож + -ом = ножо́м."},
+    {q:"“Tea with lemon, please.”",opts:["Чай с лимо́ном, пожа́луйста.","Чай лимо́ном, пожа́луйста.","Чай с лимо́на, пожа́луйста.","Чай с лимо́н, пожа́луйста."],a:0,why:"Food and drink that go together take с. лимо́н + -ом = лимо́ном."},
+    {q:"“I'm talking with Tanya.”",opts:["Я говорю́ с Та́ней.","Я говорю́ с Та́ной.","Я говорю́ Та́ней.","Я говорю́ с Та́ню."],a:0,why:"Tanya is company, so с. Та́ня ends in -я, so it takes -ей: Та́ней."},
+    {q:"“I'm walking with my sister.”",opts:["Я гуля́ю с сестро́й.","Я гуля́ю сестро́й.","Я гуля́ю с сестра́.","Я гуля́ю с сестре́й."],a:0,why:"Company, so с. сестра́ ends in -а, so it takes -ой: сестро́й."},
+    {q:"Я рису́ю … (каранда́ш). — I draw with a pencil.",opts:["карандашо́м","с карандашо́м","каранда́ш","карандаша́"],a:0,why:"You use the pencil, so no с. Consonant + -ом = карандашо́м."},
+    {q:"“Bread with butter.”",opts:["Хлеб с ма́слом.","Хлеб ма́слом.","Хлеб с ма́сла.","Хлеб с ма́сло."],a:0,why:"The butter goes together with the bread, so с. ма́сло ends in -о, so it takes -ом: ма́слом."}
+  ]
+},{
+  id:"instrumental-more",
+  title:"Instrumental: Jobs, Places & “With Me”",
+  subtitle:"кем? · над / под / за · со мной",
+  level:"A2",
+  /* The rest of the old single-screen Instrumental lesson, split off so the core lesson
+     could teach only the two everyday uses. Same shape: one idea per step, five sentences,
+     whole-sentence test items that test the decision, a why on every answer. */
+  steps:[
+    {
+      title:"Jobs and roles: “works as”, “wants to become”",
+      html:`
+        <p>When you say what someone <b>works as</b>, <b>becomes</b> or <b>was</b>, the job goes in the instrumental:</p>
+        <table>
+          <tr><td class="ru">Он рабо́тает <b>врачо́м</b>.</td><td>He works as a doctor.</td></tr>
+          <tr><td class="ru">Я хочу́ стать <b>учи́телем</b>.</td><td>I want to become a teacher.</td></tr>
+          <tr><td class="ru">Ра́ньше я был <b>студе́нтом</b>.</td><td>I used to be a student.</td></tr>
+        </table>
+        <p>But in the <b>present</b> — “he <i>is</i> a doctor” — Russian has no word for “is,” and the job stays in its dictionary form: <span class="ru">Он врач.</span></p>
+        <p>Endings are the ones you know, plus one new group: masculine words ending in <b>-ь</b> take <b class="ru">-ем</b> — <span class="ru">учи́тель → учи́телем</span>.</p>`,
+      note:"No с here. с врачо́м would mean “with a doctor” — keeping a doctor company.",
+      practice:[
+        {q:"“He works as a doctor.”",opts:["Он рабо́тает врачо́м.","Он рабо́тает с врачо́м.","Он рабо́тает врач.","Он рабо́тает врача́."],a:0,why:"A job after рабо́тать goes in the instrumental, with no с: врачо́м. (с врачо́м = with a doctor.)"},
+        {q:"“She is a doctor.” (right now)",opts:["Она́ врач.","Она́ врачо́м.","Она́ с врачо́м.","Она́ врача́."],a:0,why:"Present tense has no “is,” and the job stays in its dictionary form: Она́ врач."},
+        {q:"“I want to become a teacher.”",opts:["Я хочу́ стать учи́телем.","Я хочу́ стать учи́тель.","Я хочу́ стать с учи́телем.","Я хочу́ стать учи́теля."],a:0,why:"стать (become) takes the instrumental. учи́тель ends in -ь, so it takes -ем: учи́телем."}
+      ]
+    },
+    {
+      title:"Where things are: над, под, пе́ред, за, ме́жду",
+      html:`
+        <p>These five position words are always followed by the instrumental:</p>
+        <table>
+          <tr><th>Word</th><th>Meaning</th><th>Example</th></tr>
+          <tr><td class="ru">над</td><td>above</td><td class="ru">над стол<b>о́м</b> — above the table</td></tr>
+          <tr><td class="ru">под</td><td>under</td><td class="ru">под крова́т<b>ью</b> — under the bed</td></tr>
+          <tr><td class="ru">пе́ред</td><td>in front of</td><td class="ru">пе́ред до́м<b>ом</b> — in front of the house</td></tr>
+          <tr><td class="ru">за</td><td>behind</td><td class="ru">за до́м<b>ом</b> — behind the house</td></tr>
+          <tr><td class="ru">ме́жду</td><td>between</td><td class="ru">ме́жду шко́л<b>ой</b> и па́рк<b>ом</b> — between the school and the park</td></tr>
+        </table>
+        <p>One new ending: feminine words ending in <b>-ь</b> take <b class="ru">-ью</b> — <span class="ru">крова́ть → крова́тью, дверь → две́рью</span>.</p>`,
+      practice:[
+        {q:"“The lamp hangs above the table.”",opts:["Ла́мпа виси́т над столо́м.","Ла́мпа виси́т над стол.","Ла́мпа виси́т над стола́.","Ла́мпа виси́т над столе́."],a:0,why:"над takes the instrumental: стол + -ом = столо́м."},
+        {q:"“The cat sleeps under the bed.”",opts:["Ко́шка спит под крова́тью.","Ко́шка спит под крова́той.","Ко́шка спит под крова́ть.","Ко́шка спит под крова́ти."],a:0,why:"под takes the instrumental. крова́ть is feminine ending in -ь, so it takes -ью: крова́тью."},
+        {q:"за до́мом means…",opts:["behind the house","in front of the house","above the house","with the house"],a:0,why:"за = behind. пе́ред is in front of."}
+      ]
+    },
+    {
+      title:"Verbs that always want it",
+      html:`
+        <p>A few everyday verbs are always followed by the instrumental. Learn them as set phrases:</p>
+        <table>
+          <tr><td class="ru">занима́ться</td><td>to do (a sport, a hobby)</td><td class="ru">Я занима́юсь <b>спо́ртом</b>.</td><td>I do sports.</td></tr>
+          <tr><td class="ru">интересова́ться</td><td>to be interested in</td><td class="ru">Я интересу́юсь <b>му́зыкой</b>.</td><td>I'm interested in music.</td></tr>
+          <tr><td class="ru">горди́ться</td><td>to be proud of</td><td class="ru">Я горжу́сь <b>сы́ном</b>.</td><td>I'm proud of my son.</td></tr>
+        </table>
+        <p>No с with any of them.</p>`,
+      practice:[
+        {q:"“I do sports.”",opts:["Я занима́юсь спо́ртом.","Я занима́юсь спорт.","Я занима́юсь со спо́ртом.","Я занима́юсь спо́рта."],a:0,why:"занима́ться takes the instrumental, no с: спо́ртом."},
+        {q:"“I'm interested in music.”",opts:["Я интересу́юсь му́зыкой.","Я интересу́юсь му́зыку.","Я интересу́юсь с му́зыкой.","Я интересу́юсь му́зыка."],a:0,why:"интересова́ться takes the instrumental. му́зыка → му́зыкой."}
+      ]
+    },
+    {
+      title:"Me, you, her: со мной",
+      html:`
+        <p>The pronouns have their own instrumental forms:</p>
+        <table>
+          <tr><th>я</th><th>ты</th><th>он</th><th>она́</th><th>мы</th><th>вы</th><th>они́</th></tr>
+          <tr><td class="ru">мной</td><td class="ru">тобо́й</td><td class="ru">им</td><td class="ru">ей</td><td class="ru">на́ми</td><td class="ru">ва́ми</td><td class="ru">и́ми</td></tr>
+        </table>
+        <p>Two things happen after <span class="ru">с</span>:</p>
+        <p>1. “With me” is <span class="ru"><b>со</b> мной</span> — the extra -о makes it easier to say. <span class="ru">Пойдём со мной!</span> — Come with me!</p>
+        <p>2. Him, her and them pick up an <b>н</b>: <span class="ru">с <b>н</b>им, с <b>н</b>ей, с <b>н</b>и́ми</span>. <span class="ru">Я иду́ с ней.</span> — I'm going with her.</p>`,
+      practice:[
+        {q:"“Come with me!”",opts:["Пойдём со мной!","Пойдём с я!","Пойдём со меня́!","Пойдём мной!"],a:0,why:"с + мной becomes со мной."},
+        {q:"“I'm going with her.”",opts:["Я иду́ с ней.","Я иду́ с ей.","Я иду́ с её.","Я иду́ ей."],a:0,why:"After с, ей picks up an н: с ней."},
+        {q:"“We're talking with them.”",opts:["Мы говори́м с ни́ми.","Мы говори́м с и́ми.","Мы говори́м с ни́х.","Мы говори́м и́ми."],a:0,why:"After с, и́ми picks up an н: с ни́ми."}
+      ]
+    }
+  ],
+  sentences:[
+    {ru:"Он рабо́тает врачо́м.",en:"He works as a doctor.",why:"A job after рабо́тать goes in the instrumental, no с.",wrong:["Он рабо́тает врач.","Он рабо́тает с врачо́м.","Он рабо́тает врача́."]},
+    {ru:"Я хочу́ стать учи́телем.",en:"I want to become a teacher.",why:"стать takes the instrumental. учи́тель (-ь, masculine) → учи́телем.",wrong:["Я хочу́ стать учи́тель.","Я хочу́ стать учи́теля.","Я хочу́ стать с учи́телем."]},
+    {ru:"Ко́шка спит под крова́тью.",en:"The cat is sleeping under the bed.",why:"под takes the instrumental. крова́ть (-ь, feminine) → крова́тью.",wrong:["Ко́шка спит под крова́ть.","Ко́шка спит под крова́той.","Ко́шка спит под крова́ти."]},
+    {ru:"Я занима́юсь спо́ртом.",en:"I do sports.",why:"занима́ться always takes the instrumental: спо́ртом.",wrong:["Я занима́юсь спорт.","Я занима́юсь спо́рта.","Я занима́юсь со спо́ртом."]},
+    {ru:"Пойдём со мной!",en:"Come with me!",why:"с + мной → со мной.",wrong:["Пойдём с я!","Пойдём со меня́!","Пойдём мной!"]}
+  ],
+  faq:[
+    {q:"Why “Он врач” but “Он был врачо́м”?",a:"In the present Russian drops “is,” and the job stays in its dictionary form: <span class=\"ru\">Он врач</span>. Once there's a verb — <span class=\"ru\">был</span> (was), <span class=\"ru\">бу́дет</span> (will be), <span class=\"ru\">стать</span> (become), <span class=\"ru\">рабо́тать</span> (work as) — the job goes in the instrumental."},
+    {q:"Why с ним and not с им?",a:"After any little word like <span class=\"ru\">с, над, под, за</span>, the pronouns for him, her and them pick up an н: <span class=\"ru\">с ним, с ней, с ни́ми, над ним</span>. It's just easier to say."},
+    {q:"за до́мом or за дом?",a:"<span class=\"ru\">за до́мом</span> (instrumental) is <b>where</b> something is: behind the house. <span class=\"ru\">за дом</span> (accusative) is <b>where to</b>: he went round behind the house. The same goes for <span class=\"ru\">под</span>. In this lesson it's always “where it is,” so it's always the instrumental."},
+    {q:"Why врачо́м with -о́м but учи́телем with -ем?",a:"<span class=\"ru\">учи́тель</span> ends in a soft sign, and soft masculine words take -ем. <span class=\"ru\">врач</span> ends in a consonant, so it takes -ом like <span class=\"ru\">друг → дру́гом</span>. (After ж, ш, ч, щ and ц an <i>unstressed</i> ending is spelled -ем — <span class=\"ru\">ме́сяцем</span> — but when the stress falls on it, it stays -о́м: <span class=\"ru\">врачо́м, ножо́м</span>.)"}
+  ],
+  recap:`
+    <p>The whole lesson on one page — skim it before the test.</p>
+    <table>
+      <tr><th>The idea</th><th>In short</th></tr>
+      <tr><td>Jobs &amp; roles</td><td><span class="ru">рабо́тать / стать / был</span> + instrumental, no с: <span class="ru">рабо́тает врачо́м</span>. Present “is” → dictionary form: <span class="ru">Он врач</span>.</td></tr>
+      <tr><td>Where things are</td><td><span class="ru">над · под · пе́ред · за · ме́жду</span> + instrumental: <span class="ru">под крова́тью</span>.</td></tr>
+      <tr><td>Set verbs</td><td><span class="ru">занима́ться спо́ртом · интересова́ться му́зыкой · горди́ться сы́ном</span></td></tr>
+      <tr><td>Pronouns</td><td><span class="ru">со мной · с тобо́й · с ним · с ней · с на́ми · с ва́ми · с ни́ми</span></td></tr>
+      <tr><td>New endings</td><td>-ь masculine → <b class="ru">-ем</b> (<span class="ru">учи́телем</span>) · -ь feminine → <b class="ru">-ью</b> (<span class="ru">крова́тью</span>)</td></tr>
+    </table>`,
+  test:[
+    {q:"“He wants to become a director.”",opts:["Он хо́чет стать дире́ктором.","Он хо́чет стать дире́ктор.","Он хо́чет стать с дире́ктором.","Он хо́чет стать дире́ктора."],a:0,why:"стать takes the instrumental, no с. дире́ктор + -ом."},
+    {q:"“She works as a nurse.”",opts:["Она́ рабо́тает медсестро́й.","Она́ рабо́тает медсестра́.","Она́ рабо́тает с медсестро́й.","Она́ рабо́тает медсестру́."],a:0,why:"A job after рабо́тать → instrumental, no с. медсестра́ → медсестро́й."},
+    {q:"“He is a teacher.” (right now)",opts:["Он учи́тель.","Он учи́телем.","Он с учи́телем.","Он учи́теля."],a:0,why:"Present tense has no “is,” so the job stays in its dictionary form."},
+    {q:"“The car is in front of the house.”",opts:["Маши́на стои́т пе́ред до́мом.","Маши́на стои́т пе́ред дом.","Маши́на стои́т пе́ред до́ма.","Маши́на стои́т пе́ред до́ме."],a:0,why:"пе́ред takes the instrumental: дом + -ом = до́мом."},
+    {q:"“The lamp hangs above the table.”",opts:["Ла́мпа виси́т над столо́м.","Ла́мпа виси́т над стол.","Ла́мпа виси́т над стола́.","Ла́мпа виси́т над столе́."],a:0,why:"над takes the instrumental: столо́м."},
+    {q:"“I'm interested in music.”",opts:["Я интересу́юсь му́зыкой.","Я интересу́юсь му́зыку.","Я интересу́юсь с му́зыкой.","Я интересу́юсь му́зыка."],a:0,why:"интересова́ться always takes the instrumental, no с: му́зыкой."},
+    {q:"“Are you coming with me?”",opts:["Ты пойдёшь со мной?","Ты пойдёшь с меня́?","Ты пойдёшь со мне?","Ты пойдёшь мной?"],a:0,why:"“With me” is со мной."},
+    {q:"“I'm going with her.”",opts:["Я иду́ с ней.","Я иду́ с ей.","Я иду́ с её.","Я иду́ ей."],a:0,why:"After с, ей picks up an н: с ней."}
   ]
 }];
 const PASS=0.75;
 
 let curLesson=null, stage=null, pIdx=0, tIdx=0, tScore=0, sqIdx=0, sqScore=0;
 let sIdx=0;   // which idea of a stepped lesson we're on
+let rQs=[], rIdx=0, rScore=0;   // refresher quiz on a passed lesson
+
+/* ---- Shared pieces of the reshaped lessons (2026-10-06) ----
+   sentences: five everyday sentences a lesson hands you to keep. Shown with audio before the
+     recap, listed on the My sentences page once the lesson is passed, and fed into grammar
+     review as "say it in Russian" items (see sentenceGrammarItems).
+   faq: the follow-up questions people always ask, answered in place — the app can't hold a
+     conversation, so the usual questions are answered before you have to ask them. */
+function escAttr(t){ return String(t).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+function sentenceListHtml(list, showWhy){
+  return '<div class="sent-list">'+list.map(x=>
+    '<div class="sent"><button class="say" type="button" data-say="'+escAttr(x.ru)+'" aria-label="Listen">🔊</button>'
+    +'<div><div class="s-ru ru">'+x.ru+'</div><div class="s-en">'+x.en+'</div>'
+    +(showWhy&&x.why?'<div class="s-why">'+x.why+'</div>':'')+'</div></div>').join("")+'</div>';
+}
+function wireSayButtons(root){
+  (root||document).querySelectorAll("[data-say]").forEach(b=>{ b.onclick=(e)=>{ e.stopPropagation(); speak(b.getAttribute("data-say")); }; });
+}
+/* folded=true (the step pages): one closed "Common questions" line, so the list never
+   pushes the lesson's own buttons off a phone screen. Open on the recap and refresh pages. */
+function faqHtml(L, folded){
+  if(!L||!L.faq||!L.faq.length) return "";
+  const list=L.faq.map(f=>'<details><summary>'+f.q+'</summary><div>'+f.a+'</div></details>').join("");
+  if(folded) return '<div class="faq"><details class="faq-fold"><summary>❓ Common questions ('+L.faq.length+')</summary><div>'+list+'</div></details></div>';
+  return '<div class="faq"><h4>❓ Common questions</h4>'+list+'</div>';
+}
+/* The quick re-run of a passed lesson draws from the lesson's own grammar-review pool
+   (which includes its sentences), never from the graded test, so the test stays fresh. */
+function lessonReviewPool(id){
+  const g=GRAMMAR.find(x=>x.lesson===id);
+  return g? g.items.slice() : [];
+}
 
 function lessonRec(id){ if(!S.lessons[id]) S.lessons[id]={done:false,best:0}; return S.lessons[id]; }
 
@@ -4146,6 +4387,11 @@ function renderLessons(){
   const list=$("lessons-list"); list.classList.remove("hide"); list.innerHTML="";
   const head=document.createElement("div"); head.className="tag";
   head.textContent="Structured units. Each one: learn it, practice it, then take a short test."; list.appendChild(head);
+  const mine=mySentenceGroups();
+  const hr=document.createElement("div"); hr.className="lesson-head-row";
+  hr.innerHTML=`<button id="my-sent-btn" type="button">📝 My sentences${mine.count?" · "+mine.count:""}</button>`;
+  list.appendChild(hr);
+  $("my-sent-btn").onclick=openMySentences;
   const legend=document.createElement("div"); legend.className="legend";
   legend.innerHTML=`<div class="legend-row">
       <span class="lvl A1">A1</span><span class="ll">Beginner</span>
@@ -4161,10 +4407,12 @@ function renderLessons(){
       <div class="st"><span class="lvl ${L.level}">${L.level}</span> ${L.subtitle}</div></div>
       <div class="lesson-right">
         ${L.story?`<button class="story-chip" type="button">📖 Story</button>`:""}
+        ${r.done&&(L.recap||L.explanation)?`<button class="story-chip refresh-chip" type="button">↻ Refresh</button>`:""}
         <div class="st ${r.done?"done":""}">${r.done?("✓ passed · best "+Math.round(r.best*100)+"%"):"Start →"}</div>
       </div>`;
     el.onclick=()=>openLesson(L.id);
-    if(L.story){ const sc=el.querySelector(".story-chip"); sc.onclick=(e)=>{ e.stopPropagation(); openLessonStory(L.id); }; }
+    if(L.story){ const sc=el.querySelector(".story-chip:not(.refresh-chip)"); sc.onclick=(e)=>{ e.stopPropagation(); openLessonStory(L.id); }; }
+    const rc=el.querySelector(".refresh-chip"); if(rc) rc.onclick=(e)=>{ e.stopPropagation(); openLessonRefresh(L.id); };
     list.appendChild(el);
   });
 }
@@ -4182,7 +4430,7 @@ function stepProgress(n,total){
 function advanceStep(){
   const steps=lessonSteps(curLesson);
   if(sIdx < steps.length-1){ sIdx++; stage="stepLearn"; }
-  else { stage = curLesson.recap ? "recap" : "testIntro"; }
+  else { stage = (curLesson.sentences&&curLesson.sentences.length) ? "sentences" : curLesson.recap ? "recap" : "testIntro"; }
   renderStage();
 }
 function openLesson(id){
@@ -4200,6 +4448,33 @@ function openLessonStory(id){
   $("lesson-runner").classList.remove("hide");
   renderStage();
 }
+function openLessonRefresh(id){
+  curLesson=LESSONS.find(l=>l.id===id);
+  stage="refresh";
+  $("lessons-list").classList.add("hide");
+  $("lesson-runner").classList.remove("hide");
+  renderStage();
+}
+/* Sentences from every lesson you've passed, grouped by lesson. */
+function mySentenceGroups(){
+  const groups=LESSONS.filter(L=>L.sentences&&L.sentences.length&&lessonDoneId(L.id));
+  return {groups, count:groups.reduce((n,L)=>n+L.sentences.length,0)};
+}
+function openMySentences(){
+  curLesson=null;
+  $("lessons-list").classList.add("hide");
+  const R=$("lesson-runner"); R.classList.remove("hide");
+  const {groups}=mySentenceGroups();
+  const pending=LESSONS.filter(L=>L.sentences&&L.sentences.length&&!lessonDoneId(L.id));
+  R.innerHTML=`<div class="stage-dots">📝 My sentences</div>
+    <h2 style="margin-top:0">Your sentences</h2>
+    <p class="muted">Every lesson hands you a few everyday sentences that carry its rule. Write them down and say them out loud through the day — tap 🔊 to hear one. They also come back in grammar review.</p>
+    ${groups.length? groups.map(L=>`<h3 style="margin-bottom:0">${L.title}</h3>${sentenceListHtml(L.sentences,true)}`).join("")
+      : `<p>None yet — pass a lesson that has them${pending.length?" (start with <b>"+pending[0].title+"</b>)":""} and its sentences land here.</p>`}
+    <div class="row" style="margin-top:12px"><button class="ghost" id="l-back">← Lessons</button></div>`;
+  wireSayButtons(R);
+  $("l-back").onclick=backToList;
+}
 function backToList(){ curLesson=null; renderLessons(); }
 
 function renderStage(){
@@ -4213,6 +4488,7 @@ function renderStage(){
       <h2 style="margin-top:0">${st.title}</h2>
       <div class="lesson-body">${st.html}</div>
       ${st.note?`<div class="step-note">${st.note}</div>`:""}
+      ${faqHtml(L,true)}
       <div class="row"><button class="primary" id="l-next">${(st.practice&&st.practice.length)?"Practice this →":(last?"Continue →":"Next idea →")}</button>
       ${sIdx>0?`<button id="l-prev">← Previous idea</button>`:""}
       <button class="ghost" id="l-back">← Lessons</button></div>`;
@@ -4231,11 +4507,60 @@ function renderStage(){
         else advanceStep();
       }, stepProgress(sIdx, STEPS.length+1));
   }
+  else if(stage==="sentences"){
+    R.innerHTML=`<div class="stage-dots">Your sentences</div>
+      ${stepProgress(STEPS.length, STEPS.length+1)}
+      <h2 style="margin-top:0">${L.sentences.length} sentences to keep</h2>
+      <p class="muted">Each one carries a rule from this lesson. Write them down and say them out loud through the day — tap 🔊 to hear them. Once you pass, they live on the <b>📝 My sentences</b> page and come back in grammar review.</p>
+      ${sentenceListHtml(L.sentences,true)}
+      <div class="row"><button class="primary" id="l-next">${L.recap?"Continue →":"Continue to the test →"}</button>
+      <button id="l-prev">← Previous idea</button>
+      <button class="ghost" id="l-back">← Lessons</button></div>`;
+    wireSayButtons(R);
+    $("l-next").onclick=()=>{ stage=L.recap?"recap":"testIntro"; renderStage(); };
+    $("l-prev").onclick=()=>{ sIdx=STEPS.length-1; stage="stepLearn"; renderStage(); };
+    $("l-back").onclick=backToList;
+  }
+  else if(stage==="refresh"){
+    const pool=lessonReviewPool(L.id);
+    R.innerHTML=`<div class="stage-dots">↻ Refresh</div>
+      <h2 style="margin-top:0">${L.title} — a quick refresh</h2>
+      <div class="lesson-body">${L.recap||L.explanation}</div>
+      ${L.sentences&&L.sentences.length?`<h3>Your sentences</h3>${sentenceListHtml(L.sentences,false)}`:""}
+      ${faqHtml(L)}
+      <div class="row">${pool.length?`<button class="primary" id="r-quiz">Quick quiz · ${Math.min(5,pool.length)} questions →</button>`:""}
+      ${STEPS?`<button id="l-restart">↺ Walk through the whole lesson</button>`:`<button id="l-restart">↺ Open the whole lesson</button>`}
+      <button class="ghost" id="l-back">← Lessons</button></div>`;
+    wireSayButtons(R);
+    if(pool.length) $("r-quiz").onclick=()=>{ rQs=shuffle(pool).slice(0,5); rIdx=0; rScore=0; stage="refreshQ"; renderStage(); };
+    $("l-restart").onclick=()=>openLesson(L.id);
+    $("l-back").onclick=backToList;
+  }
+  else if(stage==="refreshQ"){
+    renderQuestion(rQs[rIdx], "↻ Refresh quiz (not scored)", rIdx, rQs.length, true, (ok)=>{
+      if(ok) rScore++;
+      if(rIdx<rQs.length-1){ rIdx++; renderStage(); }
+      else { creditStudyDay(); stage="refreshDone"; renderStage(); }
+    });
+  }
+  else if(stage==="refreshDone"){
+    R.innerHTML=`<div class="stage-dots">↻ Refresh · done</div>
+      <h2 style="margin-top:0">${rScore===rQs.length?"All of it stuck ✅":"Good refresh"}</h2>
+      <p style="font-size:18px">You got <b>${rScore} / ${rQs.length}</b>.</p>
+      <p class="muted">Not scored — the lesson stays passed either way. Anything you missed is worth a look at the summary again.</p>
+      <div class="row"><button class="primary" id="r-again">Another quick quiz</button>
+      <button id="r-top">Back to the summary</button>
+      <button class="ghost" id="l-back">← Lessons</button></div>`;
+    $("r-again").onclick=()=>{ rQs=shuffle(lessonReviewPool(L.id)).slice(0,5); rIdx=0; rScore=0; stage="refreshQ"; renderStage(); };
+    $("r-top").onclick=()=>{ stage="refresh"; renderStage(); };
+    $("l-back").onclick=backToList;
+  }
   else if(stage==="recap"){
     R.innerHTML=`<div class="stage-dots">Recap · the whole picture</div>
       ${stepProgress(STEPS.length, STEPS.length+1)}
       <h2 style="margin-top:0">${L.title} — all of it in one place</h2>
       <div class="lesson-body">${L.recap}</div>
+      ${faqHtml(L)}
       <div class="row"><button class="primary" id="l-next">Continue to the test →</button>
       <button id="l-restart">↺ Walk through it again</button>
       ${L.story?`<button id="l-story-learn">📖 Read the story</button>`:""}
@@ -4268,14 +4593,16 @@ function renderStage(){
       <p style="font-size:17px">${STEPS
         ?"The practice questions along the way <b>didn't count</b> — they were there to check each idea as you met it, with a hint after every answer."
         :"The practice round you just finished <b>doesn't count</b> — it was there to help you learn, with a hint after each answer."}</p>
-      <p class="muted">This part <b>is</b> scored: <b>${L.test.length} questions</b>, no hints, and you need <b>${Math.round(PASS*100)}%</b> to pass and mark the lesson complete. You can retake it as many times as you like.</p>
+      <p class="muted">This part <b>is</b> scored: <b>${L.test.length} questions</b>, and you need <b>${Math.round(PASS*100)}%</b> to pass and mark the lesson complete. ${L.test.some(q=>q.why)?"After each answer you'll see why — but your first pick is the one that counts.":"No hints."} You can retake it as many times as you like.</p>
       <div class="row"><button class="primary" id="l-starttest">Start graded test →</button>
       <button class="ghost" id="l-back">← Lessons</button></div>`;
     $("l-starttest").onclick=()=>{ stage="test"; tIdx=0; tScore=0; renderStage(); };
     $("l-back").onclick=backToList;
   }
   else if(stage==="test"){
-    renderQuestion(L.test[tIdx], STEPS?"Graded test":"Step 3 of 3 · Graded test", tIdx, L.test.length, false, (wasCorrect)=>{
+    /* showWhy=true: the explanation appears only AFTER the pick is locked in and scored, so
+       the gate is unchanged — you just learn from each answer, as in a tutor's quiz. */
+    renderQuestion(L.test[tIdx], STEPS?"Graded test":"Step 3 of 3 · Graded test", tIdx, L.test.length, true, (wasCorrect)=>{
       if(wasCorrect) tScore++;
       if(tIdx<L.test.length-1){ tIdx++; renderStage(); }
       else finishTest();
@@ -4544,7 +4871,7 @@ const EXAMS=[
    Ids that aren't built yet are listed in PLANNED_LESSONS below and show up as "gaps". */
 const BAND_LESSONS={
   A1:["noun-gender","present-conj","prep-case","accusative"],
-  A2:["case-map","past-future","aspect","aspect-prefixes","meaning-prefixes","numbers","genitive","dative","instrumental"],
+  A2:["case-map","past-future","aspect","aspect-prefixes","meaning-prefixes","numbers","genitive","dative","instrumental","instrumental-more"],
   B1:["reflexive","motion"]
 };
 const BAND_WORDS={A1:200,A2:750,B1:1500};
@@ -5319,18 +5646,44 @@ const GRAMMAR=[
   {q:"Я рису́ю … (каранда́ш). (with a pencil)",opts:["карандашо́м","каранда́ш","карандаша́","карандашу́"],a:0,why:"A tool → bare instrumental; masculine hard → -ом (stressed -о́м): карандашо́м."},
   {q:"Я иду́ в парк с … (брат). (with my brother)",opts:["бра́том","брат","бра́та","бра́ту"],a:0,why:"Company → с + instrumental; masculine hard → -ом: с бра́том."},
   {q:"Он откры́л дверь … (ключ). (with a key — a tool)",opts:["ключо́м","с ключо́м","ключ","ключа́"],a:0,why:"A tool takes the bare instrumental, no 'с': ключо́м."},
+  {q:"Пи́цца с … (сыр). (with cheese)",opts:["сы́ром","сыр","сы́ра","сы́ру"],a:0,why:"'Together with' → с + instrumental; masculine hard → -ом: с сы́ром."},
+  {q:"Мы прие́хали … (авто́бус). (by bus)",opts:["авто́бусом","авто́бус","авто́буса","с авто́бусом"],a:0,why:"'By means of' transport → bare instrumental: авто́бусом."},
+  {q:"'I'm going with my sister' — which is right?",opts:["с сестро́й","сестро́й","с сестру́","сестро́ю без с"],a:0,why:"Company needs с + instrumental: с сестро́й (a bare instrumental would mean 'by means of a sister')."},
+  {q:"“I live with my aunt.”",opts:["Я живу́ с тётей.","Я живу́ с тётой.","Я живу́ тётей.","Я живу́ с тётю."],a:0,why:"Company → с. тётя ends in -я → -ей: с тётей."},
+  {q:"“Coffee with milk.”",opts:["Ко́фе с молоко́м.","Ко́фе молоко́м.","Ко́фе с молока́.","Ко́фе с молоко́."],a:0,why:"Things that go together take с, even when they aren't people. молоко́ → молоко́м."},
+  {q:"Which one takes NO с?",opts:["I eat soup with a spoon","I eat bread with butter","I talk with my friend","I live with my aunt"],a:0,why:"Only the spoon passes the “using” test: ем суп ло́жкой."}
+]},
+{ lesson:"instrumental-more", title:"Instrumental: Jobs, Places & “With Me”", level:"A2", items:[
   {q:"Мой оте́ц был … (инжене́р).",opts:["инжене́ром","инжене́р","инжене́ра","инжене́ру"],a:0,why:"был (past 'to be') → instrumental role: был инжене́ром."},
   {q:"Я горжу́сь свое́й … (рабо́та).",opts:["рабо́той","рабо́та","рабо́ту","рабо́ты"],a:0,why:"горди́ться takes the instrumental; feminine -а → -ой: рабо́той."},
-  {q:"Пи́цца с … (сыр). (with cheese)",opts:["сы́ром","сыр","сы́ра","сы́ру"],a:0,why:"'Together with' → с + instrumental; masculine hard → -ом: с сы́ром."},
   {q:"Ла́мпа виси́т над … (стол).",opts:["столо́м","стол","стола́","столу́"],a:0,why:"над + instrumental: над столо́м."},
   {q:"Ко́шка спит под … (крова́ть).",opts:["крова́тью","крова́ть","крова́ти","крова́той"],a:0,why:"под + instrumental; feminine -ь → -ью: под крова́тью."},
   {q:"Она́ интересу́ется … (му́зыка).",opts:["му́зыкой","му́зыка","му́зыку","му́зыки"],a:0,why:"интересова́ться takes the instrumental; feminine -а → -ой: му́зыкой."},
-  {q:"Мы прие́хали … (авто́бус). (by bus)",opts:["авто́бусом","авто́бус","авто́буса","с авто́бусом"],a:0,why:"'By means of' transport → bare instrumental: авто́бусом."},
   {q:"Он ста́нет … (дире́ктор). (will become director)",opts:["дире́ктором","дире́ктор","дире́ктора","дире́ктору"],a:0,why:"стать → instrumental role; masculine hard → -ом: дире́ктором."},
-  {q:"'I'm going with my sister' — which is right?",opts:["с сестро́й","сестро́й","с сестру́","сестро́ю без с"],a:0,why:"Company needs с + instrumental: с сестро́й (a bare instrumental would mean 'by means of a sister')."}
+  {q:"“She works as a doctor.”",opts:["Она́ рабо́тает врачо́м.","Она́ рабо́тает с врачо́м.","Она́ рабо́тает врач.","Она́ рабо́тает врача́."],a:0,why:"A job after рабо́тать → instrumental, no с. с врачо́м would mean “with a doctor.”"},
+  {q:"“I'm talking with him.”",opts:["Я говорю́ с ним.","Я говорю́ с им.","Я говорю́ с его́.","Я говорю́ им."],a:0,why:"After с, им picks up an н: с ним."}
 ]}
 ];
 
+/* A lesson's kept sentences come back in grammar review as "say it in Russian": the English
+   on top, the right sentence among near-misses that each get one decision wrong. Their review
+   ids carry an explicit gid ("instrumental#s0") so adding or reordering a pool's authored
+   items can never re-point a sentence's review history at a different question. */
+function sentenceGrammarItems(L){
+  return (L.sentences||[]).map((x,i)=>({gid:L.id+"#s"+i, q:"Say it in Russian: “"+x.en+"”",
+    opts:[x.ru].concat(x.wrong||[]), a:0, why:x.ru+" — "+x.why, say:x.ru}));
+}
+(function addSentenceItems(){
+  LESSONS.forEach(L=>{
+    if(!L.sentences||!L.sentences.length) return;
+    let g=GRAMMAR.find(x=>x.lesson===L.id);
+    if(!g){ g={lesson:L.id,title:L.title,level:L.level,items:[]}; GRAMMAR.push(g); }
+    g.items.push(...sentenceGrammarItems(L));
+  });
+})();
+/* Review id of a pool item: its explicit gid when it has one, else lesson#index (the
+   original scheme, kept so existing review history stays attached). */
+function gItemId(g,it,i){ return it.gid || (g.lesson+"#"+i); }
 let gq=[], gcur=null, gTot=0, gDoneN=0;
 
 function gcard(id){ if(!S.gcards[id]) S.gcards[id]={box:0,due:today(),lapses:0,reps:0,introduced:false}; return S.gcards[id]; }
@@ -5338,7 +5691,7 @@ function gTopicsDone(){ return GRAMMAR.filter(g=>lessonDoneId(g.lesson)); }
 function ensureGrammarSeeded(){
   let changed=false;
   GRAMMAR.forEach(g=>{ if(lessonDoneId(g.lesson)) g.items.forEach((it,i)=>{
-    const id=g.lesson+"#"+i;
+    const id=gItemId(g,it,i);
     if(!S.gcards[id]){ S.gcards[id]={box:0,due:today(),lapses:0,reps:0,introduced:true}; changed=true; }
   }); });
   if(changed) save();
@@ -5347,7 +5700,7 @@ function grammarItemsDue(){
   ensureGrammarSeeded();
   const t=today(); const out=[];
   gTopicsDone().forEach(g=>g.items.forEach((it,i)=>{
-    const id=g.lesson+"#"+i, c=S.gcards[id];
+    const id=gItemId(g,it,i), c=S.gcards[id];
     if(c&&c.introduced&&c.due<=t) out.push({id,topic:g,it,box:c.box,due:c.due});
   }));
   out.sort((a,b)=>a.box-b.box || (a.due<b.due?-1:a.due>b.due?1:0));
@@ -5355,7 +5708,7 @@ function grammarItemsDue(){
 }
 function grammarAllItems(){
   ensureGrammarSeeded(); const out=[];
-  gTopicsDone().forEach(g=>g.items.forEach((it,i)=>out.push({id:g.lesson+"#"+i,topic:g,it})));
+  gTopicsDone().forEach(g=>g.items.forEach((it,i)=>out.push({id:gItemId(g,it,i),topic:g,it})));
   return shuffle(out);
 }
 function grammarDueCount(){ return grammarItemsDue().length; }
@@ -5402,6 +5755,7 @@ function renderGrammarQ(){
         if(ci===correctIdx) c.classList.add("correct");
         else if(ci===i) c.classList.add("wrong"); });
       const w=$("g-why"); w.textContent=(ok?"✓ ":"✗ ")+(it.why||(ok?"Correct.":"Not quite."))+(ok?"":" — you'll see it again."); w.style.display="block";
+      if(it.say){ speak(it.say); const sb=document.createElement("button"); sb.className="say"; sb.type="button"; sb.textContent="🔊 Hear it again"; sb.style.marginLeft="8px"; sb.onclick=()=>speak(it.say); w.appendChild(document.createElement("br")); w.appendChild(sb); }
       gradeGrammarCard(ok);
       const adv=$("g-adv"); adv.classList.remove("hide"); adv.onclick=nextGrammar; adv.focus();
     };
@@ -5463,7 +5817,7 @@ ensureGrammarSeeded();
 const POP_N = 8;
 let pqQs=[], pqIdx=0, pqScore=0, pqMiss=[];
 function popVocabPool(){ return DECK.filter(w=> S.cards[w.id] && S.cards[w.id].introduced); }
-function popGrammarPool(){ const out=[]; gTopicsDone().forEach(g=> g.items.forEach((it,i)=> out.push({it, gid:g.lesson+"#"+i}))); return out; }
+function popGrammarPool(){ const out=[]; gTopicsDone().forEach(g=> g.items.forEach((it,i)=> out.push({it, gid:gItemId(g,it,i)}))); return out; }
 function popQuizPoolSize(){ return popVocabPool().length + popGrammarPool().length; }
 function pqMakeVocabQ(w){
   const dir=S.direction;
