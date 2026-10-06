@@ -5730,6 +5730,10 @@
     },
     "instrumental": {
       "done": false,
+      "best": 0.625
+    },
+    "instrumental-more": {
+      "done": false,
       "best": 0
     },
     "meaning-prefixes": {
