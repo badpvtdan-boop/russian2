@@ -6347,11 +6347,12 @@
       "lastReviewed": "2026-08-24"
     },
     "past-future#1": {
-      "box": 3,
-      "due": "2026-08-05",
+      "box": 4,
+      "due": "2026-10-23",
       "lapses": 0,
-      "reps": 3,
-      "introduced": true
+      "reps": 4,
+      "introduced": true,
+      "lastReviewed": "2026-10-07"
     },
     "past-future#10": {
       "box": 0,
