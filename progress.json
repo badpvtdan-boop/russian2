@@ -1592,11 +1592,11 @@
     },
     "528": {
       "box": 8,
-      "due": "2027-09-20",
+      "due": "2027-10-09",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-20"
+      "lastReviewed": "2026-10-09"
     },
     "529": {
       "box": 8,
@@ -1814,12 +1814,12 @@
       "lastReviewed": "2026-09-24"
     },
     "556": {
-      "box": 7,
-      "due": "2027-01-31",
+      "box": 8,
+      "due": "2027-10-09",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-08-24"
+      "lastReviewed": "2026-10-09"
     },
     "557": {
       "box": 6,
@@ -2332,12 +2332,12 @@
       "lastReviewed": "2026-09-05"
     },
     "621": {
-      "box": 7,
-      "due": "2027-03-12",
+      "box": 8,
+      "due": "2027-10-09",
       "lapses": 1,
-      "reps": 8,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-10-02"
+      "lastReviewed": "2026-10-09"
     },
     "622": {
       "box": 4,
@@ -5340,8 +5340,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 24,
-  "lastCompleted": "2026-10-08",
+  "streak": 25,
+  "lastCompleted": "2026-10-09",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -5749,6 +5749,11 @@
     "2026-10-08": {
       "newDone": 0,
       "reviewDone": 40,
+      "studied": true
+    },
+    "2026-10-09": {
+      "newDone": 0,
+      "reviewDone": 0,
       "studied": true
     }
   },
@@ -6681,6 +6686,6 @@
     "transport",
     "shop"
   ],
-  "lastPopQuiz": "2026-10-06",
+  "lastPopQuiz": "2026-10-09",
   "migv": 4
 }
