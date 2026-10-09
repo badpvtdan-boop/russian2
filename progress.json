@@ -4860,12 +4860,12 @@
       "lastReviewed": "2026-10-05"
     },
     "1066": {
-      "box": 2,
-      "due": "2026-10-09",
+      "box": 3,
+      "due": "2026-10-16",
       "lapses": 6,
-      "reps": 17,
+      "reps": 18,
       "introduced": true,
-      "lastReviewed": "2026-10-05"
+      "lastReviewed": "2026-10-09"
     },
     "1067": {
       "box": 6,
@@ -6263,12 +6263,12 @@
       "lastReviewed": "2026-08-27"
     },
     "genitive#5": {
-      "box": 2,
-      "due": "2026-10-06",
+      "box": 3,
+      "due": "2026-10-16",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-10-03"
+      "lastReviewed": "2026-10-09"
     },
     "genitive#6": {
       "box": 2,
@@ -6416,12 +6416,12 @@
       "lastReviewed": "2026-09-19"
     },
     "past-future#11": {
-      "box": 1,
-      "due": "2026-09-19",
-      "lapses": 2,
-      "reps": 4,
+      "box": 0,
+      "due": "2026-10-09",
+      "lapses": 3,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-18"
+      "lastReviewed": "2026-10-09"
     },
     "past-future#2": {
       "box": 0,
