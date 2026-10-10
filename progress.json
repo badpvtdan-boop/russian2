@@ -4485,12 +4485,12 @@
       "lastReviewed": "2026-09-27"
     },
     "950": {
-      "box": 4,
-      "due": "2026-10-16",
+      "box": 5,
+      "due": "2026-11-14",
       "lapses": 1,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-09-30"
+      "lastReviewed": "2026-10-10"
     },
     "951": {
       "box": 4,
@@ -6269,12 +6269,12 @@
       "lastReviewed": "2026-10-08"
     },
     "genitive#10": {
-      "box": 1,
-      "due": "2026-10-05",
+      "box": 2,
+      "due": "2026-10-13",
       "lapses": 3,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-10-04"
+      "lastReviewed": "2026-10-10"
     },
     "genitive#11": {
       "box": 3,
