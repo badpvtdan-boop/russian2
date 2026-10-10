@@ -3386,8 +3386,8 @@
     "801": {
       "box": 0,
       "due": "2026-10-10",
-      "lapses": 5,
-      "reps": 11,
+      "lapses": 6,
+      "reps": 12,
       "introduced": true,
       "lastReviewed": "2026-10-10"
     },
@@ -4042,8 +4042,8 @@
     "894": {
       "box": 0,
       "due": "2026-10-10",
-      "lapses": 20,
-      "reps": 34,
+      "lapses": 21,
+      "reps": 35,
       "introduced": true,
       "lastReviewed": "2026-10-10"
     },
@@ -4986,8 +4986,8 @@
     "1076": {
       "box": 0,
       "due": "2026-10-10",
-      "lapses": 11,
-      "reps": 24,
+      "lapses": 12,
+      "reps": 25,
       "introduced": true,
       "lastReviewed": "2026-10-10"
     },
