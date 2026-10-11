@@ -2280,12 +2280,12 @@
       "lastReviewed": "2026-09-21"
     },
     "614": {
-      "box": 1,
-      "due": "2026-10-11",
+      "box": 2,
+      "due": "2026-10-15",
       "lapses": 5,
-      "reps": 19,
+      "reps": 20,
       "introduced": true,
-      "lastReviewed": "2026-10-10"
+      "lastReviewed": "2026-10-11"
     },
     "615": {
       "box": 6,
@@ -2520,12 +2520,12 @@
       "lastReviewed": "2026-09-30"
     },
     "644": {
-      "box": 1,
-      "due": "2026-10-11",
+      "box": 2,
+      "due": "2026-10-15",
       "lapses": 28,
-      "reps": 44,
+      "reps": 45,
       "introduced": true,
-      "lastReviewed": "2026-10-10"
+      "lastReviewed": "2026-10-11"
     },
     "645": {
       "box": 2,
@@ -3048,12 +3048,12 @@
       "lastReviewed": "2026-10-08"
     },
     "710": {
-      "box": 1,
-      "due": "2026-10-11",
+      "box": 2,
+      "due": "2026-10-14",
       "lapses": 10,
-      "reps": 22,
+      "reps": 23,
       "introduced": true,
-      "lastReviewed": "2026-10-10"
+      "lastReviewed": "2026-10-11"
     },
     "711": {
       "box": 3,
@@ -3272,12 +3272,12 @@
       "lastReviewed": "2026-10-10"
     },
     "738": {
-      "box": 1,
-      "due": "2026-10-11",
+      "box": 2,
+      "due": "2026-10-15",
       "lapses": 2,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-10-10"
+      "lastReviewed": "2026-10-11"
     },
     "739": {
       "box": 2,
@@ -3288,20 +3288,20 @@
       "lastReviewed": "2026-10-10"
     },
     "740": {
-      "box": 1,
-      "due": "2026-10-11",
+      "box": 2,
+      "due": "2026-10-14",
+      "lapses": 1,
+      "reps": 4,
+      "introduced": true,
+      "lastReviewed": "2026-10-11"
+    },
+    "741": {
+      "box": 2,
+      "due": "2026-10-13",
       "lapses": 1,
       "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-10-10"
-    },
-    "741": {
-      "box": 1,
-      "due": "2026-10-11",
-      "lapses": 1,
-      "reps": 2,
-      "introduced": true,
-      "lastReviewed": "2026-10-10"
+      "lastReviewed": "2026-10-11"
     },
     "742": {
       "box": 1,
@@ -5847,7 +5847,7 @@
     },
     "2026-10-11": {
       "newDone": 0,
-      "reviewDone": 4,
+      "reviewDone": 10,
       "studied": true
     }
   },
