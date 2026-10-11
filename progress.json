@@ -128,11 +128,11 @@
     },
     "17": {
       "box": 8,
-      "due": "2027-09-26",
+      "due": "2027-10-11",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-09-25"
+      "lastReviewed": "2026-10-11"
     },
     "18": {
       "box": 8,
@@ -3480,12 +3480,12 @@
       "lastReviewed": "2026-10-08"
     },
     "808": {
-      "box": 4,
-      "due": "2026-10-10",
+      "box": 5,
+      "due": "2026-11-18",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-26"
+      "lastReviewed": "2026-10-11"
     },
     "809": {
       "box": 4,
@@ -4488,12 +4488,12 @@
       "lastReviewed": "2026-10-01"
     },
     "945": {
-      "box": 4,
-      "due": "2026-10-10",
+      "box": 5,
+      "due": "2026-11-18",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-25"
+      "lastReviewed": "2026-10-11"
     },
     "946": {
       "box": 4,
@@ -4504,12 +4504,12 @@
       "lastReviewed": "2026-09-23"
     },
     "947": {
-      "box": 4,
-      "due": "2026-10-10",
+      "box": 5,
+      "due": "2026-11-17",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-26"
+      "lastReviewed": "2026-10-11"
     },
     "948": {
       "box": 4,
@@ -4744,12 +4744,12 @@
       "lastReviewed": "2026-09-12"
     },
     "1041": {
-      "box": 5,
-      "due": "2026-10-10",
+      "box": 6,
+      "due": "2026-12-28",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-09-06"
+      "lastReviewed": "2026-10-11"
     },
     "1042": {
       "box": 5,
@@ -5847,7 +5847,7 @@
     },
     "2026-10-11": {
       "newDone": 0,
-      "reviewDone": 0,
+      "reviewDone": 4,
       "studied": true
     }
   },
@@ -6102,10 +6102,11 @@
     },
     "aspect#7": {
       "box": 0,
-      "due": "2026-08-15",
-      "lapses": 5,
-      "reps": 7,
-      "introduced": true
+      "due": "2026-10-11",
+      "lapses": 6,
+      "reps": 8,
+      "introduced": true,
+      "lastReviewed": "2026-10-11"
     },
     "aspect#8": {
       "box": 4,
