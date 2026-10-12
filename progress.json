@@ -6321,11 +6321,12 @@
       "lastReviewed": "2026-08-28"
     },
     "case-map#6": {
-      "box": 1,
-      "due": "2026-07-21",
+      "box": 2,
+      "due": "2026-10-15",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-10-12"
     },
     "case-map#7": {
       "box": 0,
@@ -6747,11 +6748,12 @@
       "lastReviewed": "2026-09-19"
     },
     "present-conj#11": {
-      "box": 1,
-      "due": "2026-07-20",
+      "box": 2,
+      "due": "2026-10-15",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-10-12"
     },
     "present-conj#2": {
       "box": 6,
