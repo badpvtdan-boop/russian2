@@ -3551,6 +3551,22 @@
       "introduced": true,
       "lastReviewed": "2026-10-16"
     },
+    "772": {
+      "box": 1,
+      "due": "2026-10-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-10-16"
+    },
+    "773": {
+      "box": 1,
+      "due": "2026-10-17",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-10-16"
+    },
     "790": {
       "box": 4,
       "due": "2026-10-30",
@@ -6087,7 +6103,7 @@
       "studied": true
     },
     "2026-10-16": {
-      "newDone": 0,
+      "newDone": 2,
       "reviewDone": 40,
       "studied": true
     }
