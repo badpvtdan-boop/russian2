@@ -746,11 +746,11 @@
     },
     "94": {
       "box": 8,
-      "due": "2027-10-04",
+      "due": "2027-10-17",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-10-01"
+      "lastReviewed": "2026-10-17"
     },
     "95": {
       "box": 7,
@@ -1738,11 +1738,11 @@
     },
     "545": {
       "box": 8,
-      "due": "2027-09-10",
+      "due": "2027-10-17",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-09-10"
+      "lastReviewed": "2026-10-17"
     },
     "546": {
       "box": 8,
@@ -6317,12 +6317,12 @@
       "lastReviewed": "2026-09-25"
     },
     "aspect#0": {
-      "box": 4,
-      "due": "2026-10-16",
+      "box": 5,
+      "due": "2026-11-21",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-30"
+      "lastReviewed": "2026-10-17"
     },
     "aspect#1": {
       "box": 5,
@@ -6685,12 +6685,12 @@
       "lastReviewed": "2026-10-04"
     },
     "noun-gender#0": {
-      "box": 2,
-      "due": "2026-10-04",
+      "box": 3,
+      "due": "2026-10-24",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-10-01"
+      "lastReviewed": "2026-10-17"
     },
     "noun-gender#1": {
       "box": 2,
