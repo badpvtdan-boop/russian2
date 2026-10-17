@@ -3591,6 +3591,14 @@
       "introduced": true,
       "lastReviewed": "2026-10-17"
     },
+    "777": {
+      "box": 0,
+      "due": "2026-10-17",
+      "lapses": 1,
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-10-17"
+    },
     "790": {
       "box": 4,
       "due": "2026-10-30",
@@ -6132,7 +6140,7 @@
       "studied": true
     },
     "2026-10-17": {
-      "newDone": 0,
+      "newDone": 1,
       "reviewDone": 40,
       "studied": true
     }
