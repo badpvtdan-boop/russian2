@@ -3600,10 +3600,10 @@
       "lastReviewed": "2026-10-18"
     },
     "778": {
-      "box": 0,
-      "due": "2026-10-18",
+      "box": 1,
+      "due": "2026-10-19",
       "lapses": 3,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
       "lastReviewed": "2026-10-18"
     },
@@ -6178,7 +6178,7 @@
     },
     "2026-10-18": {
       "newDone": 0,
-      "reviewDone": 39,
+      "reviewDone": 40,
       "studied": true
     }
   },
