@@ -3640,10 +3640,10 @@
       "lastReviewed": "2026-10-18"
     },
     "783": {
-      "box": 0,
-      "due": "2026-10-18",
+      "box": 1,
+      "due": "2026-10-19",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-10-18"
     },
