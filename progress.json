@@ -3680,18 +3680,18 @@
       "lastReviewed": "2026-10-19"
     },
     "788": {
-      "box": 0,
-      "due": "2026-10-19",
+      "box": 1,
+      "due": "2026-10-20",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-10-19"
     },
     "789": {
-      "box": 0,
-      "due": "2026-10-19",
-      "lapses": 1,
-      "reps": 1,
+      "box": 1,
+      "due": "2026-10-20",
+      "lapses": 2,
+      "reps": 3,
       "introduced": true,
       "lastReviewed": "2026-10-19"
     },
@@ -4032,10 +4032,10 @@
       "lastReviewed": "2026-10-19"
     },
     "832": {
-      "box": 0,
-      "due": "2026-10-19",
+      "box": 1,
+      "due": "2026-10-20",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-10-19"
     },
