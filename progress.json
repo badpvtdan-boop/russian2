@@ -937,12 +937,12 @@
       "lastReviewed": "2026-09-20"
     },
     "118": {
-      "box": 7,
-      "due": "2027-02-26",
+      "box": 8,
+      "due": "2027-10-19",
       "lapses": 0,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-20"
+      "lastReviewed": "2026-10-19"
     },
     "119": {
       "box": 8,
@@ -2736,12 +2736,12 @@
       "lastReviewed": "2026-09-16"
     },
     "670": {
-      "box": 6,
-      "due": "2026-12-12",
+      "box": 7,
+      "due": "2027-03-28",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-28"
+      "lastReviewed": "2026-10-19"
     },
     "671": {
       "box": 5,
@@ -5512,12 +5512,12 @@
       "lastReviewed": "2026-09-08"
     },
     "1095": {
-      "box": 6,
-      "due": "2026-11-20",
+      "box": 7,
+      "due": "2027-03-28",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-09-08"
+      "lastReviewed": "2026-10-19"
     },
     "1096": {
       "box": 6,
@@ -6715,11 +6715,11 @@
     },
     "genitive#2": {
       "box": 0,
-      "due": "2026-09-01",
-      "lapses": 3,
-      "reps": 4,
+      "due": "2026-10-19",
+      "lapses": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-01"
+      "lastReviewed": "2026-10-19"
     },
     "genitive#3": {
       "box": 0,
