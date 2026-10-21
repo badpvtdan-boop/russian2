@@ -206,7 +206,7 @@
       "lapses": 9,
       "reps": 32,
       "introduced": true,
-      "lastReviewed": "2026-10-18"
+      "lastReviewed": "2026-10-21"
     },
     "27": {
       "box": 8,
@@ -2881,11 +2881,11 @@
     },
     "688": {
       "box": 4,
-      "due": "2026-11-04",
+      "due": "2026-11-06",
       "lapses": 5,
       "reps": 15,
       "introduced": true,
-      "lastReviewed": "2026-10-17"
+      "lastReviewed": "2026-10-21"
     },
     "689": {
       "box": 5,
@@ -6268,7 +6268,7 @@
     },
     "2026-10-21": {
       "newDone": 0,
-      "reviewDone": 0,
+      "reviewDone": 1,
       "studied": true
     }
   },
@@ -7212,6 +7212,6 @@
     "transport",
     "shop"
   ],
-  "lastPopQuiz": "2026-10-21",
+  "lastPopQuiz": "2026-10-13",
   "migv": 4
 }
