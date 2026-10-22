@@ -111,6 +111,12 @@
   .lesson-item:hover{border-color:var(--accent);background:var(--accent-soft)}
   .lesson-item .st{font-size:13px;color:var(--muted);white-space:nowrap}
   .lesson-item .st.done{color:var(--good)}
+  /* The title block may wrap and the right-hand side (Story · Refresh · passed) drops to its own
+     line when they don't fit side by side. Before this, a long subtitle couldn't wrap and pushed
+     "✓ passed · best 100%" out past the card's edge at desktop widths (2026-10-22). */
+  .lesson-item{flex-wrap:wrap}
+  .lesson-item>div:first-child{flex:1 1 240px;min-width:0}
+  .lesson-item>div:first-child .st{white-space:normal}
   .lvl{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;
     padding:1px 7px;border-radius:999px;border:1px solid var(--line);vertical-align:middle;margin-right:2px}
   .lvl.A1{background:#e7f0e2;color:#4a7a3f;border-color:#cfe3c5}
@@ -154,7 +160,7 @@
   .rword:hover,.rword.active{background:var(--accent-soft);border-radius:4px}
   .story-gloss{min-height:1.7em;padding:9px 13px;background:var(--panel2);border-radius:10px;font-size:17px;color:var(--muted)}
   .story-trans{font-size:16px;color:var(--muted);line-height:1.7;margin-top:8px;padding:10px 12px;background:var(--panel2);border-radius:10px}
-  .lesson-right{display:flex;align-items:center;gap:10px}
+  .lesson-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
   .sent{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
   .sent:last-child{border-bottom:0}
   .sent .say{flex:none;font-size:18px;padding:6px 10px;line-height:1}
