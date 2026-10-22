@@ -6347,8 +6347,8 @@
       "best": 0.875
     },
     "instrumental": {
-      "done": false,
-      "best": 0.625
+      "done": true,
+      "best": 1
     },
     "instrumental-more": {
       "done": false,
@@ -6866,6 +6866,104 @@
       "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-10-04"
+    },
+    "instrumental#0": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#1": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#2": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#3": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#4": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#5": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#6": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#7": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#8": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#s0": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#s1": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#s2": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#s3": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "instrumental#s4": {
+      "box": 0,
+      "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
     },
     "noun-gender#0": {
       "box": 3,
