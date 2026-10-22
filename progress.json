@@ -2288,12 +2288,12 @@
       "lastReviewed": "2026-09-21"
     },
     "614": {
-      "box": 2,
-      "due": "2026-10-20",
+      "box": 3,
+      "due": "2026-10-30",
       "lapses": 6,
-      "reps": 23,
+      "reps": 24,
       "introduced": true,
-      "lastReviewed": "2026-10-16"
+      "lastReviewed": "2026-10-22"
     },
     "615": {
       "box": 6,
@@ -3304,12 +3304,12 @@
       "lastReviewed": "2026-10-15"
     },
     "741": {
-      "box": 2,
-      "due": "2026-10-20",
+      "box": 3,
+      "due": "2026-10-30",
       "lapses": 3,
-      "reps": 8,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-10-16"
+      "lastReviewed": "2026-10-22"
     },
     "742": {
       "box": 3,
@@ -3512,12 +3512,12 @@
       "lastReviewed": "2026-10-21"
     },
     "767": {
-      "box": 2,
-      "due": "2026-10-20",
+      "box": 3,
+      "due": "2026-10-30",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-10-16"
+      "lastReviewed": "2026-10-22"
     },
     "768": {
       "box": 4,
@@ -3528,28 +3528,28 @@
       "lastReviewed": "2026-10-21"
     },
     "769": {
-      "box": 2,
-      "due": "2026-10-20",
+      "box": 3,
+      "due": "2026-10-30",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-10-16"
+      "lastReviewed": "2026-10-22"
     },
     "770": {
-      "box": 2,
-      "due": "2026-10-20",
+      "box": 3,
+      "due": "2026-10-30",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-10-16"
+      "lastReviewed": "2026-10-22"
     },
     "771": {
-      "box": 2,
-      "due": "2026-10-20",
+      "box": 3,
+      "due": "2026-10-30",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-10-16"
+      "lastReviewed": "2026-10-22"
     },
     "772": {
       "box": 3,
@@ -6273,7 +6273,7 @@
     },
     "2026-10-22": {
       "newDone": 0,
-      "reviewDone": 10,
+      "reviewDone": 16,
       "studied": true
     }
   },
