@@ -6358,6 +6358,10 @@
       "done": false,
       "best": 0.5
     },
+    "meaning-prefixes-more": {
+      "done": false,
+      "best": 0
+    },
     "motion": {
       "done": false,
       "best": 0
