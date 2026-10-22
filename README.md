@@ -27,7 +27,10 @@ this repo — not from a local clone.** Two things follow, and both have already
   60 adjectives). 5 new + 40 review per day (see the load invariant below); reviews are served
   most-overdue-first, due dates are load-balanced so cohorts don't all return on the same day,
   and misses come back until answered. "I know this" on a review word counts as finishing that review (it used to count for nothing, so the home card's "Review N" never cleared); on a brand-new word it doesn't, so a genuinely new word takes its place. The home card's review number and the drill's review queue both come from `todaysReviewIds()`, so they always agree. "Extra practice" serves overdue reviews before new
-  words, and won't introduce new words into an already-overloaded tomorrow. Multiple-choice
+  words, and won't introduce new words into an already-overloaded tomorrow. The card shows only
+  the part of speech before the answer — gender, aspect and the partner verb were giving it away —
+  and spells them out on the feedback panel afterwards. Wrong options never include the word's
+  aspect partner or a word sharing one of its meanings (`choiceClash`). Multiple-choice
   or typed input with an on-screen Cyrillic keyboard. Lenient grading. Audio via browser TTS.
 - **Lessons** — explain → practice → scored test (75% to pass). Units: Prepositional case,
   Accusative case, Verb aspect, Verbs of motion. A lesson carrying too much for one screen can
@@ -43,7 +46,9 @@ this repo — not from a local clone.** Two things follow, and both have already
   decision rather than spotting the one option with the right-looking ending. Any passed lesson
   has **↻ Refresh**: its summary, sentences and a quick unscored quiz from its review pool.
   The Instrumental is the first lesson in this shape (2026-10-06), modelled on a Gemini lesson that
-  worked: majority rules only, one idea at a time, five sentences to keep.
+  worked: majority rules only, one idea at a time, five sentences to keep. "Prefixes That Change
+  Meaning" followed on 2026-10-22, split the same way into a core lesson (the everyday direction
+  prefixes) and "Prefixes: One Root, Many Verbs" (-ыва- partners, по-/за-/до-, empty-or-not).
 
 ## Data & sync
 

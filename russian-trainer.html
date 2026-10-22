@@ -369,7 +369,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-10-06.1</b> · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-10-22.1</b> · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is a second lesson, “Prefixes: One Root, Many Verbs.” · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -2993,7 +2993,11 @@ function nextCard(){
   const choiceMode = S.answerMode==="choice";
   $("dir-label").textContent = dir==="en-ru" ? "Translate to Russian" : "Translate to English";
   $("prompt").textContent = dir==="en-ru" ? w.en : w.ru;
-  $("prompt-sub").textContent = (cur.isNew? "🆕 new word · ":"") + w.pos + (w.note? " · "+w.note : "");
+  /* Only the part of speech before the answer. The note (gender, aspect, the verb's partner,
+     "+ gen") used to sit here too, and the partner in particular gave the answer away — Danny's
+     eye went to it whether he wanted it to or not (2026-10-22). It is shown, spelled out, on the
+     feedback panel once the pick is scored, which is where it actually teaches something. */
+  $("prompt-sub").textContent = (cur.isNew? "🆕 new word · ":"") + w.pos;
   $("audio").style.visibility = "visible";
 
   // reset controls for the chosen mode
@@ -3011,9 +3015,21 @@ function nextCard(){
   renderProgress();
 }
 
+/* A wrong option must actually be wrong. Without this, "to speak/say" could offer both
+   говорить and its partner сказать (to say/tell) — two defensible answers, one marked wrong.
+   Excluded: the word's aspect partner (named in either note), and any word that shares one of
+   its English meanings. */
+function glossParts(en){ return String(en).toLowerCase().replace(/\(.*?\)/g,"").split(/[\/,;]/).map(x=>x.trim().replace(/^to /,"")).filter(Boolean); }
+function choiceClash(a,b){
+  const inNote=(w,ru)=>!!w.note && (" "+w.note+" ").includes(" "+ru+" ");
+  if(inNote(a,b.ru)||inNote(b,a.ru)) return true;
+  const ga=glossParts(a.en), gb=glossParts(b.en);
+  return ga.some(x=>gb.includes(x));
+}
+
 function buildChoices(word){
   const dir=S.direction;
-  const distr=shuffle(DECK.filter(w=>w.pos===word.pos && w.id!==word.id)).slice(0,4);
+  const distr=shuffle(DECK.filter(w=>w.pos===word.pos && w.id!==word.id && !choiceClash(word,w))).slice(0,4);
   const opts=shuffle([word,...distr]);
   const box=$("choices"); box.innerHTML="";
   opts.forEach(w=>{
@@ -3085,13 +3101,24 @@ function logDay(wasNew){
   creditStudyDay();   // credit the streak on the first item logged, not at the finish screen
 }
 
+/* Deck notes are terse ("impf · pf сказать", "f"). After the answer there's room to say them
+   in words: "imperfective · perfective partner: сказать", "feminine". Anything not recognised
+   passes through unchanged. */
+function noteLabel(n){
+  const G={m:"masculine",f:"feminine",n:"neuter",pl:"plural","m/f":"masculine or feminine"};
+  if(G[n]) return G[n];
+  if(n==="impf/pf") return "imperfective and perfective (same form)";
+  return n.replace(/^(impf|pf)\b/, a=>a==="impf"?"imperfective":"perfective")
+          .replace(/ · (impf|pf) (.+)$/, (_,a,v)=>" · "+(a==="impf"?"imperfective":"perfective")+" partner: "+v);
+}
+
 function showFeedback(ok,w){
   const f=$("feedback");
   f.className="feedback "+(ok?"correct":"wrong");
   f.style.display="block";
   $("verdict").textContent = ok ? "✓ Correct" : "✗ Not quite — you'll see it again";
   $("fb-ru").textContent = w.ru;
-  $("fb-en").textContent = w.en+" · "+w.pos+(w.note? " · "+w.note : "");
+  $("fb-en").textContent = w.en+" · "+w.pos+(w.note? " · "+noteLabel(w.note) : "");
   $("fb-ex").textContent = w.ex;
   $("check").classList.add("hide"); $("reveal").classList.add("hide");
   $("answer").disabled=true;
@@ -3644,203 +3671,226 @@ const LESSONS=[{
 },{
   id:"meaning-prefixes",
   title:"Prefixes That Change Meaning",
-  subtitle:"приста́вки · where the perfective comes from (part 2)",
+  subtitle:"приста́вки · arrive, leave, in, out, across",
   level:"A2",
-  /* Taught as SEVEN small ideas rather than one screen. This unit carries ~15 separate facts
-     (two tables plus a mechanism), and as a single wall it had no checkpoint until the graded
-     test — you found out it hadn't landed only at the end. Each step below teaches one point
-     and practises just that point. `explanation` and `practice` below are the legacy
-     single-screen versions, kept as a fallback; the runner uses `steps` whenever present.
-     Practice is deliberately weighted toward the direction and amount prefixes, because six
-     of the eight graded questions come from those two ideas. */
+  /* Rebuilt 2026-10-22 in the Instrumental's shape. The old version was seven steps carrying
+     ~15 facts (direction prefixes, amount prefixes, the -ыва- rebuild, a six-verb family, the
+     empty-or-not catch) and "it was kinda wild how much info it contained." This lesson now
+     keeps only the majority case: a prefix makes a new verb, shown on the six everyday
+     direction prefixes on идти́, plus записа́ть. Every sentence uses the verb in its dictionary
+     form after мо́жно / на́до / могу́ / хочу́, so no new endings are needed. The -ыва- partners,
+     по- / за- / до- and the one-root family moved to "meaning-prefixes-more". */
   steps:[
     {
-      title:"A prefix can build a whole new verb",
+      title:"A prefix can make a new verb",
       html:`
-        <p>Last lesson the prefix was <b>empty</b> — it only stamped "completed." <span class="ru">писа́ть</span> → <span class="ru">написа́ть</span> is still just "write."</p>
-        <p>This lesson is the prefix's <b>other job</b>: carrying real meaning and building a <b>brand-new verb</b>.</p>
-        <p style="font-size:19px"><span class="ru">писа́ть</span> (write) → <span class="ru">записа́ть</span> (write <b>down</b> / record)</p>
-        <p>That is not "write, finished." It is a different action. The prefix <span class="ru">за-</span> did that.</p>`,
-      note:"One more thing to file away: adding a prefix always makes the verb <b>perfective</b>. That matters in the next step.",
+        <p>Last lesson the prefix was <b>empty</b>: <span class="ru">писа́ть → написа́ть</span> is still just "write," now finished.</p>
+        <p>Some prefixes do more. They make a <b>different verb</b>:</p>
+        <p style="font-size:19px"><span class="ru">писа́ть</span> (write) → <span class="ru">записа́ть</span> (write <b>down</b>, note)</p>
+        <p>The check is one question: <b>does it still mean the same thing?</b> <span class="ru">написа́ть</span> — yes, still "write" → empty prefix. <span class="ru">записа́ть</span> — no, it's "write down" now → a prefix that changes meaning.</p>`,
+      note:"Every verb in this lesson is one finished act (perfective). That's all you need today — after мо́жно, на́до, могу́ and хочу́ the verb just stays in this dictionary form.",
       practice:[
-        {q:"записа́ть means…",opts:["write down / record","write (just finish)","rewrite","sign"],a:0,why:"за- adds the sense 'down / onto' → записа́ть = write it down."},
-        {q:"Add a meaning-bearing prefix to a verb and the verb you get is…",opts:["perfective","imperfective","reflexive","past tense"],a:0,why:"A prefix always makes it perfective — which is exactly why you then have to rebuild an imperfective."}
+        {q:"Which verb means “write down / note”?",opts:["записа́ть","написа́ть","писа́ть","прочита́ть"],a:0,why:"за- changed the meaning: записа́ть = write down. написа́ть is still just “write,” finished."},
+        {q:"написа́ть vs записа́ть — which prefix changes the meaning?",opts:["за- (записа́ть = write down)","на- (написа́ть)","both","neither"],a:0,why:"написа́ть still means “write” (empty prefix). записа́ть means something new."}
       ]
     },
     {
-      title:"Getting an imperfective back: -ыва- / -ива-",
+      title:"Arriving and leaving: при- and у-",
       html:`
-        <p><span class="ru">записа́ть</span> is perfective — one completed act. So how do you say it as a <b>process</b> or a <b>habit</b>? "I <i>was</i> writing it down." "I write things down."</p>
-        <p>You can't just drop the prefix — that hands you back plain <span class="ru">писа́ть</span> ("write"), and you've lost the "down."</p>
-        <p>Instead you <b>rebuild</b> the imperfective with a suffix, usually <b class="ru">-ыва-</b> / <b class="ru">-ива-</b>:</p>
+        <p>Most of the prefixes you'll hear every day are about <b>direction</b>. They're easiest to see on <span class="ru">идти́</span> (to go). After a prefix it's spelled <span class="ru">-йти</span>:</p>
         <table>
-          <tr><th>Perfective</th><th>Rebuilt imperfective</th></tr>
+          <tr><th>Prefix</th><th>Sense</th><th>Verb</th></tr>
+          <tr><td class="ru">при-</td><td>arriving, coming</td><td class="ru">прийти́ — to come, arrive</td></tr>
+          <tr><td class="ru">у-</td><td>away, off</td><td class="ru">уйти́ — to leave</td></tr>
+        </table>
+        <p><span class="ru">Я могу́ прийти́ за́втра.</span> — I can come tomorrow.<br>
+        <span class="ru">Мне на́до уйти́.</span> — I need to leave.</p>`,
+      practice:[
+        {q:"“I need to leave.”",opts:["Мне на́до уйти́.","Мне на́до прийти́.","Мне на́до войти́.","Мне на́до вы́йти."],a:0,why:"у- = away: уйти́ is to leave. прийти́ is the opposite — to come."},
+        {q:"“I can come tomorrow.”",opts:["Я могу́ прийти́ за́втра.","Я могу́ уйти́ за́втра.","Я могу́ вы́йти за́втра.","Я могу́ войти́ за́втра."],a:0,why:"при- = arriving: прийти́ is to come."},
+        {q:"The prefix у- (as in уйти́) means…",opts:["away / off","arriving","into","across"],a:0,why:"у- = going away. Its opposite is при-."}
+      ]
+    },
+    {
+      title:"In and out: в- and вы-",
+      html:`
+        <table>
+          <tr><th>Prefix</th><th>Sense</th><th>Verb</th></tr>
+          <tr><td class="ru">в- / во-</td><td>into</td><td class="ru">войти́ — to go in, enter</td></tr>
+          <tr><td class="ru">вы-</td><td>out</td><td class="ru">вы́йти — to go out, get off</td></tr>
+        </table>
+        <p><span class="ru">Мо́жно войти́?</span> — May I come in? (knocking on a door)<br>
+        <span class="ru">Мне ну́жно вы́йти здесь.</span> — I need to get off here. (on a bus)</p>
+        <p>Two small things: <span class="ru">в-</span> picks up an <span class="ru">о</span> to be easier to say — <span class="ru">войти́</span>. And <span class="ru">вы́йти</span> is stressed on <b>вы́</b>.</p>`,
+      practice:[
+        {q:"“May I come in?”",opts:["Мо́жно войти́?","Мо́жно вы́йти?","Мо́жно уйти́?","Мо́жно прийти́?"],a:0,why:"в- = into: войти́. Мо́жно вы́йти? would be asking to step out."},
+        {q:"“I need to get off here.” (on a bus)",opts:["Мне ну́жно вы́йти здесь.","Мне ну́жно войти́ здесь.","Мне ну́жно уйти́ здесь.","Мне ну́жно прийти́ здесь."],a:0,why:"Getting off is going out: вы́йти."},
+        {q:"The prefix вы- means…",opts:["out","into","away","across"],a:0,why:"вы- = out. Its opposite is в- (into)."}
+      ]
+    },
+    {
+      title:"Across and up to: пере- and под-",
+      html:`
+        <table>
+          <tr><th>Prefix</th><th>Sense</th><th>Verb</th></tr>
+          <tr><td class="ru">пере-</td><td>across</td><td class="ru">перейти́ — to cross</td></tr>
+          <tr><td class="ru">под-</td><td>up to, close to</td><td class="ru">подойти́ — to come up to, approach</td></tr>
+        </table>
+        <p><span class="ru">Нам на́до перейти́ у́лицу.</span> — We need to cross the street.</p>
+        <p>Like <span class="ru">в-</span>, <span class="ru">под-</span> picks up an <span class="ru">о</span>: <span class="ru">подойти́</span>.</p>
+        <p>That's six prefixes, three pairs: <b>arrive / leave</b>, <b>in / out</b>, <b>across / up to</b>. Learn the prefix once and you'll start guessing it on verbs you've never seen.</p>`,
+      practice:[
+        {q:"“We need to cross the street.”",opts:["Нам на́до перейти́ у́лицу.","Нам на́до подойти́ у́лицу.","Нам на́до вы́йти у́лицу.","Нам на́до уйти́ у́лицу."],a:0,why:"пере- = across: перейти́ у́лицу is to cross the street."},
+        {q:"подойти́ means…",opts:["come up to, approach","cross","leave","go in"],a:0,why:"под- = up to, close to."}
+      ]
+    }
+  ],
+  sentences:[
+    {ru:"Мо́жно войти́?",en:"May I come in?",why:"в- = into: войти́.",wrong:["Мо́жно вы́йти?","Мо́жно уйти́?","Мо́жно прийти́?"]},
+    {ru:"Мне на́до уйти́.",en:"I need to leave.",why:"у- = away: уйти́.",wrong:["Мне на́до прийти́.","Мне на́до войти́.","Мне на́до перейти́."]},
+    {ru:"Я могу́ прийти́ за́втра.",en:"I can come tomorrow.",why:"при- = arriving: прийти́.",wrong:["Я могу́ уйти́ за́втра.","Я могу́ вы́йти за́втра.","Я могу́ подойти́ за́втра."]},
+    {ru:"Нам на́до перейти́ у́лицу.",en:"We need to cross the street.",why:"пере- = across: перейти́.",wrong:["Нам на́до подойти́ у́лицу.","Нам на́до вы́йти у́лицу.","Нам на́до уйти́ у́лицу."]},
+    {ru:"Я хочу́ записа́ть ваш но́мер.",en:"I want to write down your number.",why:"за- turns “write” into “write down”: записа́ть.",wrong:["Я хочу́ писа́ть ваш но́мер.","Я хочу́ прочита́ть ваш но́мер.","Я хочу́ подписа́ть ваш но́мер."]}
+  ],
+  faq:[
+    {q:"Why is it прийти́ and not при-идти?",a:"After a prefix, <span class=\"ru\">идти́</span> is spelled <span class=\"ru\">-йти</span>: <span class=\"ru\">прийти́, уйти́, вы́йти, перейти́</span>. Prefixes ending in a consonant add an о so it's easier to say: <span class=\"ru\">войти́, подойти́</span>."},
+    {q:"How do I say “I came” or “I left”?",a:"The past forms are irregular: <span class=\"ru\">пришёл / пришла́</span> (came), <span class=\"ru\">ушёл / ушла́</span> (left), <span class=\"ru\">вошёл</span> (went in), <span class=\"ru\">вы́шел</span> (went out). For now, just recognise them when you hear them."},
+    {q:"What about something I do every day — “I leave at eight”?",a:"Habits use the everyday partner of each verb: <span class=\"ru\">приходи́ть, уходи́ть, входи́ть, выходи́ть, переходи́ть, подходи́ть</span>. The next lesson shows where those partners come from. One you'll hear on every bus: <span class=\"ru\">Вы выхо́дите?</span> — Are you getting off?"},
+    {q:"Is every prefix a new meaning?",a:"No. Last lesson's prefixes were empty: <span class=\"ru\">написа́ть</span> is still just “write.” Ask the one question: does it still mean the same thing? Same → empty. New → a meaning prefix."},
+    {q:"Мо́жно вы́йти? — is that wrong?",a:"Not wrong, just a different thing: “May I step out?” — what a student asks to leave the room. <span class=\"ru\">Мо́жно войти́?</span> is the one for knocking on a door."}
+  ],
+  recap:`
+    <p>The whole lesson on one page — skim it before the test.</p>
+    <table>
+      <tr><th>The idea</th><th>In short</th></tr>
+      <tr><td>A new verb</td><td><span class="ru">писа́ть → записа́ть</span> (write down). Ask: does it still mean the same? No → a meaning prefix.</td></tr>
+      <tr><td>Arrive / leave</td><td><span class="ru">при-</span> <span class="ru">прийти́</span> (come) · <span class="ru">у-</span> <span class="ru">уйти́</span> (leave)</td></tr>
+      <tr><td>In / out</td><td><span class="ru">в-</span> <span class="ru">войти́</span> (go in) · <span class="ru">вы-</span> <span class="ru">вы́йти</span> (go out, get off)</td></tr>
+      <tr><td>Across / up to</td><td><span class="ru">пере-</span> <span class="ru">перейти́</span> (cross) · <span class="ru">под-</span> <span class="ru">подойти́</span> (approach)</td></tr>
+    </table>
+    <p><b>The one question to carry into the test:</b> which way is it going — arriving, leaving, in, out, across or up to? That's your prefix.</p>`,
+  test:[
+    {q:"“May I come in?”",opts:["Мо́жно войти́?","Мо́жно вы́йти?","Мо́жно уйти́?","Мо́жно прийти́?"],a:0,why:"Coming in is в- (into): войти́."},
+    {q:"“I have to leave early.”",opts:["Мне на́до уйти́ ра́но.","Мне на́до прийти́ ра́но.","Мне на́до войти́ ра́но.","Мне на́до перейти́ ра́но."],a:0,why:"Leaving is у- (away): уйти́. прийти́ ра́но would be to come early."},
+    {q:"“Can you come tomorrow?”",opts:["Ты мо́жешь прийти́ за́втра?","Ты мо́жешь уйти́ за́втра?","Ты мо́жешь вы́йти за́втра?","Ты мо́жешь перейти́ за́втра?"],a:0,why:"Coming is при- (arriving): прийти́."},
+    {q:"“Where can I cross the street?”",opts:["Где мо́жно перейти́ у́лицу?","Где мо́жно подойти́ у́лицу?","Где мо́жно вы́йти у́лицу?","Где мо́жно уйти́ у́лицу?"],a:0,why:"Across is пере-: перейти́ у́лицу."},
+    {q:"“I need to get off at the next stop.”",opts:["Мне ну́жно вы́йти на сле́дующей остано́вке.","Мне ну́жно войти́ на сле́дующей остано́вке.","Мне ну́жно уйти́ на сле́дующей остано́вке.","Мне ну́жно прийти́ на сле́дующей остано́вке."],a:0,why:"Getting off a bus is going out: вы́йти."},
+    {q:"подойти́ means…",opts:["come up to, approach","cross","go out","leave"],a:0,why:"под- = up to, close to."},
+    {q:"Which verb means “write down / note”?",opts:["записа́ть","написа́ть","писа́ть","прочита́ть"],a:0,why:"за- makes a new verb: записа́ть = write down. написа́ть is still just “write.”"},
+    {q:"The prefix у- (as in уйти́) means…",opts:["away / off","arriving","into","out"],a:0,why:"у- = going away. при- is arriving, в- is into, вы- is out."}
+  ]
+},{
+  id:"meaning-prefixes-more",
+  title:"Prefixes: One Root, Many Verbs",
+  subtitle:"-ыва- partners · по- / за- / до- · empty or not?",
+  level:"A2",
+  /* The rest of the old "meaning-prefixes" lesson, split off 2026-10-22 so the core lesson
+     could teach only the everyday direction prefixes. Same shape as the Instrumental pair:
+     one idea per step, five sentences, whole-sentence test items, a why on every answer. */
+  steps:[
+    {
+      title:"One root, many verbs",
+      html:`
+        <p>The prefixes you know keep their sense on other verbs. Watch them on <span class="ru">писа́ть</span> (write):</p>
+        <table>
+          <tr><th>Verb</th><th>Prefix sense</th><th>Meaning</th></tr>
+          <tr><td class="ru">записа́ть</td><td class="ru">за- (down, onto)</td><td>write down</td></tr>
+          <tr><td class="ru">подписа́ть</td><td class="ru">под- (under)</td><td>sign</td></tr>
+          <tr><td class="ru">переписа́ть</td><td class="ru">пере- (over again)</td><td>rewrite</td></tr>
+          <tr><td class="ru">описа́ть</td><td class="ru">о- (around, about)</td><td>describe</td></tr>
+        </table>
+        <p><span class="ru">подписа́ть</span>: your name goes <i>under</i> the document, so <span class="ru">под-</span> = sign. <span class="ru">пере-</span> was "across" on <span class="ru">перейти́</span>; on writing it's "over again."</p>`,
+      practice:[
+        {q:"“Sign here, please.”",opts:["Подпиши́те здесь, пожа́луйста.","Запиши́те здесь, пожа́луйста.","Перепиши́те здесь, пожа́луйста.","Опиши́те здесь, пожа́луйста."],a:0,why:"под- (under) + писа́ть = sign. Your name goes under the text."},
+        {q:"переписа́ть means…",opts:["rewrite","sign","describe","write down"],a:0,why:"пере- = over again → rewrite."},
+        {q:"описа́ть means…",opts:["describe","sign","rewrite","write down"],a:0,why:"о- (around, about) + писа́ть = write about it → describe."}
+      ]
+    },
+    {
+      title:"The everyday partner: -ыва- / -ива-",
+      html:`
+        <p>Every prefixed verb is <b>one finished act</b>: <span class="ru">записа́ть</span> = write it down, once, done. For a <b>habit</b> or something <b>in progress</b> you need the other half of the pair.</p>
+        <p>You can't drop the prefix — that gives back plain <span class="ru">писа́ть</span> and loses the "down." Instead the verb gets a suffix, usually <b class="ru">-ыва-</b> / <b class="ru">-ива-</b>:</p>
+        <table>
+          <tr><th>Once, done</th><th>Habit / in progress</th></tr>
           <tr><td class="ru">записа́ть</td><td class="ru">запи́сывать</td></tr>
           <tr><td class="ru">подписа́ть</td><td class="ru">подпи́сывать</td></tr>
           <tr><td class="ru">переписа́ть</td><td class="ru">перепи́сывать</td></tr>
         </table>
-        <p>So each meaning prefix gives you a <b>whole new aspect pair</b>.</p>`,
+        <p><span class="ru">Я всегда́ запи́сываю но́вые слова́.</span> — I always write down new words.</p>`,
+      note:"The verbs of going have their own partner: прийти́ → приходи́ть, уйти́ → уходи́ть, вы́йти → выходи́ть. Вы выхо́дите? — Are you getting off?",
       practice:[
-        {q:"To turn the perfective подписа́ть into an imperfective, you…",opts:["add a suffix: подпи́сывать","drop the prefix","add -ся","change the gender"],a:0,why:"Meaning-prefix perfectives rebuild their imperfective with -ыва- / -ива-."},
-        {q:"запи́сывать is…",opts:["imperfective — the process or the habit","perfective — one completed act","a past tense","a reflexive verb"],a:0,why:"The -ыва- suffix is what rebuilt it as the imperfective half of the pair."}
+        {q:"“I always write down new words.”",opts:["Я всегда́ запи́сываю но́вые слова́.","Я всегда́ запишу́ но́вые слова́.","Я всегда́ пишу́ но́вые слова́.","Я всегда́ подпи́сываю но́вые слова́."],a:0,why:"“Always” is a habit, so the -ыва- partner: запи́сываю. пишу́ loses the “down.”"},
+        {q:"To get the habit verb from подписа́ть, you…",opts:["add -ыва-: подпи́сывать","drop the prefix","add -ся","change the gender"],a:0,why:"Prefixed verbs rebuild their everyday partner with -ыва- / -ива-."}
       ]
     },
     {
-      title:"One root, six verbs",
+      title:"How much of it: по-, за-, до-",
       html:`
-        <p>Now watch how far a single root stretches once prefixes carry meaning. All of these are <span class="ru">писа́ть</span>:</p>
-        <table>
-          <tr><th>Verb (pf / impf)</th><th>Prefix sense</th><th>Meaning</th></tr>
-          <tr><td class="ru">написа́ть</td><td>— (empty)</td><td>write (just finish)</td></tr>
-          <tr><td class="ru">записа́ть / запи́сывать</td><td class="ru">за- (down/onto)</td><td>write down, record</td></tr>
-          <tr><td class="ru">подписа́ть / подпи́сывать</td><td class="ru">под- (under)</td><td>sign</td></tr>
-          <tr><td class="ru">переписа́ть / перепи́сывать</td><td class="ru">пере- (re-/over)</td><td>rewrite, copy over</td></tr>
-          <tr><td class="ru">вы́писать / выпи́сывать</td><td class="ru">вы- (out)</td><td>write out, copy out</td></tr>
-          <tr><td class="ru">описа́ть / опи́сывать</td><td class="ru">о- (around/about)</td><td>describe</td></tr>
-        </table>
-        <p>Six meanings from one root — every difference coming from the prefix. <span class="ru">подписа́ть</span> is worth a second look: your name goes <i>under</i> the document, so <span class="ru">под-</span> ("under") = sign.</p>`,
-      practice:[
-        {q:"переписа́ть means…",opts:["rewrite / copy over","write down","sign","describe"],a:0,why:"пере- = re- / over → rewrite, copy over."},
-        {q:"подписа́ть means…",opts:["sign","write down","rewrite","describe"],a:0,why:"под- (under) + писа́ть → put your name under it = sign."}
-      ]
-    },
-    {
-      title:"Direction prefixes, part 1 — coming and going",
-      html:`
-        <p>A big group of prefixes is simply <b>spatial</b>. They're easiest to see on <span class="ru">идти́</span> (to go), where the prefix is doing nothing but pointing:</p>
-        <table>
-          <tr><th>Prefix</th><th>Sense</th><th>Verb</th></tr>
-          <tr><td class="ru">при-</td><td>arrival</td><td class="ru">прийти́ — arrive</td></tr>
-          <tr><td class="ru">у-</td><td>away / off</td><td class="ru">уйти́ — leave</td></tr>
-          <tr><td class="ru">в- / во-</td><td>into</td><td class="ru">войти́ — go in, enter</td></tr>
-          <tr><td class="ru">вы-</td><td>out</td><td class="ru">вы́йти — go out</td></tr>
-        </table>
-        <p>Two opposite pairs: <span class="ru">при-</span> / <span class="ru">у-</span> (arriving vs leaving) and <span class="ru">в-</span> / <span class="ru">вы-</span> (in vs out).</p>`,
-      practice:[
-        {q:"The prefix у- (as in уйти́) means…",opts:["away / off","arrival","into","across"],a:0,why:"у- = leaving, going away. Its opposite is при- (arrival)."},
-        {q:"Which prefix means 'arrival'?",opts:["при- (прийти́)","у- (уйти́)","вы- (вы́йти)","пере- (перейти́)"],a:0,why:"при- = arrival — coming to where you are."},
-        {q:"войти́ means…",opts:["go in / enter","go out","approach","leave"],a:0,why:"в- / во- = into. Its opposite, вы́йти, is going out."},
-        {q:"вы́йти means…",opts:["go out","go in","cross","approach"],a:0,why:"вы- = out. Same вы- as вы́писать, to write out."}
-      ]
-    },
-    {
-      title:"Direction prefixes, part 2 — под- and пере-",
-      html:`
-        <p>Two more spatial prefixes deserve their own look, because you've <b>already met them</b> on <span class="ru">писа́ть</span>:</p>
-        <table>
-          <tr><th>Prefix</th><th>Sense</th><th>On идти́</th><th>On писа́ть</th></tr>
-          <tr><td class="ru">под-</td><td>up to / under</td><td class="ru">подойти́ — approach</td><td class="ru">подписа́ть — sign</td></tr>
-          <tr><td class="ru">пере-</td><td>across / over again</td><td class="ru">перейти́ — cross</td><td class="ru">переписа́ть — rewrite</td></tr>
-        </table>
-        <p>Same prefix, same core sense, different root. That's the whole system working: learn the prefix once and you can guess at it on verbs you've never seen.</p>`,
-      practice:[
-        {q:"подойти́ means…",opts:["approach / come up to","cross","leave","arrive"],a:0,why:"под- = up to. The same под- puts your name under a document in подписа́ть."},
-        {q:"Which prefix means 'across' or 're-do'?",opts:["пере- (перейти́, переписа́ть)","при-","по-","у-"],a:0,why:"пере- = across (cross a street) or over again (rewrite)."}
-      ]
-    },
-    {
-      title:"Amount-of-action prefixes — по-, за-, до-",
-      html:`
-        <p>This group doesn't move anything through space. Instead it shapes <b>how much of the action happens</b> — where it starts, how long it runs, whether it reaches the end:</p>
+        <p>These three don't point anywhere. They say <b>how much of the action happens</b>:</p>
         <table>
           <tr><th>Prefix</th><th>Sense</th><th>Example</th></tr>
-          <tr><td class="ru">по-</td><td>a little / for a while</td><td class="ru">поговори́ть — talk for a while</td></tr>
+          <tr><td class="ru">по-</td><td>a little, for a while</td><td class="ru">поговори́ть — talk for a bit</td></tr>
           <tr><td class="ru">за-</td><td>start doing it</td><td class="ru">заговори́ть — start talking</td></tr>
-          <tr><td class="ru">до-</td><td>carry through to the end</td><td class="ru">дочита́ть — read to the end, finish reading</td></tr>
+          <tr><td class="ru">до-</td><td>all the way to the end</td><td class="ru">дочита́ть — finish reading</td></tr>
         </table>
-        <p>All three on one verb: <span class="ru">поговори́ть</span> (talk a bit) · <span class="ru">заговори́ть</span> (start talking) · and with reading, <span class="ru">дочита́ть</span> (get to the last page).</p>`,
+        <p><span class="ru">Дава́й поговори́м.</span> — Let's talk for a bit.<br>
+        <span class="ru">Я хочу́ дочита́ть кни́гу.</span> — I want to finish reading the book.</p>`,
       practice:[
-        {q:"заговори́ть means…",opts:["start talking","talk a while","finish talking","talk across"],a:0,why:"за- marks the START of the action."},
-        {q:"дочита́ть means…",opts:["finish reading (read to the end)","start reading","re-read","read a little"],a:0,why:"до- = carry it through to the end point."},
-        {q:"The prefix по- often adds the sense of…",opts:["a little / for a while (поговори́ть)","arrival","out of","across"],a:0,why:"по- + a verb = do a bit of it, for a while."}
+        {q:"“Let's talk for a bit.”",opts:["Дава́й поговори́м.","Дава́й заговори́м.","Дава́й договори́м.","Дава́й переговори́м."],a:0,why:"по- = a little, for a while: поговори́ть."},
+        {q:"“I want to finish reading the book.”",opts:["Я хочу́ дочита́ть кни́гу.","Я хочу́ почита́ть кни́гу.","Я хочу́ перечита́ть кни́гу.","Я хочу́ прочита́ть кни́гу сно́ва."],a:0,why:"до- = all the way to the end. почита́ть is to read for a while; перечита́ть is to re-read."},
+        {q:"заговори́ть means…",opts:["start talking","talk for a while","finish talking","talk again"],a:0,why:"за- marks the start of the action."}
       ]
     },
     {
-      title:"The catch: the same prefix can do either job",
+      title:"The catch: the same prefix can be empty or not",
       html:`
-        <p>Here's what ties both lessons together, and it's the part worth slowing down for.</p>
-        <p>The <i>same</i> prefix can be <b>empty</b> on one verb and <b>meaningful</b> on another:</p>
+        <p>The same prefix can be <b>empty</b> on one verb and <b>change the meaning</b> on another:</p>
         <table>
           <tr><th>Verb</th><th>What по- does</th></tr>
-          <tr><td class="ru">стро́ить → постро́ить</td><td><b>empty</b> — still just "build," now finished</td></tr>
-          <tr><td class="ru">говори́ть → поговори́ть</td><td><b>meaning</b> — "talk <i>for a while</i>"</td></tr>
+          <tr><td class="ru">стро́ить → постро́ить</td><td><b>empty</b> — still "build," now finished</td></tr>
+          <tr><td class="ru">говори́ть → поговори́ть</td><td><b>new meaning</b> — "talk <i>for a while</i>"</td></tr>
         </table>
-        <p>So you can never judge a prefix in the abstract. You judge it <b>on each verb</b>.</p>
-        <h3>Your check, same as last lesson</h3>
-        <p><b>Does the prefixed verb still mean the same thing?</b> <span class="ru">написа́ть</span> = write (same meaning → empty prefix). <span class="ru">записа́ть</span> = write <i>down</i> (new meaning → a meaning prefix). Same base verb, two very different prefixes.</p>`,
+        <p>So you judge a prefix <b>on each verb</b>, with the same question as always: does it still mean the same thing?</p>`,
       practice:[
-        {q:"постро́ить and поговори́ть — the по- is…",opts:["empty in постро́ить, but adds 'for a while' in поговори́ть","meaningful in both","empty in both","the other way round"],a:0,why:"Same prefix, different job depending on the verb — which is why you judge it per verb."},
-        {q:"написа́ть vs записа́ть — the difference is…",opts:["написа́ть just completes 'write'; записа́ть means 'write down' (new meaning)","they are identical","both mean 'sign'","both are imperfective"],a:0,why:"An empty prefix keeps the meaning; a meaning prefix builds a new verb."}
+        {q:"постро́ить and поговори́ть — the по- is…",opts:["empty in постро́ить, but adds “for a while” in поговори́ть","meaningful in both","empty in both","the other way round"],a:0,why:"Same prefix, different job depending on the verb."},
+        {q:"Your check for an empty prefix is…",opts:["does the verb still mean the same thing?","is it at the start of the word?","is the verb reflexive?","is it past tense?"],a:0,why:"Same meaning → empty. New meaning → a meaning prefix."}
       ]
     }
   ],
+  sentences:[
+    {ru:"Подпиши́те здесь, пожа́луйста.",en:"Sign here, please.",why:"под- (under) + писа́ть = sign.",wrong:["Запиши́те здесь, пожа́луйста.","Перепиши́те здесь, пожа́луйста.","Опиши́те здесь, пожа́луйста."]},
+    {ru:"Я всегда́ запи́сываю но́вые слова́.",en:"I always write down new words.",why:"A habit takes the -ыва- partner: запи́сываю.",wrong:["Я всегда́ запишу́ но́вые слова́.","Я всегда́ пишу́ но́вые слова́.","Я всегда́ подпи́сываю но́вые слова́."]},
+    {ru:"Дава́й поговори́м.",en:"Let's talk for a bit.",why:"по- = a little, for a while.",wrong:["Дава́й заговори́м.","Дава́й договори́м.","Дава́й переговори́м."]},
+    {ru:"Я хочу́ дочита́ть кни́гу.",en:"I want to finish reading the book.",why:"до- = all the way to the end.",wrong:["Я хочу́ почита́ть кни́гу.","Я хочу́ перечита́ть кни́гу.","Я хочу́ зачита́ть кни́гу."]},
+    {ru:"Мне на́до переписа́ть письмо́.",en:"I need to rewrite the letter.",why:"пере- = over again: переписа́ть.",wrong:["Мне на́до подписа́ть письмо́.","Мне на́до записа́ть письмо́.","Мне на́до описа́ть письмо́."]}
+  ],
+  faq:[
+    {q:"Why can't I just drop the prefix for the habit form?",a:"Because the prefix is what carries the meaning. Drop it from <span class=\"ru\">записа́ть</span> and you're back at <span class=\"ru\">писа́ть</span> — “write,” not “write down.” So the prefix stays and a suffix goes on instead: <span class=\"ru\">запи́сывать</span>."},
+    {q:"What's the habit form of прийти́, уйти́…?",a:"The verbs of going use <span class=\"ru\">-ходи́ть</span>: <span class=\"ru\">приходи́ть, уходи́ть, входи́ть, выходи́ть, переходи́ть, подходи́ть</span>. <span class=\"ru\">Я ухожу́ в во́семь.</span> — I leave at eight (every day)."},
+    {q:"Does every prefixed verb use -ыва-?",a:"Most do. A few build their partner another way (the -ходи́ть verbs above are the big group). When a dictionary shows the pair, trust it."},
+    {q:"Is по- always “a little”?",a:"No — on some verbs it's empty (<span class=\"ru\">постро́ить</span> is just “build,” finished). That's the catch in step 4: judge each verb."},
+    {q:"Are почита́ть and прочита́ть the same?",a:"No. <span class=\"ru\">прочита́ть</span> is the empty partner of <span class=\"ru\">чита́ть</span> — read it, done. <span class=\"ru\">почита́ть</span> is to read <i>for a while</i>, not necessarily finishing."}
+  ],
   recap:`
-    <p>Seven ideas, one page. This is the whole unit — skim it before the test.</p>
+    <p>The whole lesson on one page — skim it before the test.</p>
     <table>
       <tr><th>The idea</th><th>In short</th></tr>
-      <tr><td>1 · A new verb</td><td><span class="ru">писа́ть</span> → <span class="ru">записа́ть</span> (write down). The prefix carries meaning and builds a different verb — always <b>perfective</b>.</td></tr>
-      <tr><td>2 · Imperfective back</td><td>Rebuild it with <b class="ru">-ыва- / -ива-</b>: <span class="ru">записа́ть → запи́сывать</span>. Never by dropping the prefix.</td></tr>
-      <tr><td>3 · One root, many verbs</td><td><span class="ru">написа́ть · записа́ть · подписа́ть · переписа́ть · вы́писать · описа́ть</span> — six meanings from one root.</td></tr>
-      <tr><td>4 · Direction I</td><td><span class="ru">при-</span> arrive · <span class="ru">у-</span> away · <span class="ru">в-</span> into · <span class="ru">вы-</span> out</td></tr>
-      <tr><td>5 · Direction II</td><td><span class="ru">под-</span> up to / under (подойти́, подписа́ть) · <span class="ru">пере-</span> across / re-do (перейти́, переписа́ть)</td></tr>
-      <tr><td>6 · Amount of action</td><td><span class="ru">по-</span> a while · <span class="ru">за-</span> start · <span class="ru">до-</span> to the end</td></tr>
-      <tr><td>7 · The catch</td><td>The same prefix can be empty on one verb and meaningful on another (<span class="ru">постро́ить</span> vs <span class="ru">поговори́ть</span>). Judge it per verb.</td></tr>
+      <tr><td>One root, many verbs</td><td><span class="ru">записа́ть</span> write down · <span class="ru">подписа́ть</span> sign · <span class="ru">переписа́ть</span> rewrite · <span class="ru">описа́ть</span> describe</td></tr>
+      <tr><td>Habit partner</td><td>Add <b class="ru">-ыва- / -ива-</b>: <span class="ru">записа́ть → запи́сывать</span>. Never drop the prefix.</td></tr>
+      <tr><td>How much of it</td><td><span class="ru">по-</span> for a while · <span class="ru">за-</span> start · <span class="ru">до-</span> to the end</td></tr>
+      <tr><td>The catch</td><td>Same prefix, different job: <span class="ru">постро́ить</span> (empty) vs <span class="ru">поговори́ть</span> (for a while).</td></tr>
     </table>
-    <p><b>The one question to carry into the test:</b> does the prefixed verb still mean the same thing? Same meaning → empty prefix. New meaning → a meaning prefix.</p>`,
-  explanation:`
-    <p>Last lesson the prefix was <b>empty</b> — it only stamped "completed." This lesson is the prefix's <b>other job</b>: carrying real meaning and building a <b>brand-new verb</b>. Same small set of prefixes — but now they <i>mean</i> something.</p>
-    <h3>The mechanism</h3>
-    <p>Take a base verb, add a meaning-bearing prefix, and you get a new verb — which comes out <b>perfective</b>. To use that new verb as a process or habit, you rebuild its <b>imperfective</b> with a suffix (usually <b class="ru">-ыва- / -ива-</b>):</p>
-    <p><span class="ru">писа́ть</span> (write) → <span class="ru">записа́ть</span> (write <b>down</b> / record) — a new, perfective verb → its imperfective is <span class="ru">запи́сывать</span>.</p>
-    <p>So <span class="ru">записа́ть / запи́сывать</span> is a <b>whole new aspect pair</b> meaning "write down." The prefix <span class="ru">за-</span> did that.</p>
-    <h3>One root, many verbs</h3>
-    <p>Watch how far one verb stretches once prefixes carry meaning. From <span class="ru">писа́ть</span> (write):</p>
-    <table>
-      <tr><th>Verb (pf / impf)</th><th>Prefix sense</th><th>Meaning</th></tr>
-      <tr><td class="ru">написа́ть</td><td>— (empty)</td><td>write (just finish)</td></tr>
-      <tr><td class="ru">записа́ть / запи́сывать</td><td class="ru">за- (down/onto)</td><td>write down, record</td></tr>
-      <tr><td class="ru">подписа́ть / подпи́сывать</td><td class="ru">под- (under)</td><td>sign</td></tr>
-      <tr><td class="ru">переписа́ть / перепи́сывать</td><td class="ru">пере- (re-/over)</td><td>rewrite, copy over</td></tr>
-      <tr><td class="ru">вы́писать / выпи́сывать</td><td class="ru">вы- (out)</td><td>write out, copy out</td></tr>
-      <tr><td class="ru">описа́ть / опи́сывать</td><td class="ru">о- (around/about)</td><td>describe</td></tr>
-    </table>
-    <p>One root, six meanings — all coming from the prefix.</p>
-    <h3>The common prefixes and their core senses</h3>
-    <table>
-      <tr><th>Prefix</th><th>Core sense</th><th>Example</th></tr>
-      <tr><td class="ru">по-</td><td>a little / for a while</td><td class="ru">поговори́ть (talk a bit)</td></tr>
-      <tr><td class="ru">за-</td><td>start · drop by</td><td class="ru">заговори́ть (start talking)</td></tr>
-      <tr><td class="ru">при-</td><td>arrival / attaching</td><td class="ru">прийти́ (arrive)</td></tr>
-      <tr><td class="ru">у-</td><td>away / off</td><td class="ru">уйти́ (leave)</td></tr>
-      <tr><td class="ru">в- / во-</td><td>into</td><td class="ru">войти́ (go in)</td></tr>
-      <tr><td class="ru">вы-</td><td>out</td><td class="ru">вы́йти (go out)</td></tr>
-      <tr><td class="ru">под-</td><td>up to / approach</td><td class="ru">подойти́ (approach)</td></tr>
-      <tr><td class="ru">пере-</td><td>across / re-do</td><td class="ru">перейти́ (cross)</td></tr>
-      <tr><td class="ru">до-</td><td>reach / finish up to</td><td class="ru">дочита́ть (read to the end)</td></tr>
-    </table>
-    <h3>The same prefix can do either job</h3>
-    <p>Here's the catch that ties both lessons together: the <i>same</i> prefix can be empty on one verb and meaningful on another. <span class="ru">по-</span> just completes <span class="ru">стро́ить → постро́ить</span> (build — empty), but adds "a little" to <span class="ru">говори́ть → поговори́ть</span> (talk a while). So you can't judge a prefix in the abstract — you judge it <b>on each verb</b>.</p>
-    <h3>Your check, again</h3>
-    <p>Same one question as last lesson: <b>does the prefixed verb still mean the same thing?</b> Compare the two prefixes on <span class="ru">писа́ть</span>: <span class="ru">написа́ть</span> = write (same meaning → empty), but <span class="ru">записа́ть</span> = write <i>down</i> (new meaning → a meaning prefix). Same base verb, two very different prefixes.</p>`,
-  practice:[
-    {q:"записа́ть means…",opts:["write down / record","write (just finish)","rewrite","sign"],a:0,why:"за- adds 'down/onto' → записа́ть = write down."},
-    {q:"The prefix у- (as in уйти́) means…",opts:["away / off","arrival","a little","across"],a:0,why:"у- = leaving / departure."},
-    {q:"To turn the perfective подписа́ть into an imperfective, you…",opts:["add a suffix: подпи́сывать","drop the prefix","add -ся","change the gender"],a:0,why:"Meaning-prefix perfectives rebuild their imperfective with -ыва-/-ива-: подпи́сывать."},
-    {q:"переписа́ть means…",opts:["rewrite / copy over","write down","sign","describe"],a:0,why:"пере- = re-/over → rewrite."},
-    {q:"The prefix по- often adds the sense of…",opts:["a little / for a while (поговори́ть)","arrival","out of","across"],a:0,why:"по- + a verb = do a bit of it: поговори́ть = talk for a while."},
-    {q:"Which prefix means 'arrival'?",opts:["при- (прийти́)","у- (уйти́)","вы- (вы́йти)","пере- (перейти́)"],a:0,why:"при- = arrival."},
-    {q:"подписа́ть means…",opts:["sign","write down","rewrite","read a while"],a:0,why:"под- (under) + писать → sign (put your name under it)."},
-    {q:"написа́ть vs записа́ть — the difference is…",opts:["написа́ть just completes 'write'; записа́ть means 'write down' (new meaning)","they are identical","both mean 'sign'","both are imperfective"],a:0,why:"An empty prefix keeps the meaning; a meaning prefix builds a new verb."}
-  ],
+    <p><b>The one question to carry into the test:</b> once, or a habit? Once → the prefixed verb. Habit → its -ыва- partner.</p>`,
   test:[
-    {q:"The prefix вы- (as in вы́йти, вы́писать) means…",opts:["out","into","across","a little"],a:0},
-    {q:"заговори́ть means…",opts:["start talking","talk a while","finish talking","talk across"],a:0},
-    {q:"To turn a meaning-prefix perfective into its imperfective, you usually…",opts:["add -ыва-/-ива- (запи́сывать)","remove the prefix","add -ся","make it past tense"],a:0},
-    {q:"дочита́ть means…",opts:["finish reading (read to the end)","start reading","re-read","read a little"],a:0},
-    {q:"Which prefix means 'across' or 're-do'?",opts:["пере- (перейти́, переписа́ть)","при-","по-","у-"],a:0},
-    {q:"войти́ means…",opts:["go in / enter","go out","approach","leave"],a:0},
-    {q:"A meaning-bearing prefix mainly creates…",opts:["a new verb with its own meaning","only a past tense","a plural","a reflexive"],a:0},
-    {q:"подойти́ means…",opts:["approach / come up to","cross","leave","arrive"],a:0}
+    {q:"“Sign here, please.”",opts:["Подпиши́те здесь, пожа́луйста.","Запиши́те здесь, пожа́луйста.","Перепиши́те здесь, пожа́луйста.","Опиши́те здесь, пожа́луйста."],a:0,why:"под- (under) + писа́ть = sign."},
+    {q:"“I always write down new words.”",opts:["Я всегда́ запи́сываю но́вые слова́.","Я всегда́ запишу́ но́вые слова́.","Я всегда́ пишу́ но́вые слова́.","Я всегда́ подпи́сываю но́вые слова́."],a:0,why:"A habit takes the -ыва- partner: запи́сываю."},
+    {q:"“Let's talk for a bit.”",opts:["Дава́й поговори́м.","Дава́й заговори́м.","Дава́й договори́м.","Дава́й переговори́м."],a:0,why:"по- = for a while: поговори́м."},
+    {q:"“I want to finish reading the book.”",opts:["Я хочу́ дочита́ть кни́гу.","Я хочу́ почита́ть кни́гу.","Я хочу́ перечита́ть кни́гу.","Я хочу́ зачита́ть кни́гу."],a:0,why:"до- = all the way to the end: дочита́ть."},
+    {q:"“Describe the room.”",opts:["Опиши́те ко́мнату.","Подпиши́те ко́мнату.","Запиши́те ко́мнату.","Перепиши́те ко́мнату."],a:0,why:"о- (around, about) + писа́ть = describe."},
+    {q:"заговори́ть means…",opts:["start talking","talk for a while","finish talking","talk again"],a:0,why:"за- marks the start."},
+    {q:"To get the habit verb from a prefixed verb, you usually…",opts:["add -ыва- / -ива- (запи́сывать)","drop the prefix","add -ся","make it past tense"],a:0,why:"The prefix stays (it carries the meaning); a suffix goes on."},
+    {q:"постро́ить and поговори́ть — the по- is…",opts:["empty in постро́ить, but adds “for a while” in поговори́ть","meaningful in both","empty in both","the other way round"],a:0,why:"Same prefix, different job — judge each verb."}
   ]
 },{
   id:"reflexive",
@@ -4871,7 +4921,7 @@ const EXAMS=[
    Ids that aren't built yet are listed in PLANNED_LESSONS below and show up as "gaps". */
 const BAND_LESSONS={
   A1:["noun-gender","present-conj","prep-case","accusative"],
-  A2:["case-map","past-future","aspect","aspect-prefixes","meaning-prefixes","numbers","genitive","dative","instrumental","instrumental-more"],
+  A2:["case-map","past-future","aspect","aspect-prefixes","meaning-prefixes","meaning-prefixes-more","numbers","genitive","dative","instrumental","instrumental-more"],
   B1:["reflexive","motion"]
 };
 const BAND_WORDS={A1:200,A2:750,B1:1500};
@@ -5559,18 +5609,24 @@ const GRAMMAR=[
   {q:"Besides prefixes, aspect pairs also form by…",opts:["a stem change or a different root","adding -ся","changing gender","adding an adjective"],a:0,why:"e.g. покупа́ть → купи́ть (stem), брать → взять (different root)."}
 ]},
 { lesson:"meaning-prefixes", title:"Prefixes That Change Meaning", level:"A2", items:[
-  {q:"записа́ть means…",opts:["write down / record","write (just finish)","sign","describe"],a:0,why:"за- = down/onto → записа́ть = write down."},
-  {q:"The prefix у- (as in уйти́) means…",opts:["away / off","into","a little","across"],a:0,why:"у- = leaving / departure."},
-  {q:"переписа́ть means…",opts:["rewrite / copy over","sign","read a while","write down"],a:0,why:"пере- = re-/over → rewrite."},
-  {q:"To make подписа́ть imperfective, you…",opts:["add a suffix: подпи́сывать","drop под-","add -ся","use быть"],a:0,why:"Meaning-prefix perfectives rebuild the imperfective with -ыва-/-ива-."},
-  {q:"The prefix при- (as in прийти́) means…",opts:["arrival","departure","out of","across"],a:0,why:"при- = arrival / attaching."},
-  {q:"по- (as in поговори́ть) adds the sense of…",opts:["a little / for a while","arrival","out of","again"],a:0,why:"по- + verb = do a bit of it: поговори́ть = talk a while."},
+  {q:"записа́ть means…",opts:["write down / note","write (just finish)","sign","describe"],a:0,why:"за- makes a new verb: записа́ть = write down."},
+  {q:"The prefix у- (as in уйти́) means…",opts:["away / off","into","arriving","across"],a:0,why:"у- = going away: уйти́ = leave."},
+  {q:"The prefix при- (as in прийти́) means…",opts:["arriving, coming","leaving","out of","across"],a:0,why:"при- = arriving: прийти́ = come."},
+  {q:"вы- (as in вы́йти) means…",opts:["out","into","up to","away"],a:0,why:"вы- = out: вы́йти = go out, get off."},
+  {q:"в- / во- (as in войти́) means…",opts:["into","out","across","away"],a:0,why:"в- = into: войти́ = go in."},
+  {q:"перейти́ means…",opts:["cross","approach","leave","go in"],a:0,why:"пере- = across: перейти́ у́лицу = cross the street."},
+  {q:"подойти́ means…",opts:["come up to, approach","cross","go out","arrive"],a:0,why:"под- = up to, close to."},
+  {q:"написа́ть vs записа́ть — the difference is…",opts:["написа́ть = write (done); записа́ть = write down (new meaning)","they are the same","both mean 'sign'","both are imperfective"],a:0,why:"An empty prefix keeps the meaning; a meaning prefix changes it."}
+]},
+{ lesson:"meaning-prefixes-more", title:"Prefixes: One Root, Many Verbs", level:"A2", items:[
   {q:"подписа́ть means…",opts:["sign","describe","rewrite","write down"],a:0,why:"под- (under) → sign, putting your name under it."},
+  {q:"переписа́ть means…",opts:["rewrite","sign","read a while","write down"],a:0,why:"пере- = over again → rewrite."},
+  {q:"описа́ть means…",opts:["describe","sign","rewrite","record"],a:0,why:"о- (around/about) + писа́ть → describe."},
+  {q:"To make подписа́ть a habit verb, you…",opts:["add a suffix: подпи́сывать","drop под-","add -ся","use быть"],a:0,why:"Prefixed verbs rebuild their everyday partner with -ыва- / -ива-."},
+  {q:"по- (as in поговори́ть) adds the sense of…",opts:["a little / for a while","arriving","out of","again"],a:0,why:"по- + verb = do a bit of it: поговори́ть = talk a while."},
   {q:"за- (as in заговори́ть) can mark…",opts:["the start of an action","completion only","the past tense","a question"],a:0,why:"за- often marks the beginning: заговори́ть = start talking."},
-  {q:"вы- (as in вы́йти, вы́писать) means…",opts:["out","into","up to","a little"],a:0,why:"вы- = out / out of."},
-  {q:"описа́ть means…",opts:["describe","sign","rewrite","record"],a:0,why:"о- (around/about) + писать → describe."},
-  {q:"A meaning-bearing prefix mainly creates…",opts:["a new verb with its own meaning","only a past tense","a plural","a reflexive"],a:0,why:"Unlike an empty prefix, it builds a brand-new verb."},
-  {q:"написа́ть vs записа́ть — the difference is…",opts:["написа́ть = write (done); записа́ть = write down (new meaning)","they are the same","both mean 'sign'","both are imperfective"],a:0,why:"Empty prefix keeps the meaning; a meaning prefix changes it."}
+  {q:"до- (as in дочита́ть) means…",opts:["all the way to the end","a little","start","again"],a:0,why:"до- = carry it through to the end: дочита́ть = finish reading."},
+  {q:"The habit partner of прийти́ is…",opts:["приходи́ть","прийти́ть","при́дывать","идти́"],a:0,why:"The verbs of going use -ходи́ть: приходи́ть, уходи́ть, выходи́ть."}
 ]},
 { lesson:"reflexive", title:"Reflexive Verbs", level:"B1", items:[
   {q:"я-form of занима́ться (to be busy with):",opts:["занима́юсь","занима́ешься","занима́ется","занима́юся"],a:0,why:"After a vowel the tail is -сь: занима́юсь."},
