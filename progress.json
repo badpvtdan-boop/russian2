@@ -1041,12 +1041,12 @@
       "lastReviewed": "2026-09-20"
     },
     "131": {
-      "box": 7,
-      "due": "2027-03-06",
-      "lapses": 5,
-      "reps": 15,
+      "box": 6,
+      "due": "2026-10-22",
+      "lapses": 6,
+      "reps": 16,
       "introduced": true,
-      "lastReviewed": "2026-09-24"
+      "lastReviewed": "2026-10-22"
     },
     "132": {
       "box": 7,
@@ -6718,12 +6718,12 @@
       "lastReviewed": "2026-10-18"
     },
     "case-map#8": {
-      "box": 2,
-      "due": "2026-09-10",
+      "box": 3,
+      "due": "2026-10-29",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-09-07"
+      "lastReviewed": "2026-10-22"
     },
     "case-map#9": {
       "box": 1,
@@ -6788,12 +6788,12 @@
       "lastReviewed": "2026-08-27"
     },
     "genitive#5": {
-      "box": 3,
-      "due": "2026-10-16",
+      "box": 4,
+      "due": "2026-11-07",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-10-09"
+      "lastReviewed": "2026-10-22"
     },
     "genitive#6": {
       "box": 2,
