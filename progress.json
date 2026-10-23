@@ -6404,6 +6404,10 @@
       "done": false,
       "best": 0.5
     },
+    "meaning-prefixes-amount": {
+      "done": false,
+      "best": 0
+    },
     "meaning-prefixes-more": {
       "done": false,
       "best": 0
