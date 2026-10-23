@@ -375,7 +375,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-10-22.1</b> · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-10-23.1</b> · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -3759,11 +3759,11 @@ const LESSONS=[{
     {ru:"Я хочу́ записа́ть ваш но́мер.",en:"I want to write down your number.",why:"за- turns “write” into “write down”: записа́ть.",wrong:["Я хочу́ писа́ть ваш но́мер.","Я хочу́ прочита́ть ваш но́мер.","Я хочу́ подписа́ть ваш но́мер."]}
   ],
   faq:[
-    {q:"Why is it прийти́ and not при-идти?",a:"After a prefix, <span class=\"ru\">идти́</span> is spelled <span class=\"ru\">-йти</span>: <span class=\"ru\">прийти́, уйти́, вы́йти, перейти́</span>. Prefixes ending in a consonant add an о so it's easier to say: <span class=\"ru\">войти́, подойти́</span>."},
-    {q:"How do I say “I came” or “I left”?",a:"The past forms are irregular: <span class=\"ru\">пришёл / пришла́</span> (came), <span class=\"ru\">ушёл / ушла́</span> (left), <span class=\"ru\">вошёл</span> (went in), <span class=\"ru\">вы́шел</span> (went out). For now, just recognise them when you hear them."},
-    {q:"What about something I do every day — “I leave at eight”?",a:"Habits use the everyday partner of each verb: <span class=\"ru\">приходи́ть, уходи́ть, входи́ть, выходи́ть, переходи́ть, подходи́ть</span>. The next lesson shows where those partners come from. One you'll hear on every bus: <span class=\"ru\">Вы выхо́дите?</span> — Are you getting off?"},
-    {q:"Is every prefix a new meaning?",a:"No. Last lesson's prefixes were empty: <span class=\"ru\">написа́ть</span> is still just “write.” Ask the one question: does it still mean the same thing? Same → empty. New → a meaning prefix."},
-    {q:"Мо́жно вы́йти? — is that wrong?",a:"Not wrong, just a different thing: “May I step out?” — what a student asks to leave the room. <span class=\"ru\">Мо́жно войти́?</span> is the one for knocking on a door."}
+    {step:1,q:"Why is it прийти́ and not при-идти?",a:"After a prefix, <span class=\"ru\">идти́</span> is spelled <span class=\"ru\">-йти</span>: <span class=\"ru\">прийти́, уйти́, вы́йти, перейти́</span>. Prefixes ending in a consonant add an о so it's easier to say: <span class=\"ru\">войти́, подойти́</span>."},
+    {step:1,q:"How do I say “I came” or “I left”?",a:"The past forms are irregular: <span class=\"ru\">пришёл / пришла́</span> (came), <span class=\"ru\">ушёл / ушла́</span> (left), <span class=\"ru\">вошёл</span> (went in), <span class=\"ru\">вы́шел</span> (went out). For now, just recognise them when you hear them."},
+    {step:3,q:"What about something I do every day — “I leave at eight”?",a:"Habits use the everyday partner of each verb: <span class=\"ru\">приходи́ть, уходи́ть, входи́ть, выходи́ть, переходи́ть, подходи́ть</span>. The next lesson shows where those partners come from. One you'll hear on every bus: <span class=\"ru\">Вы выхо́дите?</span> — Are you getting off?"},
+    {step:0,q:"Is every prefix a new meaning?",a:"No. Last lesson's prefixes were empty: <span class=\"ru\">написа́ть</span> is still just “write.” Ask the one question: does it still mean the same thing? Same → empty. New → a meaning prefix."},
+    {step:2,q:"Мо́жно вы́йти? — is that wrong?",a:"Not wrong, just a different thing: “May I step out?” — what a student asks to leave the room. <span class=\"ru\">Мо́жно войти́?</span> is the one for knocking on a door."}
   ],
   recap:`
     <p>The whole lesson on one page — skim it before the test.</p>
@@ -3857,10 +3857,10 @@ const LESSONS=[{
     {ru:"Опиши́те ва́шу ко́мнату.",en:"Describe your room.",why:"о- (around, about) + писа́ть = describe.",wrong:["Подпиши́те ва́шу ко́мнату.","Запиши́те ва́шу ко́мнату.","Перепиши́те ва́шу ко́мнату."]}
   ],
   faq:[
-    {q:"Why can't I just drop the prefix for the habit form?",a:"Because the prefix is what carries the meaning. Drop it from <span class=\"ru\">записа́ть</span> and you're back at <span class=\"ru\">писа́ть</span> — “write,” not “write down.” So the prefix stays and a suffix goes on: <span class=\"ru\">запи́сывать</span>."},
-    {q:"What's the habit form of прийти́, уйти́…?",a:"The verbs of going use <span class=\"ru\">-ходи́ть</span>: <span class=\"ru\">приходи́ть, уходи́ть, входи́ть, выходи́ть, переходи́ть, подходи́ть</span>. <span class=\"ru\">Я ухожу́ в во́семь.</span> — I leave at eight (every day)."},
-    {q:"Does every prefixed verb use -ыва-?",a:"Most do. A few build their partner another way (the -ходи́ть verbs above are the big group). When a dictionary shows the pair, trust it."},
-    {q:"What about “I'm signing it right now”?",a:"Something in progress uses the habit verb too: <span class=\"ru\">Я сейча́с подпи́сываю</span> — I'm signing it now. The -ыва- verb covers both “keeps happening” and “happening right now.”"}
+    {step:1,q:"Why can't I just drop the prefix for the habit form?",a:"Because the prefix is what carries the meaning. Drop it from <span class=\"ru\">записа́ть</span> and you're back at <span class=\"ru\">писа́ть</span> — “write,” not “write down.” So the prefix stays and a suffix goes on: <span class=\"ru\">запи́сывать</span>."},
+    {step:1,q:"What's the habit form of прийти́, уйти́…?",a:"The verbs of going use <span class=\"ru\">-ходи́ть</span>: <span class=\"ru\">приходи́ть, уходи́ть, входи́ть, выходи́ть, переходи́ть, подходи́ть</span>. <span class=\"ru\">Я ухожу́ в во́семь.</span> — I leave at eight (every day)."},
+    {step:1,q:"Does every prefixed verb use -ыва-?",a:"Most do. A few build their partner another way (the -ходи́ть verbs above are the big group). When a dictionary shows the pair, trust it."},
+    {step:2,q:"What about “I'm signing it right now”?",a:"Something in progress uses the habit verb too: <span class=\"ru\">Я сейча́с подпи́сываю</span> — I'm signing it now. The -ыва- verb covers both “keeps happening” and “happening right now.”"}
   ],
   recap:`
     <p>The whole lesson on one page — skim it before the test.</p>
@@ -3956,10 +3956,10 @@ const LESSONS=[{
     {ru:"Дава́й досмо́трим фильм.",en:"Let's watch the film to the end.",why:"до- = all the way to the end.",wrong:["Дава́й посмо́трим фильм.","Дава́й пересмо́трим фильм.","Дава́й засмо́трим фильм."]}
   ],
   faq:[
-    {q:"Are почита́ть and прочита́ть the same?",a:"No. <span class=\"ru\">прочита́ть</span> is the empty partner of <span class=\"ru\">чита́ть</span> — read it, done. <span class=\"ru\">почита́ть</span> is to read <i>for a while</i>, not necessarily finishing."},
-    {q:"Is по- always “a bit”?",a:"No — on some verbs it's empty (<span class=\"ru\">постро́ить</span> is just “build,” finished). That's the catch: judge each verb."},
-    {q:"Wasn't за- “down” in записа́ть?",a:"Yes. Same prefix, different job on a different verb. On <span class=\"ru\">писа́ть</span> it's “down, onto”; on <span class=\"ru\">говори́ть</span> and <span class=\"ru\">пла́кать</span> it's “start.”"},
-    {q:"Can I use these for habits?",a:"Mostly no — “do a bit,” “start” and “finish” are single moments, so these verbs are almost always used as one finished act."}
+    {step:0,q:"Are почита́ть and прочита́ть the same?",a:"No. <span class=\"ru\">прочита́ть</span> is the empty partner of <span class=\"ru\">чита́ть</span> — read it, done. <span class=\"ru\">почита́ть</span> is to read <i>for a while</i>, not necessarily finishing."},
+    {step:3,q:"Is по- always “a bit”?",a:"No — on some verbs it's empty (<span class=\"ru\">постро́ить</span> is just “build,” finished). That's the catch: judge each verb."},
+    {step:1,q:"Wasn't за- “down” in записа́ть?",a:"Yes. Same prefix, different job on a different verb. On <span class=\"ru\">писа́ть</span> it's “down, onto”; on <span class=\"ru\">говори́ть</span> and <span class=\"ru\">пла́кать</span> it's “start.”"},
+    {step:2,q:"Can I use these for habits?",a:"Mostly no — “do a bit,” “start” and “finish” are single moments, so these verbs are almost always used as one finished act."}
   ],
   recap:`
     <p>The whole lesson on one page — skim it before the test.</p>
@@ -4340,12 +4340,12 @@ const LESSONS=[{
     {ru:"Я пью ко́фе с молоко́м.",en:"I drink coffee with milk.",why:"Things that go together take с. молоко́ → молоко́м.",wrong:["Я пью ко́фе молоко́м.","Я пью ко́фе с молока́.","Я пью ко́фе с молоко́."]}
   ],
   faq:[
-    {q:"Why does “with mom” need с but “with a pen” doesn't?",a:"With mom you're doing something <b>together</b> (с кем? — with whom?), and that always takes <span class=\"ru\">с</span>. With a pen you're <b>using</b> it (чем? — with what?), and a thing you use takes the ending alone. Same ending in both cases; the only difference is the с."},
-    {q:"Do -ой and -ей sound the same?",a:"No. <span class=\"ru\">-ой</span> rhymes with <i>boy</i> (<span class=\"ru\">ма́мой</span>, MAH-moy). <span class=\"ru\">-ей</span> rhymes with <i>day</i> (<span class=\"ru\">тётей</span>, TYOH-tay), and it softens the letter in front of it."},
-    {q:"Why doesn't ко́фе change?",a:"A handful of borrowed words ending in a vowel never change at all, in any case: <span class=\"ru\">ко́фе, метро́, кино́, такси́, кафе́</span>. So it's <span class=\"ru\">с ко́фе</span>, <span class=\"ru\">в кафе́</span>. You'll recognise them because they look foreign."},
-    {q:"What about words ending in -ь?",a:"Two small groups, covered in the next lesson. Feminine words ending in -ь take <b class=\"ru\">-ью</b>: <span class=\"ru\">ночь → но́чью, дверь → две́рью</span>. Masculine words ending in -ь take <b class=\"ru\">-ем</b>: <span class=\"ru\">учи́тель → учи́телем</span>."},
-    {q:"When does с turn into со?",a:"When the next word starts with a hard-to-say cluster of consonants. The one you'll hear constantly is <span class=\"ru\">со мной</span> (with me). Others are rare — don't worry about them."},
-    {q:"Can I say “by bus” this way too?",a:"Yes — <span class=\"ru\">е́хать авто́бусом</span> (go by bus) is the same “using” idea. In everyday speech you'll more often hear <span class=\"ru\">на авто́бусе</span>; both are fine."}
+    {step:0,q:"Why does “with mom” need с but “with a pen” doesn't?",a:"With mom you're doing something <b>together</b> (с кем? — with whom?), and that always takes <span class=\"ru\">с</span>. With a pen you're <b>using</b> it (чем? — with what?), and a thing you use takes the ending alone. Same ending in both cases; the only difference is the с."},
+    {step:3,q:"Do -ой and -ей sound the same?",a:"No. <span class=\"ru\">-ой</span> rhymes with <i>boy</i> (<span class=\"ru\">ма́мой</span>, MAH-moy). <span class=\"ru\">-ей</span> rhymes with <i>day</i> (<span class=\"ru\">тётей</span>, TYOH-tay), and it softens the letter in front of it."},
+    {step:4,q:"Why doesn't ко́фе change?",a:"A handful of borrowed words ending in a vowel never change at all, in any case: <span class=\"ru\">ко́фе, метро́, кино́, такси́, кафе́</span>. So it's <span class=\"ru\">с ко́фе</span>, <span class=\"ru\">в кафе́</span>. You'll recognise them because they look foreign."},
+    {step:3,q:"What about words ending in -ь?",a:"Two small groups, covered in the next lesson. Feminine words ending in -ь take <b class=\"ru\">-ью</b>: <span class=\"ru\">ночь → но́чью, дверь → две́рью</span>. Masculine words ending in -ь take <b class=\"ru\">-ем</b>: <span class=\"ru\">учи́тель → учи́телем</span>."},
+    {step:0,q:"When does с turn into со?",a:"When the next word starts with a hard-to-say cluster of consonants. The one you'll hear constantly is <span class=\"ru\">со мной</span> (with me). Others are rare — don't worry about them."},
+    {step:0,q:"Can I say “by bus” this way too?",a:"Yes — <span class=\"ru\">е́хать авто́бусом</span> (go by bus) is the same “using” idea. In everyday speech you'll more often hear <span class=\"ru\">на авто́бусе</span>; both are fine."}
   ],
   recap:`
     <p>The whole lesson on one page — skim it before the test.</p>
@@ -4456,10 +4456,10 @@ const LESSONS=[{
     {ru:"Пойдём со мной!",en:"Come with me!",why:"с + мной → со мной.",wrong:["Пойдём с я!","Пойдём со меня́!","Пойдём мной!"]}
   ],
   faq:[
-    {q:"Why “Он врач” but “Он был врачо́м”?",a:"In the present Russian drops “is,” and the job stays in its dictionary form: <span class=\"ru\">Он врач</span>. Once there's a verb — <span class=\"ru\">был</span> (was), <span class=\"ru\">бу́дет</span> (will be), <span class=\"ru\">стать</span> (become), <span class=\"ru\">рабо́тать</span> (work as) — the job goes in the instrumental."},
-    {q:"Why с ним and not с им?",a:"After any little word like <span class=\"ru\">с, над, под, за</span>, the pronouns for him, her and them pick up an н: <span class=\"ru\">с ним, с ней, с ни́ми, над ним</span>. It's just easier to say."},
-    {q:"за до́мом or за дом?",a:"<span class=\"ru\">за до́мом</span> (instrumental) is <b>where</b> something is: behind the house. <span class=\"ru\">за дом</span> (accusative) is <b>where to</b>: he went round behind the house. The same goes for <span class=\"ru\">под</span>. In this lesson it's always “where it is,” so it's always the instrumental."},
-    {q:"Why врачо́м with -о́м but учи́телем with -ем?",a:"<span class=\"ru\">учи́тель</span> ends in a soft sign, and soft masculine words take -ем. <span class=\"ru\">врач</span> ends in a consonant, so it takes -ом like <span class=\"ru\">друг → дру́гом</span>. (After ж, ш, ч, щ and ц an <i>unstressed</i> ending is spelled -ем — <span class=\"ru\">ме́сяцем</span> — but when the stress falls on it, it stays -о́м: <span class=\"ru\">врачо́м, ножо́м</span>.)"}
+    {step:0,q:"Why “Он врач” but “Он был врачо́м”?",a:"In the present Russian drops “is,” and the job stays in its dictionary form: <span class=\"ru\">Он врач</span>. Once there's a verb — <span class=\"ru\">был</span> (was), <span class=\"ru\">бу́дет</span> (will be), <span class=\"ru\">стать</span> (become), <span class=\"ru\">рабо́тать</span> (work as) — the job goes in the instrumental."},
+    {step:3,q:"Why с ним and not с им?",a:"After any little word like <span class=\"ru\">с, над, под, за</span>, the pronouns for him, her and them pick up an н: <span class=\"ru\">с ним, с ней, с ни́ми, над ним</span>. It's just easier to say."},
+    {step:1,q:"за до́мом or за дом?",a:"<span class=\"ru\">за до́мом</span> (instrumental) is <b>where</b> something is: behind the house. <span class=\"ru\">за дом</span> (accusative) is <b>where to</b>: he went round behind the house. The same goes for <span class=\"ru\">под</span>. In this lesson it's always “where it is,” so it's always the instrumental."},
+    {step:0,q:"Why врачо́м with -о́м but учи́телем with -ем?",a:"<span class=\"ru\">учи́тель</span> ends in a soft sign, and soft masculine words take -ем. <span class=\"ru\">врач</span> ends in a consonant, so it takes -ом like <span class=\"ru\">друг → дру́гом</span>. (After ж, ш, ч, щ and ц an <i>unstressed</i> ending is spelled -ем — <span class=\"ru\">ме́сяцем</span> — but when the stress falls on it, it stays -о́м: <span class=\"ru\">врачо́м, ножо́м</span>.)"}
   ],
   recap:`
     <p>The whole lesson on one page — skim it before the test.</p>
@@ -4506,10 +4506,15 @@ function wireSayButtons(root){
 }
 /* folded=true (the step pages): one closed "Common questions" line, so the list never
    pushes the lesson's own buttons off a phone screen. Open on the recap and refresh pages. */
-function faqHtml(L, folded){
+/* stepIdx given (a step page): only the questions tagged to that idea (faq item `step`, 0-based),
+   or nothing — the same five questions under every step read as clutter (2026-10-23). The recap
+   and refresh pages call it without stepIdx and show the full list. */
+function faqHtml(L, folded, stepIdx){
   if(!L||!L.faq||!L.faq.length) return "";
-  const list=L.faq.map(f=>'<details><summary>'+f.q+'</summary><div>'+f.a+'</div></details>').join("");
-  if(folded) return '<div class="faq"><details class="faq-fold"><summary>❓ Common questions ('+L.faq.length+')</summary><div>'+list+'</div></details></div>';
+  const items=(stepIdx===undefined)? L.faq : L.faq.filter(f=>f.step===stepIdx);
+  if(!items.length) return "";
+  const list=items.map(f=>'<details><summary>'+f.q+'</summary><div>'+f.a+'</div></details>').join("");
+  if(folded) return '<div class="faq"><details class="faq-fold"><summary>❓ Common questions ('+items.length+')</summary><div>'+list+'</div></details></div>';
   return '<div class="faq"><h4>❓ Common questions</h4>'+list+'</div>';
 }
 /* The quick re-run of a passed lesson draws from the lesson's own grammar-review pool
@@ -4627,7 +4632,7 @@ function renderStage(){
       <h2 style="margin-top:0">${st.title}</h2>
       <div class="lesson-body">${st.html}</div>
       ${st.note?`<div class="step-note">${st.note}</div>`:""}
-      ${faqHtml(L,true)}
+      ${faqHtml(L,true,sIdx)}
       <div class="row"><button class="primary" id="l-next">${(st.practice&&st.practice.length)?"Practice this →":(last?"Continue →":"Next idea →")}</button>
       ${sIdx>0?`<button id="l-prev">← Previous idea</button>`:""}
       <button class="ghost" id="l-back">← Lessons</button></div>`;

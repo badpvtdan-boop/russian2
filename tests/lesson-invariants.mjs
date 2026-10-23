@@ -132,6 +132,9 @@ for (const L of LESSONS) {
      w + ": at least half the test is whole-sentence choices (tests the decision, not the ending table)");
   ok(Array.isArray(L.faq) && L.faq.length > 0, w + ": answers the usual follow-up questions");
   (L.faq || []).forEach((f, i) => ok(!!f.q && !!f.a, w + " faq " + (i + 1) + ": has a question and an answer"));
+  /* Step pages show only the questions tagged to that idea, so every question needs a real step. */
+  if (L.steps) (L.faq || []).forEach((f, i) => ok(Number.isInteger(f.step) && f.step >= 0 && f.step < L.steps.length,
+    w + " faq " + (i + 1) + ": is tied to one of the lesson's ideas"));
 }
 
 /* Every lesson on the path exists, and every lesson exists on the path. */
