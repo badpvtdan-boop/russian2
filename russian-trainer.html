@@ -110,7 +110,16 @@
     padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);margin-bottom:10px;cursor:pointer;transition:.12s}
   .lesson-item:hover{border-color:var(--accent);background:var(--accent-soft)}
   .lesson-item .st{font-size:13px;color:var(--muted);white-space:nowrap}
-  .lesson-item .st.done{color:var(--good)}
+  .lesson-item .st.is-passed{color:var(--good)}   /* not .done: the finish screen's generic .done centres and pads */
+  /* Passed lessons read as finished at a glance: green tint, green edge, a solid ✓ Passed pill.
+     The first unpassed lesson on the path is marked Up next. */
+  .lesson-item.passed{background:var(--good-bg);border-color:var(--good-line);border-left:5px solid var(--good)}
+  .lesson-item.passed:hover{background:var(--good-bg);border-color:var(--good)}
+  .lesson-item.next{border-color:var(--accent);border-left:5px solid var(--accent)}
+  .pass-pill{display:inline-block;background:var(--good);color:#fff;font-weight:700;border-radius:999px;padding:2px 9px;margin-right:4px}
+  .next-pill{color:var(--accent);font-weight:700}
+  .lesson-band{display:flex;align-items:center;gap:8px;margin:18px 2px 8px;font-size:14px;font-weight:700;color:var(--text)}
+  .lesson-band .lb-count{margin-left:auto;font-weight:400;font-size:13px;color:var(--muted)}
   /* The title block may wrap and the right-hand side (Story · Refresh · passed) drops to its own
      line when they don't fit side by side. Before this, a long subtitle couldn't wrap and pushed
      "✓ passed · best 100%" out past the card's edge at desktop widths (2026-10-22). */
@@ -4544,20 +4553,38 @@ function renderLessons(){
       <span class="lvl B2">B2</span><span class="ll">Upper-int.</span></div>
     <div class="tag" style="margin:0">CEFR bands tag each lesson's difficulty. The <b>Level</b> badge at the top is separate — it estimates your overall level from how many words you know.</div>`;
   list.appendChild(legend);
-  LESSONS.forEach(L=>{
+  /* Path order, grouped by level (2026-10-23). LESSONS is stored in the order lessons were
+     written, so listing it straight put the B1 lessons in the middle of A2. Anything not on the
+     path (shouldn't happen — the lesson suite checks it) goes at the end rather than vanishing. */
+  const BAND_NAMES={A1:"Beginner",A2:"Elementary",B1:"Intermediate",B2:"Upper-intermediate"};
+  const byId=Object.fromEntries(LESSONS.map(l=>[l.id,l]));
+  const groups=Object.entries(BAND_LESSONS).map(([band,ids])=>({band,list:ids.map(id=>byId[id]).filter(Boolean)}));
+  const onPath=new Set(Object.values(BAND_LESSONS).flat());
+  const extra=LESSONS.filter(l=>!onPath.has(l.id));
+  if(extra.length) groups.push({band:"",list:extra});
+  const nextId=(groups.flatMap(g=>g.list).find(l=>!lessonRec(l.id).done)||{}).id;
+  groups.forEach(g=>{
+    if(!g.list.length) return;
+    const done=g.list.filter(l=>lessonRec(l.id).done).length;
+    const h=document.createElement("div"); h.className="lesson-band";
+    h.innerHTML=g.band?`<span class="lvl ${g.band}">${g.band}</span> ${BAND_NAMES[g.band]||""}<span class="lb-count">${done} of ${g.list.length} passed</span>`
+                      :`Other lessons<span class="lb-count">${done} of ${g.list.length} passed</span>`;
+    list.appendChild(h);
+  g.list.forEach(L=>{
     const r=lessonRec(L.id);
-    const el=document.createElement("div"); el.className="lesson-item";
+    const el=document.createElement("div"); el.className="lesson-item"+(r.done?" passed":"")+(L.id===nextId?" next":"");
     el.innerHTML=`<div><div style="font-size:17px;font-weight:600">${L.title}</div>
       <div class="st"><span class="lvl ${L.level}">${L.level}</span> ${L.subtitle}</div></div>
       <div class="lesson-right">
         ${L.story?`<button class="story-chip" type="button">📖 Story</button>`:""}
         ${r.done&&(L.recap||L.explanation)?`<button class="story-chip refresh-chip" type="button">↻ Refresh</button>`:""}
-        <div class="st ${r.done?"done":""}">${r.done?("✓ passed · best "+Math.round(r.best*100)+"%"):"Start →"}</div>
+        <div class="st ${r.done?"is-passed":""}">${r.done?('<span class="pass-pill">✓ Passed</span> best '+Math.round(r.best*100)+"%"):(L.id===nextId?'<span class="next-pill">Up next →</span>':(r.best?"Tried · best "+Math.round(r.best*100)+"% · retry →":"Start →"))}</div>
       </div>`;
     el.onclick=()=>openLesson(L.id);
     if(L.story){ const sc=el.querySelector(".story-chip:not(.refresh-chip)"); sc.onclick=(e)=>{ e.stopPropagation(); openLessonStory(L.id); }; }
     const rc=el.querySelector(".refresh-chip"); if(rc) rc.onclick=(e)=>{ e.stopPropagation(); openLessonRefresh(L.id); };
     list.appendChild(el);
+  });
   });
 }
 
