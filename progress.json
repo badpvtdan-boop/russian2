@@ -6401,8 +6401,8 @@
       "best": 0
     },
     "meaning-prefixes": {
-      "done": false,
-      "best": 0.5
+      "done": true,
+      "best": 1
     },
     "meaning-prefixes-amount": {
       "done": false,
@@ -7015,6 +7015,97 @@
     "instrumental#s4": {
       "box": 0,
       "due": "2026-10-22",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#0": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#1": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#2": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#3": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#4": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#5": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#6": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#7": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#s0": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#s1": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#s2": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#s3": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes#s4": {
+      "box": 0,
+      "due": "2026-10-23",
       "lapses": 0,
       "reps": 0,
       "introduced": true
