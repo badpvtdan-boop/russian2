@@ -4091,47 +4091,6 @@ const LESSONS=[{
     {q:"Сейча́с мы … в Москву́. (on our way now, by train)",opts:["е́дем","е́здим","идём","хо́дим"],a:0}
   ]
 },{
-  id:"numbers",
-  title:"Numbers & Quantifiers",
-  subtitle:"числительные · counting and the noun forms it triggers",
-  level:"A2",
-  explanation:`
-    <p>Counting in Russian has one famous complication: <b>the number changes the case of the noun after it</b>. Say "two" and the noun shifts; say "five" and it shifts again. The whole system comes down to <b>three buckets</b> — and they all lean on the <b>genitive</b> you already know.</p>
-    <h3>The three buckets</h3>
-    <table>
-      <tr><th>Number</th><th>Noun form</th><th>Example</th></tr>
-      <tr><td><b>1</b> (agrees in gender)</td><td>nominative singular</td><td class="ru">оди́н стол · одна́ кни́га · одно́ окно́</td></tr>
-      <tr><td><b>2, 3, 4</b></td><td><b>genitive singular</b></td><td class="ru">два бра́т<span class="ru">а</span> · три кни́г<span class="ru">и</span> · четы́ре часа́</td></tr>
-      <tr><td><b>5–20</b> (and most higher)</td><td><b>genitive plural</b></td><td class="ru">пять книг · де́сять рубл<span class="ru">е́й</span> · два́дцать лет</td></tr>
-    </table>
-    <h3>1 and 2 agree in gender</h3>
-    <p><span class="ru">оди́н</span> behaves like an adjective — it matches the noun: <span class="ru">оди́н дом</span> (m), <span class="ru">одна́ маши́на</span> (f), <span class="ru">одно́ сло́во</span> (n). And <b>two</b> has two forms: <span class="ru">два</span> for masculine/neuter, <span class="ru">две</span> for feminine — <span class="ru">два стола́</span> but <span class="ru">две кни́ги</span>. (3 and 4 don't change for gender.)</p>
-    <h3>Big numbers: look at the last word</h3>
-    <p>For compound numbers, only the <b>final digit</b> decides the noun's form: <span class="ru">два́дцать оди́н рубль</span> (nom. sing., because it ends in 1), <span class="ru">два́дцать два рубл<span class="ru">я́</span></span> (gen. sing.), <span class="ru">два́дцать пять рубл<span class="ru">е́й</span></span> (gen. plural). The one trap: <b>11–14</b> always take the <b>genitive plural</b> (<span class="ru">оди́ннадцать книг</span>), even though they "end" in 1–4.</p>
-    <h3>Quantity words work the same way</h3>
-    <p>Words of amount — <span class="ru">мно́го</span> (a lot), <span class="ru">ма́ло</span> (few/little), <span class="ru">не́сколько</span> (several), <span class="ru">ско́лько</span> (how many/much) — are followed by the <b>genitive</b>. For things you can count, that's the genitive <b>plural</b>: <span class="ru">мно́го книг, ско́лько студе́нтов</span>. For uncountable stuff, the genitive <b>singular</b>: <span class="ru">мно́го воды́, ма́ло вре́мени</span>.</p>
-    <p><i>Tie-in:</i> this is exactly the "after numbers &amp; quantity" job you met in the genitive lesson — now with the full 1 / 2–4 / 5+ picture.</p>`,
-  practice:[
-    {q:"У меня́ два … (брат).",opts:["бра́та","брат","бра́тья","бра́тьев"],a:0,why:"After 2 → genitive singular: два бра́та."},
-    {q:"У неё три … (кни́га).",opts:["кни́ги","кни́га","книг","кни́гу"],a:0,why:"After 3 → genitive singular; -и after г: три кни́ги."},
-    {q:"В кла́ссе пять … (студе́нт).",opts:["студе́нтов","студе́нт","студе́нта","студе́нты"],a:0,why:"After 5 → genitive plural: пять студе́нтов."},
-    {q:"Мне два́дцать … (год → 'years').",opts:["лет","го́да","год","го́ды"],a:0,why:"20 → genitive plural; год uses the special form лет: два́дцать лет."},
-    {q:"After 2, 3, 4 the counted noun takes the…",opts:["genitive singular","genitive plural","nominative","dative"],a:0,why:"2/3/4 → genitive singular: два бра́та, три кни́ги."},
-    {q:"After 5 and higher, the counted noun takes the…",opts:["genitive plural","genitive singular","nominative","accusative"],a:0,why:"5+ → genitive plural: пять книг, де́сять рубле́й."},
-    {q:"'two books' — кни́га is feminine, so:",opts:["две кни́ги","два кни́ги","две книг","два кни́га"],a:0,why:"two = две for feminine, + genitive singular: две кни́ги."},
-    {q:"«У меня́ мно́го …» (a lot of work).",opts:["рабо́ты","рабо́та","рабо́ту","рабо́т"],a:0,why:"мно́го + genitive; рабо́та is uncountable → genitive singular: мно́го рабо́ты."}
-  ],
-  test:[
-    {q:"У меня́ четы́ре … (сестра́).",opts:["сестры́","сестра́","сестёр","сестру́"],a:0},
-    {q:"В го́роде во́семь … (музе́й).",opts:["музе́ев","музе́й","музе́я","музе́и"],a:0},
-    {q:"After the number 1, the noun is in the…",opts:["nominative singular","genitive singular","genitive plural","dative"],a:0},
-    {q:"У нас три … (час → 'hours').",opts:["часа́","час","часо́в","часы́"],a:0},
-    {q:"Ему́ де́сять … (год → 'years').",opts:["лет","го́да","год","го́ды"],a:0},
-    {q:"'one window' — окно́ is neuter, so:",opts:["одно́ окно́","оди́н окно́","одна́ окно́","одно́ о́кна"],a:0},
-    {q:"У нас ма́ло … (вре́мя → 'time').",opts:["вре́мени","вре́мя","времена́","вре́менем"],a:0},
-    {q:"The word ско́лько ('how many') is followed by the…",opts:["genitive","nominative","accusative","dative"],a:0}
-  ]
-},{
   id:"genitive",
   title:"Genitive Case",
   subtitle:"родительный падеж · of / possession / absence",
@@ -4184,6 +4143,268 @@ const LESSONS=[{
     {q:"Это маши́на … (оте́ц).",opts:["отца́","оте́ц","отцу́","отцо́м"],a:0},
     {q:"У нас четы́ре … (час).",opts:["часа́","час","часо́в","часы́"],a:0},
     {q:"Пода́рок для … (ма́ма).",opts:["ма́мы","ма́ма","ма́му","ма́ме"],a:0}
+  ]
+},{
+  id:"numbers",
+  title:"Numbers: One, Two, Five",
+  subtitle:"числи́тельные · the word after a number changes",
+  level:"A2",
+  /* Rebuilt 2026-10-23 in the Instrumental's shape. The old version was one screen carrying
+     ~8 facts (three buckets, оди́н agreement, два/две, compound numbers, the 11–14 trap, лет,
+     мно́го/ма́ло/ско́лько countable vs not) and it sat BEFORE the Genitive on the path while
+     leaning on it. It also quietly needed the genitive plural, which no lesson teaches.
+     This lesson keeps the majority case — one / two-to-four / five-and-up — and hands over
+     the five-and-up forms as the handful you actually say (лет, рубле́й, часо́в, мину́т, дней)
+     instead of an ending table. Compound numbers, 11–14 and the quantity words moved to
+     "numbers-more". */
+  steps:[
+    {
+      title:"One: the word stays as it is",
+      html:`
+        <p>Counting in Russian has one famous twist: <b>the number changes the word after it</b>. There are three groups — <b>one</b>, <b>two to four</b>, and <b>five and up</b>. This lesson takes them one at a time.</p>
+        <p>With <b>one</b>, nothing happens to the word — it stays in its dictionary form. But <span class="ru">оди́н</span> itself <b>matches</b> the word, the same way <span class="ru">мой / моя́ / моё</span> does:</p>
+        <table>
+          <tr><th>Word</th><th>“one …”</th><th></th></tr>
+          <tr><td>masculine</td><td class="ru"><b>оди́н</b> стол</td><td>one table</td></tr>
+          <tr><td>feminine</td><td class="ru"><b>одна́</b> кни́га</td><td>one book</td></tr>
+          <tr><td>neuter</td><td class="ru"><b>одно́</b> окно́</td><td>one window</td></tr>
+        </table>`,
+      practice:[
+        {q:"“one book” (кни́га is feminine)",opts:["одна́ кни́га","оди́н кни́га","одно́ кни́га","одна́ кни́ги"],a:0,why:"оди́н matches the word: feminine → одна́. And after one the word stays as it is: кни́га."},
+        {q:"“I have one brother.”",opts:["У меня́ оди́н брат.","У меня́ одна́ брат.","У меня́ оди́н бра́та.","У меня́ одно́ брат."],a:0,why:"брат is masculine → оди́н, and the word stays in its dictionary form."},
+        {q:"одно́ goes with…",opts:["a neuter word, like окно́","a feminine word, like кни́га","a masculine word, like стол","any word"],a:0,why:"оди́н (m) · одна́ (f) · одно́ (n): одно́ окно́."}
+      ]
+    },
+    {
+      title:"Two, three, four: the “of” form you already know",
+      html:`
+        <p>After <b>2, 3 and 4</b> the word takes the same form you learned in the Genitive lesson for “of” — the one that comes after <span class="ru">нет</span> and <span class="ru">без</span>:</p>
+        <table>
+          <tr><th>Word</th><th>“of” form</th><th>With a number</th></tr>
+          <tr><td class="ru">брат</td><td class="ru">бра́т<b>а</b></td><td class="ru">два бра́т<b>а</b> — two brothers</td></tr>
+          <tr><td class="ru">стол</td><td class="ru">стол<b>а́</b></td><td class="ru">три стол<b>а́</b> — three tables</td></tr>
+          <tr><td class="ru">час</td><td class="ru">час<b>а́</b></td><td class="ru">четы́ре час<b>а́</b> — four hours</td></tr>
+          <tr><td class="ru">окно́</td><td class="ru">окн<b>а́</b></td><td class="ru">два окн<b>а́</b> — two windows</td></tr>
+        </table>
+        <p>Think of it as “two <i>of</i> brother.” Nothing new to learn — just the form you already have.</p>`,
+      note:"3 and 4 never change. 2 has one wrinkle with feminine words — that's the next step.",
+      practice:[
+        {q:"“I have two brothers.”",opts:["У меня́ два бра́та.","У меня́ два брат.","У меня́ два бра́тья.","У меня́ два бра́ту."],a:0,why:"After 2 the word takes the “of” form: брат → бра́та."},
+        {q:"“three tables”",opts:["три стола́","три стол","три столы́","три столо́м"],a:0,why:"After 3 → the “of” form: стол → стола́."},
+        {q:"After 2, 3 and 4 the word takes…",opts:["the “of” form, as after нет (бра́та)","its dictionary form (брат)","the plural (бра́тья)","the “with” form (бра́том)"],a:0,why:"Two to four use the “of” form you learned with нет and без: два бра́та."}
+      ]
+    },
+    {
+      title:"Two for feminine words: две",
+      html:`
+        <p><b>Two</b> has two spellings. <span class="ru">два</span> goes with masculine and neuter words; <span class="ru">две</span> goes with feminine ones:</p>
+        <table>
+          <tr><th class="ru">два (m / n)</th><th class="ru">две (f)</th></tr>
+          <tr><td class="ru">два бра́та — two brothers</td><td class="ru">две сестры́ — two sisters</td></tr>
+          <tr><td class="ru">два окна́ — two windows</td><td class="ru">две кни́ги — two books</td></tr>
+          <tr><td class="ru">два часа́ — two hours</td><td class="ru">две ча́шки — two cups</td></tr>
+        </table>
+        <p>The word after it is the same “of” form either way. And <b>3 and 4 don't do this</b>: <span class="ru">три бра́та, три сестры́</span>.</p>`,
+      practice:[
+        {q:"“two books”",opts:["две кни́ги","два кни́ги","две кни́га","две книг"],a:0,why:"кни́га is feminine → две, then the “of” form: кни́ги."},
+        {q:"“Two cups of coffee, please.”",opts:["Две ча́шки ко́фе, пожа́луйста.","Два ча́шки ко́фе, пожа́луйста.","Две ча́шка ко́фе, пожа́луйста.","Две ча́шку ко́фе, пожа́луйста."],a:0,why:"ча́шка is feminine → две, and ча́шка → ча́шки after two."},
+        {q:"Which one needs две?",opts:["two sisters","two brothers","two windows","two tables"],a:0,why:"сестра́ is feminine: две сестры́. Brother and table are masculine and window is neuter, so they take два."}
+      ]
+    },
+    {
+      title:"Five and up: learn the few you'll say",
+      html:`
+        <p>From <b>5 to 20</b>, and round numbers like <b>30, 50, 100</b>, the word takes a different form again. (Its grammar name is the <i>genitive plural</i>.) It's a big set of endings, and you don't need it yet — just the handful of words you'll count every day:</p>
+        <table>
+          <tr><th>Word</th><th>After 5 and up</th><th></th></tr>
+          <tr><td class="ru">год</td><td class="ru">пять <b>лет</b></td><td>five years</td></tr>
+          <tr><td class="ru">рубль</td><td class="ru">пять <b>рубле́й</b></td><td>five roubles</td></tr>
+          <tr><td class="ru">час</td><td class="ru">пять <b>часо́в</b></td><td>five hours / five o'clock</td></tr>
+          <tr><td class="ru">мину́та</td><td class="ru">пять <b>мину́т</b></td><td>five minutes</td></tr>
+          <tr><td class="ru">день</td><td class="ru">пять <b>дней</b></td><td>five days</td></tr>
+        </table>
+        <p><span class="ru">лет</span> is the odd one: it doesn't look like <span class="ru">год</span> at all. Learn it as “years, after five.”</p>`,
+      note:"Bigger numbers like 21 or 34 have one more rule — that's the next lesson. Round numbers (10, 20, 30, 100) always count as five and up.",
+      practice:[
+        {q:"“five years”",opts:["пять лет","пять год","пять го́да","пять годо́в"],a:0,why:"After five and up, год becomes лет: пять лет."},
+        {q:"“That costs ten roubles.”",opts:["Это сто́ит де́сять рубле́й.","Это сто́ит де́сять рубль.","Это сто́ит де́сять рубля́.","Это сто́ит де́сять рубли́."],a:0,why:"10 is five and up → рубле́й."},
+        {q:"“seven days”",opts:["семь дней","семь день","семь дня","семь дни"],a:0,why:"7 is five and up → дней."}
+      ]
+    },
+    {
+      title:"Age, time, price: the same three steps",
+      html:`
+        <p>The things you count most — your <b>age</b>, the <b>time</b>, a <b>price</b>, a number of <b>days</b> — each run through all three groups. Learn these four ladders and you have the whole lesson:</p>
+        <table>
+          <tr><th></th><th>1</th><th>2–4</th><th>5 and up</th></tr>
+          <tr><td>years</td><td class="ru">1&nbsp;год</td><td class="ru">2&nbsp;го́да</td><td class="ru">5&nbsp;лет</td></tr>
+          <tr><td>hours</td><td class="ru">(1)&nbsp;час</td><td class="ru">2&nbsp;часа́</td><td class="ru">5&nbsp;часо́в</td></tr>
+          <tr><td>roubles</td><td class="ru">1&nbsp;рубль</td><td class="ru">2&nbsp;рубля́</td><td class="ru">5&nbsp;рубле́й</td></tr>
+          <tr><td>days</td><td class="ru">1&nbsp;день</td><td class="ru">2&nbsp;дня</td><td class="ru">5&nbsp;дней</td></tr>
+        </table>
+        <p><span class="ru">Сейча́с три часа́.</span> — It's three o'clock.<br>
+        <span class="ru">Мне три́дцать лет.</span> — I'm thirty. (literally “to me thirty years”)<br>
+        <span class="ru">Это сто́ит сто рубле́й.</span> — That costs a hundred roubles.</p>
+        <p>For one o'clock Russians just say <span class="ru">час</span>: <span class="ru">Сейча́с час.</span></p>`,
+      practice:[
+        {q:"“It's three o'clock.”",opts:["Сейча́с три часа́.","Сейча́с три час.","Сейча́с три часо́в.","Сейча́с три часы́."],a:0,why:"3 is in the two-to-four group → часа́."},
+        {q:"“It's ten o'clock.”",opts:["Сейча́с де́сять часо́в.","Сейча́с де́сять часа́.","Сейча́с де́сять час.","Сейча́с де́сять часы́."],a:0,why:"10 is five and up → часо́в."},
+        {q:"“He is two.”",opts:["Ему́ два го́да.","Ему́ два лет.","Ему́ два год.","Ему́ две го́да."],a:0,why:"2 → the “of” form: год → го́да. лет is only for five and up. And год is masculine, so два, not две."}
+      ]
+    }
+  ],
+  sentences:[
+    {ru:"У меня́ два бра́та.",en:"I have two brothers.",why:"After 2 → the “of” form: брат → бра́та.",wrong:["У меня́ два брат.","У меня́ две бра́та.","У меня́ два бра́тья."]},
+    {ru:"Две ча́шки ко́фе, пожа́луйста.",en:"Two cups of coffee, please.",why:"ча́шка is feminine → две; after two → ча́шки.",wrong:["Два ча́шки ко́фе, пожа́луйста.","Две ча́шка ко́фе, пожа́луйста.","Две ча́шек ко́фе, пожа́луйста."]},
+    {ru:"Сейча́с три часа́.",en:"It's three o'clock.",why:"3 is in the two-to-four group: час → часа́.",wrong:["Сейча́с три час.","Сейча́с три часо́в.","Сейча́с три часы́."]},
+    {ru:"Это сто́ит сто рубле́й.",en:"That costs a hundred roubles.",why:"100 is five and up → рубле́й.",wrong:["Это сто́ит сто рубль.","Это сто́ит сто рубля́.","Это сто́ит сто рубли́."]},
+    {ru:"Мне три́дцать лет.",en:"I'm thirty.",why:"30 is five and up, and for years that's лет.",wrong:["Мне три́дцать год.","Мне три́дцать го́да.","Мне три́дцать годо́в."]}
+  ],
+  faq:[
+    {step:0,q:"How do I count out loud — one, two, three?",a:"When you're just counting, Russians usually say <span class=\"ru\">раз, два, три…</span> — <span class=\"ru\">раз</span> instead of <span class=\"ru\">оди́н</span>. With a word after it, it's always <span class=\"ru\">оди́н / одна́ / одно́</span>."},
+    {step:1,q:"Why is it часа́ and стола́ with the stress at the end?",a:"A few short words move their stress in this form: <span class=\"ru\">час → часа́, стол → стола́, окно́ → окна́</span>. Listen with the audio; what matters for the test is the ending."},
+    {step:2,q:"Do три and четы́ре change for feminine words too?",a:"No. Only one and two care about masculine or feminine: <span class=\"ru\">оди́н / одна́</span>, <span class=\"ru\">два / две</span>. It's <span class=\"ru\">три бра́та</span> and <span class=\"ru\">три сестры́</span>."},
+    {step:3,q:"Why лет and not годо́в?",a:"<span class=\"ru\">лет</span> comes from <span class=\"ru\">ле́то</span> (summer) — Russians used to count years in summers. So it's <span class=\"ru\">оди́н год, два го́да, пять лет</span>. Just learn the three."},
+    {step:3,q:"What about “many”, “a few” and “how many”?",a:"They work like five and up — <span class=\"ru\">мно́го дней, ско́лько лет</span>. That's in the next lesson, along with bigger numbers like 21 and the 11–14 trap."},
+    {step:4,q:"How do I ask what time it is?",a:"<span class=\"ru\">Кото́рый час?</span> or <span class=\"ru\">Ско́лько вре́мени?</span> Both mean “What time is it?”"}
+  ],
+  recap:`
+    <p>The whole lesson on one page — skim it before the test.</p>
+    <table>
+      <tr><th>The idea</th><th>In short</th></tr>
+      <tr><td>One</td><td>The word stays as it is; <span class="ru">оди́н</span> matches it: <span class="ru">оди́н стол · одна́ кни́га · одно́ окно́</span></td></tr>
+      <tr><td>Two to four</td><td>The “of” form from the Genitive: <span class="ru">два бра́та · три стола́ · четы́ре часа́</span></td></tr>
+      <tr><td>два / две</td><td><span class="ru">две</span> with feminine words: <span class="ru">две кни́ги, две сестры́</span>. 3 and 4 never change.</td></tr>
+      <tr><td>Five and up</td><td>Learn the few: <span class="ru">лет · рубле́й · часо́в · мину́т · дней</span></td></tr>
+      <tr><td>The ladders</td><td><span class="ru">год / го́да / лет · час / часа́ / часо́в · рубль / рубля́ / рубле́й · день / дня / дней</span></td></tr>
+    </table>
+    <p><b>The one question to carry into the test:</b> which group is the number in — one, two to four, or five and up?</p>`,
+  test:[
+    {q:"“I have one sister.”",opts:["У меня́ одна́ сестра́.","У меня́ оди́н сестра́.","У меня́ одна́ сестры́.","У меня́ одно́ сестра́."],a:0,why:"сестра́ is feminine → одна́, and after one the word stays as it is."},
+    {q:"“I have two sisters.”",opts:["У меня́ две сестры́.","У меня́ два сестры́.","У меня́ две сестра́.","У меня́ две сестёр."],a:0,why:"Feminine → две, then the “of” form: сестры́."},
+    {q:"“It's four o'clock.”",opts:["Сейча́с четы́ре часа́.","Сейча́с четы́ре час.","Сейча́с четы́ре часо́в.","Сейча́с четы́ре часы́."],a:0,why:"4 is in the two-to-four group → часа́."},
+    {q:"“It's eight o'clock.”",opts:["Сейча́с во́семь часо́в.","Сейча́с во́семь часа́.","Сейча́с во́семь час.","Сейча́с во́семь часы́."],a:0,why:"8 is five and up → часо́в."},
+    {q:"“That costs two roubles.”",opts:["Это сто́ит два рубля́.","Это сто́ит два рубль.","Это сто́ит два рубле́й.","Это сто́ит две рубля́."],a:0,why:"2 → the “of” form: рубль → рубля́. рубль is masculine, so два."},
+    {q:"“He is ten.”",opts:["Ему́ де́сять лет.","Ему́ де́сять го́да.","Ему́ де́сять год.","Ему́ де́сять годо́в."],a:0,why:"10 is five and up, and for years that's лет."},
+    {q:"“We were there for three days.”",opts:["Мы бы́ли там три дня.","Мы бы́ли там три дней.","Мы бы́ли там три день.","Мы бы́ли там три дни."],a:0,why:"3 is in the two-to-four group: день → дня."},
+    {q:"“I need five minutes.”",opts:["Мне ну́жно пять мину́т.","Мне ну́жно пять мину́ты.","Мне ну́жно пять мину́та.","Мне ну́жно пять мину́тов."],a:0,why:"5 is five and up: мину́та → мину́т."}
+  ]
+},{
+  id:"numbers-more",
+  title:"Numbers: Big Numbers & “How Many”",
+  subtitle:"21, 34, 45 · the 11–14 trap · ско́лько · мно́го / ма́ло",
+  level:"A2",
+  /* The rest of the old single-screen Numbers lesson, split off 2026-10-23 so the core lesson
+     could teach only the three groups. Same shape: one idea per step, five sentences,
+     whole-sentence test items, a why on every answer. Still uses only the handful of
+     five-and-up forms the core lesson hands over, plus the singular "of" form from the
+     Genitive for things you can't count. */
+  steps:[
+    {
+      title:"Big numbers: only the last word counts",
+      html:`
+        <p>For a number made of more than one word, <b>only the last word decides</b>. Ignore everything in front of it:</p>
+        <table>
+          <tr><th>Number</th><th>Last word</th><th>So…</th></tr>
+          <tr><td>21</td><td class="ru">два́дцать <b>оди́н</b></td><td class="ru">два́дцать оди́н <b>год</b></td></tr>
+          <tr><td>34</td><td class="ru">три́дцать <b>четы́ре</b></td><td class="ru">три́дцать четы́ре <b>го́да</b></td></tr>
+          <tr><td>45</td><td class="ru">со́рок <b>пять</b></td><td class="ru">со́рок пять <b>лет</b></td></tr>
+        </table>
+        <p><span class="ru">Мне со́рок пять лет.</span> — I'm 45. Last word <span class="ru">пять</span> → five and up → <span class="ru">лет</span>.</p>`,
+      practice:[
+        {q:"“I'm 45.”",opts:["Мне со́рок пять лет.","Мне со́рок пять го́да.","Мне со́рок пять год.","Мне со́рок пять годо́в."],a:0,why:"The last word is пять → five and up → лет."},
+        {q:"“That costs 22 roubles.”",opts:["Это сто́ит два́дцать два рубля́.","Это сто́ит два́дцать два рубле́й.","Это сто́ит два́дцать два рубль.","Это сто́ит два́дцать две рубля́."],a:0,why:"The last word is два → two-to-four → рубля́. рубль is masculine, so два."},
+        {q:"“21 years”",opts:["два́дцать оди́н год","два́дцать оди́н лет","два́дцать оди́н го́да","два́дцать одна́ год"],a:0,why:"The last word is оди́н → the word stays as it is: год."}
+      ]
+    },
+    {
+      title:"The trap: 11 to 14",
+      html:`
+        <p><span class="ru">оди́ннадцать, двена́дцать, трина́дцать, четы́рнадцать</span> (11, 12, 13, 14) look like they end in 1–4. They don't: each is <b>one word</b> ending in <span class="ru">-надцать</span>, and they count as <b>five and up</b>:</p>
+        <table>
+          <tr><td class="ru">два́дцать оди́н год</td><td>21 years — last word is <span class="ru">оди́н</span></td></tr>
+          <tr><td class="ru">оди́ннадцать <b>лет</b></td><td>11 years — one word, five and up</td></tr>
+          <tr><td class="ru">двена́дцать <b>рубле́й</b></td><td>12 roubles</td></tr>
+          <tr><td class="ru">четы́рнадцать <b>дней</b></td><td>14 days</td></tr>
+        </table>
+        <p>The quick check: does the number end in <span class="ru">-надцать</span>? Then it's five and up.</p>`,
+      practice:[
+        {q:"“She's twelve.”",opts:["Ей двена́дцать лет.","Ей двена́дцать го́да.","Ей двена́дцать год.","Ей двена́дцать годо́в."],a:0,why:"двена́дцать ends in -надцать → five and up → лет."},
+        {q:"“eleven roubles”",opts:["оди́ннадцать рубле́й","оди́ннадцать рубль","оди́ннадцать рубля́","оди́ннадцать рубли́"],a:0,why:"11 is one word ending in -надцать → five and up → рубле́й."},
+        {q:"Which age takes лет?",opts:["13 (трина́дцать)","23 (два́дцать три)","33 (три́дцать три)","3 (три)"],a:0,why:"трина́дцать ends in -надцать → five and up. The others end in the word три → го́да."}
+      ]
+    },
+    {
+      title:"How many? ско́лько",
+      html:`
+        <p><span class="ru">ско́лько</span> means <b>how many</b> or <b>how much</b>, and the word after it takes the <b>five-and-up</b> form:</p>
+        <table>
+          <tr><td class="ru">Ско́лько тебе́ <b>лет</b>?</td><td>How old are you? (lit. “how many years to you?”)</td></tr>
+          <tr><td class="ru">Ско́лько <b>дней</b>?</td><td>How many days?</td></tr>
+          <tr><td class="ru">Ско́лько <b>мину́т</b>?</td><td>How many minutes?</td></tr>
+        </table>
+        <p>With nothing after it, <span class="ru">Ско́лько сто́ит?</span> is “How much does it cost?”</p>`,
+      practice:[
+        {q:"“How old are you?”",opts:["Ско́лько тебе́ лет?","Ско́лько тебе́ год?","Ско́лько тебе́ го́да?","Ско́лько тебе́ годо́в?"],a:0,why:"ско́лько takes the five-and-up form: лет."},
+        {q:"“How many days?”",opts:["Ско́лько дней?","Ско́лько день?","Ско́лько дня?","Ско́лько дни?"],a:0,why:"ско́лько → five-and-up form: дней."}
+      ]
+    },
+    {
+      title:"A lot, a little, a few: мно́го, ма́ло, не́сколько",
+      html:`
+        <p>These work just like <span class="ru">ско́лько</span>. For things you can <b>count</b>, the five-and-up form:</p>
+        <table>
+          <tr><td class="ru">мно́го</td><td>a lot</td><td class="ru">мно́го дней — a lot of days</td></tr>
+          <tr><td class="ru">ма́ло</td><td>not much, few</td><td class="ru">ма́ло мину́т — not many minutes</td></tr>
+          <tr><td class="ru">не́сколько</td><td>a few, several</td><td class="ru">не́сколько лет — a few years</td></tr>
+        </table>
+        <h3>Things you can't count</h3>
+        <p>Water, time, work — you can't say “two waters.” For those, it's the plain <b>“of” form you know</b> from the Genitive lesson:</p>
+        <p><span class="ru">мно́го рабо́ты</span> — a lot of work<br>
+        <span class="ru">ма́ло вре́мени</span> — not much time<br>
+        <span class="ru">мно́го воды́</span> — a lot of water</p>
+        <p><b>The check:</b> could you put a number in front of it? Yes → five-and-up form. No → the “of” form.</p>`,
+      note:"не́сколько is only for things you can count — a few days, a few years. For “a little” of something you can't count, use немно́го: немно́го вре́мени.",
+      practice:[
+        {q:"“I don't have much time.”",opts:["У меня́ ма́ло вре́мени.","У меня́ ма́ло вре́мя.","У меня́ ма́ло вре́менем.","У меня́ ма́ло времена́."],a:0,why:"You can't count time, so it takes the “of” form: вре́мя → вре́мени."},
+        {q:"“I have a lot of work.”",opts:["У меня́ мно́го рабо́ты.","У меня́ мно́го рабо́та.","У меня́ мно́го рабо́ту.","У меня́ мно́го рабо́той."],a:0,why:"Work isn't counted here, so the “of” form: рабо́та → рабо́ты."},
+        {q:"“a few days”",opts:["не́сколько дней","не́сколько день","не́сколько дня","не́сколько дни"],a:0,why:"Days can be counted → the five-and-up form: дней."}
+      ]
+    }
+  ],
+  sentences:[
+    {ru:"Мне со́рок пять лет.",en:"I'm 45.",why:"Only the last word counts: пять → five and up → лет.",wrong:["Мне со́рок пять го́да.","Мне со́рок пять год.","Мне со́рок пять годо́в."]},
+    {ru:"Это сто́ит два́дцать два рубля́.",en:"That costs 22 roubles.",why:"Last word два → two-to-four → рубля́.",wrong:["Это сто́ит два́дцать два рубле́й.","Это сто́ит два́дцать два рубль.","Это сто́ит два́дцать две рубля́."]},
+    {ru:"Ей двена́дцать лет.",en:"She's twelve.",why:"11–14 end in -надцать and count as five and up → лет.",wrong:["Ей двена́дцать го́да.","Ей двена́дцать год.","Ей двена́дцать годо́в."]},
+    {ru:"Ско́лько тебе́ лет?",en:"How old are you?",why:"ско́лько takes the five-and-up form: лет.",wrong:["Ско́лько тебе́ год?","Ско́лько тебе́ го́да?","Ско́лько тебе́ годо́в?"]},
+    {ru:"У меня́ ма́ло вре́мени.",en:"I don't have much time.",why:"Time can't be counted, so ма́ло takes the “of” form: вре́мени.",wrong:["У меня́ ма́ло вре́мя.","У меня́ ма́ло вре́менем.","У меня́ ма́ло времена́."]}
+  ],
+  faq:[
+    {step:0,q:"Is it два́дцать оди́н or два́дцать одна́?",a:"The last word still matches the word after it, just like on its own: <span class=\"ru\">два́дцать оди́н год</span> but <span class=\"ru\">два́дцать одна́ мину́та</span>. Same with two: <span class=\"ru\">два́дцать две мину́ты</span>."},
+    {step:1,q:"Why is 11 different from 21?",a:"<span class=\"ru\">оди́ннадцать</span> is one word — it literally means “one-on-ten.” The word after it doesn't see a final <span class=\"ru\">оди́н</span>; it sees <span class=\"ru\">-надцать</span>, which counts as five and up. 21 is two words, <span class=\"ru\">два́дцать оди́н</span>, and the last one really is <span class=\"ru\">оди́н</span>."},
+    {step:1,q:"What about 111 or 112?",a:"Same check, on the last part: <span class=\"ru\">сто оди́ннадцать рубле́й</span> (ends in 11 → five and up), but <span class=\"ru\">сто оди́н рубль</span> (ends in 1)."},
+    {step:2,q:"Why is it тебе́ in Ско́лько тебе́ лет?",a:"Age in Russian is said “to me / to you”: <span class=\"ru\">Мне три́дцать лет</span> — I'm thirty. So the question is “how many years to you?” — <span class=\"ru\">Ско́лько тебе́ лет?</span> To someone you call вы: <span class=\"ru\">Ско́лько вам лет?</span>"},
+    {step:3,q:"How do I know if I can count something?",a:"Try a number in front of it. “Two days” works — <span class=\"ru\">мно́го дней</span>. “Two waters” doesn't — <span class=\"ru\">мно́го воды́</span>. Time, water, milk and work are the everyday ones that can't be counted."}
+  ],
+  recap:`
+    <p>The whole lesson on one page — skim it before the test.</p>
+    <table>
+      <tr><th>The idea</th><th>In short</th></tr>
+      <tr><td>Big numbers</td><td>Only the last word counts: <span class="ru">два́дцать оди́н год · три́дцать четы́ре го́да · со́рок пять лет</span></td></tr>
+      <tr><td>11–14</td><td>Ends in <span class="ru">-надцать</span> → five and up: <span class="ru">двена́дцать лет</span></td></tr>
+      <tr><td>How many</td><td><span class="ru">ско́лько</span> + five-and-up form: <span class="ru">Ско́лько тебе́ лет?</span></td></tr>
+      <tr><td>A lot / a little / a few</td><td>Can count → five-and-up form: <span class="ru">мно́го дней, не́сколько лет</span>. Can't count → the “of” form: <span class="ru">ма́ло вре́мени, мно́го рабо́ты</span>.</td></tr>
+    </table>
+    <p><b>The one question to carry into the test:</b> what's the last word — and can you count the thing?</p>`,
+  test:[
+    {q:"“He's 21.”",opts:["Ему́ два́дцать оди́н год.","Ему́ два́дцать оди́н лет.","Ему́ два́дцать оди́н го́да.","Ему́ два́дцать одна́ год."],a:0,why:"The last word is оди́н → the word stays as it is: год."},
+    {q:"“I'm 34.”",opts:["Мне три́дцать четы́ре го́да.","Мне три́дцать четы́ре лет.","Мне три́дцать четы́ре год.","Мне три́дцать четы́ре годо́в."],a:0,why:"The last word is четы́ре → two-to-four → го́да."},
+    {q:"“It costs 13 roubles.”",opts:["Это сто́ит трина́дцать рубле́й.","Это сто́ит трина́дцать рубля́.","Это сто́ит трина́дцать рубль.","Это сто́ит трина́дцать рубли́."],a:0,why:"трина́дцать ends in -надцать → five and up → рубле́й."},
+    {q:"“How many minutes?”",opts:["Ско́лько мину́т?","Ско́лько мину́ты?","Ско́лько мину́та?","Ско́лько мину́тов?"],a:0,why:"ско́лько takes the five-and-up form: мину́т."},
+    {q:"“I have a lot of work.”",opts:["У меня́ мно́го рабо́ты.","У меня́ мно́го рабо́та.","У меня́ мно́го рабо́ту.","У меня́ мно́го рабо́той."],a:0,why:"Work isn't counted, so the “of” form: рабо́ты."},
+    {q:"“There isn't much water here.”",opts:["Здесь ма́ло воды́.","Здесь ма́ло вода́.","Здесь ма́ло во́ду.","Здесь ма́ло водо́й."],a:0,why:"You can't count water, so the “of” form: вода́ → воды́."},
+    {q:"“I lived there for a few years.”",opts:["Я жил там не́сколько лет.","Я жил там не́сколько го́да.","Я жил там не́сколько год.","Я жил там не́сколько годо́в."],a:0,why:"Years can be counted → the five-and-up form: лет."},
+    {q:"“We waited 25 minutes.”",opts:["Мы жда́ли два́дцать пять мину́т.","Мы жда́ли два́дцать пять мину́ты.","Мы жда́ли два́дцать пять мину́та.","Мы жда́ли два́дцать пять мину́тов."],a:0,why:"The last word is пять → five and up → мину́т."}
   ]
 },{
   id:"dative",
@@ -5042,7 +5263,7 @@ const EXAMS=[
    Ids that aren't built yet are listed in PLANNED_LESSONS below and show up as "gaps". */
 const BAND_LESSONS={
   A1:["noun-gender","present-conj","prep-case","accusative"],
-  A2:["case-map","past-future","aspect","aspect-prefixes","meaning-prefixes","meaning-prefixes-more","meaning-prefixes-amount","numbers","genitive","dative","instrumental","instrumental-more"],
+  A2:["case-map","past-future","aspect","aspect-prefixes","meaning-prefixes","meaning-prefixes-more","meaning-prefixes-amount","genitive","numbers","numbers-more","dative","instrumental","instrumental-more"],
   B1:["reflexive","motion"]
 };
 const BAND_WORDS={A1:200,A2:750,B1:1500};
@@ -5783,20 +6004,6 @@ const GRAMMAR=[
   {q:"Ле́том они́ ча́сто … за грани́цу. (travel abroad, repeatedly)",opts:["е́здят","е́дут","хо́дят","иду́т"],a:0,why:"Repeated trips by vehicle → многонапр. е́здить: е́здят."},
   {q:"Which pair means 'to go by vehicle'?",opts:["е́хать / е́здить","идти́ / ходи́ть","нести́ / носи́ть","бежа́ть / бе́гать"],a:0,why:"е́хать (one way) / е́здить (habit) = motion by transport."}
 ]},
-{ lesson:"numbers", title:"Numbers & Quantifiers", level:"A2", items:[
-  {q:"два … (стол).",opts:["стола́","стол","столы́","столо́в"],a:0,why:"After 2 → genitive singular: два стола́."},
-  {q:"пять … (рубль).",opts:["рубле́й","рубль","рубля́","рубли́"],a:0,why:"After 5 → genitive plural: пять рубле́й."},
-  {q:"After 2 / 3 / 4, the noun is in the genitive…",opts:["singular","plural","nominative","dative"],a:0,why:"два бра́та, три кни́ги — genitive singular."},
-  {q:"After 5 and up, the noun is in the genitive…",opts:["plural","singular","nominative","accusative"],a:0,why:"пять книг, де́сять рубле́й — genitive plural."},
-  {q:"'two sisters' (сестра́ is feminine):",opts:["две сестры́","два сестры́","две сестёр","два сестра́"],a:0,why:"two = две for feminine, + genitive singular: две сестры́."},
-  {q:"Мне два́дцать оди́н … (год).",opts:["год","го́да","лет","го́ды"],a:0,why:"Compound ending in 1 → nominative singular: два́дцать оди́н год."},
-  {q:"Numbers 11–14 take the genitive…",opts:["plural","singular","nominative","dative"],a:0,why:"The 11–14 trap: genitive plural (оди́ннадцать книг), despite ending in 1–4."},
-  {q:"У меня́ мно́го … (друг).",opts:["друзе́й","друг","дру́га","дру́ги"],a:0,why:"мно́го + genitive; countable → genitive plural: мно́го друзе́й."},
-  {q:"В ко́мнате четы́ре … (окно́).",opts:["окна́","окно́","о́кон","о́кна"],a:0,why:"After 4 → genitive singular: четы́ре окна́."},
-  {q:"Ско́лько … в гру́ппе? (студе́нт)",opts:["студе́нтов","студе́нт","студе́нта","студе́нты"],a:0,why:"ско́лько + genitive; countable → genitive plural: ско́лько студе́нтов."},
-  {q:"семь … (день → 'days').",opts:["дней","день","дня","дни"],a:0,why:"After 7 → genitive plural; день → дней: семь дней."},
-  {q:"'one book' (кни́га is feminine):",opts:["одна́ кни́га","оди́н кни́га","одно́ кни́га","одна́ кни́ги"],a:0,why:"оди́н agrees in gender → одна́ кни́га (nominative singular)."}
-]},
 { lesson:"genitive", title:"Genitive Case", level:"A2", items:[
   {q:"Э́то центр … (го́род).",opts:["го́рода","го́род","го́роду","го́родом"],a:0,why:"'Of' / possession, masculine hard → -а: центр го́рода."},
   {q:"У меня́ нет … (соба́ка).",opts:["соба́ки","соба́ка","соба́ку","соба́кой"],a:0,why:"нет + genitive; feminine → -и after к: нет соба́ки."},
@@ -5810,6 +6017,26 @@ const GRAMMAR=[
   {q:"To say 'I don't have X', X goes in the…",opts:["genitive","accusative","dative","prepositional"],a:0,why:"Absence with нет / не́ было / не бу́дет takes the genitive."},
   {q:"Стол стои́т у … (окно́). (by the window)",opts:["окна́","окно́","окну́","окно́м"],a:0,why:"у + genitive; neuter -о → -а: у окна́."},
   {q:"В гру́ппе три … (студе́нт).",opts:["студе́нта","студе́нт","студе́нты","студе́нтов"],a:0,why:"After 2/3/4 → genitive singular: три студе́нта."}
+]},
+{ lesson:"numbers", title:"Numbers: One, Two, Five", level:"A2", items:[
+  {q:"“one window” (окно́ is neuter)",opts:["одно́ окно́","оди́н окно́","одна́ окно́","одно́ окна́"],a:0,why:"оди́н matches the word: neuter → одно́, and the word stays as it is."},
+  {q:"“two tables”",opts:["два стола́","два стол","две стола́","два столо́в"],a:0,why:"стол is masculine → два, then the “of” form: стола́."},
+  {q:"“two sisters”",opts:["две сестры́","два сестры́","две сестра́","две сестёр"],a:0,why:"сестра́ is feminine → две, then the “of” form: сестры́."},
+  {q:"“four hours”",opts:["четы́ре часа́","четы́ре часо́в","четы́ре час","четы́ре часы́"],a:0,why:"4 is in the two-to-four group → часа́."},
+  {q:"“six hours”",opts:["шесть часо́в","шесть часа́","шесть час","шесть часы́"],a:0,why:"6 is five and up → часо́в."},
+  {q:"“two years”",opts:["два го́да","два лет","два год","две го́да"],a:0,why:"2 → the “of” form: го́да. лет is only for five and up."},
+  {q:"“fifteen minutes”",opts:["пятна́дцать мину́т","пятна́дцать мину́ты","пятна́дцать мину́та","пятна́дцать мину́тов"],a:0,why:"15 is five and up → мину́т."},
+  {q:"After 2, 3 and 4 the word takes…",opts:["the “of” form (бра́та)","its dictionary form (брат)","the five-and-up form (бра́тьев)","the “with” form (бра́том)"],a:0,why:"Two to four use the “of” form from the Genitive: два бра́та, три кни́ги."}
+]},
+{ lesson:"numbers-more", title:"Numbers: Big Numbers & “How Many”", level:"A2", items:[
+  {q:"“31 years”",opts:["три́дцать оди́н год","три́дцать оди́н лет","три́дцать оди́н го́да","три́дцать одна́ год"],a:0,why:"The last word is оди́н → the word stays as it is: год."},
+  {q:"“23 roubles”",opts:["два́дцать три рубля́","два́дцать три рубле́й","два́дцать три рубль","два́дцать три рубли́"],a:0,why:"The last word is три → two-to-four → рубля́."},
+  {q:"“fourteen days”",opts:["четы́рнадцать дней","четы́рнадцать дня","четы́рнадцать день","четы́рнадцать дни"],a:0,why:"11–14 end in -надцать → five and up → дней."},
+  {q:"“eleven years”",opts:["оди́ннадцать лет","оди́ннадцать год","оди́ннадцать го́да","оди́ннадцать годо́в"],a:0,why:"оди́ннадцать is one word ending in -надцать → five and up → лет."},
+  {q:"“How many years?”",opts:["Ско́лько лет?","Ско́лько год?","Ско́лько го́да?","Ско́лько годо́в?"],a:0,why:"ско́лько takes the five-and-up form: лет."},
+  {q:"“a lot of water”",opts:["мно́го воды́","мно́го вода́","мно́го во́ду","мно́го водо́й"],a:0,why:"Water can't be counted → the “of” form: воды́."},
+  {q:"“a few minutes”",opts:["не́сколько мину́т","не́сколько мину́ты","не́сколько мину́та","не́сколько мину́тов"],a:0,why:"Minutes can be counted → the five-and-up form: мину́т."},
+  {q:"For a number like 34, which word decides the form?",opts:["only the last one (четы́ре)","only the first one (три́дцать)","both together","neither — it's always лет"],a:0,why:"Only the last word counts: три́дцать четы́ре го́да."}
 ]},
 { lesson:"dative", title:"Dative Case", level:"A2", items:[
   {q:"Я подари́л кни́гу … (сын).",opts:["сы́ну","сы́на","сын","сы́ном"],a:0,why:"Recipient → dative; masculine hard → -у: сы́ну."},

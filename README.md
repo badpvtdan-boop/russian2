@@ -50,6 +50,10 @@ this repo — not from a local clone.** Two things follow, and both have already
   Meaning" followed on 2026-10-22, split into three: the core lesson (the everyday direction
   prefixes), "Prefixes: One Root, Many Verbs" (the писа́ть family and -ыва- habit partners) and
   "Prefixes: How Much of It" (по-/за-/до- and the empty-or-not catch).
+  Numbers followed on 2026-10-23, split in two and moved after the Genitive it leans on:
+  "Numbers: One, Two, Five" (the three groups, with five-and-up taught as the handful of words
+  you actually count — years, roubles, hours, minutes, days) and "Numbers: Big Numbers & “How
+  Many”" (the last-digit rule, 11–14, ско́лько, мно́го/ма́ло/не́сколько).
 
 ## Data & sync
 
