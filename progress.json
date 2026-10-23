@@ -6422,6 +6422,10 @@
     },
     "numbers": {
       "done": false,
+      "best": 0.5
+    },
+    "numbers-more": {
+      "done": false,
       "best": 0
     },
     "past-future": {
