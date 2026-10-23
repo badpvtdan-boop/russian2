@@ -47,8 +47,9 @@ this repo — not from a local clone.** Two things follow, and both have already
   has **↻ Refresh**: its summary, sentences and a quick unscored quiz from its review pool.
   The Instrumental is the first lesson in this shape (2026-10-06), modelled on a Gemini lesson that
   worked: majority rules only, one idea at a time, five sentences to keep. "Prefixes That Change
-  Meaning" followed on 2026-10-22, split the same way into a core lesson (the everyday direction
-  prefixes) and "Prefixes: One Root, Many Verbs" (-ыва- partners, по-/за-/до-, empty-or-not).
+  Meaning" followed on 2026-10-22, split into three: the core lesson (the everyday direction
+  prefixes), "Prefixes: One Root, Many Verbs" (the писа́ть family and -ыва- habit partners) and
+  "Prefixes: How Much of It" (по-/за-/до- and the empty-or-not catch).
 
 ## Data & sync
 

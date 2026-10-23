@@ -375,7 +375,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-10-22.1</b> · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is a second lesson, “Prefixes: One Root, Many Verbs.” · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-10-22.1</b> · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -3684,8 +3684,8 @@ const LESSONS=[{
      empty-or-not catch) and "it was kinda wild how much info it contained." This lesson now
      keeps only the majority case: a prefix makes a new verb, shown on the six everyday
      direction prefixes on идти́, plus записа́ть. Every sentence uses the verb in its dictionary
-     form after мо́жно / на́до / могу́ / хочу́, so no new endings are needed. The -ыва- partners,
-     по- / за- / до- and the one-root family moved to "meaning-prefixes-more". */
+     form after мо́жно / на́до / могу́ / хочу́, so no new endings are needed. The one-root family and
+     the -ыва- partners moved to "meaning-prefixes-more"; по- / за- / до- to "meaning-prefixes-amount". */
   steps:[
     {
       title:"A prefix can make a new verb",
@@ -3788,16 +3788,17 @@ const LESSONS=[{
 },{
   id:"meaning-prefixes-more",
   title:"Prefixes: One Root, Many Verbs",
-  subtitle:"-ыва- partners · по- / за- / до- · empty or not?",
+  subtitle:"sign, rewrite, describe · once or a habit?",
   level:"A2",
-  /* The rest of the old "meaning-prefixes" lesson, split off 2026-10-22 so the core lesson
-     could teach only the everyday direction prefixes. Same shape as the Instrumental pair:
-     one idea per step, five sentences, whole-sentence test items, a why on every answer. */
+  /* Second of three prefix lessons (split 2026-10-22: one combined follow-on was still
+     ~11 new things and "SO much to memorize"). This one: the писа́ть family and the -ыва-
+     habit partner — they belong together, since a habit sentence uses both. по- / за- / до-
+     and the empty-or-not catch are the third lesson, "meaning-prefixes-amount". */
   steps:[
     {
       title:"One root, many verbs",
       html:`
-        <p>The prefixes you know keep their sense on other verbs. Watch them on <span class="ru">писа́ть</span> (write):</p>
+        <p>A prefix keeps its sense when it moves to another verb. Watch them on <span class="ru">писа́ть</span> (write):</p>
         <table>
           <tr><th>Verb</th><th>Prefix sense</th><th>Meaning</th></tr>
           <tr><td class="ru">записа́ть</td><td class="ru">за- (down, onto)</td><td>write down</td></tr>
@@ -3813,39 +3814,122 @@ const LESSONS=[{
       ]
     },
     {
-      title:"The everyday partner: -ыва- / -ива-",
+      title:"The habit partner: -ыва- / -ива-",
       html:`
-        <p>Every prefixed verb is <b>one finished act</b>: <span class="ru">записа́ть</span> = write it down, once, done. For a <b>habit</b> or something <b>in progress</b> you need the other half of the pair.</p>
+        <p>Every prefixed verb is <b>one finished act</b>: <span class="ru">записа́ть</span> = write it down, once, done. For a <b>habit</b> you need the other half of the pair.</p>
         <p>You can't drop the prefix — that gives back plain <span class="ru">писа́ть</span> and loses the "down." Instead the verb gets a suffix, usually <b class="ru">-ыва-</b> / <b class="ru">-ива-</b>:</p>
         <table>
-          <tr><th>Once, done</th><th>Habit / in progress</th></tr>
+          <tr><th>Once, done</th><th>Habit</th></tr>
           <tr><td class="ru">записа́ть</td><td class="ru">запи́сывать</td></tr>
           <tr><td class="ru">подписа́ть</td><td class="ru">подпи́сывать</td></tr>
           <tr><td class="ru">переписа́ть</td><td class="ru">перепи́сывать</td></tr>
-        </table>
-        <p><span class="ru">Я всегда́ запи́сываю но́вые слова́.</span> — I always write down new words.</p>`,
+        </table>`,
       note:"The verbs of going have their own partner: прийти́ → приходи́ть, уйти́ → уходи́ть, вы́йти → выходи́ть. Вы выхо́дите? — Are you getting off?",
       practice:[
-        {q:"“I always write down new words.”",opts:["Я всегда́ запи́сываю но́вые слова́.","Я всегда́ запишу́ но́вые слова́.","Я всегда́ пишу́ но́вые слова́.","Я всегда́ подпи́сываю но́вые слова́."],a:0,why:"“Always” is a habit, so the -ыва- partner: запи́сываю. пишу́ loses the “down.”"},
-        {q:"To get the habit verb from подписа́ть, you…",opts:["add -ыва-: подпи́сывать","drop the prefix","add -ся","change the gender"],a:0,why:"Prefixed verbs rebuild their everyday partner with -ыва- / -ива-."}
+        {q:"The habit partner of подписа́ть is…",opts:["подпи́сывать","писа́ть","подписа́лся","подписа́ть"],a:0,why:"Keep the prefix, add -ыва-: подпи́сывать."},
+        {q:"To get the habit verb from a prefixed verb, you…",opts:["add -ыва- / -ива-","drop the prefix","add -ся","change the gender"],a:0,why:"The prefix carries the meaning, so it stays; a suffix goes on."}
       ]
     },
     {
-      title:"How much of it: по-, за-, до-",
+      title:"Once, or a habit?",
       html:`
-        <p>These three don't point anywhere. They say <b>how much of the action happens</b>:</p>
+        <p>Now the choice. One question: <b>is it a single act, or something that keeps happening?</b></p>
         <table>
-          <tr><th>Prefix</th><th>Sense</th><th>Example</th></tr>
-          <tr><td class="ru">по-</td><td>a little, for a while</td><td class="ru">поговори́ть — talk for a bit</td></tr>
-          <tr><td class="ru">за-</td><td>start doing it</td><td class="ru">заговори́ть — start talking</td></tr>
-          <tr><td class="ru">до-</td><td>all the way to the end</td><td class="ru">дочита́ть — finish reading</td></tr>
+          <tr><th>Once</th><th>Habit</th></tr>
+          <tr><td class="ru">Подпиши́те здесь.</td><td class="ru">Ка́ждый день я подпи́сываю докуме́нты.</td></tr>
+          <tr><td>Sign here.</td><td>Every day I sign documents.</td></tr>
+          <tr><td class="ru">Мне на́до переписа́ть письмо́.</td><td class="ru">Я всегда́ запи́сываю но́вые слова́.</td></tr>
+          <tr><td>I need to rewrite the letter.</td><td>I always write down new words.</td></tr>
         </table>
-        <p><span class="ru">Дава́й поговори́м.</span> — Let's talk for a bit.<br>
-        <span class="ru">Я хочу́ дочита́ть кни́гу.</span> — I want to finish reading the book.</p>`,
+        <p>Words like <span class="ru">ка́ждый день</span> (every day), <span class="ru">всегда́</span> (always) and <span class="ru">ча́сто</span> (often) are your signal for the habit verb.</p>`,
       practice:[
-        {q:"“Let's talk for a bit.”",opts:["Дава́й поговори́м.","Дава́й заговори́м.","Дава́й договори́м.","Дава́й переговори́м."],a:0,why:"по- = a little, for a while: поговори́ть."},
-        {q:"“I want to finish reading the book.”",opts:["Я хочу́ дочита́ть кни́гу.","Я хочу́ почита́ть кни́гу.","Я хочу́ перечита́ть кни́гу.","Я хочу́ прочита́ть кни́гу сно́ва."],a:0,why:"до- = all the way to the end. почита́ть is to read for a while; перечита́ть is to re-read."},
-        {q:"заговори́ть means…",opts:["start talking","talk for a while","finish talking","talk again"],a:0,why:"за- marks the start of the action."}
+        {q:"“I always write down new words.”",opts:["Я всегда́ запи́сываю но́вые слова́.","Я всегда́ запишу́ но́вые слова́.","Я всегда́ пишу́ но́вые слова́.","Я всегда́ подпи́сываю но́вые слова́."],a:0,why:"“Always” is a habit, so the -ыва- verb: запи́сываю. пишу́ loses the “down.”"},
+        {q:"“I need to rewrite the letter.”",opts:["Мне на́до переписа́ть письмо́.","Мне на́до записа́ть письмо́.","Мне на́до подписа́ть письмо́.","Мне на́до писа́ть письмо́."],a:0,why:"One letter, rewritten once: переписа́ть."},
+        {q:"Which word signals the habit verb?",opts:["ка́ждый день (every day)","сейча́с (now)","здесь (here)","пожа́луйста (please)"],a:0,why:"Every day = something that keeps happening → the -ыва- verb."}
+      ]
+    }
+  ],
+  sentences:[
+    {ru:"Подпиши́те здесь, пожа́луйста.",en:"Sign here, please.",why:"под- (under) + писа́ть = sign. One act.",wrong:["Запиши́те здесь, пожа́луйста.","Перепиши́те здесь, пожа́луйста.","Опиши́те здесь, пожа́луйста."]},
+    {ru:"Я всегда́ запи́сываю но́вые слова́.",en:"I always write down new words.",why:"A habit takes the -ыва- verb: запи́сываю.",wrong:["Я всегда́ запишу́ но́вые слова́.","Я всегда́ пишу́ но́вые слова́.","Я всегда́ подпи́сываю но́вые слова́."]},
+    {ru:"Мне на́до переписа́ть письмо́.",en:"I need to rewrite the letter.",why:"пере- = over again. One act: переписа́ть.",wrong:["Мне на́до подписа́ть письмо́.","Мне на́до записа́ть письмо́.","Мне на́до описа́ть письмо́."]},
+    {ru:"Ка́ждый день я подпи́сываю докуме́нты.",en:"Every day I sign documents.",why:"Every day = habit: подпи́сываю.",wrong:["Ка́ждый день я подпишу́ докуме́нты.","Ка́ждый день я перепи́сываю докуме́нты.","Ка́ждый день я запи́сываю докуме́нты."]},
+    {ru:"Опиши́те ва́шу ко́мнату.",en:"Describe your room.",why:"о- (around, about) + писа́ть = describe.",wrong:["Подпиши́те ва́шу ко́мнату.","Запиши́те ва́шу ко́мнату.","Перепиши́те ва́шу ко́мнату."]}
+  ],
+  faq:[
+    {q:"Why can't I just drop the prefix for the habit form?",a:"Because the prefix is what carries the meaning. Drop it from <span class=\"ru\">записа́ть</span> and you're back at <span class=\"ru\">писа́ть</span> — “write,” not “write down.” So the prefix stays and a suffix goes on: <span class=\"ru\">запи́сывать</span>."},
+    {q:"What's the habit form of прийти́, уйти́…?",a:"The verbs of going use <span class=\"ru\">-ходи́ть</span>: <span class=\"ru\">приходи́ть, уходи́ть, входи́ть, выходи́ть, переходи́ть, подходи́ть</span>. <span class=\"ru\">Я ухожу́ в во́семь.</span> — I leave at eight (every day)."},
+    {q:"Does every prefixed verb use -ыва-?",a:"Most do. A few build their partner another way (the -ходи́ть verbs above are the big group). When a dictionary shows the pair, trust it."},
+    {q:"What about “I'm signing it right now”?",a:"Something in progress uses the habit verb too: <span class=\"ru\">Я сейча́с подпи́сываю</span> — I'm signing it now. The -ыва- verb covers both “keeps happening” and “happening right now.”"}
+  ],
+  recap:`
+    <p>The whole lesson on one page — skim it before the test.</p>
+    <table>
+      <tr><th>The idea</th><th>In short</th></tr>
+      <tr><td>One root, many verbs</td><td><span class="ru">записа́ть</span> write down · <span class="ru">подписа́ть</span> sign · <span class="ru">переписа́ть</span> rewrite · <span class="ru">описа́ть</span> describe</td></tr>
+      <tr><td>Habit partner</td><td>Keep the prefix, add <b class="ru">-ыва- / -ива-</b>: <span class="ru">записа́ть → запи́сывать</span>.</td></tr>
+      <tr><td>Once or a habit?</td><td><span class="ru">всегда́, ка́ждый день, ча́сто</span> → the -ыва- verb. One act → the prefixed verb.</td></tr>
+    </table>
+    <p><b>The one question to carry into the test:</b> once, or a habit?</p>`,
+  test:[
+    {q:"“Sign here, please.”",opts:["Подпиши́те здесь, пожа́луйста.","Запиши́те здесь, пожа́луйста.","Перепиши́те здесь, пожа́луйста.","Опиши́те здесь, пожа́луйста."],a:0,why:"под- (under) + писа́ть = sign."},
+    {q:"“I always write down new words.”",opts:["Я всегда́ запи́сываю но́вые слова́.","Я всегда́ запишу́ но́вые слова́.","Я всегда́ пишу́ но́вые слова́.","Я всегда́ подпи́сываю но́вые слова́."],a:0,why:"Always = habit → запи́сываю."},
+    {q:"“Describe your room.”",opts:["Опиши́те ва́шу ко́мнату.","Подпиши́те ва́шу ко́мнату.","Запиши́те ва́шу ко́мнату.","Перепиши́те ва́шу ко́мнату."],a:0,why:"о- (around, about) + писа́ть = describe."},
+    {q:"“I need to rewrite the letter.”",opts:["Мне на́до переписа́ть письмо́.","Мне на́до записа́ть письмо́.","Мне на́до подписа́ть письмо́.","Мне на́до описа́ть письмо́."],a:0,why:"One letter, once → переписа́ть."},
+    {q:"“Every day I sign documents.”",opts:["Ка́ждый день я подпи́сываю докуме́нты.","Ка́ждый день я подпишу́ докуме́нты.","Ка́ждый день я перепи́сываю докуме́нты.","Ка́ждый день я запи́сываю докуме́нты."],a:0,why:"Every day = habit → подпи́сываю."},
+    {q:"The habit partner of записа́ть is…",opts:["запи́сывать","писа́ть","записа́л","написа́ть"],a:0,why:"Keep the prefix, add -ыва-."}
+  ]
+},{
+  id:"meaning-prefixes-amount",
+  title:"Prefixes: How Much of It",
+  subtitle:"по- a bit · за- start · до- finish · empty or not?",
+  level:"A2",
+  /* Third of three prefix lessons (2026-10-22). These prefixes don't point anywhere; they say
+     how much of the action happens. Ends on the catch that ties all the prefix lessons
+     together — the same по- can be empty on one verb and meaningful on another. */
+  steps:[
+    {
+      title:"по- — a bit, for a while",
+      html:`
+        <p>These prefixes don't point anywhere. They say <b>how much</b> of the action happens.</p>
+        <p><span class="ru">по-</span> means <b>a bit, for a while</b>:</p>
+        <table>
+          <tr><td class="ru">говори́ть → поговори́ть</td><td>talk → talk for a bit</td></tr>
+          <tr><td class="ru">гуля́ть → погуля́ть</td><td>walk → go for a short walk</td></tr>
+        </table>
+        <p><span class="ru">Дава́й поговори́м.</span> — Let's talk for a bit.</p>`,
+      practice:[
+        {q:"“Let's talk for a bit.”",opts:["Дава́й поговори́м.","Дава́й заговори́м.","Дава́й договори́м.","Дава́й переговори́м."],a:0,why:"по- = a bit, for a while."},
+        {q:"погуля́ть means…",opts:["go for a short walk","start walking","finish the walk","walk again"],a:0,why:"по- = a bit, for a while."}
+      ]
+    },
+    {
+      title:"за- — start",
+      html:`
+        <p><span class="ru">за-</span> marks the <b>moment something starts</b>, often suddenly:</p>
+        <table>
+          <tr><td class="ru">говори́ть → заговори́ть</td><td>talk → start talking</td></tr>
+          <tr><td class="ru">пла́кать → запла́кать</td><td>cry → start crying, burst into tears</td></tr>
+        </table>
+        <p><span class="ru">Ребёнок запла́кал.</span> — The baby started crying.</p>`,
+      note:"You met за- before as “down” in записа́ть. Same prefix, different job on a different verb — that's the catch at the end of this lesson.",
+      practice:[
+        {q:"“The baby started crying.”",opts:["Ребёнок запла́кал.","Ребёнок попла́кал.","Ребёнок допла́кал.","Ребёнок пла́чет."],a:0,why:"за- = start: запла́кал. попла́кал would be “cried for a bit.”"},
+        {q:"заговори́ть means…",opts:["start talking","talk for a while","finish talking","talk again"],a:0,why:"за- marks the start."}
+      ]
+    },
+    {
+      title:"до- — all the way to the end",
+      html:`
+        <p><span class="ru">до-</span> means <b>finish it — get to the end</b>:</p>
+        <table>
+          <tr><td class="ru">чита́ть → дочита́ть</td><td>read → finish reading</td></tr>
+          <tr><td class="ru">смотре́ть → досмотре́ть</td><td>watch → watch to the end</td></tr>
+        </table>
+        <p><span class="ru">Я хочу́ дочита́ть кни́гу.</span> — I want to finish reading the book.</p>`,
+      practice:[
+        {q:"“I want to finish reading the book.”",opts:["Я хочу́ дочита́ть кни́гу.","Я хочу́ почита́ть кни́гу.","Я хочу́ перечита́ть кни́гу.","Я хочу́ зачита́ть кни́гу."],a:0,why:"до- = to the end. почита́ть is to read for a bit; перечита́ть is to re-read."},
+        {q:"“Let's watch the film to the end.”",opts:["Дава́й досмо́трим фильм.","Дава́й посмо́трим фильм.","Дава́й пересмо́трим фильм.","Дава́й засмо́трим фильм."],a:0,why:"до- = to the end. посмо́трим is just “let's watch”; пересмо́трим is “rewatch.”"}
       ]
     },
     {
@@ -3865,37 +3949,36 @@ const LESSONS=[{
     }
   ],
   sentences:[
-    {ru:"Подпиши́те здесь, пожа́луйста.",en:"Sign here, please.",why:"под- (under) + писа́ть = sign.",wrong:["Запиши́те здесь, пожа́луйста.","Перепиши́те здесь, пожа́луйста.","Опиши́те здесь, пожа́луйста."]},
-    {ru:"Я всегда́ запи́сываю но́вые слова́.",en:"I always write down new words.",why:"A habit takes the -ыва- partner: запи́сываю.",wrong:["Я всегда́ запишу́ но́вые слова́.","Я всегда́ пишу́ но́вые слова́.","Я всегда́ подпи́сываю но́вые слова́."]},
-    {ru:"Дава́й поговори́м.",en:"Let's talk for a bit.",why:"по- = a little, for a while.",wrong:["Дава́й заговори́м.","Дава́й договори́м.","Дава́й переговори́м."]},
+    {ru:"Дава́й поговори́м.",en:"Let's talk for a bit.",why:"по- = a bit, for a while.",wrong:["Дава́й заговори́м.","Дава́й договори́м.","Дава́й переговори́м."]},
+    {ru:"Я хочу́ немно́го погуля́ть.",en:"I want to go for a short walk.",why:"по- = a bit, for a while.",wrong:["Я хочу́ немно́го загуля́ть.","Я хочу́ немно́го догуля́ть.","Я хочу́ немно́го вы́гулять."]},
+    {ru:"Ребёнок запла́кал.",en:"The baby started crying.",why:"за- = start.",wrong:["Ребёнок попла́кал.","Ребёнок допла́кал.","Ребёнок пла́чет."]},
     {ru:"Я хочу́ дочита́ть кни́гу.",en:"I want to finish reading the book.",why:"до- = all the way to the end.",wrong:["Я хочу́ почита́ть кни́гу.","Я хочу́ перечита́ть кни́гу.","Я хочу́ зачита́ть кни́гу."]},
-    {ru:"Мне на́до переписа́ть письмо́.",en:"I need to rewrite the letter.",why:"пере- = over again: переписа́ть.",wrong:["Мне на́до подписа́ть письмо́.","Мне на́до записа́ть письмо́.","Мне на́до описа́ть письмо́."]}
+    {ru:"Дава́й досмо́трим фильм.",en:"Let's watch the film to the end.",why:"до- = all the way to the end.",wrong:["Дава́й посмо́трим фильм.","Дава́й пересмо́трим фильм.","Дава́й засмо́трим фильм."]}
   ],
   faq:[
-    {q:"Why can't I just drop the prefix for the habit form?",a:"Because the prefix is what carries the meaning. Drop it from <span class=\"ru\">записа́ть</span> and you're back at <span class=\"ru\">писа́ть</span> — “write,” not “write down.” So the prefix stays and a suffix goes on instead: <span class=\"ru\">запи́сывать</span>."},
-    {q:"What's the habit form of прийти́, уйти́…?",a:"The verbs of going use <span class=\"ru\">-ходи́ть</span>: <span class=\"ru\">приходи́ть, уходи́ть, входи́ть, выходи́ть, переходи́ть, подходи́ть</span>. <span class=\"ru\">Я ухожу́ в во́семь.</span> — I leave at eight (every day)."},
-    {q:"Does every prefixed verb use -ыва-?",a:"Most do. A few build their partner another way (the -ходи́ть verbs above are the big group). When a dictionary shows the pair, trust it."},
-    {q:"Is по- always “a little”?",a:"No — on some verbs it's empty (<span class=\"ru\">постро́ить</span> is just “build,” finished). That's the catch in step 4: judge each verb."},
-    {q:"Are почита́ть and прочита́ть the same?",a:"No. <span class=\"ru\">прочита́ть</span> is the empty partner of <span class=\"ru\">чита́ть</span> — read it, done. <span class=\"ru\">почита́ть</span> is to read <i>for a while</i>, not necessarily finishing."}
+    {q:"Are почита́ть and прочита́ть the same?",a:"No. <span class=\"ru\">прочита́ть</span> is the empty partner of <span class=\"ru\">чита́ть</span> — read it, done. <span class=\"ru\">почита́ть</span> is to read <i>for a while</i>, not necessarily finishing."},
+    {q:"Is по- always “a bit”?",a:"No — on some verbs it's empty (<span class=\"ru\">постро́ить</span> is just “build,” finished). That's the catch: judge each verb."},
+    {q:"Wasn't за- “down” in записа́ть?",a:"Yes. Same prefix, different job on a different verb. On <span class=\"ru\">писа́ть</span> it's “down, onto”; on <span class=\"ru\">говори́ть</span> and <span class=\"ru\">пла́кать</span> it's “start.”"},
+    {q:"Can I use these for habits?",a:"Mostly no — “do a bit,” “start” and “finish” are single moments, so these verbs are almost always used as one finished act."}
   ],
   recap:`
     <p>The whole lesson on one page — skim it before the test.</p>
     <table>
       <tr><th>The idea</th><th>In short</th></tr>
-      <tr><td>One root, many verbs</td><td><span class="ru">записа́ть</span> write down · <span class="ru">подписа́ть</span> sign · <span class="ru">переписа́ть</span> rewrite · <span class="ru">описа́ть</span> describe</td></tr>
-      <tr><td>Habit partner</td><td>Add <b class="ru">-ыва- / -ива-</b>: <span class="ru">записа́ть → запи́сывать</span>. Never drop the prefix.</td></tr>
-      <tr><td>How much of it</td><td><span class="ru">по-</span> for a while · <span class="ru">за-</span> start · <span class="ru">до-</span> to the end</td></tr>
+      <tr><td><span class="ru">по-</span></td><td>a bit, for a while: <span class="ru">поговори́ть, погуля́ть</span></td></tr>
+      <tr><td><span class="ru">за-</span></td><td>start: <span class="ru">заговори́ть, запла́кать</span></td></tr>
+      <tr><td><span class="ru">до-</span></td><td>to the end: <span class="ru">дочита́ть, досмотре́ть</span></td></tr>
       <tr><td>The catch</td><td>Same prefix, different job: <span class="ru">постро́ить</span> (empty) vs <span class="ru">поговори́ть</span> (for a while).</td></tr>
     </table>
-    <p><b>The one question to carry into the test:</b> once, or a habit? Once → the prefixed verb. Habit → its -ыва- partner.</p>`,
+    <p><b>The one question to carry into the test:</b> a bit, the start, or the end?</p>`,
   test:[
-    {q:"“Sign here, please.”",opts:["Подпиши́те здесь, пожа́луйста.","Запиши́те здесь, пожа́луйста.","Перепиши́те здесь, пожа́луйста.","Опиши́те здесь, пожа́луйста."],a:0,why:"под- (under) + писа́ть = sign."},
-    {q:"“I always write down new words.”",opts:["Я всегда́ запи́сываю но́вые слова́.","Я всегда́ запишу́ но́вые слова́.","Я всегда́ пишу́ но́вые слова́.","Я всегда́ подпи́сываю но́вые слова́."],a:0,why:"A habit takes the -ыва- partner: запи́сываю."},
     {q:"“Let's talk for a bit.”",opts:["Дава́й поговори́м.","Дава́й заговори́м.","Дава́й договори́м.","Дава́й переговори́м."],a:0,why:"по- = for a while: поговори́м."},
     {q:"“I want to finish reading the book.”",opts:["Я хочу́ дочита́ть кни́гу.","Я хочу́ почита́ть кни́гу.","Я хочу́ перечита́ть кни́гу.","Я хочу́ зачита́ть кни́гу."],a:0,why:"до- = all the way to the end: дочита́ть."},
-    {q:"“Describe the room.”",opts:["Опиши́те ко́мнату.","Подпиши́те ко́мнату.","Запиши́те ко́мнату.","Перепиши́те ко́мнату."],a:0,why:"о- (around, about) + писа́ть = describe."},
+    {q:"“The baby started crying.”",opts:["Ребёнок запла́кал.","Ребёнок попла́кал.","Ребёнок допла́кал.","Ребёнок пла́чет."],a:0,why:"за- = start: запла́кал."},
+    {q:"“Let's watch the film to the end.”",opts:["Дава́й досмо́трим фильм.","Дава́й посмо́трим фильм.","Дава́й пересмо́трим фильм.","Дава́й засмо́трим фильм."],a:0,why:"до- = to the end: досмо́трим."},
+    {q:"“I want to go for a short walk.”",opts:["Я хочу́ немно́го погуля́ть.","Я хочу́ немно́го загуля́ть.","Я хочу́ немно́го догуля́ть.","Я хочу́ немно́го вы́гулять."],a:0,why:"по- = a bit: погуля́ть."},
     {q:"заговори́ть means…",opts:["start talking","talk for a while","finish talking","talk again"],a:0,why:"за- marks the start."},
-    {q:"To get the habit verb from a prefixed verb, you usually…",opts:["add -ыва- / -ива- (запи́сывать)","drop the prefix","add -ся","make it past tense"],a:0,why:"The prefix stays (it carries the meaning); a suffix goes on."},
+    {q:"The prefix до- means…",opts:["all the way to the end","a bit","start","again"],a:0,why:"до- = carry it through to the end."},
     {q:"постро́ить and поговори́ть — the по- is…",opts:["empty in постро́ить, but adds “for a while” in поговори́ть","meaningful in both","empty in both","the other way round"],a:0,why:"Same prefix, different job — judge each verb."}
   ]
 },{
@@ -4927,7 +5010,7 @@ const EXAMS=[
    Ids that aren't built yet are listed in PLANNED_LESSONS below and show up as "gaps". */
 const BAND_LESSONS={
   A1:["noun-gender","present-conj","prep-case","accusative"],
-  A2:["case-map","past-future","aspect","aspect-prefixes","meaning-prefixes","meaning-prefixes-more","numbers","genitive","dative","instrumental","instrumental-more"],
+  A2:["case-map","past-future","aspect","aspect-prefixes","meaning-prefixes","meaning-prefixes-more","meaning-prefixes-amount","numbers","genitive","dative","instrumental","instrumental-more"],
   B1:["reflexive","motion"]
 };
 const BAND_WORDS={A1:200,A2:750,B1:1500};
@@ -5628,11 +5711,17 @@ const GRAMMAR=[
   {q:"подписа́ть means…",opts:["sign","describe","rewrite","write down"],a:0,why:"под- (under) → sign, putting your name under it."},
   {q:"переписа́ть means…",opts:["rewrite","sign","read a while","write down"],a:0,why:"пере- = over again → rewrite."},
   {q:"описа́ть means…",opts:["describe","sign","rewrite","record"],a:0,why:"о- (around/about) + писа́ть → describe."},
-  {q:"To make подписа́ть a habit verb, you…",opts:["add a suffix: подпи́сывать","drop под-","add -ся","use быть"],a:0,why:"Prefixed verbs rebuild their everyday partner with -ыва- / -ива-."},
-  {q:"по- (as in поговори́ть) adds the sense of…",opts:["a little / for a while","arriving","out of","again"],a:0,why:"по- + verb = do a bit of it: поговори́ть = talk a while."},
-  {q:"за- (as in заговори́ть) can mark…",opts:["the start of an action","completion only","the past tense","a question"],a:0,why:"за- often marks the beginning: заговори́ть = start talking."},
-  {q:"до- (as in дочита́ть) means…",opts:["all the way to the end","a little","start","again"],a:0,why:"до- = carry it through to the end: дочита́ть = finish reading."},
+  {q:"The habit partner of подписа́ть is…",opts:["подпи́сывать","писа́ть","подписа́л","подписа́ть"],a:0,why:"Keep the prefix, add -ыва-: подпи́сывать."},
+  {q:"всегда́, ка́ждый день, ча́сто point to…",opts:["the habit (-ыва-) verb","the prefixed verb (one act)","the past tense","a reflexive verb"],a:0,why:"Something that keeps happening takes the -ыва- partner."},
   {q:"The habit partner of прийти́ is…",opts:["приходи́ть","прийти́ть","при́дывать","идти́"],a:0,why:"The verbs of going use -ходи́ть: приходи́ть, уходи́ть, выходи́ть."}
+]},
+{ lesson:"meaning-prefixes-amount", title:"Prefixes: How Much of It", level:"A2", items:[
+  {q:"по- (as in поговори́ть) adds the sense of…",opts:["a little / for a while","start","to the end","again"],a:0,why:"по- + verb = do a bit of it: поговори́ть = talk a while."},
+  {q:"за- (as in заговори́ть) marks…",opts:["the start of an action","doing it a little","the end","a question"],a:0,why:"за- often marks the beginning: заговори́ть = start talking."},
+  {q:"до- (as in дочита́ть) means…",opts:["all the way to the end","a little","start","again"],a:0,why:"до- = carry it through to the end: дочита́ть = finish reading."},
+  {q:"почита́ть vs прочита́ть —",opts:["почита́ть = read for a while; прочита́ть = read it, done","they are the same","почита́ть = finish reading","прочита́ть = start reading"],a:0,why:"про- is чита́ть's empty prefix; по- adds “for a while.”"},
+  {q:"запла́кать means…",opts:["start crying","cry for a bit","stop crying","cry again"],a:0,why:"за- = start."},
+  {q:"In постро́ить, по- is…",opts:["empty — still just “build,” finished","“for a while”","“start”","“to the end”"],a:0,why:"The same по- that means “for a while” on поговори́ть is empty here."}
 ]},
 { lesson:"reflexive", title:"Reflexive Verbs", level:"B1", items:[
   {q:"я-form of занима́ться (to be busy with):",opts:["занима́юсь","занима́ешься","занима́ется","занима́юся"],a:0,why:"After a vowel the tail is -сь: занима́юсь."},
