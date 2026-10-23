@@ -6405,8 +6405,8 @@
       "best": 1
     },
     "meaning-prefixes-amount": {
-      "done": false,
-      "best": 0
+      "done": true,
+      "best": 1
     },
     "meaning-prefixes-more": {
       "done": true,
@@ -7104,6 +7104,83 @@
       "introduced": true
     },
     "meaning-prefixes#s4": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#0": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#1": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#2": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#3": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#4": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#5": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#s0": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#s1": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#s2": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#s3": {
+      "box": 0,
+      "due": "2026-10-23",
+      "lapses": 0,
+      "reps": 0,
+      "introduced": true
+    },
+    "meaning-prefixes-amount#s4": {
       "box": 0,
       "due": "2026-10-23",
       "lapses": 0,
