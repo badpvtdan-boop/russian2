@@ -4081,26 +4081,26 @@
       "lastReviewed": "2026-10-22"
     },
     "838": {
-      "box": 0,
-      "due": "2026-10-23",
+      "box": 1,
+      "due": "2026-10-24",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-10-23"
     },
     "839": {
-      "box": 0,
-      "due": "2026-10-23",
+      "box": 1,
+      "due": "2026-10-24",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-10-23"
     },
     "840": {
-      "box": 0,
-      "due": "2026-10-23",
+      "box": 1,
+      "due": "2026-10-24",
       "lapses": 1,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
       "lastReviewed": "2026-10-23"
     },
