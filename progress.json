@@ -4104,6 +4104,14 @@
       "introduced": true,
       "lastReviewed": "2026-10-23"
     },
+    "841": {
+      "box": 1,
+      "due": "2026-10-24",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-10-23"
+    },
     "842": {
       "box": 6,
       "due": "2026-11-18",
@@ -4991,6 +4999,14 @@
       "reps": 10,
       "introduced": true,
       "lastReviewed": "2026-10-16"
+    },
+    "953": {
+      "box": 1,
+      "due": "2026-10-24",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-10-23"
     },
     "1017": {
       "box": 6,
@@ -6342,7 +6358,7 @@
       "studied": true
     },
     "2026-10-23": {
-      "newDone": 3,
+      "newDone": 5,
       "reviewDone": 40,
       "studied": true
     }
