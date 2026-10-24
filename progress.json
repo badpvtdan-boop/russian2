@@ -649,12 +649,12 @@
       "lastReviewed": "2026-09-20"
     },
     "82": {
-      "box": 7,
-      "due": "2027-02-25",
+      "box": 8,
+      "due": "2027-10-24",
       "lapses": 0,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-20"
+      "lastReviewed": "2026-10-24"
     },
     "83": {
       "box": 2,
@@ -6805,12 +6805,12 @@
       "lastReviewed": "2026-08-28"
     },
     "case-map#6": {
-      "box": 3,
-      "due": "2026-10-25",
+      "box": 4,
+      "due": "2026-11-09",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-10-18"
+      "lastReviewed": "2026-10-24"
     },
     "case-map#7": {
       "box": 0,
