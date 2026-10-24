@@ -5040,6 +5040,14 @@
       "introduced": true,
       "lastReviewed": "2026-10-24"
     },
+    "958": {
+      "box": 1,
+      "due": "2026-10-25",
+      "lapses": 0,
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-10-24"
+    },
     "1017": {
       "box": 6,
       "due": "2026-11-26",
@@ -6395,7 +6403,7 @@
       "studied": true
     },
     "2026-10-24": {
-      "newDone": 4,
+      "newDone": 5,
       "reviewDone": 40,
       "studied": true
     }
