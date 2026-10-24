@@ -6832,10 +6832,11 @@
     },
     "genitive#0": {
       "box": 0,
-      "due": "2026-08-14",
-      "lapses": 1,
-      "reps": 1,
-      "introduced": true
+      "due": "2026-10-23",
+      "lapses": 2,
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-10-23"
     },
     "genitive#1": {
       "box": 0,
@@ -7511,10 +7512,11 @@
     },
     "prep-case#5": {
       "box": 0,
-      "due": "2026-08-14",
-      "lapses": 3,
-      "reps": 5,
-      "introduced": true
+      "due": "2026-10-23",
+      "lapses": 4,
+      "reps": 6,
+      "introduced": true,
+      "lastReviewed": "2026-10-23"
     },
     "prep-case#6": {
       "box": 2,
