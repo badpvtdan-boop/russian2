@@ -5881,8 +5881,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 3,
-  "lastCompleted": "2026-10-23",
+  "streak": 4,
+  "lastCompleted": "2026-10-24",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6361,6 +6361,11 @@
       "newDone": 5,
       "reviewDone": 40,
       "studied": true
+    },
+    "2026-10-24": {
+      "newDone": 0,
+      "reviewDone": 0,
+      "studied": true
     }
   },
   "duoLevel": null,
@@ -6470,12 +6475,12 @@
       "lastReviewed": "2026-09-29"
     },
     "accusative#1": {
-      "box": 3,
-      "due": "2026-08-21",
+      "box": 4,
+      "due": "2026-11-09",
       "lapses": 1,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-08-17"
+      "lastReviewed": "2026-10-24"
     },
     "accusative#10": {
       "box": 5,
@@ -7662,6 +7667,6 @@
     "shop",
     "hobby"
   ],
-  "lastPopQuiz": "2026-10-23",
+  "lastPopQuiz": "2026-10-24",
   "migv": 4
 }
