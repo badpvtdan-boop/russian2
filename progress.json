@@ -177,12 +177,12 @@
       "lastReviewed": "2026-09-30"
     },
     "23": {
-      "box": 7,
-      "due": "2027-03-01",
+      "box": 8,
+      "due": "2027-10-24",
       "lapses": 0,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-19"
+      "lastReviewed": "2026-10-24"
     },
     "24": {
       "box": 7,
@@ -1409,12 +1409,12 @@
       "lastReviewed": "2026-09-01"
     },
     "504": {
-      "box": 7,
-      "due": "2026-10-29",
+      "box": 8,
+      "due": "2027-10-24",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-08-30"
+      "lastReviewed": "2026-10-24"
     },
     "505": {
       "box": 8,
@@ -1482,11 +1482,11 @@
     },
     "513": {
       "box": 8,
-      "due": "2027-10-11",
+      "due": "2027-10-24",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-10-11"
+      "lastReviewed": "2026-10-24"
     },
     "514": {
       "box": 8,
@@ -3841,12 +3841,12 @@
       "lastReviewed": "2026-10-08"
     },
     "808": {
-      "box": 5,
-      "due": "2026-11-18",
+      "box": 6,
+      "due": "2027-01-07",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-11"
+      "lastReviewed": "2026-10-24"
     },
     "809": {
       "box": 8,
@@ -7213,10 +7213,11 @@
     },
     "meaning-prefixes-more#2": {
       "box": 0,
-      "due": "2026-10-23",
-      "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "due": "2026-10-24",
+      "lapses": 1,
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-10-24"
     },
     "meaning-prefixes-more#3": {
       "box": 0,
