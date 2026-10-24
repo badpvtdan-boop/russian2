@@ -3673,20 +3673,20 @@
       "lastReviewed": "2026-10-19"
     },
     "787": {
-      "box": 1,
-      "due": "2026-10-23",
-      "lapses": 3,
-      "reps": 5,
+      "box": 0,
+      "due": "2026-10-24",
+      "lapses": 4,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-22"
+      "lastReviewed": "2026-10-24"
     },
     "788": {
-      "box": 1,
-      "due": "2026-10-23",
-      "lapses": 3,
-      "reps": 5,
+      "box": 0,
+      "due": "2026-10-24",
+      "lapses": 4,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-22"
+      "lastReviewed": "2026-10-24"
     },
     "789": {
       "box": 1,
