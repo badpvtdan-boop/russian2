@@ -6456,6 +6456,7 @@
   "duoLevel": null,
   "direction": "en-ru",
   "answerMode": "choice",
+  "drillMode": "ladder",
   "voiceName": null,
   "lessons": {
     "accusative": {
