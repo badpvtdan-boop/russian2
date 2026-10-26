@@ -419,7 +419,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-10-26.1</b> · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-10-26.2</b> · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -2555,7 +2555,7 @@ function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth
 /* INVARIANT: any new field added here MUST also be added to mergeStates() in the same
    change. Merge is the only safety layer now (the wipe/stale guards are gone) — mergeStates
    rebuilds state from blank(), so a field it doesn't handle is silently reset on every sync. */
-function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"ladder",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),lastPopQuiz:null,migv:MIG_VERSION};}
+function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",drillMode:"ladder",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),lastPopQuiz:null,migv:MIG_VERSION};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* One-time upgrades applied to an existing save. Keyed by migv so each runs once and
    never touches cards / lessons / streak — only the specific fields it names. */
@@ -2587,8 +2587,11 @@ function migrate(s, raw){
     s.migv = 4; touched=true;
   }
   if((raw.migv||0) < 5){
-    // v5 — the exercise ladder ships as the default drill (2026-10-26). Only answerMode moves.
-    s.answerMode = "ladder";
+    /* v5 — marker only. The first ladder release flipped answerMode here, but answerMode is a
+       preference that mergeStates() takes from whichever copy studied more recently — so the
+       GitHub backup's old "choice" flipped it straight back on the next sync (2026-10-26).
+       The drill format now lives in its own field, drillMode, which no old save carries, so
+       every copy reads it as the default "ladder" until Danny picks something else. */
     s.migv = 5; touched=true;
   }
   if(touched){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} }
@@ -3114,7 +3117,7 @@ function easyEx(item){
   return (ttsReady() && n%2===0) ? "listen" : "smart";
 }
 function exerciseFor(item){
-  const mode=S.answerMode;
+  const mode=S.drillMode||"ladder";
   if(mode==="choice") return "choice";
   if(mode==="type") return "type";
   const c=S.cards[item.id];
@@ -3390,7 +3393,7 @@ function renderCard(ex){
   cur.ex=ex; cur.typed="";
   $("std-ex").classList.remove("hide"); $("match-ex").classList.add("hide");
   const isChoice=CHOICE_EX.includes(ex);
-  const ladder=S.answerMode==="ladder";
+  const ladder=(S.drillMode||"ladder")==="ladder";
   $("dir-label").textContent=(EX_LABEL[ex]||EX_LABEL.choice)(dir);
   if(ex==="listen"){
     $("prompt").innerHTML='<button class="listen-big" id="listen-play" title="Play again">🔊 Play again</button>';
@@ -3639,7 +3642,7 @@ $("toggle-settings").onclick=()=>{
   t.textContent=open?"hide":"show";
 };
 $("voice").onchange=e=>{ S.voiceName=e.target.value; save(); refreshVoices(); if(cur) speak(DECK_BY_ID[cur.id].ru); };
-$("answer-mode").onchange=e=>{ S.answerMode=e.target.value; save(); nextCard(); };
+$("answer-mode").onchange=e=>{ S.drillMode=e.target.value; save(); nextCard(); };
 $("direction").onchange=e=>{ S.direction=e.target.value; save(); nextCard(); };
 $("q-new").textContent=NEW_PER_DAY; $("q-rev").textContent=REVIEW_PER_DAY;
 
@@ -6137,7 +6140,7 @@ function mergeStates(sa,sb){
   m.streak=Math.max.apply(null,cand);
   healStreak(m);   // walks the run, and backfills `studied` on evidence-only days
   // preferences travel with the device used most recently
-  ["duoLevel","direction","answerMode","voiceName","lastPopQuiz"].forEach(k=>{ m[k]=newer[k]; });
+  ["duoLevel","direction","answerMode","drillMode","voiceName","lastPopQuiz"].forEach(k=>{ m[k]=newer[k]; });
   m.activeThemes=(newer.activeThemes||A1_THEME_KEYS).slice();
   m.migv=Math.max(a.migv||0,b.migv||0);
   return m;
@@ -6724,7 +6727,7 @@ function pqResult(){
 
 /* ---------------- Init ---------------- */
 $("direction").value=S.direction;
-$("answer-mode").value=S.answerMode;
+$("answer-mode").value=S.drillMode||"ladder";
 if("speechSynthesis" in window) refreshVoices();
 refreshBadges(); updateBanner();
 startSession();

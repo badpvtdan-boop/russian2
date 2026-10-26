@@ -52,7 +52,7 @@ function extractArray(name) {
 
 const DECK = vm.runInNewContext("(" + extractArray("DECK") + ")");
 const sandbox = {
-  S: { answerMode: "ladder", direction: "en-ru", cards: {} },
+  S: { drillMode: "ladder", direction: "en-ru", cards: {} },
   DECK, DECK_BY_ID: Object.fromEntries(DECK.map(w => [w.id, w])),
   ruVoice: { name: "test" },
   window: { speechSynthesis: {} },
@@ -94,11 +94,11 @@ ok(run(`exerciseFor({id:1,isNew:false,firstTry:true})`) === "type", "strong word
 sandbox.S.cards = { 1: { box: 8, introduced: true, reps: 3 } };
 ok(run(`exerciseFor({id:1,isNew:false,firstTry:true})`) === "type", "top box is typed");
 ok(["listen", "smart"].includes(run(`exerciseFor({id:1,isNew:false,firstTry:false})`)), "a miss comes back the same day in an easier format");
-sandbox.S.answerMode = "choice";
+sandbox.S.drillMode = "choice";
 ok(run(`exerciseFor({id:1,isNew:false,firstTry:true})`) === "choice", "'Multiple choice only' still means multiple choice");
-sandbox.S.answerMode = "type";
+sandbox.S.drillMode = "type";
 ok(run(`exerciseFor({id:1,isNew:true,firstTry:true})`) === "type", "'Type it only' still means typing");
-sandbox.S.answerMode = "ladder";
+sandbox.S.drillMode = "ladder";
 // both easy formats show up across words when a voice exists
 const easy = new Set(); for (let id = 1; id < 30; id++) { sandbox.S.cards = { [id]: { box: 1, introduced: true, reps: 0 } }; easy.add(run(`exerciseFor({id:${id},isNew:false,firstTry:true})`)); }
 ok(easy.has("listen") && easy.has("smart"), "easy words alternate between listening and look-alike choice");
@@ -171,8 +171,27 @@ const resolveCalls = (src.match(/resolve\(/g) || []).length;
 ok(/function resolve\(ok, quiet\)/.test(src), "resolve() takes a quiet flag for the matching round");
 ok(/finishMatch[\s\S]{0,600}resolve\(r\.ok, true\)/.test(src), "matching scores each word through resolve()");
 ok(/tilesCorrect\(\)\);/.test(src) && /gradeTyped\(cur\.typed, w\)/.test(src), "tiles and typing score through resolve()");
-ok(/MIG_VERSION=5/.test(src) && /s\.answerMode = "ladder"/.test(src), "existing saves move to the ladder once (migration v5)");
-ok(/answerMode:"ladder"/.test(extractFn("blank")), "a brand-new save starts on the ladder");
+ok(/drillMode:"ladder"/.test(extractFn("blank")), "a brand-new save starts on the ladder");
+
+/* ---- 5. the merge must not switch the ladder back off (2026-10-26).
+   The first release flipped answerMode; mergeStates() takes preferences from whichever copy
+   studied more recently, and the GitHub backup (old code, answerMode "choice", newer study day)
+   flipped it straight back. Run the real merge on exactly that pair. */
+const msb = { A1_THEME_KEYS: ["core"], MIG_VERSION: Number(/\bMIG_VERSION\s*=\s*(\d+)/.exec(src)[1]), console };
+vm.createContext(msb);
+vm.runInContext(["today", "daysAdd", "blank", "hasStudy", "newestActivity", "betterCard", "laterDate",
+  "studyDays", "lastStudyDay", "streakEndingAt", "healStreak", "mergeStates"].map(extractFn).join("\n"), msb);
+msb.today = () => "2026-10-26";
+const mrun = c => vm.runInContext(c, msb);
+const local = { cards: {}, dailyLog: { "2026-10-20": { newDone: 1, reviewDone: 3 } }, lastCompleted: "2026-10-20", answerMode: "choice", migv: 5 };
+const oldBackup = { cards: {}, dailyLog: { "2026-10-24": { newDone: 2, reviewDone: 9 } }, lastCompleted: "2026-10-24", answerMode: "choice", migv: 4 };
+msb.A = local; msb.B = oldBackup;
+ok(mrun("mergeStates(A,B).drillMode") === "ladder", "an old backup with newer study days does not switch the ladder off");
+ok(mrun("mergeStates(B,A).drillMode") === "ladder", "...whichever side the merge starts from");
+msb.C = Object.assign({}, oldBackup, { drillMode: "choice", dailyLog: { "2026-10-25": { newDone: 1, reviewDone: 1 } }, lastCompleted: "2026-10-25" });
+ok(mrun("mergeStates(A,C).drillMode") === "choice", "a format Danny picks himself does travel between devices");
+ok(/"drillMode"/.test(extractFn("mergeStates")), "drillMode is in mergeStates' preference list (README rule 4)");
+ok(/S\.drillMode=e\.target\.value/.test(src), "the Settings picker writes drillMode");
 
 console.log(`\nLadder invariants: ${pass}/${pass + fail} passing`);
 if (fail) { console.log(fail + " failing."); process.exit(1); } else console.log("All green.");
