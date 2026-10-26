@@ -2665,12 +2665,12 @@
       "lastReviewed": "2026-10-26"
     },
     "661": {
-      "box": 7,
+      "box": 0,
       "due": "2026-10-26",
-      "lapses": 0,
-      "reps": 4,
+      "lapses": 1,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-08-27"
+      "lastReviewed": "2026-10-26"
     },
     "662": {
       "box": 5,
