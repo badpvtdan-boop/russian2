@@ -345,12 +345,12 @@
       "lastReviewed": "2026-09-29"
     },
     "44": {
-      "box": 4,
+      "box": 0,
       "due": "2026-10-26",
-      "lapses": 4,
-      "reps": 19,
+      "lapses": 5,
+      "reps": 20,
       "introduced": true,
-      "lastReviewed": "2026-10-08"
+      "lastReviewed": "2026-10-26"
     },
     "45": {
       "box": 7,
