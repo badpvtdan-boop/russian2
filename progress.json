@@ -1073,12 +1073,12 @@
       "lastReviewed": "2026-09-01"
     },
     "135": {
-      "box": 4,
-      "due": "2026-10-25",
-      "lapses": 1,
-      "reps": 8,
+      "box": 0,
+      "due": "2026-10-26",
+      "lapses": 2,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-10-09"
+      "lastReviewed": "2026-10-26"
     },
     "136": {
       "box": 7,
