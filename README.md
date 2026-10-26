@@ -30,8 +30,15 @@ this repo — not from a local clone.** Two things follow, and both have already
   words, and won't introduce new words into an already-overloaded tomorrow. The card shows only
   the part of speech before the answer — gender, aspect and the partner verb were giving it away —
   and spells them out on the feedback panel afterwards. Wrong options never include the word's
-  aspect partner or a word sharing one of its meanings (`choiceClash`). Multiple-choice
-  or typed input with an on-screen Cyrillic keyboard. Lenient grading. Audio via browser TTS.
+  aspect partner or a word sharing one of its meanings (`choiceClash`). Audio via browser TTS.
+  **Answer mode "Mixed" (the default since 2026-10-26) is an exercise ladder:** the format is
+  chosen per word from its box (`exerciseFor()`), so each word gets harder until it can be
+  produced cold — new words are met and then matched (one spare look-alike, so the last pair
+  is never free), box 0–2 alternates "hear it, pick the meaning" with look-alike multiple
+  choice (`smartDistractors()`), box `LADDER_TILES_BOX`+ is spelled from letter tiles, box
+  `LADDER_TYPE_BOX`+ is typed — Latin letters accepted (`gradeTyped()`, live Cyrillic preview).
+  A same-day miss comes back in an easier format. Every format scores through the same
+  `resolve()`, so the scheduler is unchanged. "Multiple choice only" and "Type it only" remain.
 - **Lessons** — explain → practice → scored test (75% to pass). Units: Prepositional case,
   Accusative case, Verb aspect, Verbs of motion. A lesson carrying too much for one screen can
   instead declare `steps`: a sequence of one-idea chunks, each immediately practising the point
@@ -107,12 +114,14 @@ use the app. So:
     node tests/backlog-invariants.mjs
     node tests/lesson-invariants.mjs
     node tests/sync-invariants.mjs
+    node tests/ladder-invariants.mjs
 
-All four read the real code out of `russian-trainer.html` and run it in a Node vm, so they
+All five read the real code out of `russian-trainer.html` and run it in a Node vm, so they
 exercise what ships rather than a copy that can drift. Run the first two after touching the
 SRS engine, the daily caps, or `mergeStates`; the third after touching lesson content or the
 lesson runner; the fourth after touching `save`/`load`, `saveGuard`, the sync scheduler, or
-anything that decides when progress leaves the device.
+anything that decides when progress leaves the device; the fifth after touching the drill's
+exercise formats, Latin-typing grading, or look-alike wrong answers.
 
 ## Authoring lesson & story content
 

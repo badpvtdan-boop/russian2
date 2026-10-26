@@ -67,6 +67,29 @@
   #choices button:disabled{opacity:.7;cursor:default}
   #choices button.pick-correct{background:var(--good-bg);border-color:var(--good-line);color:var(--good)}
   #choices button.pick-wrong{background:var(--bad-bg);border-color:var(--bad-line);color:var(--bad)}
+  /* exercise ladder */
+  #tiles{margin-top:18px}
+  .tiles-built{min-height:56px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:6px 0 10px;border-bottom:2px solid var(--line)}
+  .tiles-bank{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+  .tile{font-family:var(--serif);font-size:22px;padding:8px 0;min-width:44px;text-align:center}
+  .tiles-built .tile{background:var(--panel2)}
+  .tile.used{visibility:hidden}
+  .tiles-hint{color:var(--muted);font-size:14px}
+  .lat-preview{font-family:var(--serif);font-size:20px;color:var(--muted);min-height:26px;margin-top:6px}
+  .listen-big{font-size:22px;padding:16px 26px;font-weight:600}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  .match-col{display:flex;flex-direction:column;gap:8px;min-width:0}
+  .match-btn{font-size:15px;text-align:left;padding:12px 12px;word-break:break-word}
+  .match-btn.ru{font-family:var(--serif);font-size:19px}
+  .match-btn.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+  .match-btn.done{background:var(--good-bg);border-color:var(--good-line);color:var(--good)}
+  .match-btn.done:disabled{opacity:1}
+  .match-btn.flash{background:var(--bad-bg);border-color:var(--bad-line);color:var(--bad)}
+  .intro-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .intro-ru{font-family:var(--serif);font-size:24px;font-weight:600;cursor:pointer}
+  .intro-en{color:var(--muted);font-size:14px}
+  .intro-ex{color:var(--muted);font-size:13px;font-style:italic;margin-top:2px}
+  .intro-know{font-size:13px;padding:7px 10px;white-space:nowrap}
   .audio-btn{width:44px;height:44px;border-radius:50%;font-size:18px;padding:0;display:inline-flex;
     align-items:center;justify-content:center}
   .done{text-align:center;padding:20px}
@@ -245,6 +268,7 @@
     <div class="bar"><div id="progbar"></div></div>
     <div class="tag" id="progtag"></div>
 
+    <div id="std-ex">
     <div style="margin-top:18px">
       <div class="prompt-label" id="dir-label">Translate to Russian</div>
       <div style="display:flex;align-items:center;gap:12px">
@@ -256,7 +280,14 @@
 
     <div class="row" id="choices"></div>
 
-    <input type="text" id="answer" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Type your answer…">
+    <div id="tiles" style="display:none">
+      <div class="tiles-built" id="tiles-built"></div>
+      <div class="tiles-bank" id="tiles-bank"></div>
+    </div>
+
+    <input type="text" id="answer" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer…">
+    <div class="lat-preview" id="lat-preview" style="display:none"></div>
+    <a class="link" id="kbd-toggle" style="display:none">Cyrillic keys</a>
 
     <div class="kbd" id="kbd"></div>
 
@@ -270,9 +301,12 @@
       <div class="verdict" id="verdict"></div>
       <div class="answer" id="fb-ru"></div>
       <div class="muted" id="fb-en"></div>
+      <div class="muted" id="fb-you" style="margin-top:6px"></div>
       <div class="example" id="fb-ex"></div>
       <div class="row"><button class="primary" id="next">Next →</button></div>
     </div>
+    </div>
+    <div id="match-ex" class="hide"></div>
   </div>
 
   <div id="done" class="card done hide">
@@ -333,8 +367,9 @@
         <div>
           <label>Answer mode</label>
           <select id="answer-mode">
-            <option value="choice">Multiple choice (5 options)</option>
-            <option value="type">Type it (with keyboard)</option>
+            <option value="ladder">Mixed — gets harder as you learn each word</option>
+            <option value="choice">Multiple choice only (5 options)</option>
+            <option value="type">Type it only</option>
           </select>
         </div>
         <div>
@@ -384,7 +419,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-10-23.1</b> · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-10-26.1</b> · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -2520,11 +2555,11 @@ function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth
 /* INVARIANT: any new field added here MUST also be added to mergeStates() in the same
    change. Merge is the only safety layer now (the wipe/stale guards are gone) — mergeStates
    rebuilds state from blank(), so a field it doesn't handle is silently reset on every sync. */
-function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),lastPopQuiz:null,migv:MIG_VERSION};}
+function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"ladder",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),lastPopQuiz:null,migv:MIG_VERSION};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* One-time upgrades applied to an existing save. Keyed by migv so each runs once and
    never touches cards / lessons / streak — only the specific fields it names. */
-const MIG_VERSION=4;
+const MIG_VERSION=5;
 /* Decide from the RAW saved object (before blank() fills defaults), so an existing
    pre-v2 save is detected even though blank() now carries migv. */
 function migrate(s, raw){
@@ -2550,6 +2585,11 @@ function migrate(s, raw){
     // above the cap stay stacked for weeks. This levels them once, up front.
     rebalanceSchedule(s);
     s.migv = 4; touched=true;
+  }
+  if((raw.migv||0) < 5){
+    // v5 — the exercise ladder ships as the default drill (2026-10-26). Only answerMode moves.
+    s.answerMode = "ladder";
+    s.migv = 5; touched=true;
   }
   if(touched){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} }
   return s;
@@ -2857,7 +2897,7 @@ function refreshDeckCollapse(){
   $("deck-summary").textContent = act.length+" of "+THEMES.length+" decks on · "+left+" new left";
 }
 document.getElementById("deck-toggle").onclick=()=>{ UIP.decksOpen=!UIP.decksOpen; localStorage.setItem(UIKEY,JSON.stringify(UIP)); refreshDeckCollapse(); };
-function knowSkip(){
+function knowSkip(stay){
   if(!cur) return;
   const c=card(cur.id);
   /* Banking a REVIEW word with "I know this" finishes that review, so it counts toward the
@@ -2876,7 +2916,7 @@ function knowSkip(){
   queue.shift();
   if(sessionTotal>sessionDone) sessionTotal--;  // it left the session without being drilled
   refreshBadges();
-  nextCard();
+  if(!stay) nextCard();   // the new-words list banks a word and stays put
 }
 
 /* ---------------- Grading (lenient) ---------------- */
@@ -3001,33 +3041,12 @@ function startSession(extra){
 
 function nextCard(){
   $("feedback").style.display="none";
-  if(queue.length===0){ finishSession(); return; }
+  $("fb-you").textContent="";
+  if(queue.length===0){ MATCH=null; $("std-ex").classList.remove("hide"); $("match-ex").classList.add("hide"); finishSession(); return; }
   cur=queue[0];
-  const w=DECK_BY_ID[cur.id];
-  const dir=S.direction;
-  const choiceMode = S.answerMode==="choice";
-  $("dir-label").textContent = dir==="en-ru" ? "Translate to Russian" : "Translate to English";
-  $("prompt").textContent = dir==="en-ru" ? w.en : w.ru;
-  /* Only the part of speech before the answer. The note (gender, aspect, the verb's partner,
-     "+ gen") used to sit here too, and the partner in particular gave the answer away — Danny's
-     eye went to it whether he wanted it to or not (2026-10-22). It is shown, spelled out, on the
-     feedback panel once the pick is scored, which is where it actually teaches something. */
-  $("prompt-sub").textContent = (cur.isNew? "🆕 new word · ":"") + w.pos;
-  $("audio").style.visibility = "visible";
-
-  // reset controls for the chosen mode
-  $("answer").value=""; $("answer").disabled=false;
-  $("answer").style.display = choiceMode ? "none" : "block";
-  $("choices").style.display = choiceMode ? "flex" : "none";
-  $("check").classList.toggle("hide", choiceMode);
-  $("reveal").classList.remove("hide");
-  $("know-skip").classList.remove("hide");
-  $("know-skip").onclick=knowSkip;
-
-  if(choiceMode){ buildChoices(w); $("kbd").style.display="none"; }
-  else { $("choices").innerHTML=""; updateKbd(); $("answer").focus(); }
-
-  renderProgress();
+  const ex=exerciseFor(cur);
+  if(ex==="match"){ startMatch(matchGroup()); renderProgress(); return; }
+  renderCard(ex);
 }
 
 /* A wrong option must actually be wrong. Without this, "to speak/say" could offer both
@@ -3042,14 +3061,16 @@ function choiceClash(a,b){
   return ga.some(x=>gb.includes(x));
 }
 
-function buildChoices(word){
+function buildChoices(word, o){
+  o=o||{};
   const dir=S.direction;
-  const distr=shuffle(DECK.filter(w=>w.pos===word.pos && w.id!==word.id && !choiceClash(word,w))).slice(0,4);
+  const distr= o.smart ? smartDistractors(word,4)
+                       : shuffle(DECK.filter(w=>w.pos===word.pos && w.id!==word.id && !choiceClash(word,w))).slice(0,4);
   const opts=shuffle([word,...distr]);
   const box=$("choices"); box.innerHTML="";
   opts.forEach(w=>{
     const b=document.createElement("button");
-    b.textContent = dir==="en-ru" ? w.ru : w.en;
+    b.textContent = (dir==="en-ru" && !o.en) ? w.ru : w.en;
     b.dataset.id=w.id;
     b.onclick=()=>answerChoice(w.id,b);
     box.appendChild(b);
@@ -3068,6 +3089,351 @@ function answerChoice(id,btn){
   resolve(ok);
 }
 
+/* ---------------- Exercise ladder (2026-10-26) ----------------
+   In "Mixed" answer mode the drill picks HOW to test each word from how well that word is
+   known, so every word keeps getting harder until it can be produced cold, and no single
+   format is there to be gamed by elimination (Danny had caught himself doing exactly that
+   with the five-option multiple choice).
+
+     brand-new word ............ meet it (hear it, see it), then a matching round with one
+                                 extra Russian word on the right, so the last pair is never free
+     box 0–2, or a miss coming
+     back the same day ......... "hear it, pick the meaning" or look-alike multiple choice
+                                 (the wrong options look/sound like the right one)
+     box LADDER_TILES_BOX+ ..... spell it from letter tiles (plus a few decoy letters)
+     box LADDER_TYPE_BOX+ ...... type it — Latin letters are fine, they are read as Russian
+
+   The scheduler is untouched: every format ends in the same resolve(ok), so a miss still
+   drops the word to box 0 and it climbs the ladder again. "Multiple choice" and "Type it"
+   in Settings still give the old single-format drill. */
+const LADDER_TILES_BOX = 3, LADDER_TYPE_BOX = 5, MATCH_MAX = 5;
+const CHOICE_EX = ["choice","smart","listen"];
+function ttsReady(){ return ("speechSynthesis" in window) && !!ruVoice; }
+function easyEx(item){
+  const c=S.cards[item.id]; const n=item.id+((c&&c.reps)||0);
+  return (ttsReady() && n%2===0) ? "listen" : "smart";
+}
+function exerciseFor(item){
+  const mode=S.answerMode;
+  if(mode==="choice") return "choice";
+  if(mode==="type") return "type";
+  const c=S.cards[item.id];
+  if(item.isNew && item.firstTry && !(c&&c.introduced)) return "match";
+  if(!item.firstTry) return easyEx(item);          // a miss comes back in an easier format
+  const box=(c&&c.box)||0;
+  if(box>=LADDER_TYPE_BOX) return "type";
+  if(box>=LADDER_TILES_BOX) return "tiles";
+  return easyEx(item);
+}
+
+/* Look-alike wrong answers. Ranked by how much the Russian looks like the right word (same
+   start, same ending, similar length), with words already met ranked up — an option never
+   seen before can be ruled out on that alone. Some randomness so the same set doesn't recur. */
+function stripStress(s){ return String(s).normalize("NFD").replace(/[̀́]/g,"").normalize("NFC"); }
+function lookScore(a,b){
+  const x=norm(a), y=norm(b);
+  let p=0; while(p<x.length&&p<y.length&&x[p]===y[p]) p++;
+  let q=0; while(q<x.length&&q<y.length&&x[x.length-1-q]===y[y.length-1-q]) q++;
+  return Math.min(p,3)*2 + Math.min(q,3)*2 - Math.abs(x.length-y.length)*0.5 - lev(x,y)*0.4;
+}
+function smartDistractors(word,n,exclude){
+  const ex=exclude||[];
+  const seenEn={}; seenEn[String(word.en).toLowerCase()]=1;
+  const pool=DECK.filter(w=>w.pos===word.pos && w.id!==word.id && !ex.includes(w.id)
+                       && norm(w.ru)!==norm(word.ru) && !choiceClash(word,w));
+  const scored=pool.map(w=>({w, s:lookScore(word.ru,w.ru)
+                                 + ((S.cards[w.id]&&S.cards[w.id].introduced)?2:0)
+                                 + Math.random()*1.5}))
+                   .sort((a,b)=>b.s-a.s);
+  const out=[];
+  for(const x of shuffle(scored.slice(0,Math.max(n*3,10)))){
+    const k=String(x.w.en).toLowerCase(); if(seenEn[k]) continue;   // two identical English options
+    seenEn[k]=1; out.push(x.w); if(out.length>=n) break;
+  }
+  return out;
+}
+
+/* ---- Latin typing. No Cyrillic keyboard on the phone, so typed answers may come in Latin
+   letters. Grading compares a forgiving "sound skeleton" of both sides (й/ы/и alike, soft and
+   hard signs ignored, ya/ja = я, kh/h = х ...) with a small typo allowance; the preview under
+   the box shows how the typing reads in Cyrillic. */
+const LAT_MULTI=[["tsya","ться"],["shch","щ"],["sch","щ"],["zh","ж"],["kh","х"],["ch","ч"],["sh","ш"],["ts","ц"],
+  ["yo","ё"],["jo","ё"],["yu","ю"],["ju","ю"],["ya","я"],["ja","я"],["ye","е"],["je","е"]];
+const LAT_ONE={a:"а",b:"б",v:"в",g:"г",d:"д",e:"е",z:"з",i:"и",j:"й",k:"к",l:"л",m:"м",n:"н",o:"о",
+  p:"п",r:"р",s:"с",t:"т",u:"у",f:"ф",h:"х",x:"х",c:"ц",y:"ы",w:"в","'":"ь","`":"ъ","’":"ь"};
+function latToCyr(s){
+  s=String(s||"").toLowerCase(); let out="";
+  for(let i=0;i<s.length;){
+    if(s.startsWith("tsa",i) && !/[a-z]/.test(s[i+3]||"")){ out+="ться"; i+=3; continue; }   // odevatsa → одеваться
+    let hit=null; for(const kv of LAT_MULTI){ if(s.startsWith(kv[0],i)){ hit=kv; break; } }
+    if(hit){ out+=hit[1]; i+=hit[0].length; continue; }
+    const ch=s[i];
+    if(ch==="y"){   // after a vowel and not before one, y is й (moy, novyy)
+      const prev=out[out.length-1]||"", next=s[i+1]||"";
+      if("аеёиоуыэюя".includes(prev) && !/[aeiouy]/.test(next)){ out+="й"; i++; continue; }
+    }
+    out+=(ch in LAT_ONE)? LAT_ONE[ch] : ch; i++;
+  }
+  return out;
+}
+function hasLatin(s){ return /[a-z]/i.test(String(s||"")); }
+const CYR_SKEL={а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"e",ж:"zh",з:"z",и:"i",й:"i",к:"k",л:"l",м:"m",
+  н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"h",ц:"c",ч:"ch",ш:"sh",щ:"sh",ъ:"",ы:"i",ь:"",
+  э:"e",ю:"u",я:"a"};
+function cyrSkel(s){
+  return norm(s).split("").map(c=>(c in CYR_SKEL)?CYR_SKEL[c]:c).join("")
+    .replace(/[^a-z ]/g,"").replace(/ts/g,"c").replace(/(.)\1+/g,"$1").trim();   // тс/ться sound like ц
+}
+function latSkel(s){
+  return String(s||"").toLowerCase().replace(/[’`]/g,"'").replace(/[^a-z' ]/g,"")
+    .replace(/shch|sch|shh/g,"sh").replace(/kh|x/g,"h").replace(/tz|ts/g,"c").replace(/w/g,"v")
+    .replace(/ya|ja/g,"a").replace(/yu|ju/g,"u").replace(/yo|jo/g,"e").replace(/ye|je/g,"e")
+    .replace(/[yj]/g,"i").replace(/'/g,"").replace(/(.)\1+/g,"$1").replace(/\s+/g," ").trim();
+}
+function gradeTyped(input, word){
+  if(grade(input, word)) return true;
+  if(S.direction!=="en-ru" || !hasLatin(input)) return false;
+  if(norm(latToCyr(input))===norm(word.ru)) return true;
+  const a=latSkel(input);
+  if(!a) return false;
+  /* ё is written as e, yo or o in Latin — check the word both ways. */
+  const forms=[cyrSkel(word.ru)];
+  if(/ё/.test(word.ru)) forms.push(cyrSkel(word.ru.replace(/ё/g,"о")));
+  return forms.some(b=>skelClose(a,b));
+}
+function skelClose(a,b){
+  if(a===b) return true;
+  /* A slip is forgiven only on longer words, and never in the last letter — Russian endings
+     carry the grammar, so koshki is not koshka. Short words get no slack at all: dom ≠ dym. */
+  if(a.slice(-1)!==b.slice(-1)) return false;
+  const tol = b.length<=4 ? 0 : (b.length>8 ? 2 : 1);
+  return lev(a,b)<=tol;
+}
+
+/* ---- Letter tiles: build the word from its own letters plus a few decoys. A phrase is
+   built from word tiles instead. */
+let TILES=null;
+const DECOY_LETTERS="аеиоуыяюьйнтсрлкмвдпбзчшжгх";
+function tilesTarget(w){
+  return S.direction==="en-ru" ? stripStress(w.ru).toLowerCase() : glossParts(w.en)[0] || String(w.en).toLowerCase();
+}
+function buildTiles(w){
+  const target=tilesTarget(w);
+  let pieces, decoys=[];
+  if(target.includes(" ")){
+    pieces=target.split(/\s+/);
+    const others=shuffle(DECK.filter(x=>x.id!==w.id)).slice(0,30)
+      .map(x=>S.direction==="en-ru"? stripStress(x.ru).toLowerCase() : (glossParts(x.en)[0]||""))
+      .join(" ").split(/\s+/).filter(t=>t && !pieces.includes(t));
+    decoys=others.slice(0,2);
+  } else {
+    pieces=Array.from(target);
+    const pool = S.direction==="en-ru" ? DECOY_LETTERS : "aeioustnrlcdmhgpbwy";
+    const n = pieces.length>=4 ? 3 : 2;
+    for(let i=0;i<n;i++) decoys.push(pool[Math.floor(Math.random()*pool.length)]);
+  }
+  TILES={target, phrase:target.includes(" "), bank:shuffle(pieces.concat(decoys)).map(t=>({t,used:false})), built:[]};
+  renderTiles();
+}
+function tilesValue(){ return TILES ? TILES.built.map(i=>TILES.bank[i].t).join(TILES.phrase?" ":"") : ""; }
+function tilesCorrect(){ return !!TILES && norm(tilesValue())===norm(TILES.target); }
+function renderTiles(){
+  const built=$("tiles-built"), bank=$("tiles-bank"); if(!built||!TILES) return;
+  const locked = $("feedback").style.display==="block";
+  built.innerHTML=""; bank.innerHTML="";
+  TILES.built.forEach((bi,pos)=>{
+    const b=document.createElement("button"); b.className="tile"; b.textContent=TILES.bank[bi].t;
+    b.disabled=locked;
+    b.onclick=()=>{ TILES.bank[bi].used=false; TILES.built.splice(pos,1); renderTiles(); };
+    built.appendChild(b);
+  });
+  if(!TILES.built.length){ const s=document.createElement("span"); s.className="tiles-hint"; s.textContent="tap the tiles below"; built.appendChild(s); }
+  TILES.bank.forEach((tile,i)=>{
+    const b=document.createElement("button"); b.className="tile"+(tile.used?" used":""); b.textContent=tile.t;
+    b.disabled=locked||tile.used;
+    b.onclick=()=>{ if(tile.used) return; tile.used=true; TILES.built.push(i); renderTiles(); };
+    bank.appendChild(b);
+  });
+}
+
+/* ---- Meet the words + matching round, for brand-new words. */
+let MATCH=null;
+function matchGroup(){
+  return queue.filter(it=>it.isNew && it.firstTry && !(S.cards[it.id]&&S.cards[it.id].introduced)).slice(0,MATCH_MAX);
+}
+function showMatchPane(){ $("std-ex").classList.add("hide"); $("match-ex").classList.remove("hide"); }
+function startMatch(group){
+  MATCH={items:group.slice(), missed:{}, matched:{}, sel:null, decoy:null, phase:"intro"};
+  showMatchPane(); renderMatchIntro();
+}
+function bankFromIntro(item){
+  const i=queue.indexOf(item); if(i<0) return;
+  queue.splice(i,1); queue.unshift(item); cur=item;
+  knowSkip(true);
+  MATCH.items=MATCH.items.filter(x=>x!==item);
+  if(!MATCH.items.length){ MATCH=null; nextCard(); return; }
+  renderMatchIntro();
+}
+function renderMatchIntro(){
+  const box=$("match-ex"); const n=MATCH.items.length;
+  box.innerHTML=`<div class="prompt-label">🆕 ${n===1?"A new word":n+" new words"}</div>
+    <div class="muted" style="font-size:14px">Tap a word to hear it. Have a good look — ${n===1?"it's":"they're"} coming right up.</div>
+    <div id="intro-list" style="margin-top:8px"></div>
+    <div class="row"><button class="primary" id="m-go">${n===1?"Test me →":"Match them →"}</button></div>`;
+  const list=$("intro-list");
+  MATCH.items.forEach(item=>{
+    const w=DECK_BY_ID[item.id];
+    const row=document.createElement("div"); row.className="intro-row";
+    row.innerHTML=`<button class="ghost audio-btn" title="Hear it">🔊</button>
+      <div style="flex:1;min-width:0"><div class="intro-ru"></div><div class="intro-en"></div><div class="intro-ex"></div></div>
+      <button class="ghost intro-know" title="Already know it — bank it as known">✓ know it</button>`;
+    row.querySelector(".intro-ru").textContent=w.ru;
+    row.querySelector(".intro-en").textContent=w.en+" · "+w.pos+(w.note?" · "+noteLabel(w.note):"");
+    row.querySelector(".intro-ex").textContent=w.ex||"";
+    row.querySelector(".audio-btn").onclick=()=>speak(w.ru);
+    row.querySelector(".intro-ru").onclick=()=>speak(w.ru);
+    row.querySelector(".intro-know").onclick=()=>bankFromIntro(item);
+    list.appendChild(row);
+  });
+  $("m-go").onclick=()=>{
+    if(MATCH.items.length===1){   // one word: nothing to match against — straight to a question
+      const item=MATCH.items[0]; MATCH=null;
+      const i=queue.indexOf(item); if(i>0){ queue.splice(i,1); queue.unshift(item); }
+      cur=item; renderCard(ttsReady()?"listen":"smart"); return;
+    }
+    renderMatchGrid();
+  };
+}
+function renderMatchGrid(){
+  MATCH.phase="grid";
+  if(!MATCH.decoy){
+    const ids=MATCH.items.map(x=>x.id);
+    const seed=DECK_BY_ID[ids[Math.floor(Math.random()*ids.length)]];
+    const cand=smartDistractors(seed,6,ids).filter(d=>MATCH.items.every(it=>!choiceClash(DECK_BY_ID[it.id],d)));
+    MATCH.decoy=(cand[0]||null);
+    MATCH.left=shuffle(MATCH.items.map(x=>x.id));
+    MATCH.right=shuffle(MATCH.items.map(x=>x.id).concat(MATCH.decoy?[MATCH.decoy.id]:[]));
+  }
+  const box=$("match-ex");
+  box.innerHTML=`<div class="prompt-label">Match the pairs</div>
+    <div class="muted" style="font-size:14px">One Russian word has no partner. A wrong pair counts as a miss.</div>
+    <div class="match-grid"><div class="match-col" id="m-left"></div><div class="match-col" id="m-right"></div></div>
+    <div id="m-summary"></div>`;
+  const mk=(side,id)=>{
+    const w=DECK_BY_ID[id]; const b=document.createElement("button");
+    b.className="match-btn"+(side==="ru"?" ru":""); b.textContent= side==="en"? w.en : w.ru;
+    b.dataset.side=side; b.dataset.id=id;
+    if(MATCH.matched[id]){ b.classList.add("done"); b.disabled=true; }
+    b.onclick=()=>matchTap(side,id,b);
+    return b;
+  };
+  MATCH.left.forEach(id=>$("m-left").appendChild(mk("en",id)));
+  MATCH.right.forEach(id=>$("m-right").appendChild(mk("ru",id)));
+}
+function matchTap(side,id,btn){
+  if(!MATCH || MATCH.phase!=="grid" || MATCH.matched[id]) return;
+  if(side==="ru") speak(DECK_BY_ID[id].ru);
+  const sel=MATCH.sel;
+  if(!sel || sel.side===side){
+    document.querySelectorAll("#match-ex .match-btn.sel").forEach(b=>b.classList.remove("sel"));
+    MATCH.sel={side,id,btn}; btn.classList.add("sel"); return;
+  }
+  const enId= side==="en"? id : sel.id, ruId= side==="ru"? id : sel.id;
+  sel.btn.classList.remove("sel"); MATCH.sel=null;
+  if(enId===ruId){
+    MATCH.matched[enId]=true;
+    [btn, sel.btn].forEach(b=>{ b.classList.add("done"); b.disabled=true; });
+    if(MATCH.items.every(it=>MATCH.matched[it.id])) finishMatch();
+  } else {
+    // the miss is charged to the word you started from — unless that was the spare word
+    const isItem=x=>MATCH.items.some(it=>it.id===x);
+    const charged = isItem(sel.id) ? sel.id : enId;
+    MATCH.missed[charged]=true;
+    [btn, sel.btn].forEach(b=>{ b.classList.add("flash"); setTimeout(()=>b.classList.remove("flash"),550); });
+  }
+}
+function finishMatch(){
+  MATCH.phase="done";
+  document.querySelectorAll("#match-ex .match-btn").forEach(b=>b.disabled=true);
+  const results=MATCH.items.map(item=>({item, ok:!MATCH.missed[item.id]}));
+  results.forEach(r=>{
+    const i=queue.indexOf(r.item); if(i<0) return;
+    queue.splice(i,1); queue.unshift(r.item); cur=r.item;
+    resolve(r.ok, true);
+  });
+  const good=results.filter(r=>r.ok).length;
+  const sum=$("m-summary");
+  sum.innerHTML=`<div class="feedback ${good===results.length?"correct":"wrong"}" style="display:block">
+    <div class="verdict">${good===results.length?"✓ All matched first try":"✓ "+good+" of "+results.length+" first try"}</div>
+    <div class="muted" id="m-sum-lines"></div>
+    <div class="row"><button class="primary" id="m-next">Next →</button></div></div>`;
+  const missed=results.filter(r=>!r.ok).map(r=>DECK_BY_ID[r.item.id]);
+  $("m-sum-lines").textContent = missed.length
+    ? "Coming back later today: "+missed.map(w=>w.ru+" ("+w.en+")").join(", ")
+    : "They'll be back tomorrow in a different format.";
+  MATCH=null;
+  $("m-next").onclick=nextCard; $("m-next").focus();
+  renderProgress();
+}
+
+/* ---- One card in any single-word format. */
+const EX_LABEL={
+  choice:   d=> d==="en-ru"?"Translate to Russian":"Translate to English",
+  smart:    d=> d==="en-ru"?"Pick the Russian":"Pick the meaning",
+  listen:   ()=>"Listen — what does it mean?",
+  tiles:    d=> d==="en-ru"?"Spell it in Russian":"Spell it in English",
+  type:     d=> d==="en-ru"?"Type it in Russian":"Type it in English",
+};
+function renderCard(ex){
+  const w=DECK_BY_ID[cur.id];
+  const dir=S.direction;
+  cur.ex=ex; cur.typed="";
+  $("std-ex").classList.remove("hide"); $("match-ex").classList.add("hide");
+  const isChoice=CHOICE_EX.includes(ex);
+  const ladder=S.answerMode==="ladder";
+  $("dir-label").textContent=(EX_LABEL[ex]||EX_LABEL.choice)(dir);
+  if(ex==="listen"){
+    $("prompt").innerHTML='<button class="listen-big" id="listen-play" title="Play again">🔊 Play again</button>';
+    $("listen-play").onclick=()=>speak(w.ru);
+    $("audio").style.visibility="hidden";
+    speak(w.ru);
+  } else {
+    $("prompt").textContent = dir==="en-ru" ? w.en : w.ru;
+    /* In English→Russian the speaker would read the answer aloud — so it waits for the
+       feedback panel on every ladder format. Classic modes keep it, as they always had. */
+    $("audio").style.visibility = (ladder && dir==="en-ru") ? "hidden" : "visible";
+  }
+  /* Only the part of speech before the answer. The note (gender, aspect, the verb's partner,
+     "+ gen") used to sit here too, and the partner in particular gave the answer away — Danny's
+     eye went to it whether he wanted it to or not (2026-10-22). It is shown, spelled out, on the
+     feedback panel once the pick is scored, which is where it actually teaches something. */
+  $("prompt-sub").textContent = (cur.isNew? "🆕 new word · ":"") + w.pos
+    + (ex==="tiles"&&TILES_HINT(w) ? " · "+TILES_HINT(w) : "");
+
+  $("answer").value=""; $("answer").disabled=false;
+  $("answer").style.display = (ex==="type") ? "block" : "none";
+  $("answer").placeholder = (ex==="type" && dir==="en-ru") ? "Type it — Latin letters are fine (koshka)" : "Type your answer…";
+  $("lat-preview").textContent="";
+  $("lat-preview").style.display = (ex==="type" && dir==="en-ru") ? "block" : "none";
+  $("choices").style.display = isChoice ? "flex" : "none";
+  $("tiles").style.display = ex==="tiles" ? "block" : "none";
+  $("check").classList.toggle("hide", isChoice);
+  $("reveal").classList.remove("hide");
+  $("know-skip").classList.remove("hide");
+  $("know-skip").onclick=()=>knowSkip();
+  $("kbd-toggle").style.display = (ex==="type" && ladder && dir==="en-ru") ? "inline" : "none";
+
+  if(isChoice){ buildChoices(w, {smart: ex!=="choice", en: ex==="listen"}); $("kbd").style.display="none"; TILES=null; }
+  else if(ex==="tiles"){ $("choices").innerHTML=""; $("kbd").style.display="none"; buildTiles(w); }
+  else {
+    $("choices").innerHTML=""; TILES=null;
+    if(ladder && !UIP.cyrKeys){ $("kbd").style.display="none"; } else updateKbd();
+    $("answer").focus();
+  }
+  renderProgress();
+}
+function TILES_HINT(w){ const t=tilesTarget(w); return t.includes(" ")? t.split(/\s+/).length+" words" : t.length+" letters"; }
+
 function renderProgress(){
   const pct = sessionTotal? Math.round(sessionDone/sessionTotal*100):0;
   $("progbar").style.width=pct+"%";
@@ -3077,11 +3443,20 @@ function renderProgress(){
 function submit(gaveUp){
   if(!cur || $("feedback").style.display==="block") return;
   const w=DECK_BY_ID[cur.id];
-  const ok = !gaveUp && grade($("answer").value, w);
+  const ex=cur.ex||"type";
+  if(ex==="tiles"){
+    if(!gaveUp && TILES && !TILES.built.length) return;   // nothing built yet
+    cur.typed=tilesValue();
+    resolve(!gaveUp && tilesCorrect());
+    renderTiles();
+    return;
+  }
+  cur.typed=$("answer").value;
+  const ok = !gaveUp && gradeTyped(cur.typed, w);
   resolve(ok);
 }
 
-function resolve(ok){
+function resolve(ok, quiet){   // quiet: a matching round scores several words, then shows its own summary
   if(!cur) return;
   const w=DECK_BY_ID[cur.id];
   const c=card(cur.id);
@@ -3105,7 +3480,7 @@ function resolve(ok){
     const item=queue.shift(); item.isNew=false; item.firstTry=false; queue.push(item);
   }
   save();
-  showFeedback(ok,w);
+  if(!quiet) showFeedback(ok,w);
   refreshBadges();
 }
 
@@ -3135,6 +3510,12 @@ function showFeedback(ok,w){
   $("fb-ru").textContent = w.ru;
   $("fb-en").textContent = w.en+" · "+w.pos+(w.note? " · "+noteLabel(w.note) : "");
   $("fb-ex").textContent = w.ex;
+  const typed=(cur&&cur.typed)||"";
+  $("fb-you").textContent = (!ok && typed.trim())
+    ? "You put: "+typed+(hasLatin(typed)&&S.direction==="en-ru" ? "  (reads as "+latToCyr(typed)+")" : "")
+    : "";
+  $("audio").style.visibility="visible";
+  $("know-skip").classList.add("hide");
   $("check").classList.add("hide"); $("reveal").classList.add("hide");
   $("answer").disabled=true;
   speak(w.ru);
@@ -3221,6 +3602,7 @@ function updateKbd(){
   const bs=document.createElement("button"); bs.textContent="⌫"; bs.className="wide"; bs.onclick=backspace;
   box.appendChild(sp); box.appendChild(bs);
   box.dataset.built="1";
+  box.style.display="flex";
 }
 function insert(ch){const a=$("answer");a.value+=ch;a.focus();}
 function backspace(){const a=$("answer");a.value=a.value.slice(0,-1);a.focus();}
@@ -3229,7 +3611,7 @@ function backspace(){const a=$("answer");a.value=a.value.slice(0,-1);a.focus();}
 $("check").onclick=()=>submit(false);
 $("reveal").onclick=()=>{
   if(!cur || $("feedback").style.display==="block") return;
-  if(S.answerMode==="choice"){
+  if(CHOICE_EX.includes(cur.ex)){
     [...$("choices").children].forEach(b=>{
       b.disabled=true;
       if(Number(b.dataset.id)===cur.id) b.classList.add("pick-correct");
@@ -3238,6 +3620,14 @@ $("reveal").onclick=()=>{
   submit(true);
 };
 $("next").onclick=nextCard;
+$("answer").addEventListener("input",()=>{
+  const v=$("answer").value;
+  $("lat-preview").textContent = (S.direction==="en-ru" && hasLatin(v)) ? "→ "+latToCyr(v) : "";
+});
+$("kbd-toggle").onclick=()=>{
+  UIP.cyrKeys=!UIP.cyrKeys; localStorage.setItem(UIKEY,JSON.stringify(UIP));
+  if(UIP.cyrKeys) updateKbd(); else $("kbd").style.display="none";
+};
 $("audio").onclick=()=>{ if(cur) speak(DECK_BY_ID[cur.id].ru); };
 $("answer").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); if(!$("answer").disabled) submit(false); }});
 document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&$("feedback").style.display==="block") nextCard(); });
