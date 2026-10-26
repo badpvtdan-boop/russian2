@@ -3113,12 +3113,12 @@
       "lastReviewed": "2026-10-15"
     },
     "717": {
-      "box": 5,
-      "due": "2026-11-17",
+      "box": 6,
+      "due": "2027-01-09",
       "lapses": 2,
-      "reps": 9,
+      "reps": 10,
       "introduced": true,
-      "lastReviewed": "2026-10-13"
+      "lastReviewed": "2026-10-26"
     },
     "718": {
       "box": 5,
@@ -6537,10 +6537,11 @@
     },
     "accusative#11": {
       "box": 0,
-      "due": "2026-08-22",
-      "lapses": 3,
-      "reps": 4,
-      "introduced": true
+      "due": "2026-10-26",
+      "lapses": 4,
+      "reps": 5,
+      "introduced": true,
+      "lastReviewed": "2026-10-26"
     },
     "accusative#2": {
       "box": 0,
@@ -7656,12 +7657,12 @@
       "lastReviewed": "2026-10-22"
     },
     "present-conj#5": {
-      "box": 4,
-      "due": "2026-09-18",
-      "lapses": 0,
-      "reps": 4,
+      "box": 3,
+      "due": "2026-10-26",
+      "lapses": 1,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-02"
+      "lastReviewed": "2026-10-26"
     },
     "present-conj#6": {
       "box": 3,
