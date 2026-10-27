@@ -68,13 +68,6 @@
   #choices button.pick-correct{background:var(--good-bg);border-color:var(--good-line);color:var(--good)}
   #choices button.pick-wrong{background:var(--bad-bg);border-color:var(--bad-line);color:var(--bad)}
   /* exercise ladder */
-  #tiles{margin-top:18px}
-  .tiles-built{min-height:56px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:6px 0 10px;border-bottom:2px solid var(--line)}
-  .tiles-bank{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-  .tile{font-family:var(--serif);font-size:22px;padding:8px 0;min-width:44px;text-align:center}
-  .tiles-built .tile{background:var(--panel2)}
-  .tile.used{visibility:hidden}
-  .tiles-hint{color:var(--muted);font-size:14px}
   .lat-preview{font-family:var(--serif);font-size:20px;color:var(--muted);min-height:26px;margin-top:6px}
   .listen-big{font-size:22px;padding:16px 26px;font-weight:600}
   .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
@@ -280,11 +273,6 @@
 
     <div class="row" id="choices"></div>
 
-    <div id="tiles" style="display:none">
-      <div class="tiles-built" id="tiles-built"></div>
-      <div class="tiles-bank" id="tiles-bank"></div>
-    </div>
-
     <input type="text" id="answer" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer…">
     <div class="lat-preview" id="lat-preview" style="display:none"></div>
     <a class="link" id="kbd-toggle" style="display:none">Cyrillic keys</a>
@@ -367,7 +355,7 @@
         <div>
           <label>Answer mode</label>
           <select id="answer-mode">
-            <option value="ladder">Mixed — gets harder as you learn each word</option>
+            <option value="ladder">Mixed — matching, listening and look-alike choices</option>
             <option value="choice">Multiple choice only (5 options)</option>
             <option value="type">Type it only</option>
           </select>
@@ -419,7 +407,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-10-26.2</b> · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-10-27.1</b> · the letter-tile and typing exercises are gone from the daily drill — once a word is past matching it gets “hear it, pick the meaning” or look-alike multiple choice, however well you know it. (Typing is still there if you pick “Type it only” in Settings.) · <br>Before that (2026-10-26.2): · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -3100,16 +3088,16 @@ function answerChoice(id,btn){
 
      brand-new word ............ meet it (hear it, see it), then a matching round with one
                                  extra Russian word on the right, so the last pair is never free
-     box 0–2, or a miss coming
-     back the same day ......... "hear it, pick the meaning" or look-alike multiple choice
+     every word after that ..... "hear it, pick the meaning" or look-alike multiple choice
                                  (the wrong options look/sound like the right one)
-     box LADDER_TILES_BOX+ ..... spell it from letter tiles (plus a few decoy letters)
-     box LADDER_TYPE_BOX+ ...... type it — Latin letters are fine, they are read as Russian
+
+   Letter tiles and typing used to be the top two rungs (box 3+ and box 5+). Danny didn't like
+   them and had both taken out (2026-10-27); typing is still there as "Type it only" in Settings.
 
    The scheduler is untouched: every format ends in the same resolve(ok), so a miss still
    drops the word to box 0 and it climbs the ladder again. "Multiple choice" and "Type it"
    in Settings still give the old single-format drill. */
-const LADDER_TILES_BOX = 3, LADDER_TYPE_BOX = 5, MATCH_MAX = 5;
+const MATCH_MAX = 5;
 const CHOICE_EX = ["choice","smart","listen"];
 function ttsReady(){ return ("speechSynthesis" in window) && !!ruVoice; }
 function easyEx(item){
@@ -3122,10 +3110,6 @@ function exerciseFor(item){
   if(mode==="type") return "type";
   const c=S.cards[item.id];
   if(item.isNew && item.firstTry && !(c&&c.introduced)) return "match";
-  if(!item.firstTry) return easyEx(item);          // a miss comes back in an easier format
-  const box=(c&&c.box)||0;
-  if(box>=LADDER_TYPE_BOX) return "type";
-  if(box>=LADDER_TILES_BOX) return "tiles";
   return easyEx(item);
 }
 
@@ -3211,52 +3195,6 @@ function skelClose(a,b){
   if(a.slice(-1)!==b.slice(-1)) return false;
   const tol = b.length<=4 ? 0 : (b.length>8 ? 2 : 1);
   return lev(a,b)<=tol;
-}
-
-/* ---- Letter tiles: build the word from its own letters plus a few decoys. A phrase is
-   built from word tiles instead. */
-let TILES=null;
-const DECOY_LETTERS="аеиоуыяюьйнтсрлкмвдпбзчшжгх";
-function tilesTarget(w){
-  return S.direction==="en-ru" ? stripStress(w.ru).toLowerCase() : glossParts(w.en)[0] || String(w.en).toLowerCase();
-}
-function buildTiles(w){
-  const target=tilesTarget(w);
-  let pieces, decoys=[];
-  if(target.includes(" ")){
-    pieces=target.split(/\s+/);
-    const others=shuffle(DECK.filter(x=>x.id!==w.id)).slice(0,30)
-      .map(x=>S.direction==="en-ru"? stripStress(x.ru).toLowerCase() : (glossParts(x.en)[0]||""))
-      .join(" ").split(/\s+/).filter(t=>t && !pieces.includes(t));
-    decoys=others.slice(0,2);
-  } else {
-    pieces=Array.from(target);
-    const pool = S.direction==="en-ru" ? DECOY_LETTERS : "aeioustnrlcdmhgpbwy";
-    const n = pieces.length>=4 ? 3 : 2;
-    for(let i=0;i<n;i++) decoys.push(pool[Math.floor(Math.random()*pool.length)]);
-  }
-  TILES={target, phrase:target.includes(" "), bank:shuffle(pieces.concat(decoys)).map(t=>({t,used:false})), built:[]};
-  renderTiles();
-}
-function tilesValue(){ return TILES ? TILES.built.map(i=>TILES.bank[i].t).join(TILES.phrase?" ":"") : ""; }
-function tilesCorrect(){ return !!TILES && norm(tilesValue())===norm(TILES.target); }
-function renderTiles(){
-  const built=$("tiles-built"), bank=$("tiles-bank"); if(!built||!TILES) return;
-  const locked = $("feedback").style.display==="block";
-  built.innerHTML=""; bank.innerHTML="";
-  TILES.built.forEach((bi,pos)=>{
-    const b=document.createElement("button"); b.className="tile"; b.textContent=TILES.bank[bi].t;
-    b.disabled=locked;
-    b.onclick=()=>{ TILES.bank[bi].used=false; TILES.built.splice(pos,1); renderTiles(); };
-    built.appendChild(b);
-  });
-  if(!TILES.built.length){ const s=document.createElement("span"); s.className="tiles-hint"; s.textContent="tap the tiles below"; built.appendChild(s); }
-  TILES.bank.forEach((tile,i)=>{
-    const b=document.createElement("button"); b.className="tile"+(tile.used?" used":""); b.textContent=tile.t;
-    b.disabled=locked||tile.used;
-    b.onclick=()=>{ if(tile.used) return; tile.used=true; TILES.built.push(i); renderTiles(); };
-    bank.appendChild(b);
-  });
 }
 
 /* ---- Meet the words + matching round, for brand-new words. */
@@ -3384,7 +3322,6 @@ const EX_LABEL={
   choice:   d=> d==="en-ru"?"Translate to Russian":"Translate to English",
   smart:    d=> d==="en-ru"?"Pick the Russian":"Pick the meaning",
   listen:   ()=>"Listen — what does it mean?",
-  tiles:    d=> d==="en-ru"?"Spell it in Russian":"Spell it in English",
   type:     d=> d==="en-ru"?"Type it in Russian":"Type it in English",
 };
 function renderCard(ex){
@@ -3410,8 +3347,7 @@ function renderCard(ex){
      "+ gen") used to sit here too, and the partner in particular gave the answer away — Danny's
      eye went to it whether he wanted it to or not (2026-10-22). It is shown, spelled out, on the
      feedback panel once the pick is scored, which is where it actually teaches something. */
-  $("prompt-sub").textContent = (cur.isNew? "🆕 new word · ":"") + w.pos
-    + (ex==="tiles"&&TILES_HINT(w) ? " · "+TILES_HINT(w) : "");
+  $("prompt-sub").textContent = (cur.isNew? "🆕 new word · ":"") + w.pos;
 
   $("answer").value=""; $("answer").disabled=false;
   $("answer").style.display = (ex==="type") ? "block" : "none";
@@ -3419,23 +3355,20 @@ function renderCard(ex){
   $("lat-preview").textContent="";
   $("lat-preview").style.display = (ex==="type" && dir==="en-ru") ? "block" : "none";
   $("choices").style.display = isChoice ? "flex" : "none";
-  $("tiles").style.display = ex==="tiles" ? "block" : "none";
   $("check").classList.toggle("hide", isChoice);
   $("reveal").classList.remove("hide");
   $("know-skip").classList.remove("hide");
   $("know-skip").onclick=()=>knowSkip();
   $("kbd-toggle").style.display = (ex==="type" && ladder && dir==="en-ru") ? "inline" : "none";
 
-  if(isChoice){ buildChoices(w, {smart: ex!=="choice", en: ex==="listen"}); $("kbd").style.display="none"; TILES=null; }
-  else if(ex==="tiles"){ $("choices").innerHTML=""; $("kbd").style.display="none"; buildTiles(w); }
+  if(isChoice){ buildChoices(w, {smart: ex!=="choice", en: ex==="listen"}); $("kbd").style.display="none"; }
   else {
-    $("choices").innerHTML=""; TILES=null;
+    $("choices").innerHTML="";
     if(ladder && !UIP.cyrKeys){ $("kbd").style.display="none"; } else updateKbd();
     $("answer").focus();
   }
   renderProgress();
 }
-function TILES_HINT(w){ const t=tilesTarget(w); return t.includes(" ")? t.split(/\s+/).length+" words" : t.length+" letters"; }
 
 function renderProgress(){
   const pct = sessionTotal? Math.round(sessionDone/sessionTotal*100):0;
@@ -3447,13 +3380,6 @@ function submit(gaveUp){
   if(!cur || $("feedback").style.display==="block") return;
   const w=DECK_BY_ID[cur.id];
   const ex=cur.ex||"type";
-  if(ex==="tiles"){
-    if(!gaveUp && TILES && !TILES.built.length) return;   // nothing built yet
-    cur.typed=tilesValue();
-    resolve(!gaveUp && tilesCorrect());
-    renderTiles();
-    return;
-  }
   cur.typed=$("answer").value;
   const ok = !gaveUp && gradeTyped(cur.typed, w);
   resolve(ok);

@@ -34,10 +34,10 @@ this repo — not from a local clone.** Two things follow, and both have already
   **Answer mode "Mixed" (the default since 2026-10-26) is an exercise ladder:** the format is
   chosen per word from its box (`exerciseFor()`), so each word gets harder until it can be
   produced cold — new words are met and then matched (one spare look-alike, so the last pair
-  is never free), box 0–2 alternates "hear it, pick the meaning" with look-alike multiple
-  choice (`smartDistractors()`), box `LADDER_TILES_BOX`+ is spelled from letter tiles, box
-  `LADDER_TYPE_BOX`+ is typed — Latin letters accepted (`gradeTyped()`, live Cyrillic preview).
-  A same-day miss comes back in an easier format. Every format scores through the same
+  is never free), and after that every word alternates "hear it, pick the meaning" with
+  look-alike multiple choice (`smartDistractors()`). Letter tiles (box 3+) and typing (box 5+)
+  were the top two rungs until 2026-10-27, when Danny had both taken out; typing remains only
+  as "Type it only" — Latin letters accepted (`gradeTyped()`, live Cyrillic preview). Every format scores through the same
   `resolve()`, so the scheduler is unchanged. "Multiple choice only" and "Type it only" remain.
 - **Lessons** — explain → practice → scored test (75% to pass). Units: Prepositional case,
   Accusative case, Verb aspect, Verbs of motion. A lesson carrying too much for one screen can

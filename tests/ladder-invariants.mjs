@@ -4,7 +4,8 @@
  * single-file app and run in a Node vm, so nothing here can drift from what ships.
  *
  * Covers:
- *   1. which exercise each word gets (new → match, misses → easier, box → tiles → typing)
+ *   1. which exercise each word gets (new → match, everything after → listening / look-alike
+ *      choice; letter tiles and typing were taken out of the ladder 2026-10-27)
  *   2. typing in Latin letters is graded as Russian — forgiving of spelling systems, strict
  *      enough that a different word does not pass
  *   3. look-alike wrong answers are really wrong and never repeat the right meaning
@@ -62,7 +63,7 @@ sandbox.window.speechSynthesis = {};
 vm.createContext(sandbox);
 vm.runInContext("var speechSynthesis={};", sandbox);
 vm.runInContext(
-  ["LADDER_TILES_BOX = 3, LADDER_TYPE_BOX = 5, MATCH_MAX = 5"].map(x => "var " + x + ";").join("\n") + "\n" +
+  ["MATCH_MAX = 5"].map(x => "var " + x + ";").join("\n") + "\n" +
   ["CHOICE_EX", "LAT_MULTI", "LAT_ONE", "CYR_SKEL"].map(extractConst).join("\n") + "\n" +
   ["shuffle", "norm", "lev", "grade", "glossParts", "choiceClash", "ttsReady", "easyEx", "exerciseFor",
    "stripStress", "lookScore", "smartDistractors", "latToCyr", "hasLatin", "cyrSkel", "latSkel", "gradeTyped", "skelClose"]
@@ -76,23 +77,21 @@ function ok(c, msg) { if (c) pass++; else { fail++; console.log("FAIL: " + msg);
 const run = code => vm.runInContext(code, sandbox);
 const ru = s => DECK.find(w => w.ru === s);
 
-// constants agree with the source
-const tilesBox = Number(/LADDER_TILES_BOX\s*=\s*(\d+)/.exec(src)[1]);
-const typeBox = Number(/LADDER_TYPE_BOX\s*=\s*(\d+)/.exec(src)[1]);
-run(`LADDER_TILES_BOX=${tilesBox}; LADDER_TYPE_BOX=${typeBox};`);
-ok(tilesBox < typeBox, "tiles come before typing on the ladder");
+// letter tiles are gone from the app entirely
+ok(!/LADDER_TILES_BOX|LADDER_TYPE_BOX|buildTiles|id="tiles"/.test(src), "no letter-tile exercise left in the app");
 
 /* ---- 1. the ladder */
 sandbox.S.cards = {};
 ok(run(`exerciseFor({id:1,isNew:true,firstTry:true})`) === "match", "a brand-new word is met and matched");
 sandbox.S.cards = { 1: { box: 0, introduced: true, reps: 3 } };
 ok(["listen", "smart"].includes(run(`exerciseFor({id:1,isNew:false,firstTry:true})`)), "box 0 gets an easy format");
-sandbox.S.cards = { 1: { box: tilesBox, introduced: true, reps: 3 } };
-ok(run(`exerciseFor({id:1,isNew:false,firstTry:true})`) === "tiles", "middling word is spelled from tiles");
-sandbox.S.cards = { 1: { box: typeBox, introduced: true, reps: 3 } };
-ok(run(`exerciseFor({id:1,isNew:false,firstTry:true})`) === "type", "strong word is typed");
-sandbox.S.cards = { 1: { box: 8, introduced: true, reps: 3 } };
-ok(run(`exerciseFor({id:1,isNew:false,firstTry:true})`) === "type", "top box is typed");
+for (let box = 0; box <= 10; box++) {
+  sandbox.S.cards = { 1: { box, introduced: true, reps: 3 }, 2: { box, introduced: true, reps: 4 } };
+  for (const id of [1, 2]) {
+    const ex = run(`exerciseFor({id:${id},isNew:false,firstTry:true})`);
+    ok(["listen", "smart"].includes(ex), `box ${box} gets listening or look-alike choice, never tiles or typing (got ${ex})`);
+  }
+}
 ok(["listen", "smart"].includes(run(`exerciseFor({id:1,isNew:false,firstTry:false})`)), "a miss comes back the same day in an easier format");
 sandbox.S.drillMode = "choice";
 ok(run(`exerciseFor({id:1,isNew:false,firstTry:true})`) === "choice", "'Multiple choice only' still means multiple choice");
@@ -170,7 +169,7 @@ ok(simSmart > simRand + 80, `look-alike options look more alike than random ones
 const resolveCalls = (src.match(/resolve\(/g) || []).length;
 ok(/function resolve\(ok, quiet\)/.test(src), "resolve() takes a quiet flag for the matching round");
 ok(/finishMatch[\s\S]{0,600}resolve\(r\.ok, true\)/.test(src), "matching scores each word through resolve()");
-ok(/tilesCorrect\(\)\);/.test(src) && /gradeTyped\(cur\.typed, w\)/.test(src), "tiles and typing score through resolve()");
+ok(/gradeTyped\(cur\.typed, w\)/.test(src), "typing (Type it only) scores through resolve()");
 ok(/drillMode:"ladder"/.test(extractFn("blank")), "a brand-new save starts on the ladder");
 
 /* ---- 5. the merge must not switch the ladder back off (2026-10-26).
