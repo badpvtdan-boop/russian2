@@ -1705,12 +1705,12 @@
       "lastReviewed": "2026-09-07"
     },
     "541": {
-      "box": 7,
-      "due": "2027-03-04",
+      "box": 8,
+      "due": "2027-10-28",
       "lapses": 0,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-24"
+      "lastReviewed": "2026-10-28"
     },
     "542": {
       "box": 8,
@@ -3353,12 +3353,12 @@
       "lastReviewed": "2026-10-24"
     },
     "747": {
-      "box": 4,
-      "due": "2026-11-11",
+      "box": 5,
+      "due": "2026-12-02",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-10-26"
+      "lastReviewed": "2026-10-28"
     },
     "748": {
       "box": 4,
@@ -6001,8 +6001,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 2,
-  "lastCompleted": "2026-10-27",
+  "streak": 3,
+  "lastCompleted": "2026-10-28",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6495,6 +6495,11 @@
     "2026-10-27": {
       "newDone": 5,
       "reviewDone": 40,
+      "studied": true
+    },
+    "2026-10-28": {
+      "newDone": 0,
+      "reviewDone": 0,
       "studied": true
     }
   },
@@ -7800,6 +7805,6 @@
     "shop",
     "hobby"
   ],
-  "lastPopQuiz": "2026-10-26",
+  "lastPopQuiz": "2026-10-28",
   "migv": 5
 }
