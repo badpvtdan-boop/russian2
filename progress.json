@@ -1033,12 +1033,12 @@
       "lastReviewed": "2026-10-03"
     },
     "130": {
-      "box": 7,
-      "due": "2027-02-24",
+      "box": 8,
+      "due": "2027-10-30",
       "lapses": 0,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-20"
+      "lastReviewed": "2026-10-30"
     },
     "131": {
       "box": 7,
@@ -2377,12 +2377,12 @@
       "lastReviewed": "2026-10-18"
     },
     "625": {
-      "box": 6,
-      "due": "2026-12-19",
+      "box": 7,
+      "due": "2027-04-08",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-10-05"
+      "lastReviewed": "2026-10-30"
     },
     "626": {
       "box": 6,
@@ -6081,8 +6081,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 4,
-  "lastCompleted": "2026-10-29",
+  "streak": 5,
+  "lastCompleted": "2026-10-30",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6586,6 +6586,11 @@
       "newDone": 5,
       "reviewDone": 40,
       "studied": true
+    },
+    "2026-10-30": {
+      "newDone": 0,
+      "reviewDone": 0,
+      "studied": true
     }
   },
   "duoLevel": null,
@@ -6982,12 +6987,12 @@
       "introduced": true
     },
     "case-map#10": {
-      "box": 5,
-      "due": "2026-10-25",
+      "box": 6,
+      "due": "2027-01-13",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-09-20"
+      "lastReviewed": "2026-10-30"
     },
     "case-map#11": {
       "box": 3,
@@ -7803,12 +7808,12 @@
       "lastReviewed": "2026-09-19"
     },
     "present-conj#11": {
-      "box": 2,
-      "due": "2026-10-15",
+      "box": 3,
+      "due": "2026-11-06",
       "lapses": 0,
-      "reps": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-10-12"
+      "lastReviewed": "2026-10-30"
     },
     "present-conj#2": {
       "box": 6,
@@ -7892,6 +7897,6 @@
     "shop",
     "hobby"
   ],
-  "lastPopQuiz": "2026-10-29",
+  "lastPopQuiz": "2026-10-30",
   "migv": 5
 }
