@@ -4825,12 +4825,12 @@
       "lastReviewed": "2026-10-13"
     },
     "931": {
-      "box": 6,
-      "due": "2026-12-23",
+      "box": 7,
+      "due": "2027-04-10",
       "lapses": 0,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-10-08"
+      "lastReviewed": "2026-11-01"
     },
     "932": {
       "box": 6,
@@ -7720,12 +7720,12 @@
       "lastReviewed": "2026-10-26"
     },
     "prep-case#10": {
-      "box": 4,
-      "due": "2026-10-26",
+      "box": 5,
+      "due": "2026-12-06",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-10-10"
+      "lastReviewed": "2026-11-01"
     },
     "prep-case#11": {
       "box": 6,
