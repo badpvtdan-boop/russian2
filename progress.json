@@ -2241,12 +2241,12 @@
       "lastReviewed": "2026-09-30"
     },
     "608": {
-      "box": 6,
-      "due": "2026-12-14",
+      "box": 7,
+      "due": "2027-04-13",
       "lapses": 1,
-      "reps": 8,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-09-30"
+      "lastReviewed": "2026-11-04"
     },
     "609": {
       "box": 7,
@@ -6081,8 +6081,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 9,
-  "lastCompleted": "2026-11-03",
+  "streak": 10,
+  "lastCompleted": "2026-11-04",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6610,6 +6610,11 @@
     "2026-11-03": {
       "newDone": 0,
       "reviewDone": 40,
+      "studied": true
+    },
+    "2026-11-04": {
+      "newDone": 0,
+      "reviewDone": 0,
       "studied": true
     }
   },
@@ -7245,10 +7250,11 @@
     },
     "instrumental#s0": {
       "box": 0,
-      "due": "2026-10-22",
-      "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "due": "2026-11-04",
+      "lapses": 1,
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-11-04"
     },
     "instrumental#s1": {
       "box": 0,
@@ -7773,11 +7779,11 @@
     },
     "prep-case#5": {
       "box": 0,
-      "due": "2026-10-23",
-      "lapses": 4,
-      "reps": 6,
+      "due": "2026-11-04",
+      "lapses": 5,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-10-23"
+      "lastReviewed": "2026-11-04"
     },
     "prep-case#6": {
       "box": 2,
@@ -7819,11 +7825,12 @@
       "lastReviewed": "2026-10-09"
     },
     "present-conj#1": {
-      "box": 1,
-      "due": "2026-07-20",
+      "box": 2,
+      "due": "2026-11-07",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-11-04"
     },
     "present-conj#10": {
       "box": 0,
@@ -7923,6 +7930,6 @@
     "shop",
     "hobby"
   ],
-  "lastPopQuiz": "2026-11-03",
+  "lastPopQuiz": "2026-11-04",
   "migv": 5
 }
