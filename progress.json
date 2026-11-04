@@ -770,11 +770,11 @@
     },
     "97": {
       "box": 8,
-      "due": "2027-10-04",
+      "due": "2027-11-04",
       "lapses": 0,
-      "reps": 8,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-10-04"
+      "lastReviewed": "2026-11-04"
     },
     "98": {
       "box": 7,
@@ -1130,11 +1130,11 @@
     },
     "416": {
       "box": 8,
-      "due": "2027-09-27",
+      "due": "2027-11-04",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-25"
+      "lastReviewed": "2026-11-04"
     },
     "429": {
       "box": 8,
@@ -1394,11 +1394,11 @@
     },
     "502": {
       "box": 8,
-      "due": "2027-10-05",
+      "due": "2027-11-04",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-10-05"
+      "lastReviewed": "2026-11-04"
     },
     "503": {
       "box": 8,
@@ -5185,12 +5185,12 @@
       "lastReviewed": "2026-11-03"
     },
     "976": {
-      "box": 1,
-      "due": "2026-10-30",
+      "box": 2,
+      "due": "2026-11-08",
       "lapses": 0,
-      "reps": 1,
+      "reps": 2,
       "introduced": true,
-      "lastReviewed": "2026-10-29"
+      "lastReviewed": "2026-11-04"
     },
     "977": {
       "box": 1,
@@ -5353,12 +5353,12 @@
       "lastReviewed": "2026-09-12"
     },
     "1035": {
-      "box": 5,
-      "due": "2026-11-15",
-      "lapses": 2,
-      "reps": 12,
+      "box": 4,
+      "due": "2026-11-04",
+      "lapses": 3,
+      "reps": 13,
       "introduced": true,
-      "lastReviewed": "2026-10-08"
+      "lastReviewed": "2026-11-04"
     },
     "1036": {
       "box": 7,
@@ -6614,7 +6614,7 @@
     },
     "2026-11-04": {
       "newDone": 0,
-      "reviewDone": 0,
+      "reviewDone": 1,
       "studied": true
     }
   },
@@ -6967,11 +6967,12 @@
       "introduced": true
     },
     "aspect-prefixes#6": {
-      "box": 2,
-      "due": "2026-08-02",
+      "box": 3,
+      "due": "2026-11-11",
       "lapses": 0,
-      "reps": 2,
-      "introduced": true
+      "reps": 3,
+      "introduced": true,
+      "lastReviewed": "2026-11-04"
     },
     "aspect-prefixes#7": {
       "box": 1,
