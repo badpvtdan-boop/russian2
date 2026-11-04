@@ -70,6 +70,11 @@
   /* exercise ladder */
   .lat-preview{font-family:var(--serif);font-size:20px;color:var(--muted);min-height:26px;margin-top:6px}
   .listen-big{font-size:22px;padding:16px 26px;font-weight:600}
+  .listen-row{display:flex;flex-wrap:nowrap;align-items:center;gap:8px}
+  .listen-show{font-size:15px;padding:12px 14px;white-space:nowrap}
+  .listen-word{font-size:38px;font-weight:600;margin-top:10px}
+  .listen-hint{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;font-size:12px;line-height:1.4;font-weight:400;color:var(--muted);margin-top:8px;letter-spacing:0}
+  @media (max-width:480px){ .listen-big{font-size:18px;padding:14px 14px;white-space:nowrap} .listen-show{font-size:14px;padding:12px 10px} }
   .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
   .match-col{display:flex;flex-direction:column;gap:8px;min-width:0}
   .match-btn{font-size:15px;text-align:left;padding:12px 12px;word-break:break-word}
@@ -298,8 +303,9 @@
   </div>
 
   <div id="done" class="card done hide">
-    <h2>Done for today ✅</h2>
+    <h2 id="done-title">Done for today ✅</h2>
     <p class="muted" id="done-msg"></p>
+    <button class="primary hide" id="done-more" style="margin-bottom:10px"></button>
     <button class="ghost" id="practice-more" title="Extra practice beyond today's plan — this deliberately goes past the daily 10 new / 20 review caps.">Extra practice (past today's plan)</button>
   </div>
 
@@ -407,7 +413,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-10-27.1</b> · the letter-tile and typing exercises are gone from the daily drill — once a word is past matching it gets “hear it, pick the meaning” or look-alike multiple choice, however well you know it. (Typing is still there if you pick “Type it only” in Settings.) · <br>Before that (2026-10-26.2): · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-11-04.1</b> · the “Listen — what does it mean?” card has a 👁 Show word button next to Play again: it shows the Russian so you can answer by reading. It isn't a miss, but it doesn't count as hearing the word, so that word comes back as a listening card. If the sound fails to play the word is shown for you, and on a phone tapping Play again reminds you to check the silent switch. · <br>Before that (2026-10-28.1): · when clearing your reviews frees up the day’s new words, the drill now offers them (“Learn today’s 5 new words →”) instead of saying “Done for today”, and Home points to them before the next lesson. · <br>Before that (2026-10-27.1): · the letter-tile and typing exercises are gone from the daily drill — once a word is past matching it gets “hear it, pick the meaning” or look-alike multiple choice, however well you know it. (Typing is still there if you pick “Type it only” in Settings.) · <br>Before that (2026-10-26.2): · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -2972,13 +2978,27 @@ function refreshVoices(){
   }
 }
 if("speechSynthesis" in window){ refreshVoices(); speechSynthesis.onvoiceschanged=refreshVoices; }
-function speak(text){
-  if(!("speechSynthesis" in window))return;
+/* o.onFail (optional) is called if the sound clearly never played: no speech engine, the engine
+   reports an error, or nothing has started a few seconds later. iPhone's silent switch is NOT
+   caught by this — speech "plays" with no sound and reports success — which is why the listening
+   card also shows a "check silent mode" line on phones (2026-11-04). */
+let speakSeq=0;
+function speak(text, o){
+  if(!("speechSynthesis" in window)){ if(o&&o.onFail) o.onFail(); return; }
   speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
   u.lang="ru-RU"; if(ruVoice)u.voice=ruVoice; u.rate=0.9;
-  speechSynthesis.speak(u);
+  const seq=++speakSeq;   // only the latest utterance may report a failure — Play again cancels the one before
+  if(o&&o.onFail){
+    let started=false, failed=false;
+    const fail=()=>{ if(!failed && seq===speakSeq){ failed=true; o.onFail(); } };
+    u.onstart=()=>{ started=true; };
+    u.onerror=e=>{ if(e && (e.error==="canceled"||e.error==="interrupted")) return; fail(); };
+    setTimeout(()=>{ if(!started) fail(); }, 4000);
+  }
+  try{ speechSynthesis.speak(u); }catch(e){ if(o&&o.onFail) o.onFail(); }
 }
+const IS_PHONE = (()=>{ try{ return matchMedia("(pointer: coarse)").matches; }catch(e){ return false; } })();
 
 /* ---------------- Session flow ---------------- */
 let queue=[], cur=null, sessionTotal=0, sessionDone=0;
@@ -3102,6 +3122,9 @@ const CHOICE_EX = ["choice","smart","listen"];
 function ttsReady(){ return ("speechSynthesis" in window) && !!ruVoice; }
 function easyEx(item){
   const c=S.cards[item.id]; const n=item.id+((c&&c.reps)||0);
+  /* Read instead of heard last time ("Show word", or the sound failed) — the listening part is
+     still owed, so it comes back as a listening card until one is answered by ear. */
+  if(c && c.listenOwed && ttsReady()) return "listen";
   return (ttsReady() && n%2===0) ? "listen" : "smart";
 }
 function exerciseFor(item){
@@ -3333,10 +3356,20 @@ function renderCard(ex){
   const ladder=(S.drillMode||"ladder")==="ladder";
   $("dir-label").textContent=(EX_LABEL[ex]||EX_LABEL.choice)(dir);
   if(ex==="listen"){
-    $("prompt").innerHTML='<button class="listen-big" id="listen-play" title="Play again">🔊 Play again</button>';
-    $("listen-play").onclick=()=>speak(w.ru);
+    cur.shown=false;
+    $("prompt").innerHTML='<div class="listen-row"><button class="listen-big" id="listen-play" title="Play again">🔊 Play again</button>'
+      +'<button class="ghost listen-show" id="listen-show" title="Read it instead — the word comes back later to hear again">👁 Show word</button></div>'
+      +'<div class="listen-word hide" id="listen-word"></div>'
+      +'<div class="listen-hint hide" id="listen-hint"></div>';
+    const item=cur;
+    const failed=()=>{ if(cur===item && $("feedback").style.display!=="block") showListenWord("The sound didn't play, so here's the word to read."); };
+    $("listen-play").onclick=()=>{
+      if(IS_PHONE && !cur.shown) listenHint("No sound? Check that your phone isn't on silent.");
+      speak(w.ru, {onFail:failed});
+    };
+    $("listen-show").onclick=()=>showListenWord();
     $("audio").style.visibility="hidden";
-    speak(w.ru);
+    speak(w.ru, {onFail:failed});
   } else {
     $("prompt").textContent = dir==="en-ru" ? w.en : w.ru;
     /* In English→Russian the speaker would read the answer aloud — so it waits for the
@@ -3370,6 +3403,24 @@ function renderCard(ex){
   renderProgress();
 }
 
+/* Listening fallbacks (2026-11-04). Showing the word turns this into a reading card: it is
+   scored exactly like any other card (box, due date, streak — every format goes through the
+   same resolve()), it is NOT a miss, but it doesn't count as hearing the word either, so the
+   word is marked listenOwed and comes back as a listening card next time. listenOwed lives on
+   the word's card, and mergeStates() carries whole cards, so it travels between devices. */
+function listenHint(text){
+  const h=$("listen-hint"); if(!h) return;
+  h.textContent=text; h.classList.remove("hide");
+}
+function showListenWord(why){
+  if(!cur || cur.ex!=="listen") return;
+  const el=$("listen-word"); if(!el) return;
+  cur.shown=true;
+  el.textContent=DECK_BY_ID[cur.id].ru; el.classList.remove("hide");
+  const b=$("listen-show"); if(b) b.classList.add("hide");
+  if(why) listenHint(why); else { const h=$("listen-hint"); if(h) h.classList.add("hide"); }
+}
+
 function renderProgress(){
   const pct = sessionTotal? Math.round(sessionDone/sessionTotal*100):0;
   $("progbar").style.width=pct+"%";
@@ -3391,6 +3442,10 @@ function resolve(ok, quiet){   // quiet: a matching round scores several words, 
   const c=card(cur.id);
   c.reps++;
   c.lastReviewed=today();   // local YYYY-MM-DD; a review happened (correct or not)
+  if(cur.ex==="listen"){
+    if(cur.shown) c.listenOwed=true;          // read, not heard — the listening is still owed
+    else if(ok) delete c.listenOwed;          // heard it and got it — paid
+  }
   if(ok){
     // advance
     /* Log this card ONCE. A missed new word is introduced (and logged as new) on the miss,
@@ -3435,7 +3490,9 @@ function showFeedback(ok,w){
   const f=$("feedback");
   f.className="feedback "+(ok?"correct":"wrong");
   f.style.display="block";
-  $("verdict").textContent = ok ? "✓ Correct" : "✗ Not quite — you'll see it again";
+  const readIt = cur && cur.ex==="listen" && cur.shown;
+  $("verdict").textContent = ok ? (readIt ? "✓ Correct — you read it this time, so it'll come back to hear" : "✓ Correct")
+                                : "✗ Not quite — you'll see it again";
   $("fb-ru").textContent = w.ru;
   $("fb-en").textContent = w.en+" · "+w.pos+(w.note? " · "+noteLabel(w.note) : "");
   $("fb-ex").textContent = w.ex;
@@ -3474,13 +3531,35 @@ function creditStudyDay(){
 function finishSession(){
   $("drill").classList.add("hide");
   $("done").classList.remove("hide");
-  // streak is now credited per-item in logDay(); here we just show today's count
+  renderDone();
+  refreshBadges(); updateBanner();
+  if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
+}
+
+/* The done screen re-checks what's owed every time it is shown. New words are held back while
+   more than BACKLOG_PAUSE_NEW reviews are due, so clearing the day's reviews can OPEN that gate
+   mid-day — the banner would then say "Owed today: 5 new" over a "Done for today" card with no
+   way to start them (2026-10-28). Now the card says so and offers the button. */
+function renderDone(){
   const t=today();
   const l=S.dailyLog[t];
   const done = l? (l.newDone+l.reviewDone):0;
-  $("done-msg").textContent = `You cleared ${done} card${done===1?"":"s"} today. Come back tomorrow — reviews will be waiting.`;
-  refreshBadges(); updateBanner();
-  if(typeof GH!=="undefined" && GH.autoSave && ghConfigured()) ghSave(true);
+  const o=owedToday();
+  const btn=$("done-more");
+  if(o.new>0 || o.rev>0){
+    const parts=[]; if(o.rev>0) parts.push(o.rev+" review"+(o.rev===1?"":"s")); if(o.new>0) parts.push(o.new+" new word"+(o.new===1?"":"s"));
+    $("done-title").textContent="Nice — there's more for today";
+    $("done-msg").textContent=`You cleared ${done} card${done===1?"":"s"}. ` + (o.rev===0&&o.new>0
+      ? `Your review pile is small enough now, so today's new words are ready.`
+      : `Still owed today: ${parts.join(" + ")}.`);
+    btn.textContent = o.rev===0 ? `Learn today's ${o.new} new word${o.new===1?"":"s"} →` : `Keep going (${parts.join(" + ")}) →`;
+    btn.onclick=()=>startSession(false);
+    btn.classList.remove("hide");
+  } else {
+    $("done-title").textContent="Done for today ✅";
+    $("done-msg").textContent = `You cleared ${done} card${done===1?"":"s"} today. Come back tomorrow — reviews will be waiting.`;
+    btn.classList.add("hide");
+  }
 }
 
 /* ---------------- Badges / banner / level ---------------- */
@@ -5767,6 +5846,11 @@ function nextAction(){
   if(o.rev>0) return {title:`Review ${o.rev} word${o.rev>1?"s":""} due today`,
     sub:"Lock in what you've already met before adding more.", cta:"Start review →", run:()=>goDrill(false)};
 
+  /* Words owed today come first even when the path's next step is a lesson — the banner says
+     they're owed, so Home has to offer them too (it used to jump straight to the lesson). */
+  if(o.new>0 && !(step && step.type==="words")) return {title:`Learn today's ${o.new} new words`,
+    sub:"Your reviews are done — new words first, then the next lesson.", cta:"Start drill →", run:()=>goDrill(false)};
+
   if(step && step.type==="words"){
     if(o.new>0) return {title:`Learn today's ${o.new} new words`,
       sub:`${step.title} — ${introducedCount()}/${step.target} met · ${knownCount()} known so far.`, cta:"Start drill →", run:()=>goDrill(false)};
@@ -5888,7 +5972,7 @@ function showView(v){
   if(v==="home") renderHome();
   if(v==="lessons") renderLessons();
   if(v==="exam") renderExams();
-  if(v==="drill"){ renderDeckPicker(); renderGrammarCard(); }
+  if(v==="drill"){ renderDeckPicker(); renderGrammarCard(); if(!$("done").classList.contains("hide")) renderDone(); updateBanner(); }
 }
 $("tab-home").onclick=()=>showView("home");
 $("tab-drill").onclick=()=>showView("drill");

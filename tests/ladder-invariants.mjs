@@ -106,6 +106,28 @@ const noVoice = new Set(); for (let id = 1; id < 30; id++) { sandbox.S.cards = {
 ok(!noVoice.has("listen"), "no Russian voice on the device → never a listening question");
 run("ruVoice={name:'test'};");
 
+/* ---- 1b. listening fallbacks (2026-11-04): "Show word" makes it a reading card — scored like
+   any other card, not a miss, but the listening is still owed, so the word comes back to hear. */
+sandbox.S.drillMode = "ladder";
+let owedListen = 0, owedTotal = 0;
+for (let id = 1; id < 30; id++) {
+  sandbox.S.cards = { [id]: { box: 2, introduced: true, reps: 0, listenOwed: true } };
+  owedTotal++; if (run(`exerciseFor({id:${id},isNew:false,firstTry:true})`) === "listen") owedListen++;
+}
+ok(owedListen === owedTotal, `a word read instead of heard always comes back as a listening card (${owedListen}/${owedTotal})`);
+run("ruVoice=null;");
+sandbox.S.cards = { 4: { box: 2, introduced: true, reps: 0, listenOwed: true } };
+ok(run(`exerciseFor({id:4,isNew:false,firstTry:true})`) === "smart", "...but never when the device has no Russian voice");
+run("ruVoice={name:'test'};");
+const resolveSrc = extractFn("resolve");
+ok(/cur\.shown\) c\.listenOwed=true/.test(resolveSrc), "resolve() marks a shown listening card as still owed");
+ok(/else if\(ok\) delete c\.listenOwed/.test(resolveSrc), "resolve() clears it once the word is heard and answered right");
+ok(resolveSrc.indexOf("listenOwed") < resolveSrc.indexOf("if(ok){"), "showing the word changes nothing else — the same box/due scoring follows");
+ok(!/shown[\s\S]{0,40}c\.box/.test(resolveSrc), "showing the word never touches the box (it is not a miss)");
+ok(/id="listen-show"/.test(src) && /id="listen-hint"/.test(src), "the listening card has Show word and a hint line");
+ok(/IS_PHONE && !cur\.shown\) listenHint/.test(src), "the silent-mode reminder is phone-only");
+ok(/speak\(w\.ru, \{onFail:failed\}\)/.test(src), "a sound that fails to play shows the word");
+
 /* ---- 2. Latin typing */
 sandbox.S.direction = "en-ru";
 const accept = [

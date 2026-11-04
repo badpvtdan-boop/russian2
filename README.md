@@ -38,7 +38,7 @@ this repo — not from a local clone.** Two things follow, and both have already
   look-alike multiple choice (`smartDistractors()`). Letter tiles (box 3+) and typing (box 5+)
   were the top two rungs until 2026-10-27, when Danny had both taken out; typing remains only
   as "Type it only" — Latin letters accepted (`gradeTyped()`, live Cyrillic preview). Every format scores through the same
-  `resolve()`, so the scheduler is unchanged. "Multiple choice only" and "Type it only" remain.
+  `resolve()`, so the scheduler is unchanged. The listening card has a **Show word** fallback (and shows the word itself if the sound fails; on phones, Play again reminds you about the silent switch): a shown card scores normally but sets `listenOwed`, so the word comes back as a listening card until it is heard and answered. "Multiple choice only" and "Type it only" remain.
 - **Lessons** — explain → practice → scored test (75% to pass). Units: Prepositional case,
   Accusative case, Verb aspect, Verbs of motion. A lesson carrying too much for one screen can
   instead declare `steps`: a sequence of one-idea chunks, each immediately practising the point
