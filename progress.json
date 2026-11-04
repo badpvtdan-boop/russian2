@@ -2289,12 +2289,12 @@
       "lastReviewed": "2026-09-21"
     },
     "614": {
-      "box": 3,
-      "due": "2026-10-30",
+      "box": 4,
+      "due": "2026-11-21",
       "lapses": 6,
-      "reps": 24,
+      "reps": 25,
       "introduced": true,
-      "lastReviewed": "2026-10-22"
+      "lastReviewed": "2026-11-04"
     },
     "615": {
       "box": 6,
@@ -6614,7 +6614,7 @@
     },
     "2026-11-04": {
       "newDone": 0,
-      "reviewDone": 9,
+      "reviewDone": 10,
       "studied": true
     }
   },
