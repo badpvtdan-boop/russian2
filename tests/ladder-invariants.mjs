@@ -127,6 +127,7 @@ ok(!/shown[\s\S]{0,40}c\.box/.test(resolveSrc), "showing the word never touches 
 ok(/id="listen-show"/.test(src) && /id="listen-hint"/.test(src), "the listening card has Show word and a hint line");
 ok(/IS_PHONE && !cur\.shown\) listenHint/.test(src), "the silent-mode reminder is phone-only");
 ok(/speak\(w\.ru, \{onFail:failed\}\)/.test(src), "a sound that fails to play shows the word");
+ok(!/setTimeout/.test(extractFn("speak")), "no timer in speak(): iPhone never fires onstart, so a timer revealed the word on every slow answer (2026-11-05)");
 
 /* ---- 2. Latin typing */
 sandbox.S.direction = "en-ru";
