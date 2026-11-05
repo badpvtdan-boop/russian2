@@ -834,11 +834,11 @@
     },
     "105": {
       "box": 8,
-      "due": "2027-10-08",
+      "due": "2027-11-05",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-08"
+      "lastReviewed": "2026-11-05"
     },
     "106": {
       "box": 8,
@@ -2889,12 +2889,12 @@
       "lastReviewed": "2026-10-21"
     },
     "689": {
-      "box": 5,
-      "due": "2026-11-03",
+      "box": 6,
+      "due": "2027-01-19",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-09-26"
+      "lastReviewed": "2026-11-05"
     },
     "690": {
       "box": 6,
@@ -3001,12 +3001,12 @@
       "lastReviewed": "2026-10-26"
     },
     "703": {
-      "box": 5,
-      "due": "2026-11-05",
+      "box": 6,
+      "due": "2027-01-19",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-09-29"
+      "lastReviewed": "2026-11-05"
     },
     "704": {
       "box": 5,
@@ -3201,12 +3201,12 @@
       "lastReviewed": "2026-10-19"
     },
     "728": {
-      "box": 4,
-      "due": "2026-11-10",
+      "box": 5,
+      "due": "2026-12-10",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-10-23"
+      "lastReviewed": "2026-11-05"
     },
     "729": {
       "box": 4,
@@ -6081,8 +6081,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 10,
-  "lastCompleted": "2026-11-04",
+  "streak": 11,
+  "lastCompleted": "2026-11-05",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6615,6 +6615,11 @@
     "2026-11-04": {
       "newDone": 0,
       "reviewDone": 18,
+      "studied": true
+    },
+    "2026-11-05": {
+      "newDone": 0,
+      "reviewDone": 0,
       "studied": true
     }
   },
@@ -7867,11 +7872,11 @@
     },
     "present-conj#4": {
       "box": 0,
-      "due": "2026-10-22",
-      "lapses": 1,
-      "reps": 2,
+      "due": "2026-11-05",
+      "lapses": 2,
+      "reps": 3,
       "introduced": true,
-      "lastReviewed": "2026-10-22"
+      "lastReviewed": "2026-11-05"
     },
     "present-conj#5": {
       "box": 3,
