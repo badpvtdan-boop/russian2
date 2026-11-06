@@ -2177,12 +2177,12 @@
       "lastReviewed": "2026-11-05"
     },
     "600": {
-      "box": 6,
-      "due": "2026-11-28",
+      "box": 7,
+      "due": "2027-04-15",
       "lapses": 0,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-09-12"
+      "lastReviewed": "2026-11-06"
     },
     "601": {
       "box": 6,
