@@ -4035,12 +4035,13 @@
       "lastReviewed": "2026-10-26"
     },
     "832": {
-      "box": 3,
-      "due": "2026-11-02",
+      "box": 4,
+      "due": "2026-11-23",
       "lapses": 2,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-10-26"
+      "lastReviewed": "2026-11-06",
+      "listenOwed": true
     },
     "833": {
       "box": 3,
@@ -6629,7 +6630,7 @@
     },
     "2026-11-06": {
       "newDone": 0,
-      "reviewDone": 15,
+      "reviewDone": 16,
       "studied": true
     }
   },
