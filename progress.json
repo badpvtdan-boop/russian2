@@ -4310,12 +4310,12 @@
       "lastReviewed": "2026-11-06"
     },
     "866": {
-      "box": 5,
-      "due": "2026-11-03",
+      "box": 6,
+      "due": "2027-01-24",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-09-26"
+      "lastReviewed": "2026-11-07"
     },
     "867": {
       "box": 6,
@@ -6637,7 +6637,7 @@
     },
     "2026-11-07": {
       "newDone": 0,
-      "reviewDone": 7,
+      "reviewDone": 8,
       "studied": true
     }
   },
