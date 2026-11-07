@@ -6072,12 +6072,12 @@
       "lastReviewed": "2026-10-08"
     },
     "1124": {
-      "box": 2,
-      "due": "2026-11-03",
-      "lapses": 11,
-      "reps": 25,
+      "box": 0,
+      "due": "2026-11-07",
+      "lapses": 12,
+      "reps": 26,
       "introduced": true,
-      "lastReviewed": "2026-10-30"
+      "lastReviewed": "2026-11-07"
     },
     "2005": {
       "box": 8,
