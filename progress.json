@@ -7365,11 +7365,11 @@
     },
     "meaning-prefixes#6": {
       "box": 0,
-      "due": "2026-11-01",
-      "lapses": 1,
-      "reps": 1,
+      "due": "2026-11-09",
+      "lapses": 2,
+      "reps": 2,
       "introduced": true,
-      "lastReviewed": "2026-11-01"
+      "lastReviewed": "2026-11-09"
     },
     "meaning-prefixes#7": {
       "box": 0,
