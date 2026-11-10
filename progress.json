@@ -7226,11 +7226,12 @@
       "lastReviewed": "2026-10-04"
     },
     "instrumental#0": {
-      "box": 0,
-      "due": "2026-10-22",
+      "box": 1,
+      "due": "2026-11-11",
       "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-11-10"
     },
     "instrumental#1": {
       "box": 0,
