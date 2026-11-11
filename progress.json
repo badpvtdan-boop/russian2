@@ -2738,12 +2738,12 @@
       "lastReviewed": "2026-10-22"
     },
     "670": {
-      "box": 7,
-      "due": "2027-03-28",
+      "box": 8,
+      "due": "2027-11-11",
       "lapses": 1,
-      "reps": 8,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-10-19"
+      "lastReviewed": "2026-11-11"
     },
     "671": {
       "box": 6,
@@ -6952,11 +6952,11 @@
     },
     "aspect#9": {
       "box": 0,
-      "due": "2026-10-07",
-      "lapses": 2,
-      "reps": 3,
+      "due": "2026-11-11",
+      "lapses": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-10-07"
+      "lastReviewed": "2026-11-11"
     },
     "aspect-prefixes#0": {
       "box": 2,
