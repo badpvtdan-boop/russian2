@@ -4243,12 +4243,12 @@
       "lastReviewed": "2026-09-04"
     },
     "857": {
-      "box": 6,
-      "due": "2026-12-30",
+      "box": 7,
+      "due": "2027-04-20",
       "lapses": 0,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-10-16"
+      "lastReviewed": "2026-11-11"
     },
     "858": {
       "box": 4,
@@ -4973,12 +4973,12 @@
       "lastReviewed": "2026-10-11"
     },
     "948": {
-      "box": 5,
-      "due": "2026-11-29",
+      "box": 6,
+      "due": "2027-01-25",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-10-22"
+      "lastReviewed": "2026-11-11"
     },
     "949": {
       "box": 6,
@@ -5608,12 +5608,12 @@
       "lastReviewed": "2026-10-28"
     },
     "1065": {
-      "box": 3,
-      "due": "2026-11-10",
+      "box": 4,
+      "due": "2026-11-27",
       "lapses": 5,
-      "reps": 17,
+      "reps": 18,
       "introduced": true,
-      "lastReviewed": "2026-11-03"
+      "lastReviewed": "2026-11-11"
     },
     "1066": {
       "box": 2,
@@ -7625,11 +7625,12 @@
       "lastReviewed": "2026-10-12"
     },
     "noun-gender#2": {
-      "box": 1,
-      "due": "2026-07-20",
+      "box": 2,
+      "due": "2026-11-14",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-11-11"
     },
     "noun-gender#3": {
       "box": 5,
