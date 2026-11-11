@@ -2347,11 +2347,11 @@
     },
     "621": {
       "box": 8,
-      "due": "2027-10-09",
+      "due": "2027-11-11",
       "lapses": 1,
-      "reps": 9,
+      "reps": 10,
       "introduced": true,
-      "lastReviewed": "2026-10-09"
+      "lastReviewed": "2026-11-11"
     },
     "622": {
       "box": 1,
@@ -6096,8 +6096,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 16,
-  "lastCompleted": "2026-11-10",
+  "streak": 17,
+  "lastCompleted": "2026-11-11",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6660,6 +6660,11 @@
     "2026-11-10": {
       "newDone": 0,
       "reviewDone": 10,
+      "studied": true
+    },
+    "2026-11-11": {
+      "newDone": 0,
+      "reviewDone": 0,
       "studied": true
     }
   },
@@ -7330,11 +7335,12 @@
       "lastReviewed": "2026-11-02"
     },
     "instrumental#s4": {
-      "box": 0,
-      "due": "2026-10-22",
+      "box": 1,
+      "due": "2026-11-12",
       "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-11-11"
     },
     "meaning-prefixes#0": {
       "box": 0,
@@ -7982,6 +7988,6 @@
     "shop",
     "hobby"
   ],
-  "lastPopQuiz": "2026-11-10",
+  "lastPopQuiz": "2026-11-11",
   "migv": 5
 }
