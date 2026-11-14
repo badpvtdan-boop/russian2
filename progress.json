@@ -3984,12 +3984,12 @@
       "lastReviewed": "2026-10-18"
     },
     "825": {
-      "box": 3,
-      "due": "2026-11-12",
+      "box": 4,
+      "due": "2026-11-30",
       "lapses": 12,
-      "reps": 28,
+      "reps": 29,
       "introduced": true,
-      "lastReviewed": "2026-11-05"
+      "lastReviewed": "2026-11-14"
     },
     "826": {
       "box": 3,
@@ -6881,12 +6881,12 @@
       "lastReviewed": "2026-10-17"
     },
     "aspect#1": {
-      "box": 5,
-      "due": "2026-11-01",
+      "box": 6,
+      "due": "2027-01-28",
       "lapses": 1,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-09-27"
+      "lastReviewed": "2026-11-14"
     },
     "aspect#10": {
       "box": 1,
@@ -7330,11 +7330,12 @@
       "introduced": true
     },
     "instrumental#s2": {
-      "box": 0,
-      "due": "2026-10-22",
+      "box": 1,
+      "due": "2026-11-15",
       "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-11-14"
     },
     "instrumental#s3": {
       "box": 0,
