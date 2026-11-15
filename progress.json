@@ -6096,8 +6096,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 2,
-  "lastCompleted": "2026-11-14",
+  "streak": 3,
+  "lastCompleted": "2026-11-15",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6676,6 +6676,11 @@
       "newDone": 0,
       "reviewDone": 0,
       "studied": true
+    },
+    "2026-11-15": {
+      "newDone": 0,
+      "reviewDone": 0,
+      "studied": true
     }
   },
   "duoLevel": null,
@@ -6999,11 +7004,12 @@
       "lastReviewed": "2026-10-19"
     },
     "aspect-prefixes#2": {
-      "box": 1,
-      "due": "2026-07-24",
+      "box": 2,
+      "due": "2026-11-18",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-11-15"
     },
     "aspect-prefixes#3": {
       "box": 1,
@@ -8000,6 +8006,6 @@
     "shop",
     "hobby"
   ],
-  "lastPopQuiz": "2026-11-14",
+  "lastPopQuiz": "2026-11-15",
   "migv": 5
 }
