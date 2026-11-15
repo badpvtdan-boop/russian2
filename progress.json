@@ -1579,11 +1579,11 @@
     },
     "525": {
       "box": 8,
-      "due": "2027-10-05",
+      "due": "2027-11-15",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-10-05"
+      "lastReviewed": "2026-11-15"
     },
     "526": {
       "box": 8,
@@ -3325,12 +3325,12 @@
       "lastReviewed": "2026-11-03"
     },
     "743": {
-      "box": 3,
-      "due": "2026-11-17",
+      "box": 4,
+      "due": "2026-12-01",
       "lapses": 5,
-      "reps": 14,
+      "reps": 15,
       "introduced": true,
-      "lastReviewed": "2026-11-10"
+      "lastReviewed": "2026-11-15"
     },
     "744": {
       "box": 4,
@@ -5777,11 +5777,11 @@
     },
     "1086": {
       "box": 8,
-      "due": "2027-10-29",
+      "due": "2027-11-15",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-10-29"
+      "lastReviewed": "2026-11-15"
     },
     "1087": {
       "box": 8,
@@ -7445,11 +7445,12 @@
       "introduced": true
     },
     "meaning-prefixes#s4": {
-      "box": 0,
-      "due": "2026-10-23",
+      "box": 1,
+      "due": "2026-11-16",
       "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-11-15"
     },
     "meaning-prefixes-amount#0": {
       "box": 0,
