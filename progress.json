@@ -3600,12 +3600,12 @@
       "lastReviewed": "2026-11-07"
     },
     "776": {
-      "box": 4,
-      "due": "2026-11-12",
+      "box": 5,
+      "due": "2026-12-21",
       "lapses": 1,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-28"
+      "lastReviewed": "2026-11-16"
     },
     "777": {
       "box": 4,
@@ -7323,11 +7323,12 @@
       "lastReviewed": "2026-11-05"
     },
     "instrumental#5": {
-      "box": 0,
-      "due": "2026-10-22",
+      "box": 1,
+      "due": "2026-11-17",
       "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-11-16"
     },
     "instrumental#6": {
       "box": 0,
