@@ -3861,12 +3861,12 @@
       "lastReviewed": "2026-10-08"
     },
     "808": {
-      "box": 6,
-      "due": "2027-01-07",
+      "box": 7,
+      "due": "2027-04-26",
       "lapses": 0,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-10-24"
+      "lastReviewed": "2026-11-17"
     },
     "809": {
       "box": 8,
@@ -7079,11 +7079,12 @@
       "lastReviewed": "2026-11-04"
     },
     "aspect-prefixes#7": {
-      "box": 1,
-      "due": "2026-07-24",
+      "box": 2,
+      "due": "2026-11-20",
       "lapses": 0,
-      "reps": 1,
-      "introduced": true
+      "reps": 2,
+      "introduced": true,
+      "lastReviewed": "2026-11-17"
     },
     "aspect-prefixes#8": {
       "box": 3,
