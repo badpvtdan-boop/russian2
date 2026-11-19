@@ -5185,12 +5185,13 @@
       "lastReviewed": "2026-11-07"
     },
     "970": {
-      "box": 1,
-      "due": "2026-11-08",
-      "lapses": 1,
-      "reps": 4,
+      "box": 0,
+      "due": "2026-11-18",
+      "lapses": 2,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-11-07"
+      "lastReviewed": "2026-11-18",
+      "listenOwed": true
     },
     "971": {
       "box": 3,
