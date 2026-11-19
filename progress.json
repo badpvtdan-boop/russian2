@@ -3707,20 +3707,21 @@
       "listenOwed": true
     },
     "788": {
-      "box": 1,
-      "due": "2026-11-08",
+      "box": 2,
+      "due": "2026-11-21",
       "lapses": 8,
-      "reps": 15,
+      "reps": 16,
       "introduced": true,
-      "lastReviewed": "2026-11-07"
+      "lastReviewed": "2026-11-18"
     },
     "789": {
-      "box": 1,
-      "due": "2026-11-08",
+      "box": 2,
+      "due": "2026-11-20",
       "lapses": 6,
-      "reps": 11,
+      "reps": 12,
       "introduced": true,
-      "lastReviewed": "2026-11-07"
+      "lastReviewed": "2026-11-18",
+      "listenOwed": true
     },
     "790": {
       "box": 5,
@@ -6732,7 +6733,7 @@
     },
     "2026-11-18": {
       "newDone": 0,
-      "reviewDone": 20,
+      "reviewDone": 22,
       "studied": true
     }
   },
