@@ -201,10 +201,10 @@
       "lastReviewed": "2026-09-19"
     },
     "26": {
-      "box": 0,
-      "due": "2026-11-18",
+      "box": 1,
+      "due": "2026-11-19",
       "lapses": 18,
-      "reps": 47,
+      "reps": 48,
       "introduced": true,
       "lastReviewed": "2026-11-18",
       "listenOwed": true
@@ -6746,7 +6746,7 @@
     },
     "2026-11-18": {
       "newDone": 0,
-      "reviewDone": 39,
+      "reviewDone": 40,
       "studied": true
     }
   },
