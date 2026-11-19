@@ -2490,12 +2490,12 @@
       "lastReviewed": "2026-10-23"
     },
     "639": {
-      "box": 1,
-      "due": "2026-11-08",
-      "lapses": 31,
-      "reps": 58,
+      "box": 0,
+      "due": "2026-11-18",
+      "lapses": 32,
+      "reps": 59,
       "introduced": true,
-      "lastReviewed": "2026-11-07"
+      "lastReviewed": "2026-11-18"
     },
     "640": {
       "box": 2,
