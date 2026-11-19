@@ -458,11 +458,11 @@
     },
     "58": {
       "box": 8,
-      "due": "2027-09-26",
+      "due": "2027-11-18",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-09-23"
+      "lastReviewed": "2026-11-18"
     },
     "59": {
       "box": 8,
@@ -4786,12 +4786,12 @@
       "lastReviewed": "2026-10-26"
     },
     "922": {
-      "box": 5,
-      "due": "2026-11-13",
+      "box": 6,
+      "due": "2027-02-01",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-06"
+      "lastReviewed": "2026-11-18"
     },
     "923": {
       "box": 5,
@@ -6927,12 +6927,12 @@
       "lastReviewed": "2026-10-17"
     },
     "aspect#1": {
-      "box": 6,
-      "due": "2027-01-28",
+      "box": 7,
+      "due": "2027-04-27",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-11-14"
+      "lastReviewed": "2026-11-18"
     },
     "aspect#10": {
       "box": 1,
@@ -7037,12 +7037,12 @@
       "introduced": true
     },
     "aspect-prefixes#11": {
-      "box": 4,
-      "due": "2026-11-04",
+      "box": 5,
+      "due": "2026-12-23",
       "lapses": 0,
-      "reps": 4,
+      "reps": 5,
       "introduced": true,
-      "lastReviewed": "2026-10-19"
+      "lastReviewed": "2026-11-18"
     },
     "aspect-prefixes#2": {
       "box": 2,
