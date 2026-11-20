@@ -6757,7 +6757,7 @@
     "2026-11-20": {
       "newDone": 0,
       "reviewDone": 40,
-      "tDone": 17,
+      "tDone": 18,
       "studied": true
     }
   },
@@ -8092,9 +8092,44 @@
   "lastPopQuiz": "2026-11-20",
   "talk": {
     "L-instrumental": {
-      "n": 1,
-      "help": 1,
+      "n": 2,
+      "help": 0,
       "keep": [
+        {
+          "ru": "Да, я ем ло́жкой.",
+          "en": "",
+          "note": "\"ложки\" is plural; one spoon is \"ло́жкой\" after \"ем\"."
+        },
+        {
+          "ru": "Да, я говорю́ с дру́гом.",
+          "en": "",
+          "note": "Correct. \"с другом\" takes the Instrumental, \"другом\"."
+        },
+        {
+          "ru": "Да, я пью ко́фе с молоко́м.",
+          "en": "",
+          "note": "Correct. Good job!"
+        },
+        {
+          "ru": "Да, я пишу́ ру́чкой.",
+          "en": "",
+          "note": "\"Using what?\" takes the Instrumental without \"с\"."
+        },
+        {
+          "ru": "Да, я живу́ с семьёй.",
+          "en": "",
+          "note": "After \"с\", \"семья\" becomes \"семьёй\" in the Instrumental."
+        },
+        {
+          "ru": "Нет, я не гуля́ю с соба́кой.",
+          "en": "",
+          "note": "\"с\" takes the Instrumental: \"собакой\", not \"собаки\"."
+        },
+        {
+          "ru": "Нет, я ещё не гуля́ю.",
+          "en": "",
+          "note": "\"гуля́ю\" is \"walk\"; \"not yet\" comes after \"не\"."
+        },
         {
           "ru": "Я плачу́ ка́ртой.",
           "en": "",
@@ -8104,11 +8139,6 @@
           "ru": "Я люблю́ обе́дать с семьёй.",
           "en": "",
           "note": "\"с семьёй\" needs the Instrumental ending; \"обе́дать\" is the verb for lunch."
-        },
-        {
-          "ru": "Да, я пью ко́фе с молоко́м.",
-          "en": "",
-          "note": "\"пью\" is the correct verb form for \"I drink\"; \"с молоко́м\" is right, and \"са́хар\" is the word he meant for sugar."
         },
         {
           "ru": "Я ем су́п ло́жкой.",
