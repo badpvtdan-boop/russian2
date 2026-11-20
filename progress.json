@@ -6757,7 +6757,7 @@
     "2026-11-20": {
       "newDone": 0,
       "reviewDone": 40,
-      "tDone": 9,
+      "tDone": 10,
       "studied": true
     }
   },
@@ -8090,6 +8090,49 @@
     "hobby"
   ],
   "lastPopQuiz": "2026-11-20",
-  "talk": {},
+  "talk": {
+    "L-instrumental": {
+      "n": 1,
+      "help": 1,
+      "keep": [
+        {
+          "ru": "Я плачу́ ка́ртой.",
+          "en": "",
+          "note": "\"платье\" means dress, not an answer to how he pays; \"ка́ртой\" is the Instrumental for \"by card.\""
+        },
+        {
+          "ru": "Я люблю́ обе́дать с семьёй.",
+          "en": "",
+          "note": "\"с семьёй\" needs the Instrumental ending; \"обе́дать\" is the verb for lunch."
+        },
+        {
+          "ru": "Да, я пью ко́фе с молоко́м.",
+          "en": "",
+          "note": "\"пью\" is the correct verb form for \"I drink\"; \"с молоко́м\" is right, and \"са́хар\" is the word he meant for sugar."
+        },
+        {
+          "ru": "Я ем су́п ло́жкой.",
+          "en": "",
+          "note": "\"ем\" is the right verb for eating (\"юсь\" is not a Russian word); \"ло́жкой\" is correct."
+        },
+        {
+          "ru": "Я пишу́ карандашо́м.",
+          "en": "",
+          "note": "\"в\" is wrong here; use the Instrumental with no preposition for the tool."
+        },
+        {
+          "ru": "Я гуля́ю с соба́кой.",
+          "en": "",
+          "note": "\"с соба́кой\" is correct Instrumental after с; \"Мне нра́вится\" + verb is unnecessary here."
+        },
+        {
+          "ru": "Я живу́ с жено́й.",
+          "en": "",
+          "note": "\"жено́й\" is the Instrumental form after с, so the ending changes."
+        }
+      ],
+      "last": "2026-11-20"
+    }
+  },
   "migv": 5
 }
