@@ -2,8 +2,9 @@
 
 A personal, single-file Russian tutor. Guided daily vocabulary drilling with spaced
 repetition, structured grammar lessons, audio, and a curriculum that always tells you
-what to do next. Built to run for free with no backend and no API — the app is plain
-offline HTML; progress backs up to this repo.
+what to do next. Built to run for free with no backend — the app is plain offline HTML; progress backs up
+to this repo. The one exception is the optional **🗣 Talk** tab, which calls Anthropic's API
+with the user's own key (see below).
 
 ## Run it
 
@@ -62,6 +63,24 @@ this repo — not from a local clone.** Two things follow, and both have already
   you actually count — years, roubles, hours, minutes, days) and "Numbers: Big Numbers & “How
   Many”" (the last-digit rule, 11–14, ско́лько, мно́го/ма́ло/не́сколько).
 
+- **🗣 Talk** (2026-11-20) — spoken conversation practice, Praktika-style. The phone speaks
+  Russian (browser speech, the drill's voice), listens to the answer (browser speech
+  recognition, `ru-RU`; typing with Latin letters is the fallback), and Claude plays the
+  partner over the Anthropic Messages API, called **straight from the browser with the user's
+  own key**. The key lives in its own localStorage entry (`rt_talk_v1`), exactly like the
+  GitHub token — never in the saved state or `progress.json`. Topics: one conversation per
+  grammar lesson (generated from the lesson's title, steps and sentences; the Instrumental has
+  hand-written guidance and is featured), seven everyday situations, and free talk. Every
+  reply is a fixed set of labelled lines (`SAY/EN/FIX/EASY/WORDS/START/ANSWER/ANSWER_EN/END`,
+  parsed by `talkParse()`), **streamed**: the `SAY` line is spoken sentence by sentence while
+  the rest still arrives (`talkSplitSentences()`), which is what keeps the gap between turns
+  short. The other lines are the help (easier either/or question, word bank, first words, a
+  full answer, or say it in English) and one correction per turn, which can be replayed and
+  repeated back to the mic. Help per topic is Lots / Some / Little and **fades by rule**
+  (`talkNextHelp()`): help on ≤¼ of answers → one step less next time, on more than half → one
+  step more. Corrections and looked-up answers become **sentences to keep** per topic. Saved as
+  `S.talk[topicId] = {n,last,help,keep}`, merged by `talkMergeTopic()`.
+
 ## Data & sync
 
 - **`progress.json`** holds all learning state (words, scheduling, streak, lesson scores).
@@ -115,13 +134,15 @@ use the app. So:
     node tests/lesson-invariants.mjs
     node tests/sync-invariants.mjs
     node tests/ladder-invariants.mjs
+    node tests/talk-invariants.mjs
 
-All five read the real code out of `russian-trainer.html` and run it in a Node vm, so they
+All six read the real code out of `russian-trainer.html` and run it in a Node vm, so they
 exercise what ships rather than a copy that can drift. Run the first two after touching the
 SRS engine, the daily caps, or `mergeStates`; the third after touching lesson content or the
 lesson runner; the fourth after touching `save`/`load`, `saveGuard`, the sync scheduler, or
 anything that decides when progress leaves the device; the fifth after touching the drill's
-exercise formats, Latin-typing grading, or look-alike wrong answers.
+exercise formats, Latin-typing grading, or look-alike wrong answers; the sixth after touching
+the Talk tab's reply format, speech streaming, fading help or its saved record.
 
 ## Authoring lesson & story content
 
@@ -133,7 +154,7 @@ than smoothed over — он/она/оно pointing at an *object* is translated 
 
 ## Files
 
-- `russian-trainer.html` — the entire app (self-contained: HTML, CSS, JS, deck, lessons).
+- `russian-trainer.html` — the entire app (self-contained: HTML, CSS, JS, deck, lessons, Talk).
 - `progress.json` — user progress, written by the app (do not edit by hand).
 - `BACKLOG.md` — roadmap: remaining cases, grammar topics, and features.
 - `russian-trainer-spec.md` — original design spec.

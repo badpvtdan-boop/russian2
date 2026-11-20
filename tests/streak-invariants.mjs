@@ -34,7 +34,7 @@ const FNS = [
   "blank", "mergeStates", "creditStudyDay", "logDay", "logGrammarDay",
   "studyDays", "lastStudyDay", "streakEndingAt", "healStreak", "stateLooksEmpty",
   "card", "gcard", "resolve", "gradeGrammarCard",
-  "loadOn", "projectedLoad", "balancedDue",
+  "loadOn", "projectedLoad", "balancedDue", "talkMergeTopic", "talkDedupe", "talkKeepKey",
 ];
 
 // Sandbox globals the extracted functions reference.
@@ -443,6 +443,22 @@ function studiedRange(startISO, endISO) {
   FAKE_TODAY = "2026-08-18";
   sandbox.logDay(true);
   check("credit: the next day pushes again", sandboxSyncs.length === 2);
+})();
+
+
+/* ===== Talk practice records survive a sync (2026-11-20) ===== */
+(function talkMerge() {
+  const a = freshState({ talk: { "L-instrumental": { n: 3, last: "2026-11-20", help: 1, keep: [{ ru: "Я гуля́ю с Ро́кки.", en: "" }] } } });
+  const b = freshState({ talk: { "L-instrumental": { n: 2, last: "2026-11-18", help: 2, keep: [{ ru: "Я пью ко́фе с молоко́м.", en: "" }, { ru: "я гуляю с рокки", en: "" }] },
+                                 "s-cafe": { n: 1, last: "2026-11-19", help: 2, keep: [] } } });
+  const m = sandbox.mergeStates(a, b);
+  const r = m.talk["L-instrumental"];
+  check("talk merge: both topics survive", !!r && !!m.talk["s-cafe"]);
+  check("talk merge: count is the larger side's", r.n === 3);
+  check("talk merge: help follows the side that talked last", r.help === 1);
+  check("talk merge: kept sentences are the union, without the duplicate", r.keep.length === 2);
+  check("talk merge: a blank side leaves the record alone", JSON.stringify(sandbox.mergeStates(a, sandbox.blank()).talk) === JSON.stringify({ "L-instrumental": sandbox.talkMergeTopic(a.talk["L-instrumental"], undefined) }));
+  check("talk merge: merging is symmetric", JSON.stringify(sandbox.mergeStates(b, a).talk) === JSON.stringify(m.talk));
 })();
 
 /* ---- report ---- */

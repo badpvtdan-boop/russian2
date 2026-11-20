@@ -221,6 +221,34 @@
     .lesson-right{margin-left:auto}
     .settings input,.settings select{font-size:16px}
   }
+  /* 🗣 Talk */
+  .talk-item{display:flex;align-items:center;gap:12px;padding:11px 2px;border-top:1px solid var(--line);cursor:pointer}
+  .talk-sec+.talk-item{border-top:0}
+  .talk-item .ti2{font-size:22px;width:28px;text-align:center}
+  .talk-item .tt{flex:1;min-width:0}
+  .talk-item .tt b{display:block;font-weight:600}
+  .talk-item .ts{display:block;font-size:13px;color:var(--muted);line-height:1.35}
+  .talk-sec{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:18px 0 4px}
+  .talk-lab{display:block;margin-top:12px}
+  .talk-field{width:100%;font:16px/1.4 inherit;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text)}
+  .tb{border-radius:16px;padding:11px 14px;margin:10px 0;max-width:92%}
+  .tb.ai{background:var(--panel2);border:1px solid var(--line)}
+  .tb.me{background:var(--accent-soft);border:1px solid var(--bad-line);margin-left:auto}
+  .tb-ru{font-family:var(--serif);font-size:21px;line-height:1.4}
+  .tb-en{color:var(--muted);font-size:14px;margin-top:4px}
+  .tb-tools{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+  button.mini{font-size:13px;padding:5px 10px;border-radius:9px}
+  .tb-fix{margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--warn-bg);border:1px solid var(--warn-line);font-size:15px}
+  .fru{font-family:var(--serif);font-size:19px}
+  .talk-help{margin-top:6px;padding:10px 12px;border:1px dashed var(--line);border-radius:12px}
+  .th-line{margin:4px 0}
+  .th-k{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-right:4px}
+  .chip{display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin:3px 4px 3px 0;font-size:14px}
+  .talk-mic{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:16px}
+  .mic-btn{width:100%;font-size:18px;padding:16px;border-radius:14px}
+  .mic-btn.live{background:var(--bad);border-color:var(--bad);color:#fff;animation:talkpulse 1.2s infinite}
+  @keyframes talkpulse{50%{opacity:.72}}
+  #talk-heard{font-family:var(--serif);font-size:19px;min-height:26px;text-align:center}
 </style>
 </head>
 <body>
@@ -233,6 +261,7 @@
     <button id="tab-home" class="tab active"><span class="ti">🏠</span><span class="tl">Home</span></button>
     <button id="tab-drill" class="tab"><span class="ti">🎯</span><span class="tl">Drill</span></button>
     <button id="tab-lessons" class="tab"><span class="ti">📘</span><span class="tl">Lessons</span></button>
+    <button id="tab-talk" class="tab"><span class="ti">🗣</span><span class="tl">Talk</span></button>
     <button id="tab-exam" class="tab"><span class="ti">🎓</span><span class="tl">Level</span></button>
   </nav>
 
@@ -413,7 +442,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-11-05.1</b> · on the iPhone the listening card no longer shows the word by itself when you take a while to answer — it now only does that when the sound actually reports an error. · <br>Before that (2026-11-04.1): · the “Listen — what does it mean?” card has a 👁 Show word button next to Play again: it shows the Russian so you can answer by reading. It isn't a miss, but it doesn't count as hearing the word, so that word comes back as a listening card. If the sound fails to play the word is shown for you, and on a phone tapping Play again reminds you to check the silent switch. · <br>Before that (2026-10-28.1): · when clearing your reviews frees up the day’s new words, the drill now offers them (“Learn today’s 5 new words →”) instead of saying “Done for today”, and Home points to them before the next lesson. · <br>Before that (2026-10-27.1): · the letter-tile and typing exercises are gone from the daily drill — once a word is past matching it gets “hear it, pick the meaning” or look-alike multiple choice, however well you know it. (Typing is still there if you pick “Type it only” in Settings.) · <br>Before that (2026-10-26.2): · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-11-20.2</b> · Talk: if the partner sends back an empty reply it now asks again by itself, and if that fails too it says so with a Try again button, instead of leaving an empty bubble and getting stuck. · <br>Before that (2026-11-20.1): · new 🗣 <b>Talk</b> tab: spoken conversations with an AI partner — it speaks Russian to you, listens to your answer, and gently fixes one thing at a time. A conversation for every grammar lesson (Instrumental first), everyday situations (café, market, introductions…) and free talk. Help (easier question, word bank, first words, a full answer) fades as you need it less, and the corrections become sentences to keep. Needs your own Anthropic key, kept on this phone only. · <br>Before that (2026-11-05.1): · on the iPhone the listening card no longer shows the word by itself when you take a while to answer — it now only does that when the sound actually reports an error. · <br>Before that (2026-11-04.1): · the “Listen — what does it mean?” card has a 👁 Show word button next to Play again: it shows the Russian so you can answer by reading. It isn't a miss, but it doesn't count as hearing the word, so that word comes back as a listening card. If the sound fails to play the word is shown for you, and on a phone tapping Play again reminds you to check the silent switch. · <br>Before that (2026-10-28.1): · when clearing your reviews frees up the day’s new words, the drill now offers them (“Learn today’s 5 new words →”) instead of saying “Done for today”, and Home points to them before the next lesson. · <br>Before that (2026-10-27.1): · the letter-tile and typing exercises are gone from the daily drill — once a word is past matching it gets “hear it, pick the meaning” or look-alike multiple choice, however well you know it. (Typing is still there if you pick “Type it only” in Settings.) · <br>Before that (2026-10-26.2): · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -422,6 +451,11 @@
   <div id="view-lessons" class="hide">
     <div id="lessons-list"></div>
     <div id="lesson-runner" class="card hide"></div>
+  </div>
+
+  <div id="view-talk" class="hide">
+    <div id="talk-list"></div>
+    <div id="talk-runner" class="card hide"></div>
   </div>
 
   <div id="view-exam" class="hide">
@@ -2549,7 +2583,7 @@ function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth
 /* INVARIANT: any new field added here MUST also be added to mergeStates() in the same
    change. Merge is the only safety layer now (the wipe/stale guards are gone) — mergeStates
    rebuilds state from blank(), so a field it doesn't handle is silently reset on every sync. */
-function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",drillMode:"ladder",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),lastPopQuiz:null,migv:MIG_VERSION};}
+function blank(){return {cards:{},streak:0,lastCompleted:null,dailyLog:{},duoLevel:null,direction:"en-ru",answerMode:"choice",drillMode:"ladder",voiceName:null,lessons:{},exams:{},gcards:{},activeThemes:A1_THEME_KEYS.slice(),lastPopQuiz:null,talk:{},migv:MIG_VERSION};}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 /* One-time upgrades applied to an existing save. Keyed by migv so each runs once and
    never touches cards / lessons / streak — only the specific fields it names. */
@@ -5965,19 +5999,667 @@ function renderHome(){
 }
 
 function showView(v){
-  ["home","drill","lessons","exam"].forEach(x=>{
+  if(v!=="talk" && typeof talkPause==="function") talkPause();
+  ["home","drill","lessons","talk","exam"].forEach(x=>{
     $("view-"+x).classList.toggle("hide", x!==v);
     $("tab-"+x).classList.toggle("active", x===v);
   });
   if(v==="home") renderHome();
   if(v==="lessons") renderLessons();
   if(v==="exam") renderExams();
+  if(v==="talk") renderTalk();
   if(v==="drill"){ renderDeckPicker(); renderGrammarCard(); if(!$("done").classList.contains("hide")) renderDone(); updateBanner(); }
 }
 $("tab-home").onclick=()=>showView("home");
 $("tab-drill").onclick=()=>showView("drill");
 $("tab-lessons").onclick=()=>showView("lessons");
 $("tab-exam").onclick=()=>showView("exam");
+$("tab-talk").onclick=()=>showView("talk");
+/* ---------------- 🗣 Talk: spoken conversation practice (2026-11-20) ----------------
+   A Praktika-style speaking partner. The phone talks (browser speech, the same Russian voice
+   the drill uses), listens (browser speech recognition in Russian), and Claude plays the
+   partner over Anthropic's API, called straight from the browser with Danny's own key.
+   The key lives in its own localStorage entry, exactly like the GitHub token: never in the
+   saved state, never in progress.json, never in the code.
+
+   Every reply is one fixed set of labelled lines (SAY / EN / FIX / EASY / WORDS / START /
+   ANSWER / ANSWER_EN / END), streamed. The SAY line is spoken sentence by sentence while the
+   rest is still arriving — that overlap is what removes most of the wait between turns. The
+   other lines are the help (easier question, word bank, first words, full answer) and the
+   correction. How much of the help is shown up front is the topic's help level (Lots / Some /
+   Little), and it fades on its own: a session where he barely asked for help steps it down
+   for next time, one where he leaned on it steps it back up.
+
+   Saved state: S.talk[topicId] = {n, last, help, keep:[{ru,en,note}]} — merged by
+   talkMergeTopic() inside mergeStates(). */
+const TALKKEY="rt_talk_v1";
+const TALK_URL="https://api.anthropic.com/v1/messages";
+const TALK_TURNS=8;                         // his answers in a structured conversation
+const TALK_FREE_TURNS=16;
+const TALK_MODELS=[
+  {id:"claude-haiku-5-5", label:"Fast — Haiku (quickest replies, cheapest)"},
+  {id:"claude-sonnet-5-5",label:"Careful — Sonnet (richer Russian, a bit slower)"}
+];
+const TALK_HELP_NAMES=["Little","Some","Lots"];
+function talkDefaults(){ return {key:"",model:TALK_MODELS[0].id,about:"",rate:0.9,autoListen:true}; }
+let TALKCFG; try{ TALKCFG=Object.assign(talkDefaults(),JSON.parse(localStorage.getItem(TALKKEY)||"{}")); }catch(e){ TALKCFG=talkDefaults(); }
+function talkSaveCfg(){ try{ localStorage.setItem(TALKKEY,JSON.stringify(TALKCFG)); }catch(e){} }
+function talkReady(){ return !!(TALKCFG.key && TALKCFG.key.trim()); }
+const TalkSR = (typeof window!=="undefined") && (window.SpeechRecognition || window.webkitSpeechRecognition) || null;
+function talkEsc(t){ return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* ---- Topics: one conversation per grammar lesson, everyday situations, free talk ---- */
+const TALK_LESSON_FOCUS={
+  instrumental:"Make him use the Instrumental case in its two everyday jobs, and mix them so he has to DECIDE each time. “With whom?” — С кем ты…? — answered with с + Instrumental (с ма́мой, с дру́гом, с Са́шей). “Using what?” — Чем ты…? — answered with the Instrumental and NO с (ру́чкой, ло́жкой, телефо́ном). Also things that go together: ко́фе с молоко́м, чай с са́харом. Ask about his real life: who he goes places with, eats with, lives with, walks the dog with; what he writes, eats, pays with; what he drinks his coffee with.",
+  "instrumental-more":"Make him use the Instrumental for jobs and roles (Кем ты рабо́таешь? Я рабо́таю ме́неджером; Кем ты хоте́л быть в де́тстве?), for position words (над, под, за, ме́жду, пе́ред — Где кот? Под столо́м), with the verbs that take it (занима́ться спо́ртом, интересова́ться, по́льзоваться), and “with me / with you” (со мной, с тобо́й, с ним, с ней). Ask about his work, his hobbies, where things are in his house."
+};
+const TALK_SITUATIONS=[
+  {id:"s-intro",icon:"👋",title:"Introduce yourself",goal:"Who you are, where you live, what you do",
+   focus:"A first meeting. You are a friendly Russian he has just met. Ask his name, where he lives (в + Prepositional: в Те́хасе, в Аме́рике), what he does, whether he has family or pets, what he likes doing. Share a little about yourself too, briefly, so it feels like a real exchange."},
+  {id:"s-cafe",icon:"☕",title:"At a café",goal:"Order, ask the price, pay",
+   focus:"Role-play: you are a server at a small café in Moscow and he is the customer. Greet him, take his order (Что вы бу́дете?), offer choices (ко́фе или чай? с молоко́м?), something to eat, then the bill (Э́то сто́ит…), card or cash (ка́ртой или нали́чными?). Stay in role. Use the polite вы."},
+  {id:"s-weekend",icon:"🗓",title:"Your weekend",goal:"What you did — past tense",
+   focus:"Chat about his last weekend and his plans for the next one. Ask what he did (Что ты де́лал в суббо́ту?), where he went, with whom, what he ate, what he watched — so he practises the past tense (он: -л, она: -ла) — and then one or two questions about plans (Что ты бу́дешь де́лать…?)."},
+  {id:"s-home",icon:"🏡",title:"Family, home & pets",goal:"The people and animals in your life",
+   focus:"Ask about the people and animals in his home: who he lives with, his dog (what is it called, how old, what it likes), his family, his house (how many rooms, what's in them). Use у тебя́ есть…? questions and descriptions with adjectives."},
+  {id:"s-work",icon:"💼",title:"Your work day",goal:"Talk about your job and your day",
+   focus:"Ask about his job and his typical day: when he gets up, how he gets to work or whether he works from home, what he does in the morning, meetings, lunch, when he finishes. Present tense, times of day (у́тром, днём, ве́чером), во ско́лько…?"},
+  {id:"s-shop",icon:"🛒",title:"At the market",goal:"Ask for things, how much, how many",
+   focus:"Role-play: you sell fruit and vegetables at a market stall and he is buying. He asks for things (Да́йте, пожа́луйста…), you ask how much or how many (Ско́лько вам?), give prices (Сто рубле́й), offer something else (Что́-нибудь ещё?). Stay in role. Use вы."},
+  {id:"s-way",icon:"🧭",title:"Asking the way",goal:"Where is…? How do I get to…?",
+   focus:"Role-play: he is a tourist in a Russian city and you are a passer-by. He asks where things are (Где…? Как пройти́ к…?); you answer with simple directions (пря́мо, нале́во, напра́во, ря́дом, далеко́) and ask him questions back (Вы идёте пешко́м? Вы зна́ете, где…?). Keep the directions short and clear."},
+];
+const TALK_FREE={id:"free",icon:"💬",title:"Free talk",goal:"Talk about anything",turns:TALK_FREE_TURNS,
+  focus:"No fixed topic. Start by asking how his day is going, then follow his lead — whatever he brings up, ask simple follow-up questions about it. If he runs dry, pick something from his life to ask about."};
+function talkLessonTopic(L){
+  const sents=(L.sentences||[]).map(s=>typeof s==="string"?s:((s.ru||"")+(s.en?" ("+s.en+")":""))).filter(Boolean).slice(0,8);
+  const steps=(L.steps||[]).map(s=>s&&s.title).filter(Boolean);
+  const focus=TALK_LESSON_FOCUS[L.id] || ("Practise the grammar of his lesson “"+L.title+"”"+(L.subtitle?" ("+L.subtitle+")":"")+". "+(steps.length?"Its ideas, in order: "+steps.join("; ")+". ":"")+"Ask about his own life, and shape every question so the natural answer makes him use this grammar.");
+  return {id:"L-"+L.id, icon:"📘", title:L.title, goal:L.subtitle||"", lesson:L.id,
+    focus: focus+(sents.length?"\nSentences from the lesson he has already seen — model your questions on these patterns:\n- "+sents.join("\n- "):"")};
+}
+function talkLessonTopics(){ return LESSONS.map(talkLessonTopic); }
+function talkTopicById(id){
+  if(id===TALK_FREE.id) return TALK_FREE;
+  return TALK_SITUATIONS.find(t=>t.id===id) || talkLessonTopics().find(t=>t.id===id) || null;
+}
+
+/* ---- Saved per-topic record & fading help (pure — covered by tests/talk-invariants.mjs) ---- */
+function talkRec(id){ return (S.talk&&S.talk[id])||null; }
+function talkHelpFor(id){ const r=talkRec(id); return (r&&r.help!=null)?r.help:2; }
+/* A rule rather than a tuning curve: help used on a quarter of his answers or fewer → one
+   step less next time; on more than half → one step more; otherwise it stays. */
+function talkNextHelp(help, helpedTurns, turns){
+  help=(help==null?2:help);
+  if(!turns) return help;
+  const rate=helpedTurns/turns;
+  if(rate<=0.25) return Math.max(0,help-1);
+  if(rate>0.5) return Math.min(2,help+1);
+  return help;
+}
+function talkKeepKey(ru){ return String(ru||"").toLowerCase().replace(/ё/g,"е").replace(/[^а-я ]/g,"").replace(/\s+/g," ").trim(); }
+/* Newest first, no repeats (stress marks and punctuation ignored), at most 20. */
+function talkDedupe(list){
+  const out=[], seen={};
+  (list||[]).forEach(s=>{
+    if(!s||!s.ru) return; const k=talkKeepKey(s.ru);
+    if(!k||seen[k]) return; seen[k]=1;
+    const e={ru:s.ru,en:s.en||""}; if(s.note) e.note=s.note; out.push(e);
+  });
+  return out.slice(0,20);
+}
+/* Merge one topic's record from two devices: counts take the max, help follows whichever side
+   talked most recently, kept sentences are the union (that side's first). */
+function talkMergeTopic(x,y){
+  x=x||{}; y=y||{};
+  const nx = String(x.last||"")>=String(y.last||"") ? x : y, other = (nx===x?y:x);
+  const out={n:Math.max(x.n||0,y.n||0), help:(nx.help!=null?nx.help:(other.help!=null?other.help:2)),
+             keep:talkDedupe((nx.keep||[]).concat(other.keep||[]))};
+  const last=laterDate(x.last,y.last); if(last) out.last=last;
+  return out;
+}
+
+/* ---- Reply format ---- */
+function talkParse(t){
+  const o={}; let last=null;
+  String(t||"").split("\n").forEach(line=>{
+    const m=/^\s*\**\s*(SAY|EN|FIX|EASY|WORDS|START|ANSWER_EN|ANSWER|END)\s*\**\s*:\s*(.*)$/.exec(line);
+    if(m){ last=m[1]; o[last]=m[2].replace(/^\*+\s*/,"").trim(); }
+    else if(last && line.trim()) o[last]=(o[last]?o[last]+" ":"")+line.trim();
+  });
+  if(!Object.keys(o).length && String(t||"").trim()) o.SAY=String(t).trim();   // format ignored: speak it anyway
+  if(o.FIX){ const p=o.FIX.split("||"); o.FIX_RU=p[0].trim(); o.FIX_NOTE=(p[1]||"").trim(); }
+  if(o.FIX && (!o.FIX_RU || /^(none|нет|-)\.?$/i.test(o.FIX_RU) || /^none\b/i.test(o.FIX_RU))){ delete o.FIX; delete o.FIX_RU; delete o.FIX_NOTE; }
+  o.WORDS_LIST = o.WORDS ? o.WORDS.split(";").map(s=>s.trim()).filter(Boolean).map(s=>{ const q=s.split("="); return {ru:q[0].trim(), en:q.slice(1).join("=").trim()}; }) : [];
+  o.isEnd = /^\s*yes/i.test(o.END||"");
+  return o;
+}
+/* The SAY line is finished once any later field has started. */
+function talkSayComplete(raw){ return /\n\s*\**\s*(EN|FIX|EASY|WORDS|START|ANSWER_EN|ANSWER|END)\s*\**\s*:/.test(String(raw||"")); }
+function talkSpeakable(s){ return String(s||"").replace(/́/g,""); }   // stress marks are for the eye, not the voice
+/* Split finished sentences off the front of a growing text → [sentences, unfinished rest]. */
+function talkSplitSentences(text){
+  const out=[]; let start=0, m; const re=/[.!?…]+["»”)]*\s+/g;
+  while((m=re.exec(text))){ const s=text.slice(start,m.index+m[0].length).trim(); if(s) out.push(s); start=m.index+m[0].length; }
+  return [out, text.slice(start)];
+}
+
+function talkKnownWords(n){
+  const ws=DECK.filter(w=>{ const c=S.cards[w.id]; return c&&c.introduced; })
+    .sort((a,b)=>(S.cards[b.id].box||0)-(S.cards[a.id].box||0)).slice(0,n);
+  return ws.length ? ws.map(w=>w.ru+" = "+w.en).join("; ") : "(none recorded yet — use only the most basic everyday words)";
+}
+function talkSystem(topic){
+  const lv=officialLevel()||"A1 (not yet tested)";
+  return `You are a warm, patient Russian conversation partner inside a learner's study app. The learner is an adult English speaker at about ${lv} level. He reads and recognises Russian better than he speaks it, and speaking feels hard to him. Your job is to get him saying short Russian sentences out loud and to make it feel doable.
+
+TODAY'S CONVERSATION: ${topic.title}
+${topic.focus}
+
+ABOUT HIM (use it to make questions personal; never invent facts about him):
+${(TALKCFG.about||"").trim()||"(nothing given — ask him simple things about himself)"}
+
+WORDS HE HAS STUDIED (lean on these; anything else should be very common, everyday Russian):
+${talkKnownWords(80)}
+
+HOW TO TALK
+- Simple, natural, everyday Russian at his level. Each turn: react briefly to what he said (one short sentence), then ask ONE question he can answer in one short sentence. Never more than two sentences.
+- Put stress marks (the acute accent, e.g. ма́мой) on every Russian word of more than one syllable, in SAY, FIX, EASY, WORDS, START and ANSWER.
+- Steer every question so the natural answer practises today's conversation.
+- He may answer in Russian, in Latin-letter transliteration, or in English. His Russian often comes through speech-to-text, so it may be slightly garbled, unpunctuated, or have е for ё: judge what he meant and never comment on spelling, punctuation, capitals or recognition slips.
+- If he answers in English or says he doesn't know, he is stuck: give him the Russian for what he meant in FIX, and in SAY warmly ask him to try saying it.
+- Correct only real mistakes in grammar or word choice that matter — at most one per turn, the most important one. If his sentence is fine, FIX is none. Never correct something that is acceptable Russian.
+- The app tells you which turn this is. On the final turn, reply to what he said, then wrap up warmly in one short Russian sentence and set END: yes. Otherwise END: no.
+
+OUTPUT FORMAT — every reply is exactly these nine lines, in this order, nothing before or after, no markdown:
+SAY: your Russian reply (this is spoken aloud to him)
+EN: English translation of SAY
+FIX: his last sentence corrected, in Russian, then " || " then a short plain-English reason (under 15 words). Write "FIX: none" if it was fine or he hasn't spoken yet.
+EASY: an either/or or yes/no version of your question in Russian, so he can answer by picking (e.g. С Са́шей или с соба́кой?)
+WORDS: 3–5 words he would need to answer, written russian = english, separated by " ; "
+START: the first two or three words of a good answer
+ANSWER: one good, short answer he could really say about his own life
+ANSWER_EN: English of ANSWER
+END: yes or no`;
+}
+
+/* ---- Anthropic API (streamed) ---- */
+function talkHeaders(){ return {"content-type":"application/json","x-api-key":TALKCFG.key.trim(),"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"}; }
+function talkErrText(status, body){
+  let msg=""; try{ msg=((JSON.parse(body)||{}).error||{}).message||""; }catch(e){ msg=String(body||"").slice(0,160); }
+  if(status===401) return "The AI key was refused — check it was pasted in whole (Talk → Talk settings).";
+  if(/credit|billing|balance/i.test(msg)) return "Your Anthropic account is out of credit — add some at console.anthropic.com.";
+  if(status===403) return "This key isn't allowed to do that"+(msg?" ("+msg+")":"")+".";
+  if(status===404) return "That partner model isn't available on your account — pick the other one in Talk settings.";
+  if(status===429) return "Too many requests at once — wait a few seconds and try again.";
+  if(status===529||status===503||status===500||/overloaded/i.test(msg)) return "Anthropic is busy right now — try again in a moment.";
+  return (status?"Error "+status:"Error")+(msg?": "+msg:"");
+}
+async function talkStream(messages, system, signal, onText, info){
+  info=info||{}; info.kinds=[]; info.stop=null;
+  const r=await fetch(TALK_URL,{method:"POST",headers:talkHeaders(),signal,cache:"no-store",
+    body:JSON.stringify({model:TALKCFG.model,max_tokens:700,system,messages,stream:true})});
+  if(!r.ok){ let b=""; try{ b=await r.text(); }catch(e){} throw new Error(talkErrText(r.status,b)); }
+  let full="";
+  const take=line=>{
+    line=line.trim(); if(!line.startsWith("data:")) return;
+    const d=line.slice(5).trim(); if(!d) return;
+    let ev; try{ ev=JSON.parse(d); }catch(e){ return; }
+    if(ev.type==="content_block_start" && ev.content_block){
+      info.kinds.push(ev.content_block.type);
+      if(ev.content_block.type==="text" && ev.content_block.text){ full+=ev.content_block.text; onText(full); }
+    }
+    else if(ev.type==="content_block_delta" && ev.delta && ev.delta.type==="text_delta"){ full+=ev.delta.text; onText(full); }
+    else if(ev.type==="message_delta" && ev.delta && ev.delta.stop_reason) info.stop=ev.delta.stop_reason;
+    else if(ev.type==="error") throw new Error(talkErrText(0, JSON.stringify(ev)));
+  };
+  if(!r.body || !r.body.getReader){ (await r.text()).split("\n").forEach(take); return full; }
+  const rd=r.body.getReader(), dec=new TextDecoder(); let buf="";
+  for(;;){
+    const {done,value}=await rd.read(); if(done) break;
+    buf+=dec.decode(value,{stream:true});
+    let i; while((i=buf.indexOf("\n"))>=0){ const line=buf.slice(0,i); buf=buf.slice(i+1); take(line); }
+  }
+  if(buf) take(buf);
+  return full;
+}
+async function talkTestKey(elId){
+  const el=$(elId||"talk-key-status"); if(!el) return;
+  if(!talkReady()){ el.textContent="Paste a key first."; el.style.color="var(--bad)"; return; }
+  el.textContent="Checking…"; el.style.color="var(--muted)";
+  try{
+    const r=await fetch(TALK_URL,{method:"POST",headers:talkHeaders(),cache:"no-store",
+      body:JSON.stringify({model:TALKCFG.model,max_tokens:5,messages:[{role:"user",content:"Reply with the single word: да"}]})});
+    if(r.ok){ el.textContent="✓ The key works — you're ready to talk."; el.style.color="var(--good)"; }
+    else { el.textContent="✗ "+talkErrText(r.status, await r.text()); el.style.color="var(--bad)"; }
+  }catch(e){ el.textContent="✗ Couldn't reach Anthropic: "+e.message; el.style.color="var(--bad)"; }
+}
+
+/* ---- Voice out: a queue of sentences, never cancelling the one before ---- */
+let TALK_SPEAKING=0;
+function talkSpeakChunk(text){
+  const t=talkSpeakable(text).trim();
+  if(!t || !("speechSynthesis" in window)) return;
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang="ru-RU"; if(ruVoice) u.voice=ruVoice; u.rate=+TALKCFG.rate||0.9;
+  TALK_SPEAKING++;
+  let fin=false, guard=null;
+  const end=()=>{ if(fin) return; fin=true; clearTimeout(guard); TALK_SPEAKING=Math.max(0,TALK_SPEAKING-1); talkAfterSpeech(); };
+  /* Safety net only: if the engine never reports the end, don't leave the turn stuck. Long
+     enough that the mic can't open over the voice. Queued sentences wait their turn, so the
+     clock is generous. */
+  guard=setTimeout(end, 6000 + t.length*160/(+TALKCFG.rate||0.9));
+  u.onend=end; u.onerror=end;
+  try{ speechSynthesis.speak(u); }catch(e){ end(); }
+}
+function talkSilence(){ try{ if("speechSynthesis" in window) speechSynthesis.cancel(); }catch(e){} TALK_SPEAKING=0; }
+function talkAfterSpeech(){
+  if(!T || TALK_SPEAKING>0 || !T.replyDone || T.phase!=="speaking") return;
+  T.phase="idle"; renderTalkRunner();
+  if(!T.done && TALKCFG.autoListen && TalkSR && !T.typing) talkListen();
+}
+
+/* ---- Session ---- */
+let T=null, TALK_REC=null;
+function talkStart(id){
+  const topic=talkTopicById(id); if(!topic) return;
+  if(!talkReady()){ renderTalk(); return; }
+  talkPause();
+  /* Unlock speech inside the tap — iPhone only lets a page start talking from a user gesture. */
+  try{ if("speechSynthesis" in window){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); } }catch(e){}
+  T={topic, maxTurns:topic.turns||TALK_TURNS, msgs:[], log:[], turn:0, myTurns:0, helped:0, helpedNow:false,
+     help:talkHelpFor(topic.id), phase:"thinking", replyDone:false, done:false, keep:[], ctrl:null, typing:!TalkSR, open:{}, repeat:null};
+  renderTalk();
+  talkAsk("[Turn 1] Start the conversation: greet him in a few words and ask your first question.");
+}
+async function talkAsk(userText){
+  const mine=T; if(!mine) return;
+  mine.msgs.push({role:"user",content:userText});
+  mine.turn++;
+  const entry={who:"ai",raw:"",p:{}};
+  mine.log.push(entry);
+  mine.phase="thinking"; mine.replyDone=false; mine.error=null; mine.open={}; mine.micMsg=null; mine.repeat=null;
+  renderTalkRunner();
+  const ctrl=new AbortController(); mine.ctrl=ctrl;
+  let spoken=0, sayDone=false;
+  const feed=()=>{
+    if(sayDone) return;
+    const say=entry.p.SAY||"";
+    if(talkSayComplete(entry.raw)){
+      sayDone=true; const rest=say.slice(spoken); spoken=say.length;
+      if(rest.trim()){ mine.phase="speaking"; talkSpeakChunk(rest); }
+      return;
+    }
+    const [sents,rest]=talkSplitSentences(say.slice(spoken));
+    if(sents.length){ mine.phase="speaking"; sents.forEach(talkSpeakChunk); spoken=say.length-rest.length; }
+  };
+  try{
+    /* A reply can come back with no words in it at all (seen 2026-11-20 on the third answer).
+       That is a failed reply, not a silent partner: ask once more without bothering him, and if
+       it is empty again, say so with Try again — never leave an empty bubble and a dead turn. */
+    let full="", info={};
+    for(let attempt=1; attempt<=2; attempt++){
+      info={};
+      full=await talkStream(mine.msgs, talkSystem(mine.topic), ctrl.signal, raw=>{
+        if(T!==mine) return;
+        entry.raw=raw; entry.p=talkParse(raw); feed(); talkUpdateLive(entry);
+      }, info);
+      if(T!==mine) return;
+      if(full.trim()) break;
+    }
+    if(!full.trim()){
+      const why=[info.stop?"stopped: "+info.stop:"", info.kinds&&info.kinds.length?"parts: "+info.kinds.join(", "):"no parts"].filter(Boolean).join("; ");
+      throw new Error("The partner sent back an empty reply twice ("+why+"). Tap Try again.");
+    }
+    entry.raw=full; entry.p=talkParse(full);
+    if(!sayDone){ sayDone=true; const rest=(entry.p.SAY||"").slice(spoken); if(rest.trim()){ mine.phase="speaking"; talkSpeakChunk(rest); } }
+    mine.msgs.push({role:"assistant",content:full||"SAY: …"});
+    /* The correction belongs to his previous answer. */
+    const me=[...mine.log].reverse().find(e=>e.who==="me");
+    if(me && entry.p.FIX && !me.fix){
+      me.fix={ru:entry.p.FIX_RU, note:entry.p.FIX_NOTE};
+      mine.keep.unshift({ru:entry.p.FIX_RU, en:"", note:entry.p.FIX_NOTE});
+    }
+    mine.replyDone=true;
+    if(entry.p.isEnd || mine.myTurns>=mine.maxTurns) mine.done=true;
+    mine.phase="speaking";                     // talkAfterSpeech moves it on once the voice is quiet
+    if(mine.done) talkRecordSession();
+    renderTalkRunner();
+    talkAfterSpeech();
+  }catch(e){
+    if(T!==mine) return;
+    talkSilence();
+    mine.log.pop(); mine.msgs.pop(); mine.turn--;
+    if(e && e.name==="AbortError"){ mine.phase="idle"; renderTalkRunner(); return; }
+    mine.error=(e&&e.message)||"Something went wrong."; mine.retry=userText; mine.phase="error";
+    renderTalkRunner();
+  }
+}
+function talkSend(text, how){
+  text=String(text||"").trim();
+  if(!text || !T || T.done || T.phase==="thinking") return;
+  T.myTurns++; if(T.helpedNow) T.helped++; T.helpedNow=false;
+  T.log.push({who:"me",text,how});
+  let content=text;
+  if(how==="en") content="(He said this in English because he's stuck:) "+text;
+  else if(how==="typed" && hasLatin(text) && !/[Ѐ-ӿ]/.test(text)) content=text+"\n(He typed in Latin letters. Read as Russian transliteration that is: "+latToCyr(text)+" — or it may be English.)";
+  else if(how==="spoken") content=text+"\n(via speech recognition)";
+  const tag = (T.myTurns>=T.maxTurns)
+    ? "[Final turn — reply to this, correct it if needed, then wrap up warmly and set END: yes]"
+    : "[His answer "+T.myTurns+" of "+T.maxTurns+"]";
+  talkAsk(tag+"\n"+content);
+}
+function talkListen(opts){
+  opts=opts||{};
+  if(!T) return;
+  if(!TalkSR){ T.typing=true; renderTalkRunner(); return; }
+  talkSilence();
+  if(TALK_REC){ try{ TALK_REC.onend=null; TALK_REC.abort(); }catch(e){} TALK_REC=null; }
+  const rec=new TalkSR(); TALK_REC=rec;
+  rec.lang=opts.lang||"ru-RU"; rec.interimResults=true; rec.continuous=false; rec.maxAlternatives=1;
+  let fin="", interim="", failed=null;
+  T.phase=(opts.mode==="repeat")?"repeat":"listening"; T.listenLang=rec.lang; T.heard=""; T.micMsg=null; T.cancelled=false;
+  if(opts.mode!=="repeat") T.repeat=null;
+  renderTalkRunner();
+  rec.onresult=e=>{
+    fin=""; interim="";
+    for(let i=0;i<e.results.length;i++){ const r=e.results[i]; if(r.isFinal) fin+=r[0].transcript+" "; else interim+=r[0].transcript+" "; }
+    if(T){ T.heard=(fin+interim).trim(); const el=$("talk-heard"); if(el) el.textContent=T.heard; }
+  };
+  rec.onerror=e=>{ failed=(e&&e.error)||"error"; };
+  rec.onend=()=>{
+    if(TALK_REC!==rec) return; TALK_REC=null;
+    if(!T) return;
+    const said=(fin||interim).trim();
+    T.phase="idle";
+    if(T.cancelled){ T.cancelled=false; renderTalkRunner(); return; }
+    if(opts.mode==="repeat"){ talkCheckRepeat(opts.target, said); return; }
+    if(said){ talkSend(said, String(rec.lang).startsWith("en")?"en":"spoken"); return; }
+    T.micMsg = (failed==="not-allowed"||failed==="service-not-allowed")
+      ? "The microphone is blocked for this app. Allow it in your phone's settings, or type your answer instead."
+      : (!failed||failed==="no-speech"||failed==="aborted") ? "Didn't catch anything — tap the mic and try again."
+      : "The microphone stopped ("+failed+") — tap to try again, or type.";
+    renderTalkRunner();
+  };
+  try{ rec.start(); }
+  catch(e){ TALK_REC=null; T.phase="idle"; T.micMsg="Couldn't start the microphone — tap 🎤 to try again, or type."; renderTalkRunner(); }
+}
+function talkStopListening(cancel){
+  if(!TALK_REC) return;
+  if(cancel && T) T.cancelled=true;
+  try{ cancel ? TALK_REC.abort() : TALK_REC.stop(); }catch(e){}
+}
+function talkCheckRepeat(target, said){
+  const a=norm(said), b=norm(talkSpeakable(target));
+  let ok=false;
+  if(a&&b){ const tol=Math.max(2,Math.round(b.length*0.15)); ok=(a===b)||lev(a,b)<=tol; }
+  T.repeat={target, said, ok};
+  renderTalkRunner();
+}
+/* Leaving the tab mid-conversation: stop the voice and the mic, keep the conversation. */
+function talkPause(){
+  talkStopListening(true);
+  talkSilence();
+  if(T && T.replyDone && (T.phase==="speaking"||T.phase==="listening"||T.phase==="repeat")) T.phase="idle";
+}
+function talkEnd(){
+  if(!T) return;
+  if(T.ctrl && !T.replyDone){ try{ T.ctrl.abort(); }catch(e){} }
+  talkPause();
+  if(T.myTurns>0){ T.done=true; T.replyDone=true; T.phase="idle"; talkRecordSession(); renderTalkRunner(); }
+  else { T=null; renderTalk(); }
+}
+function talkRecordSession(){
+  if(!T || T.saved || !T.myTurns) return;
+  T.saved=true;
+  if(!S.talk) S.talk={};
+  const id=T.topic.id, prev=S.talk[id]||{};
+  const next=talkNextHelp(T.help, T.helped, T.myTurns);
+  S.talk[id]={n:(prev.n||0)+1, last:today(), help:next, keep:talkDedupe(T.keep.concat(prev.keep||[]))};
+  T.nextHelp=next;
+  save();
+}
+function talkUseHelp(kind){
+  if(!T) return;
+  T.open[kind]=true;
+  if(kind!=="menu") T.helpedNow=true;
+  if(kind==="answer"){
+    const a=[...T.log].reverse().find(e=>e.who==="ai");
+    if(a && a.p.ANSWER) T.keep.unshift({ru:a.p.ANSWER, en:a.p.ANSWER_EN||""});
+  }
+  renderTalkRunner();
+}
+
+/* ---- Rendering ---- */
+function talkRepeatLine(target){
+  const r=T.repeat && T.repeat.target===target ? T.repeat : null;
+  if(!r) return "";
+  return `<div style="font-size:14px;margin-top:4px;color:${r.ok?"var(--good)":"var(--bad)"}">${r.ok?"✓ That's it.":(r.said?"Close — I heard “"+talkEsc(r.said)+"”. Listen and try again.":"Didn't catch that — try again.")}</div>`;
+}
+function talkAiBubble(e, i, live){
+  const p=e.p||{};
+  const ru = p.SAY ? talkEsc(p.SAY) : (live ? '<span class="muted">…</span>' : "");
+  const enOpen=!!T.open["en"+i];
+  return `<div class="tb ai"${live?' id="talk-live"':''}>
+    <div class="tb-ru"${live?' id="talk-live-ru"':''}>${ru}</div>
+    ${!live && p.EN && enOpen ? `<div class="tb-en">${talkEsc(p.EN)}</div>`:""}
+    ${!live && p.SAY ? `<div class="tb-tools"><button class="mini ghost" data-act="say" data-v="${escAttr(p.SAY)}">🔊 Again</button>${p.EN?`<button class="mini ghost" data-act="en" data-v="${i}">${enOpen?"Hide English":"English"}</button>`:""}</div>`:""}
+  </div>`;
+}
+function talkFixBlock(fix){
+  return `<div class="tb-fix">✎ Better: <span class="fru">${talkEsc(fix.ru)}</span>
+    ${fix.note?`<div class="muted" style="font-size:14px">${talkEsc(fix.note)}</div>`:""}
+    <div class="tb-tools"><button class="mini ghost" data-act="say" data-v="${escAttr(fix.ru)}">🔊</button>${TalkSR?`<button class="mini ghost" data-act="repeat" data-v="${escAttr(fix.ru)}">🎤 Say it</button>`:""}</div>
+    ${talkRepeatLine(fix.ru)}
+  </div>`;
+}
+function talkHelpBox(){
+  const a=[...T.log].reverse().find(e=>e.who==="ai");
+  if(!a || !T.replyDone || T.done || T.phase==="error") return "";
+  const p=a.p, o=T.open, lvl=T.help;
+  const showEasy = lvl===2 || o.easy, showWords = lvl===2 || o.words;
+  const menuOpen = lvl>=1 || o.menu;
+  let h="";
+  if(showEasy && p.EASY) h+=`<div class="th-line"><span class="th-k">Easier</span> <span class="fru">${talkEsc(p.EASY)}</span> <button class="mini ghost" data-act="say" data-v="${escAttr(p.EASY)}">🔊</button></div>`;
+  if(showWords && p.WORDS_LIST.length) h+=`<div class="th-line"><span class="th-k">Words</span> ${p.WORDS_LIST.map(w=>`<span class="chip"><b>${talkEsc(w.ru)}</b>${w.en?" "+talkEsc(w.en):""}</span>`).join("")}</div>`;
+  if(o.start && p.START && !o.answer) h+=`<div class="th-line"><span class="th-k">Start with</span> <span class="fru">${talkEsc(p.START)}…</span></div>`;
+  if(o.answer && p.ANSWER) h+=`<div class="th-line"><span class="th-k">You could say</span> <span class="fru">${talkEsc(p.ANSWER)}</span> <button class="mini ghost" data-act="say" data-v="${escAttr(p.ANSWER)}">🔊</button>${p.ANSWER_EN?`<div class="muted" style="font-size:14px">${talkEsc(p.ANSWER_EN)}</div>`:""}<div class="muted" style="font-size:13px">Now say it yourself — out loud.</div></div>`;
+  let btns="";
+  if(menuOpen){
+    if(!showEasy && p.EASY) btns+=`<button class="mini" data-act="help" data-v="easy">Easier question</button>`;
+    if(!showWords && p.WORDS_LIST.length) btns+=`<button class="mini" data-act="help" data-v="words">Word bank</button>`;
+    if(!o.start && !o.answer && p.START) btns+=`<button class="mini" data-act="help" data-v="start">First words</button>`;
+    if(!o.answer && p.ANSWER) btns+=`<button class="mini" data-act="help" data-v="answer">Show an answer</button>`;
+    if(TalkSR) btns+=`<button class="mini" data-act="en-speak">🇬🇧 Say it in English</button>`;
+  } else btns=`<button class="mini" data-act="help" data-v="menu">💡 Help</button>`;
+  if(!h && !btns) return "";
+  return `<div class="talk-help">${h}<div class="row" style="margin-top:${h?8:0}px;gap:6px">${btns}</div></div>`;
+}
+function talkMicBox(){
+  if(T.done) return "";
+  const ph=T.phase;
+  if(ph==="error") return `<div class="talk-mic"><div style="color:var(--bad);text-align:center">${talkEsc(T.error)}</div><button class="primary mic-btn" data-act="retry">Try again</button></div>`;
+  if(ph==="thinking") return `<div class="talk-mic"><div class="muted">… thinking</div></div>`;
+  if(ph==="speaking") return `<div class="talk-mic"><div class="muted">🔊 speaking…</div>${T.replyDone?`<button class="mini ghost" data-act="skip">Skip ▸</button>`:""}</div>`;
+  if(ph==="listening"||ph==="repeat"){
+    const en=String(T.listenLang||"").startsWith("en");
+    return `<div class="talk-mic"><div class="muted" style="font-size:13px">${ph==="repeat"?"Say the sentence…":(en?"Listening — say it in English…":"Listening — speak Russian…")}</div>
+      <div id="talk-heard">${talkEsc(T.heard||"")}</div>
+      <button class="mic-btn live" data-act="stop">■ Done</button>
+      <button class="mini ghost" data-act="cancel">Cancel</button></div>`;
+  }
+  if(T.typing){
+    return `<div class="talk-mic" style="align-items:stretch">
+      <input type="text" id="talk-type" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type in Russian — Latin letters are fine">
+      <div class="lat-preview" id="talk-lat" style="display:none"></div>
+      <div class="row" style="margin-top:8px"><button class="primary" data-act="send">Send</button>${TalkSR?`<button class="ghost" data-act="speak-mode">🎤 Speak instead</button>`:""}</div>
+      ${T.micMsg?`<div class="muted" style="font-size:13px">${talkEsc(T.micMsg)}</div>`:""}
+      ${TalkSR?"":`<div class="muted" style="font-size:13px">This browser can't listen. Tip: the 🎤 on your phone's keyboard can dictate Russian into the box once Russian is added as a keyboard language.</div>`}
+    </div>`;
+  }
+  return `<div class="talk-mic">
+    <button class="primary mic-btn" data-act="mic">🎤 Tap and answer</button>
+    ${T.micMsg?`<div class="muted" style="font-size:13px;text-align:center">${talkEsc(T.micMsg)}</div>`:""}
+    <button class="mini ghost" data-act="type-mode">⌨ Type instead</button></div>`;
+}
+function talkEndBox(){
+  if(!T.done || T.phase==="speaking") return "";
+  const keep=talkDedupe(T.keep);
+  const nh=(T.nextHelp!=null)?T.nextHelp:T.help;
+  const helpMsg = nh<T.help ? "You needed less help — next time this one starts with <b>"+TALK_HELP_NAMES[nh]+"</b> help."
+                : nh>T.help ? "Next time this one gives a bit more help up front (<b>"+TALK_HELP_NAMES[nh]+"</b>)."
+                : "Help next time: <b>"+TALK_HELP_NAMES[nh]+"</b>.";
+  return `<div class="card" style="margin-top:16px">
+    <div class="stage-dots">Разгово́р око́нчен · conversation done</div>
+    <p style="margin:6px 0">You answered <b>${T.myTurns}</b> time${T.myTurns===1?"":"s"}${T.helped?`, with help on ${T.helped}`:""}. ${helpMsg}</p>
+    ${keep.length?`<p class="muted" style="margin:10px 0 4px">Sentences to keep — say them out loud through the day:</p>
+      ${keep.map(s=>`<div class="tb-fix" style="background:var(--panel2);border-color:var(--line)"><span class="fru">${talkEsc(s.ru)}</span>${s.en?`<div class="muted" style="font-size:14px">${talkEsc(s.en)}</div>`:""}${s.note?`<div class="muted" style="font-size:14px">${talkEsc(s.note)}</div>`:""}
+        <div class="tb-tools"><button class="mini ghost" data-act="say" data-v="${escAttr(s.ru)}">🔊</button>${TalkSR?`<button class="mini ghost" data-act="repeat" data-v="${escAttr(s.ru)}">🎤 Say it</button>`:""}</div>
+        ${talkRepeatLine(s.ru)}
+      </div>`).join("")}`:`<p class="muted">Nothing needed correcting this time.</p>`}
+    ${T.phase==="repeat"?talkMicBoxRepeat():""}
+    <div class="row"><button class="primary" data-act="again">Talk again</button><button class="ghost" data-act="back">Back to topics</button></div>
+  </div>`;
+}
+function talkMicBoxRepeat(){
+  return `<div class="talk-mic"><div class="muted" style="font-size:13px">Say the sentence…</div><div id="talk-heard">${talkEsc(T.heard||"")}</div>
+    <button class="mic-btn live" data-act="stop">■ Done</button><button class="mini ghost" data-act="cancel">Cancel</button></div>`;
+}
+function renderTalkRunner(){
+  const R=$("talk-runner"); if(!R||!T) return;
+  let log="";
+  T.log.forEach((e,i)=>{
+    const live=(i===T.log.length-1 && e.who==="ai" && !T.replyDone);
+    if(e.who==="ai") log+=talkAiBubble(e,i,live);
+    else log+=`<div class="tb me"><div>${talkEsc(e.text)}</div>${e.fix?talkFixBlock(e.fix):""}</div>`;
+  });
+  const shown=Math.min(T.myTurns+(T.done?0:1),T.maxTurns);
+  R.innerHTML=`
+    <div class="foot" style="align-items:center"><div class="stage-dots" style="margin:0">${talkEsc(T.topic.icon)} ${talkEsc(T.topic.title)}</div>
+      ${T.done?"":`<button class="mini ghost" data-act="end">End</button>`}</div>
+    <div class="tag" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px">
+      <span>Answer ${shown} of ${T.maxTurns}</span>
+      <label style="display:flex;align-items:center;gap:6px;margin:0">Help
+        <select id="talk-help-sel" style="font-size:13px;padding:2px 4px">${[2,1,0].map(v=>`<option value="${v}" ${v===T.help?"selected":""}>${TALK_HELP_NAMES[v]}</option>`).join("")}</select></label>
+    </div>
+    <div id="talk-log">${log}</div>
+    ${talkHelpBox()}
+    <div id="talk-input">${talkMicBox()}</div>
+    ${talkEndBox()}`;
+  const sel=$("talk-help-sel"); if(sel) sel.onchange=()=>{ T.help=+sel.value; renderTalkRunner(); };
+  const ti=$("talk-type");
+  if(ti){
+    const pv=$("talk-lat");
+    ti.oninput=()=>{ const v=ti.value; if(v.trim() && hasLatin(v) && !/[Ѐ-ӿ]/.test(v)){ pv.style.display=""; pv.textContent=latToCyr(v); } else pv.style.display="none"; };
+    ti.onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); const v=ti.value; ti.value=""; talkSend(v,"typed"); } };
+  }
+  const tail=T.done ? null : $("talk-input");
+  if(tail && tail.scrollIntoView){ try{ tail.scrollIntoView({block:"nearest",behavior:"smooth"}); }catch(e){} }
+}
+function talkUpdateLive(e){
+  const el=$("talk-live-ru"); if(!el){ renderTalkRunner(); return; }
+  if(e.p.SAY) el.textContent=e.p.SAY;
+  const mic=$("talk-input");
+  if(mic && T && T.phase==="speaking" && !mic.dataset.speaking){ mic.innerHTML=talkMicBox(); mic.dataset.speaking="1"; }
+}
+function talkTopicRow(t, extra){
+  const r=talkRec(t.id);
+  const meta=[extra, r&&r.n?("talked "+r.n+"×"):"", "help: "+TALK_HELP_NAMES[talkHelpFor(t.id)]].filter(Boolean).join(" · ");
+  return `<div class="talk-item" data-act="start" data-v="${escAttr(t.id)}"><span class="ti2">${t.icon}</span>
+    <span class="tt"><b>${talkEsc(t.title)}</b><span class="ts">${t.goal?talkEsc(t.goal)+" · ":""}${meta}</span></span><span class="muted">›</span></div>`;
+}
+let TALK_PAGE="";
+function renderTalk(){
+  const L=$("talk-list"), R=$("talk-runner");
+  if(T){ L.classList.add("hide"); R.classList.remove("hide"); renderTalkRunner(); return; }
+  R.classList.add("hide"); L.classList.remove("hide");
+  if(TALK_PAGE==="sentences"){ renderTalkSentences(); return; }
+  const lessons=talkLessonTopics();
+  const feat=lessons.find(t=>t.lesson==="instrumental");
+  const kept=Object.values(S.talk||{}).reduce((n,r)=>n+((r&&r.keep)||[]).length,0);
+  const ready=talkReady();
+  const setup = ready ? "" : `<div class="card" style="border-color:var(--accent);background:linear-gradient(180deg,var(--accent-soft),var(--panel) 60%)">
+      <div class="stage-dots">One-time setup</div>
+      <h2 style="margin:0 0 6px">Connect a conversation partner</h2>
+      <p class="muted" style="margin-top:0">Talk uses Claude, through your own Anthropic account, as the person you talk to. Practice costs very little — a few dollars of credit lasts a long time.</p>
+      <ol style="padding-left:20px;margin:8px 0">
+        <li>Go to <b>console.anthropic.com</b>, sign up, and add a little credit under Billing.</li>
+        <li>Under <b>API keys</b>, create a key and copy it.</li>
+        <li>Paste it here and tap Save.</li>
+      </ol>
+      <input type="password" id="talk-key-setup" class="talk-field" placeholder="sk-ant-…">
+      <div class="row"><button class="primary" data-act="key-save">Save key</button></div>
+      <div class="tag">The key is kept on this phone only, like your GitHub key — never in your progress backup or the app's code.</div>
+    </div>`;
+  L.innerHTML=`${setup}
+    ${ready?`<div class="tag" id="talk-key-status" style="margin:0 0 10px"></div>`:""}
+    ${feat?`<div class="card"><div class="stage-dots">Start here</div>
+      <h2 style="margin:0 0 4px">🗣 ${talkEsc(feat.title)} conversation</h2>
+      <p class="muted" style="margin:0 0 4px">${TALK_TURNS} short questions about your life that make you use the Instrumental — с кем? and чем? It speaks, you answer out loud, and it gently fixes one thing at a time.</p>
+      <div class="row"><button class="primary" data-act="start" data-v="${escAttr(feat.id)}" ${ready?"":"disabled"}>Start talking →</button></div></div>`:""}
+    <div class="card">
+      <div class="talk-sec" style="margin-top:0">Practise a lesson</div>
+      ${lessons.map(t=>talkTopicRow(t, (S.lessons[t.lesson]&&S.lessons[t.lesson].done)?"lesson passed ✓":"lesson not passed yet")).join("")}
+      <div class="talk-sec">Everyday situations</div>
+      ${TALK_SITUATIONS.map(t=>talkTopicRow(t)).join("")}
+      <div class="talk-sec">Open conversation</div>
+      ${talkTopicRow(TALK_FREE)}
+    </div>
+    <div class="row" style="margin:0 0 14px"><button class="ghost" data-act="sentences">📝 Sentences from your talks${kept?" · "+kept:""}</button></div>
+    <details class="card"><summary style="cursor:pointer;font-weight:600">Talk settings</summary>
+      <label class="talk-lab">Anthropic API key</label>
+      <input type="password" id="talk-key" class="talk-field" placeholder="sk-ant-…">
+      <div class="row"><button data-act="key-test">Test the key</button></div>
+      <div class="tag" id="talk-key-status2"></div>
+      <label class="talk-lab">Partner</label>
+      <select id="talk-model">${TALK_MODELS.map(m=>`<option value="${m.id}" ${m.id===TALKCFG.model?"selected":""}>${m.label}</option>`).join("")}</select>
+      <label class="talk-lab">Speaking speed</label>
+      <select id="talk-rate">${[[0.7,"Slow"],[0.8,"Slower"],[0.9,"Normal"],[1,"Natural"]].map(r=>`<option value="${r[0]}" ${+TALKCFG.rate===r[0]?"selected":""}>${r[1]}</option>`).join("")}</select>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:12px"><input type="checkbox" id="talk-auto" style="width:auto" ${TALKCFG.autoListen?"checked":""}> Start listening as soon as it finishes speaking</label>
+      <label class="talk-lab">About me — so the questions are about your real life</label>
+      <textarea id="talk-about" rows="4" class="talk-field" placeholder="e.g. My partner is Sasha. My dog is Rocky. I live near Austin, Texas. I manage projects at work.">${talkEsc(TALKCFG.about)}</textarea>
+      <div class="tag">${TalkSR?"🎤 This browser can listen to your Russian.":"This browser can't listen, so you'll type your answers (Latin letters are fine), or use the 🎤 on your phone's keyboard."} These settings stay on this phone only.</div>
+    </details>`;
+  const k=$("talk-key"); if(k){ k.value=TALKCFG.key||""; k.onchange=()=>{ TALKCFG.key=k.value.trim(); talkSaveCfg(); }; }
+  const m=$("talk-model"); if(m) m.onchange=()=>{ TALKCFG.model=m.value; talkSaveCfg(); };
+  const rt=$("talk-rate"); if(rt) rt.onchange=()=>{ TALKCFG.rate=+rt.value; talkSaveCfg(); };
+  const au=$("talk-auto"); if(au) au.onchange=()=>{ TALKCFG.autoListen=au.checked; talkSaveCfg(); };
+  const ab=$("talk-about"); if(ab) ab.onchange=()=>{ TALKCFG.about=ab.value; talkSaveCfg(); };
+}
+function renderTalkSentences(){
+  const L=$("talk-list");
+  const rows=Object.keys(S.talk||{}).map(id=>({t:talkTopicById(id), r:S.talk[id]})).filter(x=>x.t && x.r && (x.r.keep||[]).length);
+  L.innerHTML=`<div class="card"><div class="foot" style="align-items:center"><div class="stage-dots" style="margin:0">📝 Sentences from your talks</div><button class="mini ghost" data-act="list">‹ Back</button></div>
+    ${rows.length?rows.map(x=>`<div class="talk-sec">${x.t.icon} ${talkEsc(x.t.title)}</div>`+x.r.keep.map(s=>`<div class="th-line"><span class="fru">${talkEsc(s.ru)}</span> <button class="mini ghost" data-act="say" data-v="${escAttr(s.ru)}">🔊</button>${s.en?`<div class="muted" style="font-size:14px">${talkEsc(s.en)}</div>`:""}${s.note?`<div class="muted" style="font-size:14px">${talkEsc(s.note)}</div>`:""}</div>`).join("")).join("")
+      :`<p class="muted">Corrections, and answers you looked up during conversations, collect here.</p>`}</div>`;
+}
+$("view-talk").addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]"); if(!b || b.disabled) return;
+  const a=b.dataset.act, v=b.dataset.v;
+  if(a==="start") return talkStart(v);
+  if(a==="say"){ if(T&&(T.phase==="listening"||T.phase==="repeat"||T.phase==="thinking")) return; speak(talkSpeakable(v)); return; }
+  if(a==="sentences"){ TALK_PAGE="sentences"; return renderTalk(); }
+  if(a==="list"){ TALK_PAGE=""; return renderTalk(); }
+  if(a==="key-save"){ const k=$("talk-key-setup"); TALKCFG.key=(k&&k.value||"").trim(); talkSaveCfg(); renderTalk(); return talkTestKey("talk-key-status"); }
+  if(a==="key-test"){ const k=$("talk-key"); if(k){ TALKCFG.key=k.value.trim(); talkSaveCfg(); } return talkTestKey("talk-key-status2"); }
+  if(!T) return;
+  if(a==="en"){ T.open["en"+v]=!T.open["en"+v]; return renderTalkRunner(); }
+  if(a==="help") return talkUseHelp(v);
+  if(a==="mic") return talkListen();
+  if(a==="en-speak"){ T.helpedNow=true; return talkListen({lang:"en-US"}); }
+  if(a==="repeat") return talkListen({mode:"repeat",target:v});
+  if(a==="stop") return talkStopListening(false);
+  if(a==="cancel") return talkStopListening(true);
+  if(a==="type-mode"){ T.typing=true; renderTalkRunner(); const ti=$("talk-type"); if(ti) ti.focus(); return; }
+  if(a==="speak-mode"){ T.typing=false; return talkListen(); }
+  if(a==="send"){ const ti=$("talk-type"); if(ti){ const val=ti.value; ti.value=""; talkSend(val,"typed"); } return; }
+  if(a==="skip"){ talkSilence(); T.phase="speaking"; return talkAfterSpeech(); }
+  if(a==="retry"){ const r=T.retry; T.retry=null; T.error=null; return talkAsk(r); }
+  if(a==="end") return talkEnd();
+  if(a==="again"){ const id=T.topic.id; T=null; return talkStart(id); }
+  if(a==="back"){ talkPause(); T=null; TALK_PAGE=""; return renderTalk(); }
+});
+
 /* ---------------- GitHub sync (token stored separately from progress) ---------------- */
 const GHKEY="rt_gh_v1";
 function ghDefaults(){return {owner:"badpvtdan-boop",repo:"russian2",branch:"main",path:"progress.json",token:"",autoSave:true};}
@@ -6149,6 +6831,9 @@ function mergeStates(sa,sb){
   if(b.lastCompleted===m.lastCompleted) cand.push(b.streak||0);
   m.streak=Math.max.apply(null,cand);
   healStreak(m);   // walks the run, and backfills `studied` on evidence-only days
+  // talk practice: per topic — see talkMergeTopic()
+  const ta=a.talk||{}, tb=b.talk||{};
+  Object.keys(ta).concat(Object.keys(tb).filter(k=>!(k in ta))).sort().forEach(id=>{ m.talk[id]=talkMergeTopic(ta[id],tb[id]); });
   // preferences travel with the device used most recently
   ["duoLevel","direction","answerMode","drillMode","voiceName","lastPopQuiz"].forEach(k=>{ m[k]=newer[k]; });
   m.activeThemes=(newer.activeThemes||A1_THEME_KEYS).slice();
