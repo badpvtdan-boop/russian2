@@ -28,7 +28,7 @@ function extractFn(name) {
   }
   return src.slice(start, i);
 }
-const FNS = ["norm", "lev", "talkRepeatOk", "laterDate", "talkParse", "talkSayComplete", "talkSpeakable", "talkSplitSentences",
+const FNS = ["norm", "lev", "talkWords", "talkWordOk", "talkRepeatOk", "talkAltSentences", "laterDate", "talkParse", "talkSayComplete", "talkSpeakable", "talkSplitSentences",
              "talkNextHelp", "talkKeepKey", "talkDedupe", "talkMergeTopic"];
 const sandbox = { console };
 vm.createContext(sandbox);
@@ -148,6 +148,31 @@ check("repeat: a dropped word does NOT pass", X.talkRepeatOk("Я пишу́ ру
 check("repeat: the mic misspelling a name by one letter passes", X.talkRepeatOk("Я гуля́ю с Ро́кки.", "я гуляю с роки") === true);
 check("repeat: nothing heard does not pass", X.talkRepeatOk("Я пишу́ ру́чкой.", "") === false);
 check("repeat: using a preposition the correction removed does NOT pass", X.talkRepeatOk("Я пишу́ ру́чкой.", "я пишу с ручкой") === false);
+
+
+/* ---- 10. Grading only the corrected part, when we know what he said first ---- */
+(function focused() {
+  const T1 = "Я гуля́ю в па́рке с жено́й.", O1 = "я голую в парке с женой";
+  check("focus: the screenshot case — the corrected word misheard still fails", X.talkRepeatOk(T1, "Я говорю я до Парка с женой", O1) === false);
+  check("focus: corrected word right, a stray extra word → passes", X.talkRepeatOk(T1, "я гуляю я в парке с женой", O1) === true);
+  check("focus: corrected word right, one other word misheard → passes", X.talkRepeatOk(T1, "я гуляю в парка с женой", O1) === true);
+  check("focus: saying the original mistake again fails", X.talkRepeatOk(T1, "я голую в парке с женой", O1) === false);
+  check("focus: corrected word right but most of the sentence missing fails", X.talkRepeatOk(T1, "гуляю", O1) === false);
+  const T2 = "Я пишу́ ру́чкой.", O2 = "я пишу с ручкой";
+  check("focus: a correction that REMOVES a word — saying it with the word fails", X.talkRepeatOk(T2, "я пишу с ручкой", O2) === false);
+  check("focus: a correction that removes a word — saying it without passes", X.talkRepeatOk(T2, "я пишу ручкой", O2) === true);
+  const T3 = "Я живу́ с жено́й.", O3 = "я живу с жена";
+  check("focus: wrong ending on the corrected word still fails", X.talkRepeatOk(T3, "я живу с жена", O3) === false);
+  check("focus: right ending passes", X.talkRepeatOk(T3, "я живу с женой", O3) === true);
+})();
+/* ---- 11. The listener's other guesses ---- */
+(function alts() {
+  const a = X.talkAltSentences([["я говорю в парке", "я гуляю в парке"], ["с женой"]]);
+  check("alts: the first guess comes first", a[0] === "я говорю в парке с женой");
+  check("alts: each other guess becomes a whole sentence", a.includes("я гуляю в парке с женой"));
+  check("alts: nothing heard → no sentences", X.talkAltSentences([]).length === 0);
+  check("alts: no repeats", X.talkAltSentences([["да", "да"]]).length === 1);
+})();
 
 /* ---- 8. The key never travels with progress ---- */
 const blankSrc = extractFn("blank");
