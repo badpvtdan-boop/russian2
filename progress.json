@@ -6148,8 +6148,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 7,
-  "lastCompleted": "2026-11-19",
+  "streak": 8,
+  "lastCompleted": "2026-11-20",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6752,6 +6752,12 @@
     "2026-11-19": {
       "newDone": 0,
       "reviewDone": 0,
+      "studied": true
+    },
+    "2026-11-20": {
+      "newDone": 0,
+      "reviewDone": 0,
+      "tDone": 1,
       "studied": true
     }
   },
