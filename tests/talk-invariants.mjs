@@ -28,7 +28,7 @@ function extractFn(name) {
   }
   return src.slice(start, i);
 }
-const FNS = ["norm", "lev", "talkWords", "talkWordOk", "talkRepeatOk", "talkAltSentences", "laterDate", "talkParse", "talkSayComplete", "talkSpeakable", "talkSplitSentences",
+const FNS = ["norm", "lev", "talkWords", "talkWordOk", "talkRepeatOk", "talkAltSentences", "talkWordCount", "talkSentences", "talkTrimSay", "laterDate", "talkParse", "talkSayComplete", "talkSpeakable", "talkSplitSentences",
              "talkNextHelp", "talkKeepKey", "talkDedupe", "talkMergeTopic"];
 const sandbox = { console };
 vm.createContext(sandbox);
@@ -172,6 +172,21 @@ check("repeat: using a preposition the correction removed does NOT pass", X.talk
   check("alts: each other guess becomes a whole sentence", a.includes("я гуляю в парке с женой"));
   check("alts: nothing heard → no sentences", X.talkAltSentences([]).length === 0);
   check("alts: no repeats", X.talkAltSentences([["да", "да"]]).length === 1);
+})();
+
+
+/* ---- 12. Replies cut to the level's word limit ---- */
+(function trim() {
+  const long = "Пра́вильно, с семьёй! Вы хорошо́ говори́те. Э́то мой после́дний вопро́с: чем вы пла́тите в магази́не, ка́ртой и́ли нали́чными?";
+  check("trim: word count ignores punctuation", X.talkWordCount("Хорошо́! — Да, да.") === 3);
+  check("trim: sentences split on . ! ? …", X.talkSentences("Да! Как дела́? Хорошо́…").length === 3);
+  const r = X.talkTrimSay(long, 12);
+  check("trim: the screenshot reply is cut", r.cut === true && X.talkWordCount(r.say) <= 12 + 10);
+  check("trim: the question is always kept", /ка́ртой и́ли нали́чными\?$/.test(r.say));
+  check("trim: the opening reaction is kept when it fits", X.talkTrimSay("Хорошо́! Я то́же люблю́ ко́фе. А с кем ты пьёшь ко́фе?", 9).say === "Хорошо́! А с кем ты пьёшь ко́фе?");
+  check("trim: a short reply is left alone", X.talkTrimSay("Хорошо́! С кем ты живёшь?", 12).cut === false);
+  check("trim: a goodbye with no question keeps its last sentence", /До свида́ния!$/.test(X.talkTrimSay("Спаси́бо за разгово́р, ты о́чень хорошо́ рабо́тал сего́дня. Ты молоде́ц и всё понима́ешь. До свида́ния!", 6).say));
+  check("trim: a single long sentence isn't mangled", X.talkTrimSay("Чем ты обы́чно пла́тишь в большо́м магази́не ря́дом с твои́м до́мом в Те́хасе?", 6).cut === false);
 })();
 
 /* ---- 8. The key never travels with progress ---- */
