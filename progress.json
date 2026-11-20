@@ -4640,12 +4640,12 @@
       "listenOwed": true
     },
     "902": {
-      "box": 5,
-      "due": "2026-11-08",
+      "box": 8,
+      "due": "2027-11-20",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-03"
+      "lastReviewed": "2026-11-20"
     },
     "903": {
       "box": 5,
@@ -6756,7 +6756,7 @@
     },
     "2026-11-20": {
       "newDone": 0,
-      "reviewDone": 7,
+      "reviewDone": 8,
       "tDone": 1,
       "studied": true
     }
