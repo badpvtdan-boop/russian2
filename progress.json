@@ -3070,12 +3070,12 @@
       "listenOwed": true
     },
     "710": {
-      "box": 3,
-      "due": "2026-11-12",
+      "box": 4,
+      "due": "2026-12-05",
       "lapses": 11,
-      "reps": 28,
+      "reps": 29,
       "introduced": true,
-      "lastReviewed": "2026-11-04"
+      "lastReviewed": "2026-11-19"
     },
     "711": {
       "box": 5,
