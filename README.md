@@ -89,6 +89,7 @@ this repo — not from a local clone.** Two things follow, and both have already
   matched by a rough stem (`talkUsesWord()`) so inflected forms count; an answer given in English
   never counts as saying one. The end screen lists said / heard / didn't come up. Per
   conversation only — nothing new in the saved state, and the drill's scheduling is untouched.
+  The Talk page also has a **🧩 Your current words** conversation (`TALK_VOCAB`, 2026-11-20.11) — no grammar point, every question built round one learning word — with the words listed on its card.
 
 ## Data & sync
 

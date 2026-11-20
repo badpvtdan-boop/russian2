@@ -245,6 +245,8 @@ check("repeat: using a preposition the correction removed does NOT pass", X.talk
   check("wiring: every request carries them to the partner", /talkSystem\(mine\.topic, mine\.level, mine\.current\)/.test(src));
   check("wiring: the strong-word list leaves the learning words out", /talkKnownWords\(80, \(current\|\|\[\]\)/.test(src));
   check("wiring: an answer in English doesn't count as saying a word", /if\(how!=="en"\) talkMarkWords\(T\.current/.test(src));
+  check("wiring: there is a conversation of its own for the current words", /const TALK_VOCAB=\{id:"vocab"/.test(src) && /if\(id===TALK_VOCAB\.id\) return TALK_VOCAB;/.test(src));
+  check("wiring: the Talk page shows the current words and starts that conversation", /talkCurrentWords\(S\.cards, DECK, TALK_CURRENT_N\);[\s\S]{0,1500}data-act="start" data-v="vocab"/.test(src));
   check("wiring: each answer tells the partner which words are still unsaid", /His learning words he hasn't said yet/.test(src));
 })();
 
