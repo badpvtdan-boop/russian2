@@ -34,7 +34,7 @@ const FNS = [
   "blank", "mergeStates", "creditStudyDay", "logDay", "logGrammarDay",
   "studyDays", "lastStudyDay", "streakEndingAt", "healStreak", "stateLooksEmpty",
   "card", "gcard", "resolve", "gradeGrammarCard",
-  "loadOn", "projectedLoad", "balancedDue", "talkMergeTopic", "talkDedupe", "talkKeepKey",
+  "loadOn", "projectedLoad", "balancedDue", "logTalkDay", "talkMergeTopic", "talkDedupe", "talkKeepKey",
 ];
 
 // Sandbox globals the extracted functions reference.
@@ -459,6 +459,26 @@ function studiedRange(startISO, endISO) {
   check("talk merge: kept sentences are the union, without the duplicate", r.keep.length === 2);
   check("talk merge: a blank side leaves the record alone", JSON.stringify(sandbox.mergeStates(a, sandbox.blank()).talk) === JSON.stringify({ "L-instrumental": sandbox.talkMergeTopic(a.talk["L-instrumental"], undefined) }));
   check("talk merge: merging is symmetric", JSON.stringify(sandbox.mergeStates(b, a).talk) === JSON.stringify(m.talk));
+})();
+
+
+/* ===== Talk counts for the streak (2026-11-20) ===== */
+(function talkStreak() {
+  FAKE_TODAY = "2026-11-20";
+  sandbox.S = freshState({ streak: 9, lastCompleted: "2026-11-19", dailyLog: studiedRange("2026-11-11", "2026-11-19") });
+  sandbox.logTalkDay();
+  const l = sandbox.S.dailyLog["2026-11-20"];
+  check("talk streak: a spoken answer logs the day", l && l.tDone === 1 && l.studied === true);
+  check("talk streak: a talk-only day continues the streak", sandbox.S.streak === 10 && sandbox.S.lastCompleted === "2026-11-20");
+  sandbox.logTalkDay();
+  check("talk streak: later answers count up without double-crediting", sandbox.S.dailyLog["2026-11-20"].tDone === 2 && sandbox.S.streak === 10);
+  check("talk streak: a log entry with only talk answers is a study day", sandbox.hasStudy({ newDone: 0, reviewDone: 0, tDone: 3 }) === true);
+  const a = freshState({ dailyLog: { "2026-11-20": { newDone: 0, reviewDone: 0, tDone: 4 } } });
+  const b = freshState({ dailyLog: { "2026-11-20": { newDone: 2, reviewDone: 0, tDone: 1 } } });
+  const m = sandbox.mergeStates(a, b).dailyLog["2026-11-20"];
+  check("talk streak: merge keeps the larger talk count (never sums)", m.tDone === 4 && m.newDone === 2);
+  const lost = freshState({ talk: { "s-cafe": { n: 1, last: "2026-11-18", help: 2, keep: [] } } });
+  check("talk streak: a finished conversation proves its day even if the log lost it", sandbox.studyDays(lost)["2026-11-18"] === true);
 })();
 
 /* ---- report ---- */
