@@ -29,10 +29,11 @@ function extractFn(name) {
   return src.slice(start, i);
 }
 const FNS = ["norm", "lev", "talkWords", "talkWordOk", "talkRepeatOk", "talkAltSentences", "talkWordCount", "talkSentences", "talkTrimSay", "laterDate", "talkParse", "talkSayComplete", "talkSpeakable", "talkSplitSentences",
-             "talkNextHelp", "talkKeepKey", "talkDedupe", "talkMergeTopic"];
+             "talkNextHelp", "talkKeepKey", "talkDedupe", "talkMergeTopic",
+             "talkCurrentWords", "talkStem", "talkTokenHas", "talkUsesWord", "talkMarkWords", "talkCurrentBlock"];
 const sandbox = { console };
 vm.createContext(sandbox);
-vm.runInContext(FNS.map(extractFn).join("\n"), sandbox);
+vm.runInContext("var KNOWN_BOX = 4;\n" + FNS.map(extractFn).join("\n"), sandbox);
 const X = sandbox;
 
 let pass = 0, fail = 0; const fails = [];
@@ -187,6 +188,64 @@ check("repeat: using a preposition the correction removed does NOT pass", X.talk
   check("trim: a short reply is left alone", X.talkTrimSay("Хорошо́! С кем ты живёшь?", 12).cut === false);
   check("trim: a goodbye with no question keeps its last sentence", /До свида́ния!$/.test(X.talkTrimSay("Спаси́бо за разгово́р, ты о́чень хорошо́ рабо́тал сего́дня. Ты молоде́ц и всё понима́ешь. До свида́ния!", 6).say));
   check("trim: a single long sentence isn't mangled", X.talkTrimSay("Чем ты обы́чно пла́тишь в большо́м магази́не ря́дом с твои́м до́мом в Те́хасе?", 6).cut === false);
+})();
+
+/* ---- 7b. Current vocabulary: the words he is learning right now ---- */
+(function currentWords() {
+  const deck = [
+    { id: 1, ru: "ма́ма", en: "mom", pos: "noun" },          // known
+    { id: 2, ru: "ка́ша", en: "porridge", pos: "noun" },     // learning, drilled today
+    { id: 3, ru: "жа́рить", en: "to fry", pos: "verb" },     // learning, drilled today, weaker
+    { id: 4, ru: "ку́ртка", en: "jacket", pos: "noun" },     // learning, drilled earlier
+    { id: 5, ru: "по́лка", en: "shelf", pos: "noun" },       // never introduced
+    { id: 6, ru: "гости́ная", en: "living room", pos: "noun" },
+  ];
+  const cards = {
+    1: { introduced: true, box: 7, lastReviewed: "2026-11-20" },
+    2: { introduced: true, box: 2, lastReviewed: "2026-11-20" },
+    3: { introduced: true, box: 1, lastReviewed: "2026-11-20" },
+    4: { introduced: true, box: 3, lastReviewed: "2026-11-18" },
+    6: { introduced: true, box: 3, lastReviewed: "2026-11-10" },
+  };
+  const cur = X.talkCurrentWords(cards, deck, 3);
+  check("current: known words are left out", !cur.some(w => w.id === 1));
+  check("current: words never met are left out", !cur.some(w => w.id === 5));
+  check("current: most recently drilled first, weakest first among them", cur.map(w => w.id).join() === "3,2,4");
+  check("current: capped at the number asked for", cur.length === 3);
+  check("current: each starts unheard and unsaid", cur.every(w => w.heard === false && w.said === false));
+
+  const W = (ru, pos) => ({ ru, pos: pos || "noun" });
+  check("uses: an inflected noun is found (ка́ша → с ка́шей)", X.talkUsesWord("Я ем с ка́шей.", W("ка́ша")));
+  check("uses: an adjective-noun is found in another case (гости́ная → в гости́ной)", X.talkUsesWord("Мы в гостиной", W("гости́ная")));
+  check("uses: a conjugated verb is found (жа́рить → жарю)", X.talkUsesWord("я жарю мясо", W("жа́рить", "verb")));
+  check("uses: a reflexive verb is found (занима́ться → занимаюсь)", X.talkUsesWord("я занимаюсь спортом", W("занима́ться", "verb")));
+  check("uses: ё in speech still matches", X.talkUsesWord("ещё", W("ещё", "adv")));
+  check("uses: a word that isn't there isn't found", !X.talkUsesWord("Я гуляю с собакой", W("ку́ртка")));
+  check("uses: a short word must match exactly", X.talkUsesWord("мой дом", W("дом")) && !X.talkUsesWord("до свидания", W("дом")));
+  check("uses: a long unrelated word sharing the start is not a match", !X.talkUsesWord("кашалот плывёт", W("ка́ша")));
+  check("uses: a long verb ending still counts (занима́ться → занимаешься)", X.talkUsesWord("ты занимаешься?", W("занима́ться", "verb")));
+  check("uses: a long noun ending still counts (ло́жка → ложками)", X.talkUsesWord("ложками", W("ло́жка")));
+  check("uses: a phrase needs all its parts", X.talkUsesWord("Доброе утро!", W("до́брое у́тро", "phrase")) && !X.talkUsesWord("Доброе дело", W("до́брое у́тро", "phrase")));
+  check("uses: Latin-letter or empty text finds nothing", !X.talkUsesWord("", W("ка́ша")));
+
+  const list = [{ ru: "ка́ша", pos: "noun", heard: false, said: false }, { ru: "ку́ртка", pos: "noun", heard: false, said: false }];
+  check("mark: marks only what the text uses", X.talkMarkWords(list, "Ты любишь кашу?", "heard") === 1 && list[0].heard && !list[1].heard);
+  check("mark: hearing is not saying", list[0].said === false);
+  X.talkMarkWords(list, "Да, я люблю кашу", "said");
+  check("mark: saying it marks it said", list[0].said === true);
+  check("mark: a word already marked isn't counted twice", X.talkMarkWords(list, "каша каша", "said") === 0);
+
+  const block = X.talkCurrentBlock([{ ru: "ка́ша", en: "porridge" }, { ru: "ку́ртка", en: "jacket" }]);
+  check("prompt: the learning words are listed with their English", /ка́ша = porridge; ку́ртка = jacket/.test(block));
+  check("prompt: the partner is told to make him SAY them", /natural ANSWER uses the word/.test(block));
+  check("prompt: no learning words → no section at all", X.talkCurrentBlock([]) === "" && X.talkCurrentBlock(null) === "");
+})();
+(function currentWiring() {
+  check("wiring: the conversation picks its words when it starts", /current:talkCurrentWords\(S\.cards, DECK, TALK_CURRENT_N\)/.test(src));
+  check("wiring: every request carries them to the partner", /talkSystem\(mine\.topic, mine\.level, mine\.current\)/.test(src));
+  check("wiring: the strong-word list leaves the learning words out", /talkKnownWords\(80, \(current\|\|\[\]\)/.test(src));
+  check("wiring: an answer in English doesn't count as saying a word", /if\(how!=="en"\) talkMarkWords\(T\.current/.test(src));
+  check("wiring: each answer tells the partner which words are still unsaid", /His learning words he hasn't said yet/.test(src));
 })();
 
 /* ---- 8. The key never travels with progress ---- */

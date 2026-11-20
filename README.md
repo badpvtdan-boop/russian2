@@ -80,6 +80,15 @@ this repo — not from a local clone.** Two things follow, and both have already
   (`talkNextHelp()`): help on ≤¼ of answers → one step less next time, on more than half → one
   step more. Corrections and looked-up answers become **sentences to keep** per topic. Saved as
   `S.talk[topicId] = {n,last,help,keep}`, merged by `talkMergeTopic()`.
+  **Current vocabulary** (2026-11-20.10): the 80-word list the partner gets is his *strongest*
+  words (background). The words he is learning right now — introduced in the drill, box below
+  `KNOWN_BOX`, most recently drilled first — go in separately: `talkCurrentWords()` picks
+  `TALK_CURRENT_N` (10) when a conversation starts, `talkCurrentBlock()` tells the partner to
+  build questions whose natural answer uses them, and every answer's turn tag lists the ones he
+  hasn't said yet. On screen they sit in a strip above the conversation (👂 heard, ✓ said),
+  matched by a rough stem (`talkUsesWord()`) so inflected forms count; an answer given in English
+  never counts as saying one. The end screen lists said / heard / didn't come up. Per
+  conversation only — nothing new in the saved state, and the drill's scheduling is untouched.
 
 ## Data & sync
 
