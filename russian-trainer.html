@@ -244,6 +244,8 @@
   .th-line{margin:4px 0}
   .th-k{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-right:4px}
   .chip{display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin:3px 4px 3px 0;font-size:14px}
+  .talk-fixstep{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin-top:14px;padding:14px;border-radius:14px;background:var(--warn-bg);border:1px solid var(--warn-line)}
+  .talk-fixstep .tb-ru{font-size:23px}
   .talk-mic{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:16px}
   .mic-btn{width:100%;font-size:18px;padding:16px;border-radius:14px}
   .mic-btn.live{background:var(--bad);border-color:var(--bad);color:#fff;animation:talkpulse 1.2s infinite}
@@ -442,7 +444,7 @@
         </div>
         <pre id="diag-out" class="tag" style="display:none;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;overflow-x:auto"></pre>
         <div class="tag">Use a fine-grained token scoped to just this one repo, with <b>Contents: Read and write</b>. It's stored only in this browser and is never written into progress.json.</div>
-        <div class="tag" style="margin-top:14px">App version: <b>2026-11-20.5</b> · Talk now counts for your daily streak — your first answer in a conversation counts the day, just like a drill answer. · <br>Before that (2026-11-20.4): · Talk: stopping to think no longer sends your answer. It keeps listening through pauses and sends after 5 seconds of quiet (change it in Talk settings: 3, 5, 8 seconds, or only when you tap Done). · <br>Before that (2026-11-20.3): · Talk: the partner no longer thinks privately before answering — it was running out of room and sending back nothing; replies also start sooner. The microphone is opened once when a conversation starts and kept until it ends, so the phone stops asking for it before every answer. If the partner sends back an empty reply it now asks again by itself, and if that fails too it says so with a Try again button, instead of leaving an empty bubble and getting stuck. · <br>Before that (2026-11-20.1): · new 🗣 <b>Talk</b> tab: spoken conversations with an AI partner — it speaks Russian to you, listens to your answer, and gently fixes one thing at a time. A conversation for every grammar lesson (Instrumental first), everyday situations (café, market, introductions…) and free talk. Help (easier question, word bank, first words, a full answer) fades as you need it less, and the corrections become sentences to keep. Needs your own Anthropic key, kept on this phone only. · <br>Before that (2026-11-05.1): · on the iPhone the listening card no longer shows the word by itself when you take a while to answer — it now only does that when the sound actually reports an error. · <br>Before that (2026-11-04.1): · the “Listen — what does it mean?” card has a 👁 Show word button next to Play again: it shows the Russian so you can answer by reading. It isn't a miss, but it doesn't count as hearing the word, so that word comes back as a listening card. If the sound fails to play the word is shown for you, and on a phone tapping Play again reminds you to check the silent switch. · <br>Before that (2026-10-28.1): · when clearing your reviews frees up the day’s new words, the drill now offers them (“Learn today’s 5 new words →”) instead of saying “Done for today”, and Home points to them before the next lesson. · <br>Before that (2026-10-27.1): · the letter-tile and typing exercises are gone from the daily drill — once a word is past matching it gets “hear it, pick the meaning” or look-alike multiple choice, however well you know it. (Typing is still there if you pick “Type it only” in Settings.) · <br>Before that (2026-10-26.2): · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
+        <div class="tag" style="margin-top:14px">App version: <b>2026-11-20.6</b> · Talk: when you get something wrong, you now say the corrected sentence back before the conversation moves on — it plays the right version, listens, and only continues once you've said it (or after three tries, if the mic keeps mishearing you). · <br>Before that (2026-11-20.5): · Talk now counts for your daily streak — your first answer in a conversation counts the day, just like a drill answer. · <br>Before that (2026-11-20.4): · Talk: stopping to think no longer sends your answer. It keeps listening through pauses and sends after 5 seconds of quiet (change it in Talk settings: 3, 5, 8 seconds, or only when you tap Done). · <br>Before that (2026-11-20.3): · Talk: the partner no longer thinks privately before answering — it was running out of room and sending back nothing; replies also start sooner. The microphone is opened once when a conversation starts and kept until it ends, so the phone stops asking for it before every answer. If the partner sends back an empty reply it now asks again by itself, and if that fails too it says so with a Try again button, instead of leaving an empty bubble and getting stuck. · <br>Before that (2026-11-20.1): · new 🗣 <b>Talk</b> tab: spoken conversations with an AI partner — it speaks Russian to you, listens to your answer, and gently fixes one thing at a time. A conversation for every grammar lesson (Instrumental first), everyday situations (café, market, introductions…) and free talk. Help (easier question, word bank, first words, a full answer) fades as you need it less, and the corrections become sentences to keep. Needs your own Anthropic key, kept on this phone only. · <br>Before that (2026-11-05.1): · on the iPhone the listening card no longer shows the word by itself when you take a while to answer — it now only does that when the sound actually reports an error. · <br>Before that (2026-11-04.1): · the “Listen — what does it mean?” card has a 👁 Show word button next to Play again: it shows the Russian so you can answer by reading. It isn't a miss, but it doesn't count as hearing the word, so that word comes back as a listening card. If the sound fails to play the word is shown for you, and on a phone tapping Play again reminds you to check the silent switch. · <br>Before that (2026-10-28.1): · when clearing your reviews frees up the day’s new words, the drill now offers them (“Learn today’s 5 new words →”) instead of saying “Done for today”, and Home points to them before the next lesson. · <br>Before that (2026-10-27.1): · the letter-tile and typing exercises are gone from the daily drill — once a word is past matching it gets “hear it, pick the meaning” or look-alike multiple choice, however well you know it. (Typing is still there if you pick “Type it only” in Settings.) · <br>Before that (2026-10-26.2): · the daily drill now changes format as you learn each word (Answer mode “Mixed”, the new default): new words are shown first and then matched (one Russian word has no partner, so the last pair is never free); shaky words alternate between hearing the word and picking its meaning, and multiple choice where the wrong answers look like the right one; middling words are spelled from letter tiles; strong words are typed — Latin letters are fine (koshka). A missed word comes back later the same day in an easier format. “Multiple choice only” and “Type it only” are still here. · <br>Before that (2026-10-23.1): · each idea in a lesson now shows only the common questions that belong to it (some have none); the full list is on the summary page before the test. Prefixes are now three short lessons — “How Much of It” (по-, за-, до-) split off from “One Root, Many Verbs.” · <br>Before that (2026-10-22.1): · the drill card no longer shows the word's gender, aspect or partner verb before you answer — it's shown, spelled out, once you've picked; and a word's partner (or a word with the same meaning) is never offered as a wrong choice. “Prefixes That Change Meaning” is rebuilt like the Instrumental: just the everyday direction prefixes (arrive, leave, in, out, across, up to), five sentences to keep and a test that explains every answer; the rest is two short follow-on lessons, “Prefixes: One Root, Many Verbs” (sign, rewrite, describe, and the every-day form) and “Prefixes: How Much of It” (по-, за-, до-). · <br>Before that (2026-10-06.1): · the Instrumental lesson is rebuilt: just the two everyday uses (with someone → с, using something → no с) and the common endings, one idea at a time; the rest (jobs, above/under/behind, the verbs that take it, “with me”) is a second lesson. Each comes with five sentences to keep (with audio), a Common questions section, and a test that explains every answer. New 📝 My sentences page on the Lessons tab, ↻ Refresh on any passed lesson, and lesson sentences now come back in grammar review. · <br>Before that (2026-10-05.1): · “I know this” on a review word now counts as finishing that review, so the home card’s “Review N due today” clears instead of handing you the next word forever; the home card’s number and the words the review serves now come from one list, so they always match. · <br>Before that (2026-09-22.1): · the Talk tab (conversation prompt for a Claude chat) has been removed. · progress now reaches the GitHub backup as soon as it is made — on the first answer of a new day, a few seconds after any answer, and the moment the app is closed or backgrounded — instead of only when a session reaches its finish screen. The home screen says when this device last backed up, and says so in orange if it never has, if sync is not set up here, or if pushes are failing. A blank state can no longer overwrite a populated save, and a save that cannot be read is copied aside instead of being written over. · <br>Previously: · the study streak is rebuilt from evidence (day log + card review stamps) on every load, so one uncredited day no longer resets it; date math no longer drifts across daylight saving; and if this device’s save comes back empty, the GitHub backup is pulled in automatically before anything overwrites it. <b>🩺 Streak check</b> above shows exactly what the streak is being computed from.</div>
       </div>
     </div>
   </div>
@@ -6167,14 +6169,15 @@ HOW TO TALK
 - Put stress marks (the acute accent, e.g. ма́мой) on every Russian word of more than one syllable, in SAY, FIX, EASY, WORDS, START and ANSWER.
 - Steer every question so the natural answer practises today's conversation.
 - He may answer in Russian, in Latin-letter transliteration, or in English. His Russian often comes through speech-to-text, so it may be slightly garbled, unpunctuated, or have е for ё: judge what he meant and never comment on spelling, punctuation, capitals or recognition slips.
-- If he answers in English or says he doesn't know, he is stuck: give him the Russian for what he meant in FIX, and in SAY warmly ask him to try saying it.
+- If he answers in English or says he doesn't know, he is stuck: give him the Russian for what he meant in FIX.
+- The app makes him say FIX out loud correctly BEFORE it plays SAY. So SAY must not repeat or explain the correction — just react briefly to what he meant and ask the next question.
 - Correct only real mistakes in grammar or word choice that matter — at most one per turn, the most important one. If his sentence is fine, FIX is none. Never correct something that is acceptable Russian.
 - The app tells you which turn this is. On the final turn, reply to what he said, then wrap up warmly in one short Russian sentence and set END: yes. Otherwise END: no.
 
-OUTPUT FORMAT — every reply is exactly these nine lines, in this order, nothing before or after, no markdown:
+OUTPUT FORMAT — every reply is exactly these nine lines, in this order, FIX first, nothing before or after, no markdown:
+FIX: his last sentence corrected, in Russian, then " || " then a short plain-English reason (under 15 words). Write "FIX: none" if it was fine or he hasn't spoken yet.
 SAY: your Russian reply (this is spoken aloud to him)
 EN: English translation of SAY
-FIX: his last sentence corrected, in Russian, then " || " then a short plain-English reason (under 15 words). Write "FIX: none" if it was fine or he hasn't spoken yet.
 EASY: an either/or or yes/no version of your question in Russian, so he can answer by picking (e.g. С Са́шей или с соба́кой?)
 WORDS: 3–5 words he would need to answer, written russian = english, separated by " ; "
 START: the first two or three words of a good answer
@@ -6267,8 +6270,27 @@ function talkSpeakChunk(text){
   try{ speechSynthesis.speak(u); }catch(e){ end(); }
 }
 function talkSilence(){ try{ if("speechSynthesis" in window) speechSynthesis.cancel(); }catch(e){} TALK_SPEAKING=0; }
+/* Say it right before moving on (2026-11-20). A correction used to sit on screen while the
+   conversation carried on, so it could be skipped straight past. Now a correction is its own
+   step: the partner's next line is held, the corrected sentence is played, and he says it back
+   until it matches. Then the held line plays and the conversation continues. "Move on" appears
+   only after three tries, so a microphone that keeps mishearing him can't trap him. */
+const TALK_FIX_TRIES=3;
+function talkFixPending(){ return !!(T && T.fixStep && !T.fixStep.ok); }
 function talkAfterSpeech(){
   if(!T || TALK_SPEAKING>0 || !T.replyDone || T.phase!=="speaking") return;
+  const f=T.fixStep;
+  if(f && !f.ok){
+    if(!f.spoke){ f.spoke=true; talkSpeakChunk(f.ru); if(TALK_SPEAKING>0) return; }
+    T.phase="fix"; renderTalkRunner();
+    if(TALKCFG.autoListen && TalkSR && !T.typing) talkListen({mode:"repeat", target:f.ru, fix:true});
+    return;
+  }
+  if(f && f.held && !f.saySpoken){
+    f.saySpoken=true; renderTalkRunner();
+    const say=(f.entry.p.SAY||"");
+    if(say.trim()){ talkSpeakChunk(say); if(TALK_SPEAKING>0) return; }
+  }
   T.phase="idle"; renderTalkRunner();
   if(!T.done && TALKCFG.autoListen && TalkSR && !T.typing) talkListen();
 }
@@ -6316,12 +6338,17 @@ async function talkAsk(userText){
   mine.turn++;
   const entry={who:"ai",raw:"",p:{}};
   mine.log.push(entry);
-  mine.phase="thinking"; mine.replyDone=false; mine.error=null; mine.open={}; mine.micMsg=null; mine.repeat=null;
+  mine.phase="thinking"; mine.replyDone=false; mine.error=null; mine.open={}; mine.micMsg=null; mine.repeat=null; mine.fixStep=null;
   renderTalkRunner();
   const ctrl=new AbortController(); mine.ctrl=ctrl;
   let spoken=0, sayDone=false;
   const feed=()=>{
-    if(sayDone) return;
+    if(sayDone || entry.held) return;
+    /* Correction first: until the FIX line is complete we don't know whether to hold the reply. */
+    if(/^\s*\**\s*FIX\b/.test(entry.raw)){
+      if(!/\n/.test(entry.raw)) return;
+      if(entry.p.FIX && mine.myTurns>0){ entry.held=true; return; }
+    }
     const say=entry.p.SAY||"";
     if(talkSayComplete(entry.raw)){
       sayDone=true; const rest=say.slice(spoken); spoken=say.length;
@@ -6350,14 +6377,15 @@ async function talkAsk(userText){
       throw new Error("The partner sent back an empty reply twice ("+why+"). Tap Try again.");
     }
     entry.raw=full; entry.p=talkParse(full);
-    if(!sayDone){ sayDone=true; const rest=(entry.p.SAY||"").slice(spoken); if(rest.trim()){ mine.phase="speaking"; talkSpeakChunk(rest); } }
+    if(!sayDone && !entry.held){ sayDone=true; const rest=(entry.p.SAY||"").slice(spoken); if(rest.trim()){ mine.phase="speaking"; talkSpeakChunk(rest); } }
     mine.msgs.push({role:"assistant",content:full||"SAY: …"});
     /* The correction belongs to his previous answer. */
     const me=[...mine.log].reverse().find(e=>e.who==="me");
     if(me && entry.p.FIX && !me.fix){
       me.fix={ru:entry.p.FIX_RU, note:entry.p.FIX_NOTE};
       mine.keep.unshift({ru:entry.p.FIX_RU, en:"", note:entry.p.FIX_NOTE});
-    }
+      mine.fixStep={ru:entry.p.FIX_RU, note:entry.p.FIX_NOTE, tries:0, ok:false, spoke:false, held:!!entry.held, saySpoken:false, entry};
+    } else if(entry.held){ entry.held=false; const say=entry.p.SAY||""; if(say.trim()){ mine.phase="speaking"; talkSpeakChunk(say); } }
     mine.replyDone=true;
     if(entry.p.isEnd || mine.myTurns>=mine.maxTurns) mine.done=true;
     mine.phase="speaking";                     // talkAfterSpeech moves it on once the voice is quiet
@@ -6375,7 +6403,7 @@ async function talkAsk(userText){
 }
 function talkSend(text, how){
   text=String(text||"").trim();
-  if(!text || !T || T.done || T.phase==="thinking") return;
+  if(!text || !T || T.done || T.phase==="thinking" || talkFixPending()) return;
   T.myTurns++; if(T.helpedNow) T.helped++; T.helpedNow=false;
   logTalkDay();
   T.log.push({who:"me",text,how});
@@ -6410,7 +6438,7 @@ function talkListenNow(opts){
   const L={opts, lang:opts.lang||"ru-RU", committed:"", fin:"", interim:"", failed:null,
            finishing:false, started:Date.now(), last:0, restarts:0, timer:null, rec:null};
   TALK_LISTEN=L;
-  T.phase=(opts.mode==="repeat")?"repeat":"listening"; T.listenLang=L.lang; T.heard=""; T.micMsg=null; T.cancelled=false;
+  T.phase=(opts.mode==="repeat")?"repeat":"listening"; T.listenLang=L.lang; T.listenTarget=opts.target||null; T.heard=""; T.micMsg=null; T.cancelled=false;
   if(opts.mode!=="repeat") T.repeat=null;
   renderTalkRunner();
   const heardNow=()=>(L.committed+" "+L.fin+" "+L.interim).replace(/\s+/g," ").trim();
@@ -6418,9 +6446,9 @@ function talkListenNow(opts){
     clearInterval(L.timer); if(TALK_LISTEN===L) TALK_LISTEN=null; TALK_REC=null;
     if(!T) return;
     const said=L.committed.trim(), failed=L.failed;
-    T.phase="idle";
+    T.phase=talkFixPending()?"fix":"idle";
     if(T.cancelled){ T.cancelled=false; renderTalkRunner(); return; }
-    if(opts.mode==="repeat"){ talkCheckRepeat(opts.target, said); return; }
+    if(opts.mode==="repeat"){ talkCheckRepeat(opts.target, said, opts.fix); return; }
     if(said){ talkSend(said, String(L.lang).startsWith("en")?"en":"spoken"); return; }
     T.micMsg = (failed==="not-allowed"||failed==="service-not-allowed")
       ? "The microphone is blocked for this app. Allow it in your phone's settings, or type your answer instead."
@@ -6471,18 +6499,35 @@ function talkStopListening(cancel){
   if(cancel){ if(T) T.cancelled=true; L.finishing=true; try{ L.rec.abort(); }catch(e){} }
   else talkFinishListening();
 }
-function talkCheckRepeat(target, said){
-  const a=norm(said), b=norm(talkSpeakable(target));
-  let ok=false;
-  if(a&&b){ const tol=Math.max(2,Math.round(b.length*0.15)); ok=(a===b)||lev(a,b)<=tol; }
+/* Word by word, because the point of a correction is usually one ending (собака → собакой),
+   and a whole-sentence "close enough" let exactly that mistake through. Stress, case,
+   punctuation and ё/е never matter. A word may be off by one letter (the mic's spelling of a
+   name: Роки for Рокки) only if it is 4+ letters long and its last two letters are right —
+   endings carry the grammar, so a wrong ending is never forgiven. */
+function talkRepeatOk(target, said){
+  const n=x=>norm(String(x||"").replace(/[ёЁ]/g,"е"));   // ё first: norm() splits it into е + two dots before it can fold it
+  const a=n(said).split(" ").filter(Boolean), b=n(talkSpeakable(target)).split(" ").filter(Boolean);
+  if(!a.length || a.length!==b.length) return false;
+  return b.every((w,i)=>{ const x=a[i]; if(x===w) return true;
+    return w.length>=4 && x.slice(-2)===w.slice(-2) && lev(x,w)<=1; });
+}
+function talkCheckRepeat(target, said, fix){
+  const ok=talkRepeatOk(target, said);
   T.repeat={target, said, ok};
+  const f=T.fixStep;
+  if(fix && f && !f.ok && f.ru===target){
+    if(ok){ f.ok=true; T.phase="speaking"; renderTalkRunner(); talkAfterSpeech(); return; }
+    f.tries++;
+    if(f.tries<TALK_FIX_TRIES && TALKCFG.autoListen && TalkSR && !T.typing){ f.spoke=false; T.phase="speaking"; renderTalkRunner(); talkAfterSpeech(); return; }   // hear it again, then try again
+    T.phase="fix"; renderTalkRunner(); return;
+  }
   renderTalkRunner();
 }
 /* Leaving the tab mid-conversation: stop the voice and the mic, keep the conversation. */
 function talkPause(){
   talkStopListening(true);
   talkSilence();
-  if(T && T.replyDone && (T.phase==="speaking"||T.phase==="listening"||T.phase==="repeat")) T.phase="idle";
+  if(T && T.replyDone && (T.phase==="speaking"||T.phase==="listening"||T.phase==="repeat")) T.phase=talkFixPending()?"fix":"idle";
 }
 function talkEnd(){
   if(!T) return;
@@ -6503,6 +6548,12 @@ function talkRecordSession(){
   /* keep the mic for "Say it" on the sentences to keep; it's released on Back, Talk again's
      fresh start, or leaving the tab */
 }
+function talkFixTyped(){
+  const el=$("talk-fix-type"); if(!el||!talkFixPending()) return;
+  const v=el.value.trim(); if(!v) return;
+  const said = (hasLatin(v) && !/[\u0400-\u04ff]/.test(v)) ? latToCyr(v) : v;
+  talkCheckRepeat(T.fixStep.ru, said, true);
+}
 function talkUseHelp(kind){
   if(!T) return;
   T.open[kind]=true;
@@ -6522,6 +6573,8 @@ function talkRepeatLine(target){
 }
 function talkAiBubble(e, i, live){
   const p=e.p||{};
+  const waiting = e.held && T.fixStep && T.fixStep.entry===e && !T.fixStep.saySpoken;
+  if(waiting) return `<div class="tb ai"${live?' id="talk-live"':''}><div class="tb-ru muted" style="font-size:16px"${live?' id="talk-live-ru"':''}>… first, say the correction</div></div>`;
   const ru = p.SAY ? talkEsc(p.SAY) : (live ? '<span class="muted">…</span>' : "");
   const enOpen=!!T.open["en"+i];
   return `<div class="tb ai"${live?' id="talk-live"':''}>
@@ -6539,7 +6592,7 @@ function talkFixBlock(fix){
 }
 function talkHelpBox(){
   const a=[...T.log].reverse().find(e=>e.who==="ai");
-  if(!a || !T.replyDone || T.done || T.phase==="error") return "";
+  if(!a || !T.replyDone || T.done || T.phase==="error" || talkFixPending()) return "";
   const p=a.p, o=T.open, lvl=T.help;
   const showEasy = lvl===2 || o.easy, showWords = lvl===2 || o.words;
   const menuOpen = lvl>=1 || o.menu;
@@ -6559,15 +6612,30 @@ function talkHelpBox(){
   if(!h && !btns) return "";
   return `<div class="talk-help">${h}<div class="row" style="margin-top:${h?8:0}px;gap:6px">${btns}</div></div>`;
 }
+function talkFixBox(){
+  const f=T.fixStep, r=(T.repeat && T.repeat.target===f.ru) ? T.repeat : null;
+  const miss = r && !r.ok ? `<div style="color:var(--bad);font-size:14px;text-align:center">${r.said?"Close — I heard “"+talkEsc(r.said)+"”. Listen and try again.":"Didn't catch that — try again."}</div>` : "";
+  return `<div class="talk-fixstep">
+    <div class="th-k" style="text-align:center">Say it correctly</div>
+    <div class="tb-ru" style="text-align:center">${talkEsc(f.ru)} <button class="mini ghost" data-act="say" data-v="${escAttr(f.ru)}">🔊</button></div>
+    ${f.note?`<div class="muted" style="font-size:14px;text-align:center">${talkEsc(f.note)}</div>`:""}
+    ${miss}
+    ${T.typing
+      ? `<input type="text" id="talk-fix-type" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type it — Latin letters are fine"><div class="row" style="margin-top:8px;justify-content:center"><button class="primary" data-act="fix-check">Check</button>${TalkSR?`<button class="ghost" data-act="fix-say">🎤 Say it instead</button>`:""}</div>`
+      : `<button class="primary mic-btn" data-act="fix-say">🎤 Say it</button><button class="mini ghost" data-act="type-mode">⌨ Type instead</button>`}
+    ${f.tries>=TALK_FIX_TRIES?`<button class="mini ghost" data-act="fix-skip">Move on ▸</button>`:""}
+  </div>`;
+}
 function talkMicBox(){
-  if(T.done) return "";
   const ph=T.phase;
+  if(ph==="fix" && talkFixPending()) return talkFixBox();
+  if(T.done && ph!=="repeat") return "";
   if(ph==="error") return `<div class="talk-mic"><div style="color:var(--bad);text-align:center">${talkEsc(T.error)}</div><button class="primary mic-btn" data-act="retry">Try again</button></div>`;
   if(ph==="thinking") return `<div class="talk-mic"><div class="muted">… thinking</div></div>`;
   if(ph==="speaking") return `<div class="talk-mic"><div class="muted">🔊 speaking…</div>${T.replyDone?`<button class="mini ghost" data-act="skip">Skip ▸</button>`:""}</div>`;
   if(ph==="listening"||ph==="repeat"){
     const en=String(T.listenLang||"").startsWith("en");
-    return `<div class="talk-mic"><div class="muted" style="font-size:13px">${ph==="repeat"?"Say the sentence…":(en?"Listening — say it in English…":"Listening — speak Russian…")}<br>${talkPauseMs()?"Take your time — it waits "+(talkPauseMs()/1000)+" seconds of quiet, or tap Done.":"Take your time — tap Done when you've finished."}</div>
+    return `<div class="talk-mic">${ph==="repeat"&&T.listenTarget?`<div class="tb-ru" style="text-align:center">${talkEsc(T.listenTarget)}</div>`:""}<div class="muted" style="font-size:13px">${ph==="repeat"?"Say the sentence…":(en?"Listening — say it in English…":"Listening — speak Russian…")}<br>${talkPauseMs()?"Take your time — it waits "+(talkPauseMs()/1000)+" seconds of quiet, or tap Done.":"Take your time — tap Done when you've finished."}</div>
       <div id="talk-heard">${talkEsc(T.heard||"")}</div>
       <button class="mic-btn live" data-act="stop">■ Done</button>
       <button class="mini ghost" data-act="cancel">Cancel</button></div>`;
@@ -6587,7 +6655,7 @@ function talkMicBox(){
     <button class="mini ghost" data-act="type-mode">⌨ Type instead</button></div>`;
 }
 function talkEndBox(){
-  if(!T.done || T.phase==="speaking") return "";
+  if(!T.done || T.phase==="speaking" || talkFixPending()) return "";
   const keep=talkDedupe(T.keep);
   const nh=(T.nextHelp!=null)?T.nextHelp:T.help;
   const helpMsg = nh<T.help ? "You needed less help — next time this one starts with <b>"+TALK_HELP_NAMES[nh]+"</b> help."
@@ -6601,13 +6669,8 @@ function talkEndBox(){
         <div class="tb-tools"><button class="mini ghost" data-act="say" data-v="${escAttr(s.ru)}">🔊</button>${TalkSR?`<button class="mini ghost" data-act="repeat" data-v="${escAttr(s.ru)}">🎤 Say it</button>`:""}</div>
         ${talkRepeatLine(s.ru)}
       </div>`).join("")}`:`<p class="muted">Nothing needed correcting this time.</p>`}
-    ${T.phase==="repeat"?talkMicBoxRepeat():""}
     <div class="row"><button class="primary" data-act="again">Talk again</button><button class="ghost" data-act="back">Back to topics</button></div>
   </div>`;
-}
-function talkMicBoxRepeat(){
-  return `<div class="talk-mic"><div class="muted" style="font-size:13px">Say the sentence… then tap Done.</div><div id="talk-heard">${talkEsc(T.heard||"")}</div>
-    <button class="mic-btn live" data-act="stop">■ Done</button><button class="mini ghost" data-act="cancel">Cancel</button></div>`;
 }
 function renderTalkRunner(){
   const R=$("talk-runner"); if(!R||!T) return;
@@ -6631,6 +6694,8 @@ function renderTalkRunner(){
     <div id="talk-input">${talkMicBox()}</div>
     ${talkEndBox()}`;
   const sel=$("talk-help-sel"); if(sel) sel.onchange=()=>{ T.help=+sel.value; renderTalkRunner(); };
+  const fx=$("talk-fix-type");
+  if(fx){ fx.onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); talkFixTyped(); } }; }
   const ti=$("talk-type");
   if(ti){
     const pv=$("talk-lat");
@@ -6642,6 +6707,7 @@ function renderTalkRunner(){
 }
 function talkUpdateLive(e){
   const el=$("talk-live-ru"); if(!el){ renderTalkRunner(); return; }
+  if(e.held){ if(!/correction/.test(el.textContent)) renderTalkRunner(); return; }
   if(e.p.SAY) el.textContent=e.p.SAY;
   const mic=$("talk-input");
   if(mic && T && T.phase==="speaking" && !mic.dataset.speaking){ mic.innerHTML=talkMicBox(); mic.dataset.speaking="1"; }
@@ -6734,7 +6800,10 @@ $("view-talk").addEventListener("click",e=>{
   if(a==="help") return talkUseHelp(v);
   if(a==="mic") return talkListen();
   if(a==="en-speak"){ T.helpedNow=true; return talkListen({lang:"en-US"}); }
-  if(a==="repeat") return talkListen({mode:"repeat",target:v});
+  if(a==="repeat") return talkListen({mode:"repeat",target:v,fix:(talkFixPending() && T.fixStep.ru===v)});
+  if(a==="fix-say"){ if(!talkFixPending()) return; T.typing=false; return talkListen({mode:"repeat",target:T.fixStep.ru,fix:true}); }
+  if(a==="fix-check") return talkFixTyped();
+  if(a==="fix-skip"){ if(!talkFixPending()) return; T.fixStep.ok=true; T.fixStep.skipped=true; T.phase="speaking"; return talkAfterSpeech(); }
   if(a==="stop") return talkStopListening(false);
   if(a==="cancel") return talkStopListening(true);
   if(a==="type-mode"){ T.typing=true; renderTalkRunner(); const ti=$("talk-type"); if(ti) ti.focus(); return; }

@@ -28,7 +28,7 @@ function extractFn(name) {
   }
   return src.slice(start, i);
 }
-const FNS = ["laterDate", "talkParse", "talkSayComplete", "talkSpeakable", "talkSplitSentences",
+const FNS = ["norm", "lev", "talkRepeatOk", "laterDate", "talkParse", "talkSayComplete", "talkSpeakable", "talkSplitSentences",
              "talkNextHelp", "talkKeepKey", "talkDedupe", "talkMergeTopic"];
 const sandbox = { console };
 vm.createContext(sandbox);
@@ -137,6 +137,17 @@ check("help: a brand-new topic starts at Lots", X.talkNextHelp(undefined, 0, 0) 
   check("merge: nothing on either side → empty record at Lots, no invented date", e.n === 0 && e.help === 2 && e.keep.length === 0 && !("last" in e));
   check("merge: help 0 is kept, not mistaken for missing", X.talkMergeTopic({ help: 0, last: "2026-11-20" }, {}).help === 0);
 })();
+
+
+/* ---- 9. Saying a correction back ---- */
+check("repeat: the exact sentence passes", X.talkRepeatOk("Я гуля́ю с соба́кой.", "я гуляю с собакой") === true);
+check("repeat: stress, capitals, punctuation and ё don't matter", X.talkRepeatOk("Я живу́ с жено́й.", "Я ЖИВУ С ЖЕНОЙ") === true && X.talkRepeatOk("Всё хорошо́.", "все хорошо") === true);
+check("repeat: the mistake being corrected does NOT pass (wrong ending)", X.talkRepeatOk("Я гуля́ю с соба́кой.", "я гуляю с собака") === false);
+check("repeat: wrong ending on a short word does NOT pass", X.talkRepeatOk("Я живу́ с жено́й.", "я живу с жена") === false);
+check("repeat: a dropped word does NOT pass", X.talkRepeatOk("Я пишу́ ру́чкой.", "пишу ручкой") === false);
+check("repeat: the mic misspelling a name by one letter passes", X.talkRepeatOk("Я гуля́ю с Ро́кки.", "я гуляю с роки") === true);
+check("repeat: nothing heard does not pass", X.talkRepeatOk("Я пишу́ ру́чкой.", "") === false);
+check("repeat: using a preposition the correction removed does NOT pass", X.talkRepeatOk("Я пишу́ ру́чкой.", "я пишу с ручкой") === false);
 
 /* ---- 8. The key never travels with progress ---- */
 const blankSrc = extractFn("blank");
