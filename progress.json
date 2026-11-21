@@ -3931,12 +3931,12 @@
       "lastReviewed": "2026-10-18"
     },
     "815": {
-      "box": 5,
-      "due": "2026-11-18",
+      "box": 6,
+      "due": "2027-02-04",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-12"
+      "lastReviewed": "2026-11-21"
     },
     "816": {
       "box": 8,
@@ -5745,12 +5745,12 @@
       "lastReviewed": "2026-10-30"
     },
     "1076": {
-      "box": 3,
-      "due": "2026-11-13",
+      "box": 4,
+      "due": "2026-12-07",
       "lapses": 16,
-      "reps": 39,
+      "reps": 40,
       "introduced": true,
-      "lastReviewed": "2026-11-06"
+      "lastReviewed": "2026-11-21"
     },
     "1077": {
       "box": 2,
@@ -6148,8 +6148,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 8,
-  "lastCompleted": "2026-11-20",
+  "streak": 9,
+  "lastCompleted": "2026-11-21",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6758,6 +6758,11 @@
       "newDone": 0,
       "reviewDone": 40,
       "tDone": 18,
+      "studied": true
+    },
+    "2026-11-21": {
+      "newDone": 0,
+      "reviewDone": 0,
       "studied": true
     }
   },
@@ -7792,12 +7797,12 @@
       "lastReviewed": "2026-11-13"
     },
     "past-future#1": {
-      "box": 5,
-      "due": "2026-12-02",
-      "lapses": 0,
-      "reps": 5,
+      "box": 4,
+      "due": "2026-11-21",
+      "lapses": 1,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-28"
+      "lastReviewed": "2026-11-21"
     },
     "past-future#10": {
       "box": 0,
@@ -8089,7 +8094,7 @@
     "shop",
     "hobby"
   ],
-  "lastPopQuiz": "2026-11-20",
+  "lastPopQuiz": "2026-11-21",
   "talk": {
     "L-instrumental": {
       "n": 2,
