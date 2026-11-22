@@ -1460,11 +1460,11 @@
     },
     "510": {
       "box": 8,
-      "due": "2027-10-05",
+      "due": "2027-11-22",
       "lapses": 0,
-      "reps": 3,
+      "reps": 4,
       "introduced": true,
-      "lastReviewed": "2026-10-05"
+      "lastReviewed": "2026-11-22"
     },
     "511": {
       "box": 8,
@@ -7566,11 +7566,12 @@
       "introduced": true
     },
     "meaning-prefixes-amount#3": {
-      "box": 0,
-      "due": "2026-10-23",
+      "box": 1,
+      "due": "2026-11-23",
       "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-11-22"
     },
     "meaning-prefixes-amount#4": {
       "box": 0,
