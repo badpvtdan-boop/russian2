@@ -2672,12 +2672,12 @@
       "lastReviewed": "2026-10-26"
     },
     "661": {
-      "box": 3,
-      "due": "2026-11-11",
+      "box": 4,
+      "due": "2026-12-10",
       "lapses": 1,
-      "reps": 8,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-11-05"
+      "lastReviewed": "2026-11-22"
     },
     "662": {
       "box": 6,
@@ -6767,7 +6767,7 @@
     },
     "2026-11-22": {
       "newDone": 0,
-      "reviewDone": 0,
+      "reviewDone": 1,
       "studied": true
     }
   },
