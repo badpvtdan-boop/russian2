@@ -3670,12 +3670,13 @@
       "listenOwed": true
     },
     "783": {
-      "box": 3,
-      "due": "2026-11-11",
-      "lapses": 4,
-      "reps": 11,
+      "box": 0,
+      "due": "2026-11-22",
+      "lapses": 5,
+      "reps": 12,
       "introduced": true,
-      "lastReviewed": "2026-11-05"
+      "lastReviewed": "2026-11-22",
+      "listenOwed": true
     },
     "784": {
       "box": 3,
