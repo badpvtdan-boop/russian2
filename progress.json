@@ -7696,10 +7696,11 @@
     },
     "meaning-prefixes-more#s3": {
       "box": 0,
-      "due": "2026-10-23",
-      "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "due": "2026-11-23",
+      "lapses": 1,
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-11-23"
     },
     "meaning-prefixes-more#s4": {
       "box": 0,
