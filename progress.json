@@ -2131,12 +2131,12 @@
       "lastReviewed": "2026-09-08"
     },
     "594": {
-      "box": 6,
-      "due": "2026-11-11",
+      "box": 7,
+      "due": "2027-05-05",
       "lapses": 0,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-08-28"
+      "lastReviewed": "2026-11-25"
     },
     "595": {
       "box": 5,
@@ -3191,12 +3191,12 @@
       "lastReviewed": "2026-11-20"
     },
     "725": {
-      "box": 5,
-      "due": "2026-11-11",
+      "box": 6,
+      "due": "2027-02-09",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-05"
+      "lastReviewed": "2026-11-25"
     },
     "726": {
       "box": 3,
@@ -4399,12 +4399,12 @@
       "lastReviewed": "2026-10-22"
     },
     "872": {
-      "box": 5,
-      "due": "2026-11-11",
-      "lapses": 2,
-      "reps": 8,
+      "box": 0,
+      "due": "2026-11-25",
+      "lapses": 3,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-10-05"
+      "lastReviewed": "2026-11-25"
     },
     "873": {
       "box": 5,
@@ -6784,7 +6784,7 @@
     },
     "2026-11-25": {
       "newDone": 0,
-      "reviewDone": 6,
+      "reviewDone": 8,
       "studied": true
     }
   },
