@@ -3827,12 +3827,12 @@
       "lastReviewed": "2026-10-26"
     },
     "802": {
-      "box": 1,
-      "due": "2026-11-19",
+      "box": 2,
+      "due": "2026-11-28",
       "lapses": 3,
-      "reps": 9,
+      "reps": 10,
       "introduced": true,
-      "lastReviewed": "2026-11-18",
+      "lastReviewed": "2026-11-25",
       "listenOwed": true
     },
     "803": {
@@ -4877,12 +4877,12 @@
       "lastReviewed": "2026-10-13"
     },
     "931": {
-      "box": 7,
-      "due": "2027-04-10",
+      "box": 8,
+      "due": "2027-11-25",
       "lapses": 0,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-11-01"
+      "lastReviewed": "2026-11-25"
     },
     "932": {
       "box": 6,
@@ -6036,12 +6036,12 @@
       "listenOwed": true
     },
     "1112": {
-      "box": 6,
-      "due": "2027-01-28",
+      "box": 7,
+      "due": "2027-05-04",
       "lapses": 0,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-11-14"
+      "lastReviewed": "2026-11-25"
     },
     "1113": {
       "box": 6,
