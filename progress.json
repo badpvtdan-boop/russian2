@@ -4089,12 +4089,13 @@
       "listenOwed": true
     },
     "834": {
-      "box": 3,
-      "due": "2026-11-11",
+      "box": 4,
+      "due": "2026-12-11",
       "lapses": 3,
-      "reps": 8,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-11-05"
+      "lastReviewed": "2026-11-25",
+      "listenOwed": true
     },
     "835": {
       "box": 1,
@@ -6783,7 +6784,7 @@
     },
     "2026-11-25": {
       "newDone": 0,
-      "reviewDone": 0,
+      "reviewDone": 1,
       "studied": true
     }
   },
