@@ -7949,12 +7949,12 @@
       "lastReviewed": "2026-11-24"
     },
     "prep-case#3": {
-      "box": 6,
-      "due": "2027-02-02",
-      "lapses": 0,
-      "reps": 6,
+      "box": 5,
+      "due": "2026-11-25",
+      "lapses": 1,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-11-19"
+      "lastReviewed": "2026-11-25"
     },
     "prep-case#4": {
       "box": 5,
