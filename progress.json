@@ -299,11 +299,11 @@
     },
     "38": {
       "box": 8,
-      "due": "2027-11-02",
+      "due": "2027-11-25",
       "lapses": 1,
-      "reps": 11,
+      "reps": 12,
       "introduced": true,
-      "lastReviewed": "2026-11-02"
+      "lastReviewed": "2026-11-25"
     },
     "39": {
       "box": 8,
@@ -6149,8 +6149,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 12,
-  "lastCompleted": "2026-11-24",
+  "streak": 13,
+  "lastCompleted": "2026-11-25",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6780,6 +6780,11 @@
       "newDone": 0,
       "reviewDone": 0,
       "studied": true
+    },
+    "2026-11-25": {
+      "newDone": 0,
+      "reviewDone": 0,
+      "studied": true
     }
   },
   "duoLevel": null,
@@ -7190,11 +7195,12 @@
       "lastReviewed": "2026-10-30"
     },
     "case-map#11": {
-      "box": 3,
-      "due": "2026-07-31",
+      "box": 4,
+      "due": "2026-12-11",
       "lapses": 0,
-      "reps": 3,
-      "introduced": true
+      "reps": 4,
+      "introduced": true,
+      "lastReviewed": "2026-11-25"
     },
     "case-map#2": {
       "box": 0,
@@ -8113,7 +8119,7 @@
     "shop",
     "hobby"
   ],
-  "lastPopQuiz": "2026-11-24",
+  "lastPopQuiz": "2026-11-25",
   "talk": {
     "L-instrumental": {
       "n": 2,
