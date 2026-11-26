@@ -578,12 +578,12 @@
       "lastReviewed": "2026-10-01"
     },
     "73": {
-      "box": 3,
-      "due": "2026-11-26",
+      "box": 4,
+      "due": "2026-12-12",
       "lapses": 1,
-      "reps": 7,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-11-18"
+      "lastReviewed": "2026-11-26"
     },
     "74": {
       "box": 8,
@@ -7705,11 +7705,12 @@
       "introduced": true
     },
     "meaning-prefixes-more#s2": {
-      "box": 0,
-      "due": "2026-10-23",
+      "box": 1,
+      "due": "2026-11-27",
       "lapses": 0,
-      "reps": 0,
-      "introduced": true
+      "reps": 1,
+      "introduced": true,
+      "lastReviewed": "2026-11-26"
     },
     "meaning-prefixes-more#s3": {
       "box": 0,
