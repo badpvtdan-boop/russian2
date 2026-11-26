@@ -3438,12 +3438,12 @@
       "lastReviewed": "2026-11-25"
     },
     "755": {
-      "box": 4,
-      "due": "2026-11-14",
+      "box": 5,
+      "due": "2027-01-03",
       "lapses": 1,
-      "reps": 6,
+      "reps": 7,
       "introduced": true,
-      "lastReviewed": "2026-10-28"
+      "lastReviewed": "2026-11-26"
     },
     "756": {
       "box": 4,
@@ -6788,7 +6788,7 @@
     },
     "2026-11-26": {
       "newDone": 0,
-      "reviewDone": 3,
+      "reviewDone": 4,
       "studied": true
     }
   },
