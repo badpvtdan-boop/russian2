@@ -4119,13 +4119,12 @@
       "lastReviewed": "2026-11-20"
     },
     "838": {
-      "box": 1,
-      "due": "2026-11-16",
+      "box": 2,
+      "due": "2026-11-30",
       "lapses": 3,
-      "reps": 8,
+      "reps": 9,
       "introduced": true,
-      "lastReviewed": "2026-11-15",
-      "listenOwed": true
+      "lastReviewed": "2026-11-26"
     },
     "839": {
       "box": 2,
@@ -4280,13 +4279,12 @@
       "lastReviewed": "2026-11-11"
     },
     "858": {
-      "box": 1,
-      "due": "2026-11-16",
+      "box": 2,
+      "due": "2026-11-29",
       "lapses": 9,
-      "reps": 25,
+      "reps": 26,
       "introduced": true,
-      "lastReviewed": "2026-11-15",
-      "listenOwed": true
+      "lastReviewed": "2026-11-26"
     },
     "859": {
       "box": 7,
@@ -5099,12 +5097,12 @@
       "listenOwed": true
     },
     "959": {
-      "box": 1,
-      "due": "2026-11-16",
-      "lapses": 3,
-      "reps": 7,
+      "box": 0,
+      "due": "2026-11-26",
+      "lapses": 4,
+      "reps": 8,
       "introduced": true,
-      "lastReviewed": "2026-11-15",
+      "lastReviewed": "2026-11-26",
       "listenOwed": true
     },
     "960": {
@@ -5353,12 +5351,12 @@
       "lastReviewed": "2026-09-10"
     },
     "1028": {
-      "box": 1,
-      "due": "2026-11-16",
-      "lapses": 3,
-      "reps": 14,
+      "box": 0,
+      "due": "2026-11-26",
+      "lapses": 4,
+      "reps": 15,
       "introduced": true,
-      "lastReviewed": "2026-11-15",
+      "lastReviewed": "2026-11-26",
       "listenOwed": true
     },
     "1029": {
@@ -5524,12 +5522,12 @@
       "lastReviewed": "2026-10-24"
     },
     "1049": {
-      "box": 2,
-      "due": "2026-11-16",
+      "box": 3,
+      "due": "2026-12-02",
       "lapses": 9,
-      "reps": 25,
+      "reps": 26,
       "introduced": true,
-      "lastReviewed": "2026-11-13"
+      "lastReviewed": "2026-11-26"
     },
     "1050": {
       "box": 7,
@@ -6784,7 +6782,7 @@
     },
     "2026-11-26": {
       "newDone": 0,
-      "reviewDone": 20,
+      "reviewDone": 23,
       "studied": true
     }
   },
