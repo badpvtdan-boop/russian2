@@ -2012,11 +2012,11 @@
     },
     "579": {
       "box": 8,
-      "due": "2027-10-09",
+      "due": "2027-11-26",
       "lapses": 0,
-      "reps": 5,
+      "reps": 6,
       "introduced": true,
-      "lastReviewed": "2026-10-08"
+      "lastReviewed": "2026-11-26"
     },
     "580": {
       "box": 7,
@@ -6149,8 +6149,8 @@
       "lastReviewed": "2026-10-02"
     }
   },
-  "streak": 13,
-  "lastCompleted": "2026-11-25",
+  "streak": 14,
+  "lastCompleted": "2026-11-26",
   "dailyLog": {
     "2026-07-15": {
       "newDone": 99,
@@ -6784,6 +6784,11 @@
     "2026-11-25": {
       "newDone": 0,
       "reviewDone": 40,
+      "studied": true
+    },
+    "2026-11-26": {
+      "newDone": 0,
+      "reviewDone": 0,
       "studied": true
     }
   },
@@ -8119,7 +8124,7 @@
     "shop",
     "hobby"
   ],
-  "lastPopQuiz": "2026-11-25",
+  "lastPopQuiz": "2026-11-26",
   "talk": {
     "L-instrumental": {
       "n": 2,
